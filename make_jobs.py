@@ -17,6 +17,9 @@ job_name = "job.txt"
 # -TODO- hopefully this can be turned into a list and we can run multiple models, including the grb model
 model = "Bu2019lm"
 
+# -TODO- Can be replaced with something of the form 'filename.log'
+log_filename = "fit.log"
+
 #could allow code to send batches to different machines
 
 # find all the candidate in path
@@ -48,8 +51,9 @@ for ii in range(len(file_list)):
         if not np.isinf(float(line[3])):
             detections += 1
     if detections < 2:
-        # -TODO- Replace print statements with outputs to a log file
-        print("Not enough data for candidate %s... continuing"%candidate_names[ii])
+        logfile = open(log_filename, "a+")
+        logfile.write("Not enough data for candidate %s... continuing\n"%candidate_names[ii])
+        logfile.close()
         continue
 
     # -TODO- May want to eliminate shell=True. Apparently there are security holes associated with that.
@@ -63,7 +67,9 @@ for ii in range(len(file_list)):
 
     # Job id is generally the last part of the job submission output
     job_id = int(output.split(' ')[-1])
-    print("%s Job id: "%candidate_names[ii], job_id)
+    logfile = open(log_filename, "a")
+    logfile.write("Submitted job for candidate %s. Job id: "%candidate_names[ii] + str(job_id) + "\n")
+    logfile.close()
 
     job_id_list.append(job_id)
     live_jobs[candidate_names[ii]] = job_id
@@ -78,19 +84,24 @@ while len(live_jobs) > 0:
         # nmma_fit makes a .fin file when done
         if os.path.isfile(candname + "_" + model + ".fin"):
             # Do something now that we know the job is done
-            print("Job ", id, " for candidate ", candname, " completed. Produced the following output: ")
+            logfile = open(log_filename, "a")
+            logfile.write("Job " + str(id) + " for candidate " + candname + " completed. Produced the following output: \n")
             
             outfile = open(str(id) + ".out", 'r')
-            print(outfile.read())
+            logfile.write(outfile.read())
             outfile.close()
+
+            logfile.close()
 
             finished_candidates.append(candname)
             # Check if there were errors?
         elif os.path.isfile(str(id) + ".err") and os.path.getsize(str(id) + ".err") != 0:
-            print("Job ", id, " for candidate ", candname, " encountered the following errors:")
+            logfile = open(log_filename, "a")
+            logfile.write("Job " + str(id) + " for candidate " + candname + " encountered the following errors: \n")
             errorfile = open(str(id) + ".err", 'r')
-            print(errorfile.read())
+            logfile.write(errorfile.read())
             errorfile.close()
+            logfile.close()
             finished_candidates.append(candname)
 
     # update the live job list
