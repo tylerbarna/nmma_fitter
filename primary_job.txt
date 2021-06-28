@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name=autotest
+#SBATCH --time=01:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1gb
+#SBATCH -p small
+#SBATCH -o %j.out
+#SBATCH -e %j.err
+
+source ~/anaconda3/bin/activate nmma
+
+python make_jobs.py

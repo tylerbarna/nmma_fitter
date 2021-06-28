@@ -1,0 +1,16 @@
+luminosity_distance = 3000
+KNtimeshift = 0
+inclination_EM = 0.8
+log10_E0 =  Uniform(minimum=0, maximum=99, name='log10_E0',latex_label='$\\log_{10}E_0$')
+thetaCore = 0.8
+thetaWing = 0.8
+log10_n0 = 1
+p = 6
+log10_epsilon_e = -1
+log10_epsilon_B = -1
+ksiN=1.0
+L0=0.0
+dL = 3.09e19
+b = 6
+q = 0.0
+ts = 0.0
