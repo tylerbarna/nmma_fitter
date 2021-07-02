@@ -99,8 +99,12 @@ seed = 42
 
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
+    os.chmod(outdir, 0o774)
 
 plotdir = os.path.join(outdir,candname)
+if not os.path.isdir(plotdir):
+    os.makedirs(plotdir)
+    os.chmod(plotdir, 0o774)
 
 # Set the prior file. Depends on model and if trigger time is a parameter.
 if prior == None:
@@ -219,6 +223,8 @@ plt.xlabel('Time [days]',fontsize=48)
 plt.tight_layout()
 plt.savefig(plotName)
 plt.close()
+
+subprocess.run(["chmod","774","-R",plotdir])
 
 # File to indicate fit is complete
 completefile = os.path.join('.', candname + "_" + model + '.fin')
