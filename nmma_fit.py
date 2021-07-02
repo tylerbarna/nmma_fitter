@@ -145,7 +145,7 @@ sys.stderr.buffer.write(command.stderr)
 plot_sample_times_KN = np.arange(0., 30., 0.1)
 plot_sample_times_GRB = np.arange(30., 950., 1.)
 plot_sample_times = np.concatenate((plot_sample_times_KN, plot_sample_times_GRB))
-posterior_file = os.path.join(plotdir, candname + '_' + model + '_posterior_samples.dat')
+posterior_file = os.path.join(plotdir, model + '_posterior_samples.dat')
 bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path, plot_sample_times)
 
 if fit_trigger_time:
