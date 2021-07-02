@@ -146,9 +146,7 @@ sys.stderr.buffer.write(command.stderr)
 # Construct the best fit model
 ##############################
 
-plot_sample_times_KN = np.arange(0., 30., 0.1)
-plot_sample_times_GRB = np.arange(30., 950., 1.)
-plot_sample_times = np.concatenate((plot_sample_times_KN, plot_sample_times_GRB))
+plot_sample_times = np.arange(0., 30., 0.1)
 posterior_file = os.path.join(plotdir, model + '_posterior_samples.dat')
 bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path, plot_sample_times)
 
@@ -210,7 +208,8 @@ for filt, color in zip(filters,colors):
     plt.grid()
 
     if cnt == 1:
-        ax1.set_yticks([26,22,18,14])
+        ax1.set_yticks([26,24,22,20,18,16,14])
+        ax1.set_xticks(range(0,11))
         plt.setp(ax1.get_xticklabels(), visible=False)
         #l = plt.legend(loc="upper right",prop={'size':36},numpoints=1,shadow=True, fancybox=True)
     elif not cnt == len(filters):
