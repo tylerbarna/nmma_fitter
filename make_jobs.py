@@ -27,7 +27,7 @@ model_list = ["Bu2019lm"]
 
 # Outdirectory
 
-outdir = '/panfs/roc/groups/7/cough052/shared/ztfrest/knfit'
+outdir = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits"
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
     os.chmod(outdir, 0o774)
