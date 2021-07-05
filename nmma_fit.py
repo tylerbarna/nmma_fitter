@@ -51,7 +51,7 @@ nmma_data = parse_csv(args.datafile, candname)
 # Other important settings
 model = args.model 
 svd_path = '/home/cough052/shared/NMMA/svdmodels'
-outdir = './knfit'
+outdir = '/panfs/roc/groups/7/cough052/shared/ztfrest/knfit'
 cpus = args.cpus
 nlive = args.nlive
 error_budget = 1.0

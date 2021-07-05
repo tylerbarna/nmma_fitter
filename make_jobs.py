@@ -6,11 +6,18 @@ import time
 
 import numpy as np
 
+from datetime import date
 from fit_utils import parse_csv
+
+# print current date
+#print("Current Date: "+str(date.today().strftime("%b-%d-%Y"))
 
 # Search directory and create a fit job for each
 
-search_directory = "./test_dir"
+candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
+latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+search_directory = os.path.join(candidate_directory,latest_directory,"") 
+print("Active Directory: "+str(search_directory))
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
 job_name = "job.txt"
@@ -18,8 +25,16 @@ job_name = "job.txt"
 # List of models to run.
 model_list = ["Bu2019lm"]
 
+# Outdirectory
+
+outdir = '/panfs/roc/groups/7/cough052/shared/ztfrest/knfit'
+if not os.path.isdir(outdir):
+    os.makedirs(outdir)
+    os.chmod(outdir, 0o774)
+
 # -TODO- Can be replaced with something of the form 'filename.log'
 log_filename = "fit.log"
+log_filename = os.path.join(outdir,log_filename)
 
 #could allow code to send batches to different machines
 
