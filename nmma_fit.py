@@ -169,7 +169,7 @@ color1 = 'cornflowerblue'
 
 colors=cm.Spectral(np.linspace(0,1,len(filters)))[::-1]
 
-plotName = os.path.join(plotdir, model + '_lightcurves.pdf')
+plotName = os.path.join(plotdir, model + '_lightcurves.png')
 plt.figure(figsize=(20,28))
 
 cnt = 0
