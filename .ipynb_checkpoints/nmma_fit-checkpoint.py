@@ -18,9 +18,6 @@ from nmma.em.utils import loadEvent, getFilteredMag
 
 import seaborn as sns
 
-
-
-
 # Command line args
 parser = argparse.ArgumentParser(description="Inference on kilonova ejecta parameters.")
 parser.add_argument("--datafile", type=str, required=True, help="Path of the transient csv file")
@@ -54,14 +51,7 @@ nmma_data = parse_csv(args.datafile, candname)
 # Other important settings
 model = args.model 
 svd_path = '/home/cough052/shared/NMMA/svdmodels'
-
-# outdir mess
-candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
-latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
-outdir = os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits",latest_directory,"")
-if not os.path.isdir(outdir):
-    os.makedirs(outdir)
-
+outdir = '/panfs/roc/groups/7/cough052/shared/ztfrest/knfit'
 cpus = args.cpus
 nlive = args.nlive
 error_budget = 1.0

@@ -9,16 +9,15 @@ import numpy as np
 from datetime import date
 from fit_utils import parse_csv
 
-# print current date for log
-#today = date.today()
-#print("Current Date: ",str(today.strftime("%m-%d-%Y"))
+# print current date
+#print("Current Date: "+str(date.today().strftime("%b-%d-%Y"))
 
 # Search directory and create a fit job for each
 
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
 search_directory = os.path.join(candidate_directory,latest_directory,"") 
-print("Candidate Directory: "+str(search_directory))
+print("Active Directory: "+str(search_directory))
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
 job_name = "job.txt"
@@ -28,11 +27,10 @@ model_list = ["Bu2019lm"]
 
 # Outdirectory
 
-outdir = os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits",latest_directory,"")
+outdir = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits"+str(latest_directory)
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
-    subprocess.run("chmod -r 777 "+outdir)
-    #os.chmod(outdir, 777)
+    os.chmod(outdir, 0o774)
 
 # -TODO- Can be replaced with something of the form 'filename.log'
 log_filename = "fit.log"

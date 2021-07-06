@@ -1,8 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=ztfjob
-#SBATCH --time=11:59:00
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=barna314@umn.edu
+#SBATCH --time=02:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
@@ -13,4 +11,4 @@
 
 source ~/anaconda3/bin/activate nmma
 
-python nmma_fit.py --datafile "$1" --candname "$2" --model "$3" --nlive 256 --cpus 2
+python nmma_fit.py --datafile "$1" --candname "$2" --model "$3" --nlive 32 --cpus 2
