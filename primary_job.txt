@@ -9,7 +9,7 @@
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 
-source ~/anaconda3/bin/activate nmma
+source /home/cough052/shared/anaconda3/bin/activate nmma
 
 python make_jobs.py
 
