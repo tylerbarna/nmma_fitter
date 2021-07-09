@@ -100,6 +100,12 @@ else:
 tmin = 0
 tmax = 7
 dt = 0.1
+# GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
+if model == "TrPi2018":
+    tmin = 0.01
+    tmax = 5.01
+    dt = 0.2
+
 svd_mag_ncoeff = 10
 svd_lbol_ncoeff = 10
 Ebv_max = 0.5724
@@ -158,7 +164,7 @@ sys.stderr.buffer.write(command.stderr)
 # Construct the best fit model
 ##############################
 
-plot_sample_times = np.arange(0., 30., 0.1)
+plot_sample_times = np.arange(0.01, 10.01, 0.1)
 posterior_file = os.path.join(plotdir, model + '_posterior_samples.dat')
 bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path, plot_sample_times)
 
