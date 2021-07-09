@@ -1,0 +1,6 @@
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459397-2459404/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+Traceback (most recent call last):
+  File "make_jobs.py", line 80, in <module>
+    logfile = open(log_filename, "a+")
+FileNotFoundError: [Errno 2] No such file or directory: './2459397-2459404/fit.log'

@@ -19,24 +19,32 @@ candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/pa
 latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
 search_directory = os.path.join(candidate_directory,latest_directory,"") 
 print("Candidate Directory: "+str(search_directory))
+og_directory = os.getcwd()
+
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
-job_name = "job.txt"
+job_name = "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/job.txt"
 
 # List of models to run.
 model_list = ["Bu2019lm"]
 
 # Outdirectory
 
-outdir = os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits",latest_directory,"")
+os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits")
+outdir = os.path.join("./",latest_directory,"")
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
-    subprocess.run("chmod -r 777 "+outdir)
-    #os.chmod(outdir, 777)
+    #subprocess.run("chmod -r 777 "+outdir)
+    os.chmod(outdir, 0o774)
+    os.makedirs(os.path.join(outdir,"candidate_data",""))
+    os.chmod(os.path.join(outdir,"candidate_data",""), 0o774)
+os.chdir(outdir) ##trying this to solve relative path issue
+print("cwd: %s" % os.getcwd())
+
 
 # -TODO- Can be replaced with something of the form 'filename.log'
 log_filename = "fit.log"
-log_filename = os.path.join(outdir,log_filename)
+log_filename = os.path.join("./",log_filename)
 
 #could allow code to send batches to different machines
 
@@ -60,6 +68,7 @@ for file in glob.glob(search_directory + "/*.csv"):
 # submit jobs to fit each candidate
 job_id_list = []
 live_jobs = {}
+
 for ii in range(len(file_list)):
     # Load the file and certify that there are at least two detections
     data = parse_csv(file_list[ii], candidate_names[ii])
@@ -144,3 +153,12 @@ for id in job_id_list:
         os.remove(str(id) + ".err")
     if os.path.isfile(str(id) + ".out"):
         os.remove(str(id) + ".out")
+
+
+## final permissions update
+for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/candidate_data",latest_directory,"")):
+    for d in dirs:
+        os.chmod(os.path.join(root, d), 0o774)
+    for f in files:
+        os.chmod(os.path.join(root, f), 0o774)
+

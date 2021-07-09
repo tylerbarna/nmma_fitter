@@ -56,11 +56,13 @@ model = args.model
 svd_path = '/home/cough052/shared/NMMA/svdmodels'
 
 # outdir mess
+os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits")
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
-outdir = os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits",latest_directory,"")
+outdir = os.path.join("./",latest_directory,"")
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
+os.chdir(outdir)
 
 cpus = args.cpus
 nlive = args.nlive
@@ -107,11 +109,11 @@ joint_light_curve = False
 sampler = 'pymultinest'
 seed = 42
 
-if not os.path.isdir(outdir):
-    os.makedirs(outdir)
-    os.chmod(outdir, 0o774)
+#if not os.path.isdir(outdir):
+    #os.makedirs(outdir)
+    #os.chmod(outdir, 0o774)
 
-plotdir = os.path.join(outdir,candname)
+plotdir = os.path.join("./",candname)
 if not os.path.isdir(plotdir):
     os.makedirs(plotdir)
     os.chmod(plotdir, 0o774)
@@ -131,15 +133,15 @@ if prior == None:
         if model == 'TrPi2018':
             # GRB
             if fit_trigger_time:
-                prior = './ZTF_grb_t0.prior'
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb_t0.prior'
             else:
-                prior = './ZTF_grb.prior'
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb.prior'
         else:
             # KN
             if fit_trigger_time:
-                prior = './ZTF_kn_t0.prior'
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn_t0.prior'
             else:
-                prior = './ZTF_kn.prior'
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn.prior'
 
 # NMMA lightcurve fitting
 # triggered with a shell command
