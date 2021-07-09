@@ -23,7 +23,8 @@ og_directory = os.getcwd()
 
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
-job_name = "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/job.txt"
+job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
+            "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt"}
 
 # List of models to run.
 model_list = ["Bu2019lm"]
@@ -86,7 +87,7 @@ for ii in range(len(file_list)):
     for model in model_list:
         # -TODO- May want to eliminate shell=True. Apparently there are security holes associated with that.
         # Submit job
-        command = subprocess.run("sbatch " + job_name + " " + file_list[ii] + " " + candidate_names[ii] + " " + model, shell=True, capture_output=True)
+        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model, shell=True, capture_output=True)
         output = command.stdout
         outerr = command.stderr
         
