@@ -24,10 +24,11 @@ og_directory = os.getcwd()
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
 job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
-            "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt"}
+            "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
+            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"}
 
 # List of models to run.
-model_list = ["Bu2019lm", "TrPi2018"]
+model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
 

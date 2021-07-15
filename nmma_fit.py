@@ -101,7 +101,7 @@ tmin = 0
 tmax = 7
 dt = 0.1
 # GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
-if model == "TrPi2018":
+if model != "Bu2019lm":
     tmin = 0.01
     tmax = 5.01
     dt = 0.2
@@ -114,6 +114,9 @@ jet_type = 0
 joint_light_curve = False
 sampler = 'pymultinest'
 seed = 42
+
+if model == "nugent-hyper":
+    joint_light_curve = True
 
 #if not os.path.isdir(outdir):
     #os.makedirs(outdir)
@@ -133,8 +136,10 @@ if prior == None:
             quit()
         else:
             #supernova
-            print("Not yet configured for Supernova")
-            quit()
+            if fit_trigger_time:
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn_t0.prior'
+            else:
+                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn.prior'
     else:
         if model == 'TrPi2018':
             # GRB
@@ -151,12 +156,17 @@ if prior == None:
 
 # NMMA lightcurve fitting
 # triggered with a shell command
-command = subprocess.run("mpiexec -np " + str(cpus) + " light_curve_analysis"\
+command_string = "mpiexec -np " + str(cpus) + " light_curve_analysis"\
     + " --model " + model + " --svd-path " + svd_path + " --outdir " + plotdir\
     + " --label " + model + " --trigger-time " + str(trigger_time)\
     + " --data " + data_file + " --prior " + prior + " --tmin " + str(tmin)\
     + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
-    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max), shell=True, capture_output=True)
+    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)
+
+if joint_light_curve:
+    command_string += " --joint-light-curve"
+
+command = subprocess.run(command_string, shell=True, capture_output=True)
 sys.stdout.buffer.write(command.stdout)
 sys.stderr.buffer.write(command.stderr)
 
@@ -166,7 +176,8 @@ sys.stderr.buffer.write(command.stderr)
 
 plot_sample_times = np.arange(0.01, 10.01, 0.1)
 posterior_file = os.path.join(plotdir, model + '_posterior_samples.dat')
-bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path, plot_sample_times)
+bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path, plot_sample_times,\
+                                                                        joint_light_curve = joint_light_curve)
 
 if fit_trigger_time:
     trigger_time += bestfit_params['KNtimeshift']
