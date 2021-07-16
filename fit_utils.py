@@ -111,8 +111,7 @@ def parse_csv(infile,
 
         out_data.append([str(time), filter, str(magnitude), str(error)])
 
-    if not os.path.isdir(outdir):
-        os.makedirs(outdir)
+    os.makedirs(outdir, exist_ok = True)
 
     # output the data
     # in the format desired by NMMA

@@ -49,7 +49,6 @@ candname = args.candname
 nmma_data = parse_csv(args.datafile, candname)
 
 # -TODO- parse_csv need not return the data if nmma loads it later?
-# -TODO- Check if candidate has enough data points
 
 # Other important settings
 model = args.model 
@@ -61,7 +60,7 @@ candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/pa
 latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
 outdir = os.path.join("./",latest_directory,"")
 if not os.path.isdir(outdir):
-    os.makedirs(outdir)
+    os.makedirs(outdir, exist_ok=True)
 os.chdir(outdir)
 
 cpus = args.cpus
@@ -124,7 +123,7 @@ if model == "nugent-hyper":
 
 plotdir = os.path.join("./",candname)
 if not os.path.isdir(plotdir):
-    os.makedirs(plotdir)
+    os.makedirs(plotdir, exist_ok=True)
     os.chmod(plotdir, 0o774)
 
 # Set the prior file. Depends on model and if trigger time is a parameter.
