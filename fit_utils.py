@@ -15,7 +15,7 @@ def get_bestfit_lightcurve(model,
                            joint_light_curve=False,
                            mag_ncoeff=10,
                            lbol_ncoeff=10,
-                           grb_resolution=10,
+                           grb_resolution=7,
                            jet_type=0):
     ''' Generates the bestfit lightcurve model
     par model The name of the model used in fitting.
