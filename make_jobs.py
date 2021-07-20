@@ -32,7 +32,7 @@ model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
 
-os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits")
+os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 outdir = os.path.join("./",latest_directory,"")
 if not os.path.isdir(outdir):
     os.makedirs(outdir)
@@ -158,7 +158,7 @@ for id in job_id_list:
 
 
 ## final permissions update
-for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/candidate_data",latest_directory,"")):
+for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",latest_directory,"")):
     for d in dirs:
         os.chmod(os.path.join(root, d), 0o774)
     for f in files:

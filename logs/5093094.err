@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 10, in <module>
+    from fit_utils import parse_csv
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 7, in <module>
+    from nmma.em.model import SVDLightCurveModel, GRBLightCurveModel, KilonovaGRBLightCurveModel, SupernovaGRBLightCurveModel
+ModuleNotFoundError: No module named 'nmma'

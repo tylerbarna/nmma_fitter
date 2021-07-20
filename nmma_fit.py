@@ -55,7 +55,7 @@ model = args.model
 svd_path = '/home/cough052/shared/NMMA/svdmodels'
 
 # outdir mess
-os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/candidate_fits")
+os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
 outdir = os.path.join("./",latest_directory,"")
