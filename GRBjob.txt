@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --job-name=ztfjob
+#SBATCH --job-name=ztfGRBjob
 #SBATCH --time=11:59:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=barna314@umn.edu
+#SBATCH --mail-user=ztfrest@gmail.com
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
@@ -14,3 +14,5 @@
 source /home/cough052/shared/anaconda3/bin/activate nmma
 
 python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/nmma_fit.py --datafile "$1" --candname "$2" --model "$3" --nlive 128 --cpus 4
+
+rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest
