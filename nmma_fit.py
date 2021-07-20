@@ -160,7 +160,8 @@ command_string = "mpiexec -np " + str(cpus) + " light_curve_analysis"\
     + " --label " + model + " --trigger-time " + str(trigger_time)\
     + " --data " + data_file + " --prior " + prior + " --tmin " + str(tmin)\
     + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
-    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)
+    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)+\
+    " --detection-limit \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""
 
 if joint_light_curve:
     command_string += " --joint-light-curve"
