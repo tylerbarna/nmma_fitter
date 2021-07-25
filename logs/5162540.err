@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 49, in <module>
+    os.makedirs(outdir)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/os.py", line 223, in makedirs
+    mkdir(name, mode)
+FileExistsError: [Errno 17] File exists: './2459411-2459418/'
+srun: error: cn0494: task 0: Exited with exit code 1
