@@ -102,8 +102,8 @@ dt = 0.1
 # GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
 if model == "TrPi2018" or model == "nugent-hyper":
     tmin = 0.01
-    tmax = 5.01
-    dt = 0.25
+    tmax = 7.01
+    dt = 0.35
 
 svd_mag_ncoeff = 10
 svd_lbol_ncoeff = 10
