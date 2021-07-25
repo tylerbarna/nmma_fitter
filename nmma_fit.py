@@ -241,7 +241,11 @@ for filt, color in zip(filters,colors):
     plt.ylim([26.0,14.0])
     plt.grid()
 
-    if cnt == 1:
+    if cnt == 1 and cnt == len(filters):
+        ax1.set_yticks([26,24,22,20,18,16,14])
+        ax1.set_xticks(range(0,11))
+        plt.setp(ax1.get_xticklabels(), visible=True)
+    elif cnt == 1:
         ax1.set_yticks([26,24,22,20,18,16,14])
         ax1.set_xticks(range(0,11))
         plt.setp(ax1.get_xticklabels(), visible=False)
