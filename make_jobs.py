@@ -3,24 +3,41 @@ import os
 import sys
 import glob
 import time
+import argparse
 
 import numpy as np
 
 from datetime import date
 from fit_utils import parse_csv
 
-# print current date for log
+## print current date for log
 #today = date.today()
-#print("Current Date: ",str(today.strftime("%m-%d-%Y"))
+#print("Current Date: "+str(today.strftime("%m-%d-%Y"))
+
+## Allows for manual runs of specific dates
+parser = argparse.ArgumentParser()
+parser.add_argument("-d","--dataDir", type=str, default=None)
+
+cfg = parser.parse_args()
+
+## Attempt to pull latest data from schoty 
+## This is a temporary test, still in process of troubleshooting the rsync issue with MSI 
+try:
+    subprocess.run("rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
+except:
+	print("failed to pull from schoty") 
+	pass
 
 # Search directory and create a fit job for each
 
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
-latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+if cfg.dataDir:
+    latest_directory = cfg.dataDir
+elif not cfg.dataDir:
+    latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
 search_directory = os.path.join(candidate_directory,latest_directory,"") 
-print("Candidate Directory: "+str(search_directory))
-og_directory = os.getcwd()
 
+og_directory = os.getcwd()
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
 job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
@@ -34,7 +51,11 @@ model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 outdir = os.path.join("./",latest_directory,"")
-if not os.path.isdir(outdir):
+if os.path.isdir(outdir): ## if directory already exists, script will exit
+    #print("%s already exists in candidate_fits!" % latest_directory)
+    quit()
+elif not os.path.isdir(outdir):
+    print("Candidate Directory: "+str(search_directory))
     os.makedirs(outdir)
     #subprocess.run("chmod -r 777 "+outdir)
     os.chmod(outdir, 0o774)
@@ -164,3 +185,9 @@ for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shar
     for f in files:
         os.chmod(os.path.join(root, f), 0o774)
 
+## Sync files with schoty at conclusion of fitting
+time.sleep(30)
+subprocess.run("rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest", shell=True, capture_output=True)
+time.sleep(60)
+if not cfg.dataDir:
+    subprocess.run("ssh ztfrest@schoty.caltech.edu bash /scr2/ztfrest/ZTF/ztfrest/nmma_slack_bot.sh", shell=True, capture_output=True)
