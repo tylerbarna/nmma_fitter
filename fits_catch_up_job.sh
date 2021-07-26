@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 #SBATCH --job-name=catch_up_fits
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ztfrest@gmail.com

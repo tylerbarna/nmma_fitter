@@ -1,0 +1,66 @@
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459366-2459388/lc_ZTF21abdhqle_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459366-2459388/lc_ZTF21abfegkl_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459366-2459388/lc_ZTF21abfktlf_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 97, in <module>
+    data = parse_csv(file_list[ii], candidate_names[ii])
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 98, in parse_csv
+    for line in in_data[:]:
+IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459385-2459388/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459385-2459389/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459386-2459389/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459389-2459392/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459389-2459392/lc_ZTF21abhytgb_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459390-2459393/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459390-2459393/lc_ZTF21abhytgb_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459390-2459393/lc_ZTF21abiblog_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459391-2459394/lc_ZTF21abhjssj_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 97, in <module>
+    data = parse_csv(file_list[ii], candidate_names[ii])
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 98, in parse_csv
+    for line in in_data[:]:
+IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459393-2459400/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459393-2459400/lc_ZTF21abitmou_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459394-2459401/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459394-2459401/lc_ZTF21abitmou_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459395-2459402/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459395-2459402/lc_ZTF21abitmou_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459396-2459399/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459396-2459399/lc_ZTF21abitmou_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459396-2459403/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459397-2459400/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459397-2459400/lc_ZTF21abitmou_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459397-2459404/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459398-2459405/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459399-2459406/lc_ZTF21abisoui_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py:92: UserWarning: genfromtxt: Empty input file: "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459401-2459408/lc_ZTF21abkkcev_forced1_stacked0.csv"
+  in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)

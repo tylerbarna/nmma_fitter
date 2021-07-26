@@ -13,6 +13,4 @@
 
 source /home/cough052/shared/anaconda3/bin/activate nmma
 
-python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/nmma_fit.py --datafile "$1" --candname "$2" --model "$3" --nlive 256 --cpus 4
-
-#rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest
+python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/nmma_fit.py --datafile "$1" --candname "$2" --model "$3" --dataDir "$4" --nlive 256 --cpus 4

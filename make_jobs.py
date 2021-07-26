@@ -33,8 +33,10 @@ except:
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 if cfg.dataDir:
     latest_directory = cfg.dataDir
+    print("Using manual folder %s" % latest_directory)
 elif not cfg.dataDir:
     latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+    print("Using most recent directory %s" % latest_directory)
 search_directory = os.path.join(candidate_directory,latest_directory,"") 
 
 og_directory = os.getcwd()
@@ -109,7 +111,9 @@ for ii in range(len(file_list)):
     for model in model_list:
         # -TODO- May want to eliminate shell=True. Apparently there are security holes associated with that.
         # Submit job
-        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model, shell=True, capture_output=True)
+        ## Trying to add argument so it corrects directory change in nmma_fit
+        ## Would like to also have it dynamically update job name to also include fit name
+        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model + " " + cfg.dataDir, shell=True, capture_output=True)
         output = command.stdout
         outerr = command.stderr
         

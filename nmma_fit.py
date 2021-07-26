@@ -28,6 +28,7 @@ parser.add_argument("--candname", type=str, required=True, help="Name of the tra
 parser.add_argument("--model", type=str, default='Bu2019lm', help="Name of the kilonova model to be used")
 parser.add_argument("--nlive", type=int, default=256, help="Number of live points to use")
 parser.add_argument("--cpus", type=int, default=2, help="Number of cpus to use")
+parser.add_argument("-d","--dataDir", type=str, default=None)
 args = parser.parse_args()
 
 # Trigger time settings
@@ -55,10 +56,16 @@ model = args.model
 svd_path = '/home/cough052/shared/NMMA/svdmodels'
 
 # outdir mess
+## Need to update so it checks an argument to choose latest_directory
 os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
-latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
-outdir = os.path.join("./",latest_directory,"")
+if cfg.dataDir:
+    latest_directory = cfg.dataDir
+    print("Using manual folder %s" % latest_directory)
+elif not cfg.dataDir:
+    latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+    print("Using most recent directory %s" % latest_directory)
+    
 if not os.path.isdir(outdir):
     os.makedirs(outdir, exist_ok=True)
 os.chdir(outdir)
