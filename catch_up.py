@@ -22,4 +22,4 @@ unfitData = np.setdiff1d(dataFolders, fitFolders)
 ## to-do: make it also check that all models have been run
 
 for folder in unfitData:
-    subprocess.run("python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py -d "  + folder, shell=True)
+    subprocess.run("python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py -d "  + folder, shell=True, capture_output=True)

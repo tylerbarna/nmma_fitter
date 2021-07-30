@@ -9,6 +9,6 @@
 #SBATCH -o ./logs/%j.out
 #SBATCH -e ./logs/%j.err
 
-rsync -aOv ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest
+rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest
 chmod -R 777 /home/cough052/shared/ztfrest/
 

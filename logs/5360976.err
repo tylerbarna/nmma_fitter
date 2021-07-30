@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 44, in <module>
+    latest_directory = [f.name for f in os.scandir(candidate_directory) if f.is_dir()].sort(reverse=true)[0] ##this should probably work
+NameError: name 'true' is not defined

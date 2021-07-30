@@ -59,13 +59,17 @@ svd_path = '/home/cough052/shared/NMMA/svdmodels'
 ## Need to update so it checks an argument to choose latest_directory
 os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
-if cfg.dataDir:
-    latest_directory = cfg.dataDir
-    print("Using manual folder %s" % latest_directory)
-elif not cfg.dataDir:
+#if args.dataDir == "None": ## Hacky band-aid, probably unneeded 
+    #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+    #print("Using manual folder %s" % latest_directory)
+if args.dataDir:
+    latest_directory = args.dataDir
+    #print("Using manual folder %s" % latest_directory)
+elif not args.dataDir:
     latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
-    print("Using most recent directory %s" % latest_directory)
-    
+    #print("Using most recent directory %s" % latest_directory)
+
+outdir = os.path.join("./",latest_directory,"") 
 if not os.path.isdir(outdir):
     os.makedirs(outdir, exist_ok=True)
 os.chdir(outdir)

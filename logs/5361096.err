@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 102, in <module>
+    logfile.write("Found candidate: %s" % candname)
+ValueError: I/O operation on closed file.

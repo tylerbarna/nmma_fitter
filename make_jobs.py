@@ -18,24 +18,30 @@ from fit_utils import parse_csv
 parser = argparse.ArgumentParser()
 parser.add_argument("-d","--dataDir", type=str, default=None)
 
-cfg = parser.parse_args()
+args = parser.parse_args()
 
 ## Attempt to pull latest data from schoty 
 ## This is a temporary test, still in process of troubleshooting the rsync issue with MSI 
 try:
     subprocess.run("rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
 except:
-	print("failed to pull from schoty") 
-	pass
-
+    print("failed to pull from schoty with rsync")
+    try: ## spaghetti 
+        subprocess.run("scp -r ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
+    except:
+        print("failed to pull from schoty with scp")
+        pass
+    pass
+time.sleep(30)
 # Search directory and create a fit job for each
 
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
-if cfg.dataDir:
-    latest_directory = cfg.dataDir
+if args.dataDir:
+    latest_directory = args.dataDir
     print("Using manual folder %s" % latest_directory)
-elif not cfg.dataDir:
-    latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+elif not args.dataDir:
+    #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
+    latest_directory = np.sort(np.array([f.name for f in os.scandir(candidate_directory) if f.is_dir()]))[-1] ##this should probably work
     print("Using most recent directory %s" % latest_directory)
 search_directory = os.path.join(candidate_directory,latest_directory,"") 
 
@@ -53,13 +59,13 @@ model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 outdir = os.path.join("./",latest_directory,"")
+
 if os.path.isdir(outdir): ## if directory already exists, script will exit
     #print("%s already exists in candidate_fits!" % latest_directory)
     quit()
 elif not os.path.isdir(outdir):
     print("Candidate Directory: "+str(search_directory))
     os.makedirs(outdir)
-    #subprocess.run("chmod -r 777 "+outdir)
     os.chmod(outdir, 0o774)
     os.makedirs(os.path.join(outdir,"candidate_data",""))
     os.chmod(os.path.join(outdir,"candidate_data",""), 0o774)
@@ -71,6 +77,7 @@ print("cwd: %s" % os.getcwd())
 log_filename = "fit.log"
 log_filename = os.path.join("./",log_filename)
 
+
 #could allow code to send batches to different machines
 
 # find all the candidate in path
@@ -78,6 +85,7 @@ log_filename = os.path.join("./",log_filename)
 file_list = []
 candidate_files = []
 candidate_names = []
+
 for file in glob.glob(search_directory + "/*.csv"):
     # file is the last item separated by slashes
     candfile = file.split('/')[-1]
@@ -88,6 +96,11 @@ for file in glob.glob(search_directory + "/*.csv"):
     file_list.append(file)
     candidate_files.append(candfile)
     candidate_names.append(candname)
+    
+    ## Explicitly list candidates in logfile
+    logfile = open(log_filename, "a+")
+    logfile.write("Found candidate: %s" % candname +"\n")
+    logfile.close()
 
 
 # submit jobs to fit each candidate
@@ -113,7 +126,7 @@ for ii in range(len(file_list)):
         # Submit job
         ## Trying to add argument so it corrects directory change in nmma_fit
         ## Would like to also have it dynamically update job name to also include fit name
-        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model + " " + cfg.dataDir, shell=True, capture_output=True)
+        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model + " " + latest_directory, shell=True, capture_output=True)
         output = command.stdout
         outerr = command.stderr
         
@@ -190,8 +203,8 @@ for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shar
         os.chmod(os.path.join(root, f), 0o774)
 
 ## Sync files with schoty at conclusion of fitting
-time.sleep(30)
+time.sleep(60)
 subprocess.run("rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest", shell=True, capture_output=True)
 time.sleep(60)
-if not cfg.dataDir:
+if not args.dataDir:
     subprocess.run("ssh ztfrest@schoty.caltech.edu bash /scr2/ztfrest/ZTF/ztfrest/nmma_slack_bot.sh", shell=True, capture_output=True)
