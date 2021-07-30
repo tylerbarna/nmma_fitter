@@ -89,20 +89,21 @@ data_file = "./candidate_data/" + candname + ".dat"
 # Set the trigger time
 if fit_trigger_time:
     # Set to earliest detection in preparation for fit
+    # Need to search the whole file since they are not always ordered.
+    trigger_time = np.inf
     for line in nmma_data:
         if np.isinf(float(line[3])):
             continue
-        else:
+        elif Time(line[0], format='isot').mjd < trigger_time:
             trigger_time = Time(line[0], format='isot').mjd
-            break
 elif trigger_time_heuristic:
     # One day before the first non-zero point
+    trigger_time = np.inf
     for line in nmma_data:
         if np.isinf(float(line[3])):
             continue
-        else:
+        elif (Time(line[0], format='isot').mjd - 1) < trigger_time:
             trigger_time = Time(line[0], format='isot').mjd - 1
-            break
 else:
     # Set the trigger time
     trigger_time = t0
