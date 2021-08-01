@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=ztfSNjob
+
 #SBATCH --time=11:59:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ztfrest@gmail.com

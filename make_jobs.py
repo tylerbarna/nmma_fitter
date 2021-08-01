@@ -18,10 +18,20 @@ from fit_utils import parse_csv
 parser = argparse.ArgumentParser()
 parser.add_argument("-d","--dataDir", type=str, default=None)
 
+## Currently not in use: allows for manual fitting of a specific candidate or candidates (requires --dataDir to also be passed)
+parser.add_argument("-c","--candidate", nargs="+", type=str, default=None)
+
+## Should default to false (eg Slack bot does not post), but is called when one wants slack bot to post
+parser.add_argument("-s","--slackBot", action='store_true')
+
+## Currently not in use: models argument that takes multiple models in form of '--models "x" "y" "z"' for fitting and posting
+parser.add_argument("m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018"])
+
 args = parser.parse_args()
 
 ## Attempt to pull latest data from schoty 
 ## This is a temporary test, still in process of troubleshooting the rsync issue with MSI 
+## Current implementation (Late July 2021) works roughly half the time
 try:
     subprocess.run("rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
 except:
@@ -48,11 +58,13 @@ search_directory = os.path.join(candidate_directory,latest_directory,"")
 og_directory = os.getcwd()
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
+## Should probably rework so we remove dependence on location of job
 job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
             "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
             "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"}
 
 # List of models to run.
+## Would like to change this so it's passed as an argument
 model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
@@ -101,7 +113,9 @@ for file in glob.glob(search_directory + "/*.csv"):
     logfile = open(log_filename, "a+")
     logfile.write("Found candidate: %s" % candname +"\n")
     logfile.close()
-
+## want to alter structure so recurring job checks that all candidates have existing subdirectories
+## rather than checking if a daily directory has been made; it would also be useful to have the option
+## to set it so a specific candidate from a specific day could be fit 
 
 # submit jobs to fit each candidate
 job_id_list = []
@@ -126,7 +140,7 @@ for ii in range(len(file_list)):
         # Submit job
         ## Trying to add argument so it corrects directory change in nmma_fit
         ## Would like to also have it dynamically update job name to also include fit name
-        command = subprocess.run("sbatch " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model + " " + latest_directory, shell=True, capture_output=True)
+        command = subprocess.run("sbatch -J " + candidate_names[ii] +"_" + model + " " + job_name[model] + " " + file_list[ii] + " " + candidate_names[ii] + " " + model + " " + latest_directory, shell=True, capture_output=True)
         output = command.stdout
         outerr = command.stderr
         
@@ -206,5 +220,5 @@ for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shar
 time.sleep(60)
 subprocess.run("rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest", shell=True, capture_output=True)
 time.sleep(60)
-if not args.dataDir:
+if args.slackBot:
     subprocess.run("ssh ztfrest@schoty.caltech.edu bash /scr2/ztfrest/ZTF/ztfrest/nmma_slack_bot.sh", shell=True, capture_output=True)
