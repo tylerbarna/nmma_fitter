@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 135, in <module>
+    data = parse_csv(file_list[ii], candidate_names[ii])
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 98, in parse_csv
+    for line in in_data[:]:
+IndexError: too many indices for array: array is 0-dimensional, but 1 were indexed

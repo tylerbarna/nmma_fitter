@@ -25,7 +25,12 @@ parser.add_argument("-c","--candidate", nargs="+", type=str, default=None)
 parser.add_argument("-s","--slackBot", action='store_true')
 
 ## Currently not in use: models argument that takes multiple models in form of '--models "x" "y" "z"' for fitting and posting
-parser.add_argument("m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018"])
+## Would have to pass args.models as model_list when submitting jobs
+## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018"])
+
+## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 6 hours)
+parser.add_argument("-t","--timeout",type=int,default=21600)
 
 args = parser.parse_args()
 
@@ -36,7 +41,7 @@ try:
     subprocess.run("rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
 except:
     print("failed to pull from schoty with rsync")
-    try: ## spaghetti 
+    try: ## Currently spaghetti, can be cleaned up once rsync is more consistent
         subprocess.run("scp -r ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest")
     except:
         print("failed to pull from schoty with scp")
@@ -65,7 +70,7 @@ job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob
 
 # List of models to run.
 ## Would like to change this so it's passed as an argument
-model_list = ["Bu2019lm", "TrPi2018", "nugent-hyper"]
+model_list = args.models #["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
 
@@ -73,7 +78,8 @@ os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 outdir = os.path.join("./",latest_directory,"")
 
 if os.path.isdir(outdir): ## if directory already exists, script will exit
-    #print("%s already exists in candidate_fits!" % latest_directory)
+    ## would like to change behavior so it checks that the plots exist for all candidates
+    print("%s already exists in candidate_fits!" % latest_directory)
     quit()
 elif not os.path.isdir(outdir):
     print("Candidate Directory: "+str(search_directory))
@@ -111,8 +117,14 @@ for file in glob.glob(search_directory + "/*.csv"):
     
     ## Explicitly list candidates in logfile
     logfile = open(log_filename, "a+")
-    logfile.write("Found candidate: %s" % candname +"\n")
+    logfile.write("Found object: %s" % candname +"\n")
     logfile.close()
+
+if not candidate_names: ## If there are no candidates found, quit here
+    logfile = open(log_filename, "a+")
+    logfile.write("No objects found \n")
+    logfile.close()
+    quit()
 ## want to alter structure so recurring job checks that all candidates have existing subdirectories
 ## rather than checking if a daily directory has been made; it would also be useful to have the option
 ## to set it so a specific candidate from a specific day could be fit 
@@ -163,14 +175,21 @@ for ii in range(len(file_list)):
 
 # Check on jobs every minute to see if they finished.
 # -TODO- Can change the wait time to be reasonable for release
+startTime = time.time()
 while len(live_jobs) > 0:
     time.sleep(60)
+    currentTime = time.time()
+    if currentTime-startTime > args.timeout:
+        break
 
     finished_jobs = []
+    ## not a huge concern for a finite number of jobs, but doesn't the current behavior rebuild finished_jobs with every loop?
     for id, (candname, model) in live_jobs.items():
         # nmma_fit makes a .fin file when done
         if os.path.isfile(candname + "_" + model + ".fin"):
             # Do something now that we know the job is done
+            ## Need to alter behavior so it can handle a job failing before the .fin is made
+            ## temporarily, this is addressed by there being a timeout for how long to wait before pushing to schoty
             logfile = open(log_filename, "a")
             logfile.write("Job " + str(id) + " for candidate " + candname + " with model " + model + " completed. Produced the following output: \n")
             
@@ -208,6 +227,12 @@ for id in job_id_list:
     if os.path.isfile(str(id) + ".out"):
         os.remove(str(id) + ".out")
 
+## makes a final completion file that indicates daily fits have been completed
+completefile = os.path.join('.', latest_directory + '.fin')
+file = open(completefile, "w") 
+file.close()
+
+time.sleep(60)
 
 ## final permissions update
 for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",latest_directory,"")):
@@ -216,9 +241,11 @@ for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shar
     for f in files:
         os.chmod(os.path.join(root, f), 0o774)
 
-## Sync files with schoty at conclusion of fitting
+## Sync files with schoty at conclusion of fitting and pushes to slack
+
 time.sleep(60)
 subprocess.run("rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest", shell=True, capture_output=True)
 time.sleep(60)
+## would like to make it so slackBot runs after each object finishes its fits, but that likely requires some reworking of the while loop
 if args.slackBot:
     subprocess.run("ssh ztfrest@schoty.caltech.edu bash /scr2/ztfrest/ZTF/ztfrest/nmma_slack_bot.sh", shell=True, capture_output=True)
