@@ -112,7 +112,7 @@ tmin = 0
 tmax = 7
 dt = 0.1
 # GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
-if model == "TrPi2018" or model == "nugent-hyper":
+if model == "TrPi2018":
     tmin = 0.01
     tmax = 7.01
     dt = 0.35
@@ -126,9 +126,6 @@ joint_light_curve = False
 sampler = 'pymultinest'
 seed = 42
 
-if model == "nugent-hyper":
-    joint_light_curve = True
-
 #if not os.path.isdir(outdir):
     #os.makedirs(outdir)
     #os.chmod(outdir, 0o774)
@@ -140,30 +137,24 @@ if not os.path.isdir(plotdir):
 
 # Set the prior file. Depends on model and if trigger time is a parameter.
 if prior == None:
-    if joint_light_curve:
-        if model != 'nugent-hyper':
-            #KN+GRB
-            print("Not yet configured for KN+GRB")
-            quit()
+    if model == 'nugent-hyper':
+        # SN
+        if fit_trigger_time:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn_t0.prior'
         else:
-            #supernova
-            if fit_trigger_time:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn_t0.prior'
-            else:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn.prior'
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn.prior'
+    if model == 'TrPi2018':
+        # GRB
+        if fit_trigger_time:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb_t0.prior'
+        else:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb.prior'
     else:
-        if model == 'TrPi2018':
-            # GRB
-            if fit_trigger_time:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb_t0.prior'
-            else:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb.prior'
+        # KN
+        if fit_trigger_time:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn_t0.prior'
         else:
-            # KN
-            if fit_trigger_time:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn_t0.prior'
-            else:
-                prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn.prior'
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn.prior'
 
 # NMMA lightcurve fitting
 # triggered with a shell command
@@ -174,9 +165,6 @@ command_string = "mpiexec -np " + str(cpus) + " light_curve_analysis"\
     + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
     + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)+\
     " --detection-limit \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""
-
-if joint_light_curve:
-    command_string += " --joint-light-curve"
 
 command = subprocess.run(command_string, shell=True, capture_output=True)
 sys.stdout.buffer.write(command.stdout)
