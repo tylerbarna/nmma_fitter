@@ -96,7 +96,7 @@ def parse_csv(infile,
     # photometry data
     out_data = []
 
-    for line in in_data[:]:
+    for line in np.atleast_1d(in_data):
         #extract time and put in isot format
         time = Time(line[1], format='jd').isot
 
