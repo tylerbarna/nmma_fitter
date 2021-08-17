@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from astropy.time import Time
 
-from nmma.em.model import SVDLightCurveModel, GRBLightCurveModel, KilonovaGRBLightCurveModel, SupernovaGRBLightCurveModel, SupernovaLightCurveModel
+from nmma.em.model import SVDLightCurveModel, GRBLightCurveModel, KilonovaGRBLightCurveModel, SupernovaGRBLightCurveModel, SupernovaLightCurveModel, ShockCoolingLightCurveModel
 
 # Useful functions used by nmma_fit.py
 
@@ -59,6 +59,8 @@ def get_bestfit_lightcurve(model,
             bestfit_model = GRBLightCurveModel(sample_times=sample_times, resolution=grb_resolution, jetType=jet_type)
         elif model == 'nugent-hyper':
             bestfit_model = SupernovaLightCurveModel(sample_times=sample_times)
+        elif model == 'Piro2021':
+            bestfit_model = ShockCoolingLightCurveModel(sample_times=sample_times)
         else:
             light_curve_kwargs = dict(model=model, sample_times=sample_times,
                                       svd_path=svd_path, mag_ncoeff=mag_ncoeff,

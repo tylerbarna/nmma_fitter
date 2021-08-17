@@ -27,7 +27,7 @@ parser.add_argument("-s","--slackBot", action='store_true')
 ## Currently not in use: models argument that takes multiple models in form of '--models "x" "y" "z"' for fitting and posting
 ## Would have to pass args.models as model_list when submitting jobs
 ## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
-parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018"])
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018", "Piro2021"])
 
 ## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 6 hours)
 parser.add_argument("-t","--timeout",type=int,default=21600)
@@ -66,7 +66,8 @@ og_directory = os.getcwd()
 ## Should probably rework so we remove dependence on location of job
 job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
             "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
-            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"}
+            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
+            "Piro2021": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",}
 
 # List of models to run.
 ## Would like to change this so it's passed as an argument

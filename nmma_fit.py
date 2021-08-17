@@ -150,6 +150,12 @@ if prior == None:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb_t0.prior'
         else:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb.prior'
+    elif model == 'Piro2021':
+        # Shock cooling
+        if fit_trigger_time:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sc_t0.prior'
+        else:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sc.prior'
     elif model == 'Bu2019lm':
         # KN
         if fit_trigger_time:
