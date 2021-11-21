@@ -2,3 +2,10 @@ Traceback (most recent call last):
   File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 128, in <module>
     tar_name = ''.join((args.outfolder.split('/').remove('')[-1],'.tar.gz'))
 TypeError: 'NoneType' object is not subscriptable
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/100mpc_kne/lightcurves/86891.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLargeStatic/lightcurves/19113.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLargeStatic/lightcurves/225.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLargeStatic/lightcurves/4129.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLarge/lightcurves/63605.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLarge/lightcurves/69762.dat': Operation not permitted
+slurmstepd: error: *** JOB 8507187 ON cn0614 CANCELLED AT 2021-11-21T14:04:28 ***

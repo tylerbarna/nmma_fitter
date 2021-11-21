@@ -1,1 +1,2 @@
 chmod: cannot access '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/100mpc_sc': No such file or directory
+slurmstepd: error: *** JOB 8507193 ON cn0185 CANCELLED AT 2021-11-21T14:04:31 ***

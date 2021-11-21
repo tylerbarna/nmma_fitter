@@ -6,3 +6,6 @@ Traceback (most recent call last):
   File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/argparse.py", line 1476, in _get_optional_kwargs
     raise ValueError(msg % args)
 ValueError: invalid option string 't': must start with a character '-'
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLargeStatic/lightcurves/1613.dat': Operation not permitted
+chmod: changing permissions of '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/oldTests/testSampleLargeStatic/lightcurves/30335.dat': Operation not permitted
+slurmstepd: error: *** JOB 8507186 ON cn0469 CANCELLED AT 2021-11-21T14:04:33 ***

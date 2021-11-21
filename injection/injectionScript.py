@@ -32,7 +32,7 @@ parser.add_argument("--outfolder",type=str,help="generic output folder for all f
 
 ##Command line Args for lightcurve creation
 ##parser.add_argument("--injection",required=True,type=str,help="path to injection file")#Note:Redundant here
-parser.add_argument("--model","-m",type=str,required=True,help="model type (currently using Bu2019lm)")
+parser.add_argument("--model","-m",type=str,required=True,help="model type (currently using Bu2019lm for kn, TrPi2018 for grb, and Piro2021 for sc)")
 parser.add_argument("--label",type=str,required=True,help="output Label for lightcurve")
 parser.add_argument("--svd-path", type=str,default='/panfs/roc/groups/7/cough052/shared/NMMA/svdmodels/',help="path to svd models folder")
 parser.add_argument("--filters",type=str,default= "g,r,i",help="filters to use")

@@ -2,3 +2,4 @@ Traceback (most recent call last):
   File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 128, in <module>
     tar_name = ''.join((args.outfolder.split('/').remove('')[-1],'.tar.gz'))
 TypeError: 'NoneType' object is not subscriptable
+slurmstepd: error: *** JOB 8507189 ON cn0014 CANCELLED AT 2021-11-21T14:04:28 ***
