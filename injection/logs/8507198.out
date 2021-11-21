@@ -1,0 +1,6 @@
+2021-11-21T19:55:59.797 slurm job: 8507198
+2021-11-21T19:56:00.246 creating injection
+2021-11-21T19:56:05.699 doing geocent_time workaround
+2021-11-21T19:56:05.710 creating lightcurves
+2021-11-21T19:56:17.889 combining lightcurves
+2021-11-21T19:56:18.740 lightcurve generation complete

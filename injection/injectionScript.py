@@ -41,7 +41,7 @@ parser.add_argument("--injection-detection-limit",type=str,default= "22,22,22",h
 ##misc Args
 parser.add_argument("--cpus",type=int,default=1,help="number of cpus for lightcurve generation") ##Note: not working right now
 parser.add_argument('--id-number',type=str,default="0",help='starting number for lightcurve ID column')
-parser.add_argument('--tar','t',action='store_true',help='automatically tar folder into local directory')
+parser.add_argument('--tar','-t',action='store_true',help='automatically tar folder into local directory')
 args = parser.parse_args()
 #print(args)
 
@@ -124,11 +124,11 @@ for ext in ('.out','.err'):
     ))
     cpCommand = subprocess.run(cpString, shell=True,capture_output=True)
 
-if args.tar:
+if args.tar: ##not working, first line is being taken as noneType
     tar_name = ''.join((args.outfolder.split('/').remove('')[-1],'.tar.gz'))
     tarString = ' '.join((
     'tar -zcf',
-    tar_name,
+    os.path.join('tars/',tar_name),
     args.outfolder
     ))
     tarCommand = subprocess.run(tarString,shell=True,capture_output=True)

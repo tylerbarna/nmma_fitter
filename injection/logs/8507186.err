@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 44, in <module>
+    parser.add_argument('--tar','t',action='store_true',help='automatically tar folder into local directory')
+  File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/argparse.py", line 1345, in add_argument
+    kwargs = self._get_optional_kwargs(*args, **kwargs)
+  File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/argparse.py", line 1476, in _get_optional_kwargs
+    raise ValueError(msg % args)
+ValueError: invalid option string 't': must start with a character '-'
