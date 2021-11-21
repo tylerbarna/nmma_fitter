@@ -1,0 +1,4 @@
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 87
+    File perms = [
+             ^
+SyntaxError: invalid syntax

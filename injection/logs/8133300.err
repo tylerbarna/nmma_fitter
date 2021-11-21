@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 58, in <module>
+    print(json_object['injections']['geocent_time'])
+KeyError: 'geocent_time'

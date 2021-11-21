@@ -1,0 +1,134 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using most recent directory 2459459-2459466
+Candidate Directory: /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/2459459-2459466/
+cwd: /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/2459459-2459466
+Found object: ZTF21abwrafv
+Found object: ZTF21abxbtyi
+Found object: ZTF21abxcrss
+Found object: ZTF21abxdirz
+Found object: ZTF21abxgiwo
+Found object: ZTF21abxipqp
+Found object: ZTF21abxpgln
+Found object: ZTF21abyaksg
+Found object: ZTF21abypvca
+evaluating candidate: ZTF21abwrafv
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abwrafv, model Bu2019lm. Job id: 6403303
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abwrafv, model nugent-hyper. Job id: 6403304
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abwrafv, model TrPi2018. Job id: 6403305
+
+evaluating candidate: ZTF21abxbtyi
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxbtyi, model Bu2019lm. Job id: 6403306
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxbtyi, model nugent-hyper. Job id: 6403307
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxbtyi, model TrPi2018. Job id: 6403308
+
+evaluating candidate: ZTF21abxcrss
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxcrss, model Bu2019lm. Job id: 6403309
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxcrss, model nugent-hyper. Job id: 6403310
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxcrss, model TrPi2018. Job id: 6403311
+
+evaluating candidate: ZTF21abxdirz
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxdirz, model Bu2019lm. Job id: 6403312
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxdirz, model nugent-hyper. Job id: 6403313
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxdirz, model TrPi2018. Job id: 6403314
+
+evaluating candidate: ZTF21abxgiwo
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxgiwo, model Bu2019lm. Job id: 6403315
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxgiwo, model nugent-hyper. Job id: 6403316
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxgiwo, model TrPi2018. Job id: 6403317
+
+evaluating candidate: ZTF21abxipqp
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxipqp, model Bu2019lm. Job id: 6403318
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxipqp, model nugent-hyper. Job id: 6403319
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxipqp, model TrPi2018. Job id: 6403320
+
+evaluating candidate: ZTF21abxpgln
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abxpgln, model Bu2019lm. Job id: 6403321
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abxpgln, model nugent-hyper. Job id: 6403322
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abxpgln, model TrPi2018. Job id: 6403323
+
+evaluating candidate: ZTF21abyaksg
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abyaksg, model Bu2019lm. Job id: 6403324
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abyaksg, model nugent-hyper. Job id: 6403325
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abyaksg, model TrPi2018. Job id: 6403326
+
+evaluating candidate: ZTF21abypvca
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21abypvca, model Bu2019lm. Job id: 6403327
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21abypvca, model nugent-hyper. Job id: 6403328
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21abypvca, model TrPi2018. Job id: 6403329
+
+Job 6403304 for candidate ZTF21abwrafv with model nugent-hyper completed.
+Job 6403307 for candidate ZTF21abxbtyi with model nugent-hyper completed.
+Job 6403310 for candidate ZTF21abxcrss with model nugent-hyper completed.
+Job 6403313 for candidate ZTF21abxdirz with model nugent-hyper completed.
+Job 6403316 for candidate ZTF21abxgiwo with model nugent-hyper completed.
+Job 6403319 for candidate ZTF21abxipqp with model nugent-hyper completed.
+Job 6403322 for candidate ZTF21abxpgln with model nugent-hyper completed.
+Job 6403325 for candidate ZTF21abyaksg with model nugent-hyper completed.
+Job 6403328 for candidate ZTF21abypvca with model nugent-hyper completed.
+Job 6403303 for candidate ZTF21abwrafv with model Bu2019lm completed.
+Job 6403329 for candidate ZTF21abypvca with model TrPi2018 completed.
+Job 6403305 for candidate ZTF21abwrafv with model TrPi2018 completed.
+Job 6403323 for candidate ZTF21abxpgln with model TrPi2018 completed.
+Job 6403327 for candidate ZTF21abypvca with model Bu2019lm completed.
+Job 6403308 for candidate ZTF21abxbtyi with model TrPi2018 completed.
+Job 6403326 for candidate ZTF21abyaksg with model TrPi2018 completed.
+Job 6403321 for candidate ZTF21abxpgln with model Bu2019lm completed.
+Job 6403306 for candidate ZTF21abxbtyi with model Bu2019lm completed.
+Job 6403309 for candidate ZTF21abxcrss with model Bu2019lm completed.
+Job 6403320 for candidate ZTF21abxipqp with model TrPi2018 completed.
+Job 6403311 for candidate ZTF21abxcrss with model TrPi2018 completed.
+Job 6403318 for candidate ZTF21abxipqp with model Bu2019lm completed.
+Job 6403324 for candidate ZTF21abyaksg with model Bu2019lm completed.
+Job 6403315 for candidate ZTF21abxgiwo with model Bu2019lm completed.
+Job 6403317 for candidate ZTF21abxgiwo with model TrPi2018 completed.
+Job 6403314 for candidate ZTF21abxdirz with model TrPi2018 completed.
+Job 6403312 for candidate ZTF21abxdirz with model Bu2019lm completed.
+wrote fin file
+Ran rsync push
+Sent Slack bot command

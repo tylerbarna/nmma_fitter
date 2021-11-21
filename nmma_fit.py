@@ -136,6 +136,7 @@ if not os.path.isdir(plotdir):
     os.chmod(plotdir, 0o774)
 
 # Set the prior file. Depends on model and if trigger time is a parameter.
+# -TODO- will want to standardize names to be computable from model name and/or use an argument for the file name.
 if prior == None:
     if model == 'nugent-hyper':
         # SN
@@ -143,18 +144,27 @@ if prior == None:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn_t0.prior'
         else:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sn.prior'
-    if model == 'TrPi2018':
+    elif model == 'TrPi2018':
         # GRB
         if fit_trigger_time:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb_t0.prior'
         else:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_grb.prior'
-    else:
+    elif model == 'Piro2021':
+        # Shock cooling
+        if fit_trigger_time:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sc_t0.prior'
+        else:
+            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_sc.prior'
+    elif model == 'Bu2019lm':
         # KN
         if fit_trigger_time:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn_t0.prior'
         else:
             prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/ZTF_kn.prior'
+    else:
+        print("nmma_fit.py does not know of the prior file for model ", model)
+        exit(1)
 
 # NMMA lightcurve fitting
 # triggered with a shell command

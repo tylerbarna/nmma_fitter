@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: ligo-gracedb
+Version: 2.7.6
+Summary: A Python package for accessing the GraceDB API.
+Home-page: https://git.ligo.org/lscsoft/gracedb-client
+Author: Tanner Prestegard, Alexander Pace, Branson Stephens, Brian Moe, Patrick Brady
+Author-email: tanner.prestegard@ligo.org, alexander.pace@ligo.org
+License: GPL-3.0-or-later
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Topic :: Scientific/Engineering :: Physics
+Description-Content-Type: text/x-rst
+Requires-Dist: future (>=0.15.0)
+Requires-Dist: six (>=1.9.0)
+Requires-Dist: cryptography (<=3.3.1,>=1.7.2)
+Requires-Dist: requests (>=2.6.0)
+
+============
+ligo-gracedb
+============
+The Gravitational-wave Candidate Event Database (GraceDB) is a web service designed for aggregating and communicating information about candidate events from gravitational-wave searches and associated follow-ups.
+``ligo-gracedb`` provides a Python-based client tool for facilitating interactions with the GraceDB API.
+
+
+Documentation
+-------------
+For more information, see the `full documentation <https://gw.readthedocs.io/ligo-gracedb/>`__.
+
+
+Quick install
+-------------
+.. code:: python
+
+    pip install ligo-gracedb
+
+
+Contributing
+------------
+Please fork this `repository <https://git.ligo.org/lscsoft/gracedb-client>`__ and submit a merge request if you wish to contribute to this package.
+
+See the `contributing documentation <https://gw.readthedocs.io/projects/ligo-gracedb/en/latest/contributing.html>`__ for more details.
+

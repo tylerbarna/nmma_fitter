@@ -1,0 +1,3 @@
+[console_scripts]
+gwpy-plot = gwpy.cli.gwpy_plot:main
+

@@ -1,0 +1,13 @@
+ligo/segments/__init__.py,sha256=eo_091HNTEWcFNTOFYgVrzN5rtMkF2OX18RMoOsrPws,42302
+ligo/segments/__pycache__/__init__.cpython-37.pyc,,
+ligo/segments/__pycache__/utils.cpython-37.pyc,,
+ligo/segments/__segments.cpython-37m-x86_64-linux-gnu.so,sha256=JrTVDC8MES2Mz7wJxxKA95MUH07S_81uN7vV-Cw9zM0,56440
+ligo/segments/utils.py,sha256=jLgQ9qmdsKw42L4ij6X8JN6q4Rfuolu6F1LFwbcrl8g,18244
+ligo_segments-1.4.0-py3.7-nspkg.pth,sha256=jdWwfooSrKfn-WHKPklJlCjnB2MDxP-F_eeikKStZIE,529
+ligo_segments-1.4.0.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+ligo_segments-1.4.0.dist-info/LICENSE,sha256=jOtLnuWt7d5Hsx6XXB2QxzrSe2sWWh3NgMfFRetluQM,35147
+ligo_segments-1.4.0.dist-info/METADATA,sha256=o8N85g-NtOl-Q363_Bt61SIMj_OfwmH9fgbOCRVNM2A,1222
+ligo_segments-1.4.0.dist-info/RECORD,,
+ligo_segments-1.4.0.dist-info/WHEEL,sha256=8MJuIn_o44q10qi23aeeO3JiijJAiu3iAJYjMuztSYU,104
+ligo_segments-1.4.0.dist-info/namespace_packages.txt,sha256=y5fy5GsmifPZH6RR8fYXooXAJfv7HJTAqxc_rGrN-RE,5
+ligo_segments-1.4.0.dist-info/top_level.txt,sha256=y5fy5GsmifPZH6RR8fYXooXAJfv7HJTAqxc_rGrN-RE,5

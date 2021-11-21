@@ -1,0 +1,8 @@
+#!/home/cough052/barna314/anaconda3/envs/nmma/bin/python3.7
+# -*- coding: utf-8 -*-
+import re
+import sys
+from bilby_pipe.plot import plot_corner
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(plot_corner())

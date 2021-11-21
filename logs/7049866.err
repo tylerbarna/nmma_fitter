@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 139, in <module>
+    data = parse_csv(file_list[ii], candidate_names[ii])
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 93, in parse_csv
+    in_data = np.genfromtxt(infile, dtype=None, delimiter=',', skip_header = 1, encoding = None)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/lib/npyio.py", line 2124, in genfromtxt
+    raise ValueError(errmsg)
+ValueError: Some errors were detected !
+    Line #7 (got 3 columns instead of 5)
+    Line #8 (got 3 columns instead of 5)

@@ -1,0 +1,12 @@
+ligotimegps-2.0.1.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+ligotimegps-2.0.1.dist-info/LICENSE,sha256=jOtLnuWt7d5Hsx6XXB2QxzrSe2sWWh3NgMfFRetluQM,35147
+ligotimegps-2.0.1.dist-info/METADATA,sha256=C_HQ9VTVkK7WTAFI-pxPi8Ivhkv_hkUoIUM_5Fm_hZ8,2588
+ligotimegps-2.0.1.dist-info/RECORD,,
+ligotimegps-2.0.1.dist-info/WHEEL,sha256=HX-v9-noUkyUoxyZ1PMSuS7auUxDAR4VBdoYLqD0xws,110
+ligotimegps-2.0.1.dist-info/top_level.txt,sha256=buO0o487XDSAd-vU6lkz3V6aAXue_GEocGViSIBRt68,12
+ligotimegps/__init__.py,sha256=Fllkoo7VdsH5HZS_Rp-jG8ye25sR3ux8Nttfq3EB1Lo,11069
+ligotimegps/__pycache__/__init__.cpython-37.pyc,,
+ligotimegps/__pycache__/_version.cpython-37.pyc,,
+ligotimegps/__pycache__/test_ligotimegps.cpython-37.pyc,,
+ligotimegps/_version.py,sha256=QTxaI6WKGVL6TWcWBkwSeuioRduV4nYNWam9aB2kSXY,471
+ligotimegps/test_ligotimegps.py,sha256=fzDBQOQFwnOkEqGuXHvVSFBSLFzv92MyC-gsiHl2U_I,6412

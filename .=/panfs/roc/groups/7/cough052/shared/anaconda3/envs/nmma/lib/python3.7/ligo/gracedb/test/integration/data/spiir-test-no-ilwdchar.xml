@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE LIGO_LW SYSTEM "http://ldas-sw.ligo.caltech.edu/doc/ligolwAPI/html/ligolw_dtd.txt">
+<LIGO_LW>
+	<Table Name="process:table">
+		<Column Type="lstring" Name="comment"/>
+		<Column Type="int_4s" Name="cvs_entry_time"/>
+		<Column Type="lstring" Name="cvs_repository"/>
+		<Column Type="lstring" Name="domain"/>
+		<Column Type="int_4s" Name="end_time"/>
+		<Column Type="lstring" Name="ifos"/>
+		<Column Type="int_4s" Name="is_online"/>
+		<Column Type="int_4s" Name="jobid"/>
+		<Column Type="lstring" Name="node"/>
+		<Column Type="int_8s" Name="process_id"/>
+		<Column Type="lstring" Name="program"/>
+		<Column Type="int_4s" Name="start_time"/>
+		<Column Type="int_4s" Name="unix_procid"/>
+		<Column Type="lstring" Name="username"/>
+		<Column Type="lstring" Name="version"/>
+		<Stream Delimiter="," Type="Local" Name="process:table">
+			,,,,,"H1,L1,V1",0,0,"node15",1,"gstlal_inspiral_postcohspiir_online",1222234567,4021,"spiir",,
+		</Stream>
+	</Table>
+	<Table Name="process_params:table">
+		<Column Type="lstring" Name="param"/>
+		<Column Type="int_8s" Name="process:process_id"/>
+		<Column Type="lstring" Name="program"/>
+		<Column Type="lstring" Name="type"/>
+		<Column Type="lstring" Name="value"/>
+		<Stream Delimiter="," Type="Local" Name="process_params:table">
+			"--psd-fft-length",1,"gstlal_inspiral_postcohspiir_online","int_8s","16",
+			"--cohfar-accumbackground-output-prefix",1,"gstlal_inspiral_postcohspiir_online","lstring","035/bank0137_stats",
+			"--cohfar-accumbackground-output-prefix",1,"gstlal_inspiral_postcohspiir_online","lstring","035/bank0138_stats",
+			"--cohfar-accumbackground-output-prefix",1,"gstlal_inspiral_postcohspiir_online","lstring","035/bank0139_stats",
+			"--cohfar-accumbackground-output-prefix",1,"gstlal_inspiral_postcohspiir_online","lstring","035/bank0140_stats",
+			"--veto-segments-name",1,"gstlal_inspiral_postcohspiir_online","lstring","vetoes",
+			"--nxydump-directory",1,"gstlal_inspiral_postcohspiir_online","lstring",".",
+			"--iir-bank",1,"gstlal_inspiral_postcohspiir_online","lstring","H1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_H1-GSTLAL_SPLIT_BANK_0137-a1-0-0.xml.gz,L1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_L1-GSTLAL_SPLIT_BANK_0137-a1-0-0.xml.gz,V1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_V1-GSTLAL_SPLIT_BANK_0137-a1-0-0.xml.gz",
+			"--iir-bank",1,"gstlal_inspiral_postcohspiir_online","lstring","H1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_H1-GSTLAL_SPLIT_BANK_0138-a1-0-0.xml.gz,L1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_L1-GSTLAL_SPLIT_BANK_0138-a1-0-0.xml.gz,V1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_V1-GSTLAL_SPLIT_BANK_0138-a1-0-0.xml.gz",
+			"--iir-bank",1,"gstlal_inspiral_postcohspiir_online","lstring","H1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_H1-GSTLAL_SPLIT_BANK_0139-a1-0-0.xml.gz,L1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_L1-GSTLAL_SPLIT_BANK_0139-a1-0-0.xml.gz,V1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_V1-GSTLAL_SPLIT_BANK_0139-a1-0-0.xml.gz",
+			"--iir-bank",1,"gstlal_inspiral_postcohspiir_online","lstring","H1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_H1-GSTLAL_SPLIT_BANK_0140-a1-0-0.xml.gz,L1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_L1-GSTLAL_SPLIT_BANK_0140-a1-0-0.xml.gz,V1:/home/joel.bosveld/online/banks/gstlal_iir_bank_lowmass_stT4/iir_V1-GSTLAL_SPLIT_BANK_0140-a1-0-0.xml.gz",
+			"--finalsink-cluster-window",1,"gstlal_inspiral_postcohspiir_online","real_8","1.0",
+			"--block-size",1,"gstlal_inspiral_postcohspiir_online","int_8s","67108864",
+			"--cohfar-assignfar-silent-time",1,"gstlal_inspiral_postcohspiir_online","int_8s","3200",
+			"--finalsink-fapupdater-interval",1,"gstlal_inspiral_postcohspiir_online","real_8","1800.0",
+			"--nds-channel-type",1,"gstlal_inspiral_postcohspiir_online","lstring","online",
+			"--dq-vector-off-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=0",
+			"--dq-vector-off-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=0",
+			"--dq-vector-on-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=7",
+			"--dq-vector-on-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=7",
+			"--cuda-postcoh-detrsp-refresh-interval",1,"gstlal_inspiral_postcohspiir_online","int_8s","86400",
+			"--finalsink-need-online-perform",1,"gstlal_inspiral_postcohspiir_online","int_8s","1",
+			"--cuda-postcoh-hist-trials",1,"gstlal_inspiral_postcohspiir_online","int_8s","100",
+			"--cuda-postcoh-cohsnr-thresh",1,"gstlal_inspiral_postcohspiir_online","real_8","1.05",
+			"--finalsink-gracedb-group",1,"gstlal_inspiral_postcohspiir_online","lstring","CBC",
+			"--finalsink-far-factor",1,"gstlal_inspiral_postcohspiir_online","real_8","1.0",
+			"--data-source",1,"gstlal_inspiral_postcohspiir_online","lstring","framexmit",
+			"--finalsink-gracedb-far-threshold",1,"gstlal_inspiral_postcohspiir_online","real_8","0.0001",
+			"--finalsink-gracedb-service-url",1,"gstlal_inspiral_postcohspiir_online","lstring","https://gracedb-playground.ligo.org/api/",
+			"--code-version",1,"gstlal_inspiral_postcohspiir_online","lstring","6c81f9312a2e1f841f9352ebff3f2a0c1047323f",
+			"--cohfar-assignfar-input-fname",1,"gstlal_inspiral_postcohspiir_online","lstring","/home/spiir/O3/O2_replay/trigs_code_freeze/marginalized_stats_2w.xml.gz,/home/spiir/O3/O2_replay/trigs_code_freeze/marginalized_stats_1d.xml.gz,/home/spiir/O3/O2_replay/trigs_code_freeze/marginalized_stats_2h.xml.gz",
+			"--channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=GDS-CALIB_STRAIN_O2Replay",
+			"--channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=GDS-CALIB_STRAIN_O2Replay",
+			"--channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","V1=Hrec_hoft_16384Hz_O2Replay",
+			"--ht-gate-threshold",1,"gstlal_inspiral_postcohspiir_online","real_8","15.0",
+			"--mode",1,"gstlal_inspiral_postcohspiir_online","lstring","Online",
+			"--finalsink-fapupdater-output-fname",1,"gstlal_inspiral_postcohspiir_online","lstring","/home/spiir/O3/O2_replay/trigs_code_freeze/035/035_marginalized_stats_2w.xml.gz,/home/spiir/O3/O2_replay/trigs_code_freeze/035/035_marginalized_stats_1d.xml.gz,/home/spiir/O3/O2_replay/trigs_code_freeze/035/035_marginalized_stats_2h.xml.gz",
+			"--finalsink-gracedb-search",1,"gstlal_inspiral_postcohspiir_online","lstring","O2VirgoTest",
+			"--state-vector-off-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=0",
+			"--state-vector-off-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=0",
+			"--state-vector-off-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","V1=0",
+			"--fir-whitener",1,"gstlal_inspiral_postcohspiir_online","int_8s","1",
+			"--state-vector-on-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=482",
+			"--state-vector-on-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=482",
+			"--state-vector-on-bits",1,"gstlal_inspiral_postcohspiir_online","lstring","V1=482",
+			"--track-psd",1,"gstlal_inspiral_postcohspiir_online",,,
+			"--framexmit-iface",1,"gstlal_inspiral_postcohspiir_online","lstring","10.14.0.1",
+			"--cuda-postcoh-detrsp-fname",1,"gstlal_inspiral_postcohspiir_online","lstring","H1L1V1_detrsp_map.xml",
+			"--chisq-type",1,"gstlal_inspiral_postcohspiir_online","lstring","autochisq",
+			"--finalsink-snapshot-interval",1,"gstlal_inspiral_postcohspiir_online","real_8","86400.0",
+			"--dq-channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=DMT-DQ_VECTOR",
+			"--dq-channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=DMT-DQ_VECTOR",
+			"--gpu-acc",1,"gstlal_inspiral_postcohspiir_online",,,
+			"--finalsink-gracedb-pipeline",1,"gstlal_inspiral_postcohspiir_online","lstring","gstlal-spiir",
+			"--state-channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=GDS-CALIB_STATE_VECTOR",
+			"--state-channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=GDS-CALIB_STATE_VECTOR",
+			"--state-channel-name",1,"gstlal_inspiral_postcohspiir_online","lstring","V1=DQ_ANALYSIS_STATE_VECTOR",
+			"--cuda-postcoh-output-skymap",1,"gstlal_inspiral_postcohspiir_online","int_8s","1",
+			"--cohfar-assignfar-refresh-interval",1,"gstlal_inspiral_postcohspiir_online","int_8s","3600",
+			"--finalsink-output-prefix",1,"gstlal_inspiral_postcohspiir_online","lstring","035/035_zerolag",
+			"--cuda-postcoh-snglsnr-thresh",1,"gstlal_inspiral_postcohspiir_online","real_8","4.0",
+			"--nds-port",1,"gstlal_inspiral_postcohspiir_online","int_8s","31200",
+			"--finalsink-fapupdater-collect-walltime",1,"gstlal_inspiral_postcohspiir_online","lstring","1209600,86400,7200",
+			"--job-tag",1,"gstlal_inspiral_postcohspiir_online","lstring","035",
+			"--cohfar-accumbackground-snapshot-interval",1,"gstlal_inspiral_postcohspiir_online","int_8s","3600",
+			"--check-time-stamps",1,"gstlal_inspiral_postcohspiir_online",,,
+			"--framexmit-addr",1,"gstlal_inspiral_postcohspiir_online","lstring","H1=224.3.2.221:7296",
+			"--framexmit-addr",1,"gstlal_inspiral_postcohspiir_online","lstring","L1=224.3.2.222:7297",
+			"--framexmit-addr",1,"gstlal_inspiral_postcohspiir_online","lstring","V1=224.3.2.223:7298",
+			"--tmp-space",1,"gstlal_inspiral_postcohspiir_online","lstring","_CONDOR_SCRATCH_DIR"
+		</Stream>
+	</Table>
+	<Table Name="sngl_inspiral:table">
+		<Column Type="real_4" Name="Gamma0"/>
+		<Column Type="real_4" Name="Gamma1"/>
+		<Column Type="real_4" Name="bank_chisq"/>
+		<Column Type="int_4s" Name="bank_chisq_dof"/>
+		<Column Type="real_4" Name="chisq"/>
+		<Column Type="int_4s" Name="chisq_dof"/>
+		<Column Type="real_4" Name="coa_phase"/>
+		<Column Type="real_4" Name="eff_distance"/>
+		<Column Type="int_4s" Name="end_time"/>
+		<Column Type="int_4s" Name="end_time_ns"/>
+		<Column Type="int_8s" Name="event_id"/>
+		<Column Type="lstring" Name="ifo"/>
+		<Column Type="real_4" Name="mass1"/>
+		<Column Type="real_4" Name="mass2"/>
+		<Column Type="int_8s" Name="process:process_id"/>
+		<Column Type="real_8" Name="sigmasq"/>
+		<Column Type="real_4" Name="snr"/>
+		<Column Type="real_4" Name="spin1x"/>
+		<Column Type="real_4" Name="spin1y"/>
+		<Column Type="real_4" Name="spin1z"/>
+		<Column Type="real_4" Name="spin2x"/>
+		<Column Type="real_4" Name="spin2y"/>
+		<Column Type="real_4" Name="spin2z"/>
+		<Column Type="lstring" Name="search"/>
+		<Column Type="lstring" Name="channel"/>
+		<Column Type="real_8" Name="end_time_gmst"/>
+		<Column Type="int_4s" Name="impulse_time"/>
+		<Column Type="int_4s" Name="impulse_time_ns"/>
+		<Column Type="real_8" Name="template_duration"/>
+		<Column Type="real_8" Name="event_duration"/>
+		<Column Type="real_4" Name="amplitude"/>
+		<Column Type="real_4" Name="mchirp"/>
+		<Column Type="real_4" Name="mtotal"/>
+		<Column Type="real_4" Name="eta"/>
+		<Column Type="real_4" Name="kappa"/>
+		<Column Type="real_4" Name="chi"/>
+		<Column Type="real_4" Name="tau0"/>
+		<Column Type="real_4" Name="tau2"/>
+		<Column Type="real_4" Name="tau3"/>
+		<Column Type="real_4" Name="tau4"/>
+		<Column Type="real_4" Name="tau5"/>
+		<Column Type="real_4" Name="ttotal"/>
+		<Column Type="real_4" Name="psi0"/>
+		<Column Type="real_4" Name="psi3"/>
+		<Column Type="real_4" Name="alpha"/>
+		<Column Type="real_4" Name="alpha1"/>
+		<Column Type="real_4" Name="alpha2"/>
+		<Column Type="real_4" Name="alpha3"/>
+		<Column Type="real_4" Name="alpha4"/>
+		<Column Type="real_4" Name="alpha5"/>
+		<Column Type="real_4" Name="alpha6"/>
+		<Column Type="real_4" Name="beta"/>
+		<Column Type="real_4" Name="f_final"/>
+		<Column Type="real_4" Name="cont_chisq"/>
+		<Column Type="int_4s" Name="cont_chisq_dof"/>
+		<Column Type="real_4" Name="rsqveto_duration"/>
+		<Column Type="real_4" Name="Gamma2"/>
+		<Column Type="real_4" Name="Gamma3"/>
+		<Column Type="real_4" Name="Gamma4"/>
+		<Column Type="real_4" Name="Gamma5"/>
+		<Column Type="real_4" Name="Gamma6"/>
+		<Column Type="real_4" Name="Gamma7"/>
+		<Column Type="real_4" Name="Gamma8"/>
+		<Column Type="real_4" Name="Gamma9"/>
+		<Stream Delimiter="," Type="Local" Name="sngl_inspiral:table">
+			0,0,0,0,0.88,5,-0.52,89.11,1120964276,112089844,0,"H1",2.23,1.44,1,0,5.72,0,0,0.61,0,0,-0.0492,"035","GDS-CALIB_STRAIN_O2Replay",0,0,0,241.22,0,0,1.78,3.22,0.44,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2048,0,0,0,0,0,0,0,0,0,0,0
+		</Stream>
+	</Table>
+	<Table Name="coinc_definer:table">
+		<Column Type="int_8s" Name="coinc_def_id"/>
+		<Column Type="lstring" Name="description"/>
+		<Column Type="lstring" Name="search"/>
+		<Column Type="int_4u" Name="search_coinc_type"/>
+		<Stream Delimiter="," Type="Local" Name="coinc_definer:table">
+			3,"sngl_inspiral&lt;--&gt;sngl_inspiral coincidences","inspiral",0
+		</Stream>
+	</Table>
+	<Table Name="coinc_event:table">
+		<Column Type="int_8s" Name="coinc_definer:coinc_def_id"/>
+		<Column Type="int_8s" Name="coinc_event_id"/>
+		<Column Type="lstring" Name="instruments"/>
+		<Column Type="real_8" Name="likelihood"/>
+		<Column Type="int_4u" Name="nevents"/>
+		<Column Type="int_8s" Name="process:process_id"/>
+		<Column Type="int_8s" Name="time_slide:time_slide_id"/>
+		<Stream Delimiter="," Type="Local" Name="coinc_event:table">
+			3,1,"H1",0,2,1,6
+		</Stream>
+	</Table>
+	<Table Name="coinc_event_map:table">
+		<Column Type="int_8s" Name="coinc_event:coinc_event_id"/>
+		<Column Type="int_8s" Name="event_id"/>
+		<Column Type="char_v" Name="table_name"/>
+		<Stream Delimiter="," Type="Local" Name="coinc_event_map:table">
+			1,0,"sngl_inspiral"
+		</Stream>
+	</Table>
+	<Table Name="time_slide:table">
+		<Column Type="lstring" Name="instrument"/>
+		<Column Type="real_8" Name="offset"/>
+		<Column Type="int_8s" Name="process:process_id"/>
+		<Column Type="int_8s" Name="time_slide_id"/>
+		<Stream Delimiter="," Type="Local" Name="time_slide:table">
+			"H1",0,1,6
+		</Stream>
+	</Table>
+	<Table Name="coinc_inspiral:table">
+		<Column Type="int_8s" Name="coinc_event:coinc_event_id"/>
+		<Column Type="real_8" Name="combined_far"/>
+		<Column Type="int_4s" Name="end_time"/>
+		<Column Type="int_4s" Name="end_time_ns"/>
+		<Column Type="real_8" Name="false_alarm_rate"/>
+		<Column Type="lstring" Name="ifos"/>
+		<Column Type="real_8" Name="mass"/>
+		<Column Type="real_8" Name="mchirp"/>
+		<Column Type="real_8" Name="minimum_duration"/>
+		<Column Type="real_8" Name="snr"/>
+		<Stream Delimiter="," Type="Local" Name="coinc_inspiral:table">
+			1,3.27e-07,1120964196,2342523,0,"H1",3.98,1.522,242.93,8.022220000000001
+		</Stream>
+	</Table>
+	<Table Name="postcoh:table">
+		<Column Type="int_4s" Name="postcoh:bankid"/>
+		<Column Type="real_4" Name="postcoh:chisq_H"/>
+		<Column Type="real_4" Name="postcoh:chisq_L"/>
+		<Column Type="real_4" Name="postcoh:chisq_V"/>
+		<Column Type="real_4" Name="postcoh:cmbchisq"/>
+		<Column Type="real_4" Name="postcoh:coaphase_H"/>
+		<Column Type="real_4" Name="postcoh:coaphase_L"/>
+		<Column Type="real_4" Name="postcoh:coaphase_V"/>
+		<Column Type="real_4" Name="postcoh:cohsnr"/>
+		<Column Type="real_8" Name="postcoh:dec"/>
+		<Column Type="real_8" Name="postcoh:deff_H"/>
+		<Column Type="real_8" Name="postcoh:deff_L"/>
+		<Column Type="real_8" Name="postcoh:deff_V"/>
+		<Column Type="int_4s" Name="postcoh:end_time"/>
+		<Column Type="int_4s" Name="postcoh:end_time_H"/>
+		<Column Type="int_4s" Name="postcoh:end_time_L"/>
+		<Column Type="int_4s" Name="postcoh:end_time_V"/>
+		<Column Type="int_4s" Name="postcoh:end_time_ns"/>
+		<Column Type="int_4s" Name="postcoh:end_time_ns_H"/>
+		<Column Type="int_4s" Name="postcoh:end_time_ns_L"/>
+		<Column Type="int_4s" Name="postcoh:end_time_ns_V"/>
+		<Column Type="real_4" Name="postcoh:eta"/>
+		<Column Type="int_8s" Name="postcoh:event_id"/>
+		<Column Type="real_4" Name="postcoh:fap"/>
+		<Column Type="real_4" Name="postcoh:far"/>
+		<Column Type="real_4" Name="postcoh:far_1d"/>
+		<Column Type="real_4" Name="postcoh:far_1w"/>
+		<Column Type="real_4" Name="postcoh:far_2h"/>
+		<Column Type="real_4" Name="postcoh:far_h"/>
+		<Column Type="real_4" Name="postcoh:far_h_1d"/>
+		<Column Type="real_4" Name="postcoh:far_h_1w"/>
+		<Column Type="real_4" Name="postcoh:far_h_2h"/>
+		<Column Type="real_4" Name="postcoh:far_l"/>
+		<Column Type="real_4" Name="postcoh:far_l_1d"/>
+		<Column Type="real_4" Name="postcoh:far_l_1w"/>
+		<Column Type="real_4" Name="postcoh:far_l_2h"/>
+		<Column Type="real_4" Name="postcoh:far_v"/>
+		<Column Type="real_4" Name="postcoh:far_v_1d"/>
+		<Column Type="real_4" Name="postcoh:far_v_1w"/>
+		<Column Type="real_4" Name="postcoh:far_v_2h"/>
+		<Column Type="lstring" Name="postcoh:ifos"/>
+		<Column Type="int_4s" Name="postcoh:is_background"/>
+		<Column Type="int_4s" Name="postcoh:livetime"/>
+		<Column Type="real_4" Name="postcoh:mass1"/>
+		<Column Type="real_4" Name="postcoh:mass2"/>
+		<Column Type="real_4" Name="postcoh:mchirp"/>
+		<Column Type="real_4" Name="postcoh:mtotal"/>
+		<Column Type="real_4" Name="postcoh:nullsnr"/>
+		<Column Type="lstring" Name="postcoh:pivotal_ifo"/>
+		<Column Type="int_4s" Name="postcoh:pix_idx"/>
+		<Column Type="int_8s" Name="postcoh:process_id"/>
+		<Column Type="real_8" Name="postcoh:ra"/>
+		<Column Type="real_8" Name="postcoh:rank"/>
+		<Column Type="lstring" Name="postcoh:skymap_fname"/>
+		<Column Type="real_4" Name="postcoh:snglsnr_H"/>
+		<Column Type="real_4" Name="postcoh:snglsnr_L"/>
+		<Column Type="real_4" Name="postcoh:snglsnr_V"/>
+		<Column Type="real_4" Name="postcoh:spearman_pval"/>
+		<Column Type="real_4" Name="postcoh:spin1x"/>
+		<Column Type="real_4" Name="postcoh:spin1y"/>
+		<Column Type="real_4" Name="postcoh:spin1z"/>
+		<Column Type="real_4" Name="postcoh:spin2x"/>
+		<Column Type="real_4" Name="postcoh:spin2y"/>
+		<Column Type="real_4" Name="postcoh:spin2z"/>
+		<Column Type="real_8" Name="postcoh:template_duration"/>
+		<Column Type="int_4s" Name="postcoh:tmplt_idx"/>
+		<Stream Delimiter="," Type="Local" Name="postcoh:table">
+			128,0.88,0.57,1.44,3.14,-0.77,0.11,0.92,7.12,15.22,99.12,398.23,45.66,1220965376,1220964276,1220965376,1220965376,142089244,142089244,134765622,134277341,0.23899298,117066,0,4.01e-07,4.001e-07,3.92e-07,7.01e-08,0.02,0.01,0.02,0.01,2.29,1.99,1.87,2.41,2.67,1.77,1.91,2.23,"H1",0,12700,2.1,1.57,1.69,3.77,1.04,"H1",1070,0,139.12,561940304,"",5.98,2.72,4.2,0,0,0,0.611,0,0,-0.092,272.45,670
+		</Stream>
+	</Table>
+</LIGO_LW>

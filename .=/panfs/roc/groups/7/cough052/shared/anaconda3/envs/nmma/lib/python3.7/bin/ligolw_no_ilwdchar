@@ -1,0 +1,91 @@
+#!/home/cough052/barna314/anaconda3/envs/nmma/bin/python3.7
+#
+# Copyright (C) 2017--2020  Kipp Cannon
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; either version 3 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+
+#
+# =============================================================================
+#
+#                                   Preamble
+#
+# =============================================================================
+#
+
+
+import logging
+from optparse import OptionParser
+from ligo.lw import __version__, __date__
+from ligo.lw import array as ligolw_array
+from ligo.lw import ligolw
+from ligo.lw import param as ligolw_param
+from ligo.lw import table as ligolw_table
+from ligo.lw import utils as ligolw_utils
+from ligo.lw.utils import ilwd
+
+
+@ligolw_table.use_in
+@ligolw_array.use_in
+@ligolw_param.use_in
+class LIGOLWContentHandler(ligolw.LIGOLWContentHandler):
+	pass
+
+
+#
+# =============================================================================
+#
+#                                 Command Line
+#
+# =============================================================================
+#
+
+
+def parse_command_line():
+	parser = OptionParser(
+		version = "Name: %%prog\n%s" % __version__,
+		usage = "%prog [filename ...]",
+		description = "Convert ilwd:char columns to int_8s.  Also ensure table name prefixes are removed from columns that shouldn't have them, according to the specifications in lsctables.  Files are converted *in place*.  Make a copy before conversion if you wish to preserve the original.  If no filenames are given, stdin is converted to stdout.  Files are overwritten even if no changes are made."
+	)
+	parser.add_option("-v", "--verbose", action = "store_true", help = "Be verbose.")
+	options, filenames = parser.parse_args()
+	return options, filenames
+
+
+#
+# =============================================================================
+#
+#                                     Main
+#
+# =============================================================================
+#
+
+
+options, filenames = parse_command_line()
+
+
+if options.verbose:
+	logging.basicConfig(format = "%(asctime)s:%(message)s", level = logging.INFO)
+else:
+	logging.basicConfig(format = "%(asctime)s:%(message)s")
+
+
+for filename in filenames or [None]:
+	xmldoc = ligolw_utils.load_filename(filename, verbose = options.verbose, contenthandler = LIGOLWContentHandler)
+
+	ilwd.strip_ilwdchar(xmldoc)
+
+	ligolw_utils.write_filename(xmldoc, filename, verbose = options.verbose)
+	xmldoc.unlink()

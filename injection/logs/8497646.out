@@ -1,0 +1,2 @@
+Namespace(binary_type='BNS', cpus=4, eos_file='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/ALF2.dat', extension='dat', filters='g,r,i', id_number='0', injection_detection_limit='22,22,22', label='testLC', model='Bu2019lm', n_injection=100, outfolder='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/100mpc_kne/', prior_file='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/close_barebones_test_prior.json', svd_path='/panfs/roc/groups/7/cough052/shared/NMMA/svdmodels/')
+slurm job: 8497646

@@ -1,0 +1,20 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using most recent directory 9999998-9999999
+Candidate Directory: /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/9999998-9999999/
+cwd: /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/9999998-9999999
+Found object: ZTF21acdwctm
+evaluating candidate: ZTF21acdwctm
+should be submitting Bu2019lm job
+Submitted job for candidate ZTF21acdwctm, model Bu2019lm. Job id: 7049981
+
+should be submitting nugent-hyper job
+Submitted job for candidate ZTF21acdwctm, model nugent-hyper. Job id: 7049982
+
+should be submitting TrPi2018 job
+Submitted job for candidate ZTF21acdwctm, model TrPi2018. Job id: 7049983
+
+timeout error
+wrote fin file
+Ran rsync push
+Sent Slack bot command

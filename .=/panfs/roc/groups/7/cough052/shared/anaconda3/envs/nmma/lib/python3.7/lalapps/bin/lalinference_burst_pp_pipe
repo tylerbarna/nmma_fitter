@@ -1,0 +1,5 @@
+#!/bin/sh
+PYTHONPATH="/builds/lscsoft/lalsuite/wheel/build/inst/lib/python3.7/site-packages:${PYTHONPATH}"
+export PYTHONPATH
+exec /opt/python/cp37-cp37m/bin/python "/builds/lscsoft/lalsuite/wheel/build/inst/libexec/lalinference/lalinference_burst_pp_pipe.py" "$@"
+exit 1

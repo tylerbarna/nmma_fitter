@@ -1,0 +1,7 @@
+usage: injectionScript.py [-h] --prior-file PRIOR_FILE --eos-file EOS_FILE
+                          [-n N_INJECTION] --binary-type BINARY_TYPE
+                          [-f FILENAME] [-e {json,dat}] --model MODEL --label
+                          LABEL [--svd-path SVD_PATH] [--filters FILTERS]
+                          [--injection-detection-limit INJECTION_DETECTION_LIMIT]
+                          [--outdir OUTDIR] [--cpus CPUS]
+injectionScript.py: error: unrecognized arguments: /panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/close_barebones/injection.json

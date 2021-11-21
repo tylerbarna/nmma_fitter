@@ -1,0 +1,6 @@
+log10_mej_dyn  = Uniform(name='log10_mej_dyn', minimum=-3.5, maximum=-0.5)
+log10_mej_wind = Uniform(name='log10_mej_wind', minimum=-3., maximum=-0.5)
+KNphi = Uniform(name='KNphi', minimum=15., maximum=75., latex_label='$\\Phi$')
+KNtheta = Uniform(name='KNtheta', minimum=15., maximum=75., latex_label='$\\Theta$')
+inclination_EM = Sine(name='inclination_EM', minimum=0., maximum=np.pi/2., latex_label='$\\iota$')
+luminosity_distance = bilby.gw.prior.UniformComovingVolume(minimum=0.0, maximum=50., name='luminosity_distance',latex_label='$D_L$')

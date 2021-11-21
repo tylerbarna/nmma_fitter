@@ -1,0 +1,40 @@
+Metadata-Version: 2.1
+Name: nmma
+Version: 0.0.1
+Summary: A nuclear physics multi-messenger Bayesian inference library
+Home-page: https://git.ligo.org/tsun-ho.pang/nmma
+Author: Peter Tsun Ho Pang, Michael Coughlin, Tim Dietrich, Ingo Tews
+Author-email: thopang@nikhef.nl
+License: MIT
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.5
+Description-Content-Type: text/x-rst
+Requires-Dist: future
+Requires-Dist: bilby
+Requires-Dist: bilby-pipe
+Requires-Dist: parallel-bilby
+Requires-Dist: numpy (>=1.18.1)
+Requires-Dist: matplotlib (>=2.0)
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: astropy
+Requires-Dist: scikit-learn
+Requires-Dist: afterglowpy (>=0.7.3)
+Requires-Dist: mpi4py
+Requires-Dist: pymultinest
+Requires-Dist: sncosmo
+Requires-Dist: dust-extinction
+Requires-Dist: wrapt-timeout-decorator
+
+|pipeline status| |coverage report| |pypi| |conda| |version|
+
+=====
+NMMA
+=====
+
+
+

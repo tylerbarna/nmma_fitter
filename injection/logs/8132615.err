@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 15, in <module>
+    from fit_utils import get_bestfit_lightcurve, parse_csv
+ModuleNotFoundError: No module named 'fit_utils'
+chmod: cannot access '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/LCScript': No such file or directory

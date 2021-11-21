@@ -1,0 +1,3 @@
+[console_scripts]
+gw_data_find = gwdatafind.__main__:main
+

@@ -1,0 +1,63 @@
+Metadata-Version: 2.1
+Name: parallel-bilby
+Version: 1.0.1
+Summary: Running bilby at scale
+Home-page: https://git.ligo.org/gregory.ashton/parallel_bilby
+Author: Gregory Ashton, Rory Smith, Avi Vajpeyi
+Author-email: gregory.ashton@ligo.org
+License: MIT
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX
+Requires-Dist: future
+Requires-Dist: bilby (>=1.1.1)
+Requires-Dist: bilby-pipe (>=1.0.3)
+Requires-Dist: scipy (>=1.2.0)
+Requires-Dist: gwpy
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: tqdm
+Requires-Dist: corner
+Requires-Dist: dynesty (>=1.0.0)
+Requires-Dist: schwimmbad
+Requires-Dist: pandas
+Requires-Dist: nestcheck
+Requires-Dist: mpi4py (>3.0.0)
+
+|pipeline status| |coverage report| |pypi| |conda| |version|
+
+
+Parallel Bilby
+==============
+
+A python package to run gravitational wave inference analyses on multiple cores of a
+machine using their message passing interface (MPI).
+
+Online material to help you get started:
+
+* `Installation instructions`_
+* `Examples`_
+* `Documentation`_
+* `Parallel Bilby paper`_
+
+
+.. _Documentation: https://lscsoft.docs.ligo.org/parallel_bilby/
+.. _Installation instructions: https://lscsoft.docs.ligo.org/parallel_bilby/installation
+.. _Examples: https://lscsoft.docs.ligo.org/parallel_bilby/examples
+.. _Parallel Bilby paper: https://arxiv.org/pdf/1909.11873.pdf
+
+.. |pipeline status| image:: https://git.ligo.org/lscsoft/parallel_bilby/badges/master/pipeline.svg
+   :target: https://git.ligo.org/lscsoft/parallel_bilby/commits/master
+.. |coverage report| image:: https://lscsoft.docs.ligo.org/parallel_bilby/coverage_badge.svg
+   :target: https://lscsoft.docs.ligo.org/parallel_bilby/htmlcov/
+.. |version| image:: https://img.shields.io/pypi/pyversions/parallel_bilby.svg
+   :target: https://pypi.org/project/parallel_bilby/
+.. |pypi| image:: https://badge.fury.io/py/parallel-bilby.svg
+   :target: https://pypi.org/project/parallel_bilby/
+.. |conda| image:: https://anaconda.org/conda-forge/parallel-bilby/badges/version.svg
+   :target: https://anaconda.org/conda-forge/parallel-bilby
+

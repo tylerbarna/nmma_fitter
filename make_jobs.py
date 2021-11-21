@@ -27,7 +27,7 @@ parser.add_argument("-s","--slackBot", action='store_true')
 ## Currently not in use: models argument that takes multiple models in form of '--models "x" "y" "z"' for fitting and posting
 ## Would have to pass args.models as model_list when submitting jobs
 ## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
-parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018"])
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018", "Piro2021"])
 
 ## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 6 hours)
 parser.add_argument("-t","--timeout",type=int,default=21600)
@@ -66,7 +66,8 @@ og_directory = os.getcwd()
 ## Should probably rework so we remove dependence on location of job
 job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
             "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
-            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"}
+            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
+            "Piro2021": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",}
 
 # List of models to run.
 ## Would like to change this so it's passed as an argument
@@ -119,12 +120,13 @@ for file in glob.glob(search_directory + "/*.csv"):
     logfile = open(log_filename, "a+")
     logfile.write("Found object: %s" % candname +"\n")
     logfile.close()
+    print("Found object: %s" % candname) 
 
 if not candidate_names: ## If there are no candidates found, quit here
     logfile = open(log_filename, "a+")
     logfile.write("No objects found \n")
     logfile.close()
-    quit()
+    #quit()
 ## want to alter structure so recurring job checks that all candidates have existing subdirectories
 ## rather than checking if a daily directory has been made; it would also be useful to have the option
 ## to set it so a specific candidate from a specific day could be fit 
@@ -136,6 +138,7 @@ live_jobs = {}
 for ii in range(len(file_list)):
     # Load the file and certify that there are at least two detections
     data = parse_csv(file_list[ii], candidate_names[ii])
+    print("evaluating candidate: %s" % candidate_names[ii])
     detections = 0
     for line in data:
         # Check is not a non-detection
@@ -145,9 +148,11 @@ for ii in range(len(file_list)):
         logfile = open(log_filename, "a+")
         logfile.write("Not enough data for candidate %s... continuing\n"%candidate_names[ii])
         logfile.close()
+        print("Not enough data for candidate %s... continuing\n"%candidate_names[ii])
         continue
     #Submit jobs for each model
     for model in model_list:
+        print("should be submitting %s job"%model)
         # -TODO- May want to eliminate shell=True. Apparently there are security holes associated with that.
         # Submit job
         ## Trying to add argument so it corrects directory change in nmma_fit
@@ -169,6 +174,7 @@ for ii in range(len(file_list)):
         logfile = open(log_filename, "a")
         logfile.write("Submitted job for candidate " + candidate_names[ii] + ", model " + model + ". Job id: " + str(job_id) + "\n")
         logfile.close()
+        print("Submitted job for candidate " + candidate_names[ii] + ", model " + model + ". Job id: " + str(job_id) + "\n")
         
         job_id_list.append(job_id)
         live_jobs[job_id] = (candidate_names[ii], model)
@@ -180,6 +186,10 @@ while len(live_jobs) > 0:
     time.sleep(60)
     currentTime = time.time()
     if currentTime-startTime > args.timeout:
+        print("timeout error")
+        logfile = open(log_filename, "a")
+        logfile.write("Timeout Error: Jobs exceeded time allotment \n")
+        logfile.close()
         break
 
     finished_jobs = []
@@ -192,6 +202,7 @@ while len(live_jobs) > 0:
             ## temporarily, this is addressed by there being a timeout for how long to wait before pushing to schoty
             logfile = open(log_filename, "a")
             logfile.write("Job " + str(id) + " for candidate " + candname + " with model " + model + " completed. Produced the following output: \n")
+            print("Job " + str(id) + " for candidate " + candname + " with model " + model + " completed.")
             
             outfile = open(str(id) + ".out", 'r')
             logfile.write(outfile.read())
@@ -231,6 +242,7 @@ for id in job_id_list:
 completefile = os.path.join('.', latest_directory + '.fin')
 file = open(completefile, "w") 
 file.close()
+print("wrote fin file")
 
 time.sleep(60)
 
@@ -246,6 +258,8 @@ for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shar
 time.sleep(60)
 subprocess.run("rsync -av /home/cough052/shared/ztfrest/candidate_fits ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest", shell=True, capture_output=True)
 time.sleep(60)
+print("Ran rsync push")
 ## would like to make it so slackBot runs after each object finishes its fits, but that likely requires some reworking of the while loop
 if args.slackBot:
     subprocess.run("ssh ztfrest@schoty.caltech.edu bash /scr2/ztfrest/ZTF/ztfrest/nmma_slack_bot.sh", shell=True, capture_output=True)
+    print("Sent Slack bot command")

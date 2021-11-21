@@ -1,0 +1,11 @@
+#!/home/cough052/barna314/anaconda3/envs/nmma/bin/python3.7
+import os
+import sys
+try:
+    from importlib import resources
+except ImportError:
+    # FIXME: remove after dropping support for Python < 3.7
+    import importlib_resources as resources
+with resources.path('lalapps', '__init__.py') as new_path:
+    new_path = str(new_path.parent / 'bin' / 'lalapps_heterodyne_pulsar')
+os.execv(new_path, sys.argv)

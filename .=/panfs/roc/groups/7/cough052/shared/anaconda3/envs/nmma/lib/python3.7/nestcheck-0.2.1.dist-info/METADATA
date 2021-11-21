@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: nestcheck
+Version: 0.2.1
+Summary: Error analysis, diagnostic tests and plots for nested sampling calculations.
+Home-page: https://github.com/ejhigson/nestcheck
+Author: Edward Higson
+Author-email: e.higson@mrao.cam.ac.uk
+License: MIT
+Project-URL: Docs, http://nestcheck.readthedocs.io/en/latest/
+Keywords: nested-sampling sampling error-analysis
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Description-Content-Type: text/x-rst
+Requires-Dist: numpy (>=1.16)
+Requires-Dist: scipy (>=1.0.0)
+Requires-Dist: matplotlib (>=2.1.0)
+Requires-Dist: fgivenx (>=2.1.11)
+Requires-Dist: pandas (>=0.21.0)
+Requires-Dist: tqdm (>=4.11)
+Requires-Dist: futures ; python_version == "2.7"
+Provides-Extra: docs
+Requires-Dist: sphinx ; extra == 'docs'
+Requires-Dist: numpydoc ; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme ; extra == 'docs'
+Requires-Dist: nbsphinx (>=0.3.3) ; extra == 'docs'
+
+nestcheck
+=========
+
+.. image:: https://travis-ci.org/ejhigson/nestcheck.svg?branch=master
+    :target: https://travis-ci.org/ejhigson/nestcheck
+.. image:: https://coveralls.io/repos/github/ejhigson/nestcheck/badge.svg?branch=master
+	:target: https://coveralls.io/github/ejhigson/nestcheck?branch=master
+.. image:: https://readthedocs.org/projects/nestcheck/badge/?version=latest
+	:target: http://nestcheck.readthedocs.io/en/latest/?badge=latest
+.. image:: https://api.codeclimate.com/v1/badges/7fdfe74eb8256020c780/maintainability
+    :target: https://codeclimate.com/github/ejhigson/nestcheck/maintainability
+    :alt: Maintainability
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://github.com/ejhigson/nestcheck/LICENSE
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Read the documentation at `http://nestcheck.readthedocs.io <http://nestcheck.readthedocs.io>`_.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+

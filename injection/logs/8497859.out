@@ -1,0 +1,7 @@
+Namespace(binary_type='BNS', cpus=4, eos_file='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/ALF2.dat', extension='dat', filters='g,r,i', id_number='0', injection_detection_limit='22,22,22', label='testLC', model='Bu2019lm', n_injection=100000, outfolder='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/100mpc_kne/', prior_file='/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/close_barebones_test_prior.json', svd_path='/panfs/roc/groups/7/cough052/shared/NMMA/svdmodels/')
+slurm job: 8497859
+2021-11-21T03:42:09.257 creating injection
+2021-11-21T03:42:14.561 doing geocent_time workaround
+2021-11-21T03:42:16.269 creating lightcurves
+2021-11-21T10:21:05.175 combining lightcurves
+2021-11-21T10:26:37.556 lightcurve generation complete

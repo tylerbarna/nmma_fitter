@@ -1,0 +1,23 @@
+[console_scripts]
+summaryclassification = pesummary.cli.summaryclassification:main
+summaryclean = pesummary.cli.summaryclean:main
+summarycombine = pesummary.cli.summarycombine:main
+summarycombine_posteriors = pesummary.cli.summarycombine_posteriors:main
+summarycompare = pesummary.cli.summarycompare:main
+summarydetchar = pesummary.cli.summarydetchar:main
+summaryextract = pesummary.cli.summaryextract:main
+summarygracedb = pesummary.cli.summarygracedb:main
+summaryjscompare = pesummary.cli.summaryjscompare:main
+summarymodify = pesummary.cli.summarymodify:main
+summarypages = pesummary.cli.summarypages:main
+summarypageslw = pesummary.cli.summarypageslw:main
+summarypipe = pesummary.cli.summarypipe:main
+summaryplots = pesummary.cli.summaryplots:main
+summarypublication = pesummary.cli.summarypublication:main
+summaryrecreate = pesummary.cli.summaryrecreate:main
+summaryreview = pesummary.cli.summaryreview:main
+summarysplit = pesummary.cli.summarysplit:main
+summarytest = pesummary.cli.summarytest:main
+summarytgr = pesummary.cli.summarytgr:main
+summaryversion = pesummary.cli.summaryversion:main
+

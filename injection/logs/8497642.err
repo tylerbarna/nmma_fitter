@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/injection/injectionScript.py", line 56, in <module>
+    print('%s creating injection' % Time(time.time()).isot)
+  File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/site-packages/astropy/time/core.py", line 1528, in __init__
+    precision, in_subfmt, out_subfmt)
+  File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/site-packages/astropy/time/core.py", line 382, in _init_from_vals
+    precision, in_subfmt, out_subfmt)
+  File "/home/cough052/barna314/anaconda3/envs/nmma/lib/python3.7/site-packages/astropy/time/core.py", line 426, in _get_time_fmt
+    raise ValueError("No time format was given, and the input is "
+ValueError: No time format was given, and the input is not unique

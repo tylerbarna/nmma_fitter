@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<voe:VOEvent
+      ivorn="fake_ivorn"
+      role="observation" version="2.0"
+      xmlns:voe="http://www.ivoa.net/xml/VOEvent/v2.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ivoa.net/xml/VOEvent/v2.0  http://www.ivoa.net/xml/VOEvent/VOEvent-v2.0.xsd" >
+  <Who>
+    <AuthorIVORN>ivo://nasa.gsfc.tan/gcn</AuthorIVORN>
+    <Author>
+      <shortName>Fermi (via VO-GCN)</shortName>
+      <contactName>Albert Einstein</contactName>
+      <contactPhone>+1-234-567-8901</contactPhone>
+      <contactEmail>albert.einstein@nasa.gov</contactEmail>
+    </Author>
+    <Date>2019-03-31T04:11:03</Date>
+    <Description>This VOEvent message was created with GCN VOE version: 1.27 31mar19</Description>
+  </Who>
+  <What>
+    <Param name="Packet_Type"    value="115" />
+    <Param name="Pkt_Ser_Num"    value="1" />
+    <Param name="TrigID"         value="123456789" ucd="meta.id" />
+    <Param name="Sequence_Num"   value="0" ucd="meta.id.part" />
+    <Param name="Burst_TJD"      value="1234" unit="days" ucd="time" />
+    <Param name="Burst_SOD"      value="8802.11" unit="sec" ucd="time" />
+    <Param name="Burst_Inten"    value="0" unit="cts" ucd="phot.count" />
+    <Param name="Data_Integ"     value="0.000" unit="sec" ucd="time.interval" />
+    <Param name="Burst_Signif"   value="0.00" unit="sigma" ucd="stat.snr" />
+    <Param name="Phi"            value="12.31" unit="deg" ucd="pos.az.azi" />
+    <Param name="Theta"          value="89.54" unit="deg" ucd="pos.az.zd" />
+    <Param name="Algorithm"      value="765" unit="dn" />
+    <Param name="Lo_Energy"      value="12000" unit="keV"  />
+    <Param name="Hi_Energy"      value="650000" unit="keV"  />
+    <Param name="Trigger_ID"     value="0x0" />
+    <Param name="Misc_flags"     value="0x40000000" />
+    <Group name="Trigger_ID" >
+      <Param name="Def_NOT_a_GRB"         value="false" />
+      <Param name="Target_in_Blk_Catalog" value="false" />
+      <Param name="Spatial_Prox_Match"    value="false" />
+      <Param name="Temporal_Prox_Match"   value="false" />
+      <Param name="Test_Submission"       value="false" />
+    </Group>
+    <Group name="Misc_Flags" >
+      <Param name="Values_Out_of_Range"   value="false" />
+      <Param name="Flt_Generated"         value="false" />
+      <Param name="Gnd_Generated"         value="true" />
+      <Param name="CRC_Error"             value="false" />
+    </Group>
+    <Param name="LightCurve_URL" value="http://fake.com/fake.gif" ucd="meta.ref.url" />
+    <Param name="LocationMap_URL" value="http://fake.com/fake.png.png" ucd="meta.ref.url" />
+    <Param name="Coords_Type"    value="1" unit="dn" />
+    <Param name="Coords_String"  value="source_object" />
+    <Group name="Obs_Support_Info" >
+      <Description>The Sun and Moon values are valid at the time the VOEvent XML message was created.</Description>
+      <Param name="Sun_RA"        value="123.45" unit="deg" ucd="pos.eq.ra" />
+      <Param name="Sun_Dec"       value="-43.21" unit="deg" ucd="pos.eq.dec" />
+      <Param name="Sun_Distance"  value="67.89" unit="deg" ucd="pos.angDistance" />
+      <Param name="Sun_Hr_Angle"  value="-1.87" unit="hr" />
+      <Param name="Moon_RA"       value="321.12" unit="deg" ucd="pos.eq.ra" />
+      <Param name="Moon_Dec"      value="-22.22" unit="deg" ucd="pos.eq.dec" />
+      <Param name="MOON_Distance" value="14.91" unit="deg" ucd="pos.angDistance" />
+      <Param name="Moon_Illum"    value="1.42" unit="%" ucd="arith.ratio" />
+      <Param name="Galactic_Long" value="16.89" unit="deg" ucd="pos.galactic.lon" />
+      <Param name="Galactic_Lat"  value="-39.38" unit="deg" ucd="pos.galactic.lat" />
+      <Param name="Ecliptic_Long" value="312.82" unit="deg" ucd="pos.ecliptic.lon" />
+      <Param name="Ecliptic_Lat"  value="-54.60" unit="deg" ucd="pos.ecliptic.lat" />
+    </Group>
+    <Description>The Fermi-GBM location of a transient.</Description>
+  </What>
+  <WhereWhen>
+    <ObsDataLocation>
+      <ObservatoryLocation id="GEOLUN" />
+      <ObservationLocation>
+        <AstroCoordSystem id="UTC-FK5-GEO" />
+        <AstroCoords coord_system_id="UTC-FK5-GEO">
+          <Time unit="s">
+            <TimeInstant>
+              <ISOTime>2019-03-31T11:02:01.32</ISOTime>
+            </TimeInstant>
+          </Time>
+          <Position2D unit="deg">
+            <Name1>RA</Name1>
+            <Name2>Dec</Name2>
+            <Value2>
+              <C1>345.9900</C1>
+              <C2>-67.8274</C2>
+            </Value2>
+            <Error2Radius>8.8374</Error2Radius>
+          </Position2D>
+        </AstroCoords>
+      </ObservationLocation>
+    </ObsDataLocation>
+  <Description>The RA,Dec coordinates are of the type: source_object.</Description>
+  </WhereWhen>
+  <How>
+    <Description>Fermi Satellite, GBM Instrument</Description>
+    <Reference uri="http://gcn.gsfc.nasa.gov/fermi.html" type="url" />
+  </How>
+  <Why importance="0.95">
+    <Inference probability="1.0">
+      <Concept>process.variation.burst;em.gamma</Concept>
+    </Inference>
+  </Why>
+  <Description>
+  </Description>
+</voe:VOEvent>

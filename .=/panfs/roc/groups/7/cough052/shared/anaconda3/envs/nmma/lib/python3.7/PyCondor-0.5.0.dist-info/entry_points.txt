@@ -1,0 +1,3 @@
+[console_scripts]
+pycondor = pycondor.cli:cli
+
