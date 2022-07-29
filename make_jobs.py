@@ -58,7 +58,7 @@ elif not args.dataDir:
     #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
     latest_directory = np.sort(np.array([f.name for f in os.scandir(candidate_directory) if f.is_dir()]))[-1] ##this should probably work
     print("Using most recent directory %s" % latest_directory)
-search_directory = os.path.join(candidate_directory,latest_directory,"") 
+search_directory = os.path.join(candidate_directory,latest_directory,"") ## BUG: this has unintended side-effect of not being able to use .csv files outside of the candidate directory
 
 og_directory = os.getcwd()
 
@@ -152,7 +152,7 @@ for ii in range(len(file_list)):
         continue
     #Submit jobs for each model
     for model in model_list:
-        print("should be submitting %s job"%model)
+        print("submitting %s job"%model)
         # -TODO- May want to eliminate shell=True. Apparently there are security holes associated with that.
         # Submit job
         ## Trying to add argument so it corrects directory change in nmma_fit

@@ -4,7 +4,7 @@ cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
 
 source /home/cough052/shared/anaconda3/bin/activate nmma
 
-python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py --slackBot
+python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py --slackBot 
 
 chmod -R 777 /panfs/roc/groups/7/cough052/barna314/nmma_fitter/logs/
 
