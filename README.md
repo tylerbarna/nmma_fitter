@@ -1,5 +1,5 @@
 # nmma_fitter
-Realtime node-based lightcurve fitting using NMMA.
+Realtime node-based lightcurve fitting using [NMMA](https://github.com/nuclear-multimessenger-astronomy/nmma).
 
 To run, try:
 
