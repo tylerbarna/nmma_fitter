@@ -1,0 +1,8 @@
+/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/erfa/core.py:155: ErfaWarning: ERFA function "d2dtf" yielded 1 of "dubious year (Note 5)"
+  ErfaWarning)
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py", line 140, in <module>
+    data = parse_csv(file_list[ii], candidate_names[ii])
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/fit_utils.py", line 123, in parse_csv
+    out_file.write(line[0] + " " + line[1] + " " + line[2] + " " + line[3] + "\n")
+TypeError: can only concatenate str (not "numpy.float64") to str

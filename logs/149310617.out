@@ -1,0 +1,57 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using most recent directory 9999998-9999999
+Candidate Directory: /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/9999998-9999999/
+cwd: /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/9999998-9999999
+Found object: ZTF20abwysqy.csv
+Found object: ZTF20abwysqyForced.csv
+Found object: ZTF21abotose.csv
+evaluating candidate: ZTF20abwysqy.csv
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqy.csv, model Bu2019lm. Job id: 149310706
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqy.csv, model nugent-hyper. Job id: 149310708
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqy.csv, model TrPi2018. Job id: 149310711
+
+submitting Piro2021 job
+Submitted job for candidate ZTF20abwysqy.csv, model Piro2021. Job id: 149310714
+
+evaluating candidate: ZTF20abwysqyForced.csv
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForced.csv, model Bu2019lm. Job id: 149310717
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForced.csv, model nugent-hyper. Job id: 149310719
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForced.csv, model TrPi2018. Job id: 149310721
+
+submitting Piro2021 job
+Submitted job for candidate ZTF20abwysqyForced.csv, model Piro2021. Job id: 149310723
+
+evaluating candidate: ZTF21abotose.csv
+submitting Bu2019lm job
+Submitted job for candidate ZTF21abotose.csv, model Bu2019lm. Job id: 149310726
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF21abotose.csv, model nugent-hyper. Job id: 149310729
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF21abotose.csv, model TrPi2018. Job id: 149310732
+
+submitting Piro2021 job
+Submitted job for candidate ZTF21abotose.csv, model Piro2021. Job id: 149310734
+
+Job 149310708 for candidate ZTF20abwysqy.csv with model nugent-hyper completed.
+Job 149310729 for candidate ZTF21abotose.csv with model nugent-hyper completed.
+Job 149310711 for candidate ZTF20abwysqy.csv with model TrPi2018 completed.
+Job 149310706 for candidate ZTF20abwysqy.csv with model Bu2019lm completed.
+Job 149310732 for candidate ZTF21abotose.csv with model TrPi2018 completed.
+Job 149310726 for candidate ZTF21abotose.csv with model Bu2019lm completed.
+timeout error
+wrote fin file
+Ran rsync push
+Sent Slack bot command
