@@ -9,7 +9,7 @@ injection/100mpc_kne.tar.gz
 *.tar.gz
 nmma/
 *.Identifier
-outdir/
+manual_plotter.py
 # find . -size +100M | cat >> .gitignore
 ./.git/objects/pack/pack-028acd9953eda97b164d9b891aa3b185a4e82b95.pack
 ./.git/objects/7f/327eb37568742536205904443b3d707e6c52ba
@@ -19,3 +19,4 @@ outdir/
 ./injection/OldTests/scale_test_csv.csv
 ./svdmodels/Bu2019lm_mag.pkl
 ./svdmodels/Bu2019lm_lbol.pkl
+.vscode/launch.json

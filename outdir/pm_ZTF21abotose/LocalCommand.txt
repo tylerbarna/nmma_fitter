@@ -1,0 +1,1 @@
+light_curve_analysis --model Piro2021 --svd-path ./svdmodels --outdir ./outdir --label ZTF21abotose --prior ZTF_sc_t0.prior --tmin 0.01 --tmax 7.01 --dt 0.35 --nlive 512 --Ebv-max 0.5724 --filters g,r,i --data ./candidate_data/paper_candidates/v1/candidate_data/ZTF21abotose.dat --error-budget 1.0 --detection-limit "{'r':21.5,'g':21.5,'i':21.5}" --trigger-time 59422.318
