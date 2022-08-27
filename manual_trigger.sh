@@ -2,7 +2,7 @@
 #SBATCH --job-name=manual_nmma_fitter
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ztfrest@gmail.com
-#SBATCH --time=11:59:59
+#SBATCH --time=23:59:59
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
