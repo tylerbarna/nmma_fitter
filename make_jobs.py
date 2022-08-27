@@ -30,7 +30,7 @@ parser.add_argument("-s","--slackBot", action='store_true')
 parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018", "Piro2021"])
 
 ## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 6 hours)
-parser.add_argument("-t","--timeout",type=int,default=21600)
+parser.add_argument("-t","--timeout",type=int,default=28800)
 
 args = parser.parse_args()
 
@@ -185,7 +185,7 @@ startTime = time.time()
 while len(live_jobs) > 0:
     time.sleep(60)
     currentTime = time.time()
-    if currentTime-startTime > args.timeout:
+    if currentTime-startTime > int(args.timeout):
         print("timeout error")
         logfile = open(log_filename, "a")
         logfile.write("Timeout Error: Jobs exceeded time allotment \n")
