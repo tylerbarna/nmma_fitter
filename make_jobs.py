@@ -29,8 +29,8 @@ parser.add_argument("-s","--slackBot", action='store_true')
 ## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
 parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm", "nugent-hyper", "TrPi2018", "Piro2021"])
 
-## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 6 hours)
-parser.add_argument("-t","--timeout",type=int,default=28800)
+## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 12 hours)
+parser.add_argument("-t","--timeout",type=int,default=43199)
 
 args = parser.parse_args()
 
