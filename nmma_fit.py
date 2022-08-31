@@ -169,13 +169,14 @@ if prior == None:
 
 # NMMA lightcurve fitting
 # triggered with a shell command
+## would like to alter 
 command_string = "mpiexec -np " + str(cpus) + " light_curve_analysis"\
-    + " --model " + model + " --svd-path " + svd_path + " --outdir " + plotdir\
-    + " --label " + model + " --trigger-time " + str(trigger_time)\
+    + " --model " + str(model) + " --svd-path " + svd_path + " --outdir " + plotdir\
+    + " --label " + str(candname+"_"+model) + " --trigger-time " + str(trigger_time)\
     + " --data " + data_file + " --prior " + prior + " --tmin " + str(tmin)\
     + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
-    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)+\
-    " --detection-limit \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""
+    + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
+    + " --detection-limit \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""
 
 command = subprocess.run(command_string, shell=True, capture_output=True)
 sys.stdout.buffer.write(command.stdout)
@@ -214,7 +215,7 @@ color1 = 'cornflowerblue'
 
 colors=cm.Spectral(np.linspace(0,1,len(filters)))[::-1]
 
-plotName = os.path.join(plotdir, model + '_lightcurves.png')
+plotName = os.path.join(plotdir, str(candname+"_"+model + '_lightcurves.png')
 plt.figure(figsize=(20,28))
 
 cnt = 0

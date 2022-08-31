@@ -99,7 +99,7 @@ trigger_time_heuristic = False
 fit_trigger_time = True
 
 for cand in lc_data: ## hacky way of doing things
-    
+
     candName = cand.split("/")[-1].split(".")[0]
     candDir = os.path.join(outdir,candName,"")
     if not os.path.exists(candDir):
@@ -169,11 +169,13 @@ for cand in lc_data: ## hacky way of doing things
 
         command_string = " light_curve_analysis"\
         + " --model " + model + " --svd-path " + svd_path + " --outdir " + candDir\
-        + " --label " + str(candName+"_"+model) + " --trigger-time " + str(trigger_time)\
+        + " --label " + str(candName+"_"+model+"_"+str(nlive))\
+        + " --trigger-time " + str(trigger_time)\
         + " --data " + cand + " --prior " + prior + " --tmin " + str(tmin)\
         + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
-        + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)+\
-        " --detection-limit \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""+" --plot"
+        + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
+        + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
+        + " --plot"
 
         command = subprocess.run(command_string, shell=True, capture_output=True)
         sys.stdout.buffer.write(command.stdout)
