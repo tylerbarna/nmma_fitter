@@ -30,7 +30,7 @@ parser.add_argument("-c","--candidate", nargs="+", type=str, default=None)
 
 ## Would have to pass args.models as model_list when submitting jobs
 ## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
-parser.add_argument("-m","--models", nargs="+", type=str, default = ["nugent-hyper", "TrPi2018","Piro2021","Bu2019lm"])
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"])
 
 
 
@@ -99,7 +99,7 @@ trigger_time_heuristic = False
 fit_trigger_time = True
 
 for cand in lc_data: ## hacky way of doing things
-
+    print(cand)
     candName = cand.split("/")[-1].split(".")[0]
     candDir = os.path.join(outdir,candName,"")
     if not os.path.exists(candDir):
@@ -158,7 +158,7 @@ for cand in lc_data: ## hacky way of doing things
         elif trigger_time_heuristic:
             # One day before the first non-zero point
             trigger_time = np.inf
-            for row in candTable.iterrows():
+            for index, row in candTable.iterrows():
                 if np.isinf(float(row[3])):
                     continue
                 elif (Time(row[0], format='isot').mjd - 1) < trigger_time:
@@ -167,9 +167,11 @@ for cand in lc_data: ## hacky way of doing things
             # Set the trigger time
             trigger_time = t0
 
+        print(trigger_time)
+
         command_string = " light_curve_analysis"\
         + " --model " + model + " --svd-path " + svd_path + " --outdir " + candDir\
-        + " --label " + str(candName+"_"+model+"_"+str(nlive))\
+        + " --label " + str(candName+"_"+model+"_nlive"+str(nlive))\
         + " --trigger-time " + str(trigger_time)\
         + " --data " + cand + " --prior " + prior + " --tmin " + str(tmin)\
         + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
