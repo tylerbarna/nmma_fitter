@@ -172,7 +172,7 @@ if prior == None:
 ## would like to alter 
 command_string = "mpiexec -np " + str(cpus) + " light_curve_analysis"\
     + " --model " + str(model) + " --svd-path " + svd_path + " --outdir " + plotdir\
-    + " --label " + str(candname+"_"+model) + " --trigger-time " + str(trigger_time)\
+    + " --label " + str(model) + " --trigger-time " + str(trigger_time)\
     + " --data " + data_file + " --prior " + prior + " --tmin " + str(tmin)\
     + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
     + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
@@ -215,7 +215,7 @@ color1 = 'cornflowerblue'
 
 colors=cm.Spectral(np.linspace(0,1,len(filters)))[::-1]
 
-plotName = os.path.join(plotdir, str(candname+"_"+model + '_lightcurves.png')
+plotName = os.path.join(plotdir, str(model + '_lightcurves.png'))
 plt.figure(figsize=(20,28))
 
 cnt = 0
