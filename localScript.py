@@ -177,7 +177,8 @@ for cand in lc_data: ## hacky way of doing things
         + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
         + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
         + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
-        + " --plot"
+        + " --plot"\
+        + " --sampler dynesty"
 
         command = subprocess.run(command_string, shell=True, capture_output=True)
         sys.stdout.buffer.write(command.stdout)
