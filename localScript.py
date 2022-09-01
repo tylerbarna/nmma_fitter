@@ -1,3 +1,4 @@
+from secrets import choice
 import subprocess
 import sys
 import os
@@ -41,13 +42,15 @@ parser.add_argument("--nlive", type=int, default=256, help="Number of live point
 ## where to output plots
 parser.add_argument('-o',"--outdir",type=str,default='./outdir/')
 
+parser.add_argument('-s',"--sampler",type=str,default='pymultinest',choices=['pymultinest','dynesty']) ## Need to implement in command 
+
 args = parser.parse_args()
 
 og_directory = os.getcwd()
 outdir = args.outdir
 svd_path = args.svdmodels
 
-if not args.dataDir or args.candidate:
+if not args.dataDir and not args.candidate:
     print("Please pass --dataDir (-d) and/or --candidate (-c)")
     sys.exit()
 
@@ -73,7 +76,7 @@ if not os.path.exists(outdir):
 if args.dataDir:
     lc_data = glob.glob(args.dataDir+'*.dat', recursive=False)
 elif args.candidate:
-    lc_data = [args.candidate]
+    lc_data = list(args.candidate)
 
 ## assumes working with .dat files already (see nmma_fit.py for how those are found)
 ## could probably add that here so this is fully independent of nmma_fit being done
@@ -88,7 +91,7 @@ Ebv_max = 0.5724
 grb_resolution = 7
 jet_type = 0
 joint_light_curve = False
-sampler = 'pymultinest'
+sampler = args.sampler
 seed = 42
 
 nlive = args.nlive
@@ -178,7 +181,7 @@ for cand in lc_data: ## hacky way of doing things
         + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
         + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
         + " --plot"\
-        + " --sampler dynesty" + " --verbose"
+        + " --sampler " + str(sampler)#+ " --verbose"
 
         command = subprocess.run(command_string, shell=True, capture_output=True)
         sys.stdout.buffer.write(command.stdout)
