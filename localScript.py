@@ -108,8 +108,8 @@ for cand in lc_data: ## hacky way of doing things
     candTable = pd.read_table(cand,delimiter=r'\s+', header=None)
     
     for model in model_list: 
-        tmin = 0
-        tmax = 7
+        tmin = 0.01
+        tmax = 7.01
         dt = 0.1
 
         # GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
@@ -178,7 +178,7 @@ for cand in lc_data: ## hacky way of doing things
         + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
         + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
         + " --plot"\
-        + " --sampler dynesty"
+        + " --sampler dynesty" + " --verbose"
 
         command = subprocess.run(command_string, shell=True, capture_output=True)
         sys.stdout.buffer.write(command.stdout)

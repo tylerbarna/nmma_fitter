@@ -1,27 +1,55 @@
-17:58 INFO    : Running for label 'ZTF20abwysqyForced_TrPi2018_nlive512', output will be saved to './outdir/localScriptTest/ZTF20abwysqyForced/'
-17:58 INFO    : Search parameters:
-17:58 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
-17:58 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
-17:58 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
-17:58 INFO    :   log10_E0 = Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
-17:58 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
-17:58 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
-17:58 INFO    :   log10_n0 = Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
-17:58 INFO    :   p = Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
-17:58 INFO    :   log10_epsilon_e = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
-17:58 INFO    :   log10_epsilon_B = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
-17:58 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
-17:58 INFO    :   ksiN = 1.0
-17:58 INFO    :   L0 = 0.0
-17:58 INFO    :   dL = 3.09e+19
-17:58 INFO    :   b = 6.0
-17:58 INFO    :   q = 0.0
-17:58 INFO    :   ts = 0.0
-17:58 WARNING : Supplied argument 'npool' not an argument of 'Dynesty', removing.
-17:58 WARNING : Supplied argument 'seed' not an argument of 'Dynesty', removing.
-17:58 INFO    : Using sampler Dynesty with kwargs {'bound': 'multi', 'sample': 'rwalk', 'verbose': True, 'periodic': None, 'reflective': None, 'check_point_delta_t': 1800, 'nlive': 512, 'first_update': None, 'walks': 100, 'npdim': None, 'rstate': None, 'queue_size': 1, 'pool': None, 'use_pool': None, 'live_points': None, 'logl_args': None, 'logl_kwargs': None, 'ptform_args': None, 'ptform_kwargs': None, 'enlarge': 1.5, 'bootstrap': None, 'vol_dec': 0.5, 'vol_check': 8.0, 'facc': 0.2, 'slices': 5, 'update_interval': 307, 'print_func': <bound method Dynesty._print_func of <bilby.core.sampler.dynesty.Dynesty object at 0x7f06b8006c80>>, 'dlogz': 0.1, 'maxiter': None, 'maxcall': None, 'logl_max': inf, 'add_live': True, 'print_progress': True, 'save_bounds': False, 'n_effective': None, 'maxmcmc': 5000, 'nact': 5, 'print_method': 'tqdm'}
-17:58 INFO    : Checkpoint every check_point_delta_t = 3600s
-17:58 INFO    : Using dynesty version 1.0.1
-17:58 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
-17:58 INFO    : Resume file ./outdir/localScriptTest/ZTF20abwysqyForced//ZTF20abwysqyForced_TrPi2018_nlive512_resume.pickle does not exist.
-17:58 INFO    : Generating initial points from the prior
+14:27 INFO    : Running for label 'ZTF20abwysqyForced_TrPi2018_nlive512', output will be saved to './outdir/localScriptTest/ZTF20abwysqyForced/'
+14:27 INFO    : Search parameters:
+14:27 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+14:27 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+14:27 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+14:27 INFO    :   log10_E0 = Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+14:27 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+14:27 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+14:27 INFO    :   log10_n0 = Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+14:27 INFO    :   p = Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+14:27 INFO    :   log10_epsilon_e = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+14:27 INFO    :   log10_epsilon_B = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+14:27 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+14:27 INFO    :   ksiN = 1.0
+14:27 INFO    :   L0 = 0.0
+14:27 INFO    :   dL = 3.09e+19
+14:27 INFO    :   b = 6.0
+14:27 INFO    :   q = 0.0
+14:27 INFO    :   ts = 0.0
+14:27 WARNING : Supplied argument 'npool' not an argument of 'Dynesty', removing.
+14:27 WARNING : Supplied argument 'seed' not an argument of 'Dynesty', removing.
+14:27 INFO    : Using sampler Dynesty with kwargs {'bound': 'multi', 'sample': 'rwalk', 'verbose': True, 'periodic': None, 'reflective': None, 'check_point_delta_t': 1800, 'nlive': 512, 'first_update': None, 'walks': 100, 'npdim': None, 'rstate': None, 'queue_size': 1, 'pool': None, 'use_pool': None, 'live_points': None, 'logl_args': None, 'logl_kwargs': None, 'ptform_args': None, 'ptform_kwargs': None, 'enlarge': 1.5, 'bootstrap': None, 'vol_dec': 0.5, 'vol_check': 8.0, 'facc': 0.2, 'slices': 5, 'update_interval': 307, 'print_func': <bound method Dynesty._print_func of <bilby.core.sampler.dynesty.Dynesty object at 0x7fbe4e7fabc0>>, 'dlogz': 0.1, 'maxiter': None, 'maxcall': None, 'logl_max': inf, 'add_live': True, 'print_progress': True, 'save_bounds': False, 'n_effective': None, 'maxmcmc': 5000, 'nact': 5, 'print_method': 'tqdm'}
+14:27 INFO    : Checkpoint every check_point_delta_t = 3600s
+14:27 INFO    : Using dynesty version 1.0.1
+14:27 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
+14:27 INFO    : Resume file ./outdir/localScriptTest/ZTF20abwysqyForced//ZTF20abwysqyForced_TrPi2018_nlive512_resume.pickle does not exist.
+14:27 INFO    : Generating initial points from the prior
+14:28 INFO    : Run interrupted by signal 2: checkpoint and exit on 130
+14:28 INFO    : Running for label 'ZTF20abwysqyForced_TrPi2018_nlive512', output will be saved to './outdir/localScriptTest/ZTF20abwysqyForced/'
+14:28 INFO    : Search parameters:
+14:28 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+14:28 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+14:28 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+14:28 INFO    :   log10_E0 = Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+14:28 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+14:28 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+14:28 INFO    :   log10_n0 = Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+14:28 INFO    :   p = Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+14:28 INFO    :   log10_epsilon_e = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+14:28 INFO    :   log10_epsilon_B = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+14:28 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+14:28 INFO    :   ksiN = 1.0
+14:28 INFO    :   L0 = 0.0
+14:28 INFO    :   dL = 3.09e+19
+14:28 INFO    :   b = 6.0
+14:28 INFO    :   q = 0.0
+14:28 INFO    :   ts = 0.0
+14:28 WARNING : Supplied argument 'npool' not an argument of 'Dynesty', removing.
+14:28 WARNING : Supplied argument 'seed' not an argument of 'Dynesty', removing.
+14:28 INFO    : Using sampler Dynesty with kwargs {'bound': 'multi', 'sample': 'rwalk', 'verbose': True, 'periodic': None, 'reflective': None, 'check_point_delta_t': 1800, 'nlive': 512, 'first_update': None, 'walks': 100, 'npdim': None, 'rstate': None, 'queue_size': 1, 'pool': None, 'use_pool': None, 'live_points': None, 'logl_args': None, 'logl_kwargs': None, 'ptform_args': None, 'ptform_kwargs': None, 'enlarge': 1.5, 'bootstrap': None, 'vol_dec': 0.5, 'vol_check': 8.0, 'facc': 0.2, 'slices': 5, 'update_interval': 307, 'print_func': <bound method Dynesty._print_func of <bilby.core.sampler.dynesty.Dynesty object at 0x7f1efd5bee60>>, 'dlogz': 0.1, 'maxiter': None, 'maxcall': None, 'logl_max': inf, 'add_live': True, 'print_progress': True, 'save_bounds': False, 'n_effective': None, 'maxmcmc': 5000, 'nact': 5, 'print_method': 'tqdm'}
+14:28 INFO    : Checkpoint every check_point_delta_t = 3600s
+14:28 INFO    : Using dynesty version 1.0.1
+14:28 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
+14:28 INFO    : Resume file ./outdir/localScriptTest/ZTF20abwysqyForced//ZTF20abwysqyForced_TrPi2018_nlive512_resume.pickle does not exist.
+14:28 INFO    : Generating initial points from the prior
