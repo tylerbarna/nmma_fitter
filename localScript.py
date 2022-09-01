@@ -31,7 +31,7 @@ parser.add_argument("-c","--candidate", nargs="+", type=str, default=None)
 
 ## Would have to pass args.models as model_list when submitting jobs
 ## Would have to pass when executing fit bot as " ".join(f'"{m}"' for m in args.models)
-parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"])
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"])
 
 
 
@@ -42,7 +42,7 @@ parser.add_argument("--nlive", type=int, default=256, help="Number of live point
 ## where to output plots
 parser.add_argument('-o',"--outdir",type=str,default='./outdir/')
 
-parser.add_argument('-s',"--sampler",type=str,default='pymultinest',choices=['pymultinest','dynesty']) ## Need to implement in command 
+parser.add_argument('-s',"--sampler",type=str,default='pymultinest',choices=['pymultinest','dynesty']) 
 
 args = parser.parse_args()
 
