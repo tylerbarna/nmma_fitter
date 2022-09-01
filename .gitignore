@@ -10,7 +10,7 @@ nmma/
 *.Identifier
 .ipynb_checkpoints/
 .vscode/
-./__pycache__/
+__pycache__/
 
 # find . -size +100M | cat >> .gitignore
 ./.git/objects/pack/pack-028acd9953eda97b164d9b891aa3b185a4e82b95.pack
@@ -21,3 +21,5 @@ nmma/
 ./svdmodels/Bu2019lm_mag.pkl
 ./svdmodels/Bu2019lm_lbol.pkl
 .vscode/launch.json
+__pycache__/fit_utils.cpython-310.pyc
+__pycache__/fit_utils.cpython-37.pyc
