@@ -14,3 +14,5 @@
 16:46 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
 16:46 INFO    : Resume file manualTest//abotosePiroTest_resume.pickle does not exist.
 16:46 INFO    : Generating initial points from the prior
+17:21 INFO    : Run interrupted by signal 2: checkpoint and exit on 130
+17:21 INFO    : Written checkpoint file manualTest//abotosePiroTest_resume.pickle
