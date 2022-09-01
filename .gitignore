@@ -1,6 +1,5 @@
 # manual
-svdmodels/
-injection/oldTests/
+svdmodels/*.pkl
 injection/50mpc_kne/
 injection/100mpc_kne/
 injection/ALF2.dat
@@ -9,6 +8,9 @@ injection/100mpc_kne.tar.gz
 *.tar.gz
 nmma/
 *.Identifier
+.ipynb_checkpoints/
+.vscode/
+./__pycache__/
 
 # find . -size +100M | cat >> .gitignore
 ./.git/objects/pack/pack-028acd9953eda97b164d9b891aa3b185a4e82b95.pack
@@ -16,7 +18,6 @@ nmma/
 ./injection/100mpc_kne.tar.gz
 ./injection/100mpc_kne/lightcurves.csv
 ./injection/testSample31k.tar
-./injection/OldTests/scale_test_csv.csv
 ./svdmodels/Bu2019lm_mag.pkl
 ./svdmodels/Bu2019lm_lbol.pkl
 .vscode/launch.json
