@@ -13,3 +13,4 @@
 16:09 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
 16:09 INFO    : Resume file ./outdir/localScriptTest/ZTF20abwysqyTomas//ZTF20abwysqyTomas_nugent-hyper_nlive512_resume.pickle does not exist.
 16:09 INFO    : Generating initial points from the prior
+10:29 INFO    : Run interrupted by signal 2: checkpoint and exit on 130

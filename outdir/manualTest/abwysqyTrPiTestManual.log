@@ -1,0 +1,239 @@
+17:52 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+17:52 INFO    : Search parameters:
+17:52 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+17:52 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+17:52 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+17:52 INFO    :   log10_E0 = Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+17:52 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+17:52 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+17:52 INFO    :   log10_n0 = Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+17:52 INFO    :   p = Uniform(minimum=4.0, maximum=6.0, name='p', latex_label='$p$', unit=None, boundary=None)
+17:52 INFO    :   log10_epsilon_e = Uniform(minimum=-8, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+17:52 INFO    :   log10_epsilon_B = Uniform(minimum=-8, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+17:52 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+17:52 INFO    :   ksiN = 1.0
+17:52 INFO    :   L0 = 0.0
+17:52 INFO    :   dL = 3.09e+19
+17:52 INFO    :   b = 6.0
+17:52 INFO    :   q = 0.0
+17:52 INFO    :   ts = 0.0
+17:52 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+17:52 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+17:52 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+17:52 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 11, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f8e99bf68c0>>}
+17:52 INFO    : Using temporary file /tmp/tmpzj1q8zty
+17:52 INFO    : Run interrupted by signal 2: checkpoint and exit on 77
+17:52 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTrPiTestManual/ with /tmp/tmpzj1q8zty/
+17:52 INFO    : Run interrupted by signal 2: checkpoint and exit on 77
+17:57 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+17:57 INFO    : Search parameters:
+17:57 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+17:57 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+17:57 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+17:57 INFO    :   log10_E0 = Uniform(minimum=52, maximum=54, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+17:57 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.0, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+17:57 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+17:57 INFO    :   log10_n0 = Uniform(minimum=-3.0, maximum=4.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+17:57 INFO    :   p = Uniform(minimum=4.0, maximum=6.0, name='p', latex_label='$p$', unit=None, boundary=None)
+17:57 INFO    :   log10_epsilon_e = Uniform(minimum=-1, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+17:57 INFO    :   log10_epsilon_B = Uniform(minimum=-5, maximum=-3, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+17:57 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+17:57 INFO    :   ksiN = 1.0
+17:57 INFO    :   L0 = 0.0
+17:57 INFO    :   dL = 3.09e+19
+17:57 INFO    :   b = 6.0
+17:57 INFO    :   q = 0.0
+17:57 INFO    :   ts = 0.0
+17:57 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+17:57 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+17:57 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+17:57 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 11, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f32388ee830>>}
+17:57 INFO    : Using temporary file /tmp/tmphqjdzenq
+17:59 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+17:59 INFO    : Search parameters:
+17:59 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+17:59 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+17:59 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+17:59 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+17:59 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+17:59 INFO    :   log10_E0 = 52.79
+17:59 INFO    :   thetaCore = 0.24
+17:59 INFO    :   log10_n0 = -1.29
+17:59 INFO    :   p = 2.4
+17:59 INFO    :   log10_epsilon_e = -0.39
+17:59 INFO    :   log10_epsilon_B = -4.19
+17:59 INFO    :   ksiN = 1.0
+17:59 INFO    :   L0 = 0.0
+17:59 INFO    :   dL = 3.09e+19
+17:59 INFO    :   b = 6.0
+17:59 INFO    :   q = 0.0
+17:59 INFO    :   ts = 0.0
+17:59 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+17:59 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+17:59 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+17:59 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fbe09ace770>>}
+17:59 INFO    : Using temporary file /tmp/tmpwtfmynay
+18:00 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:00 INFO    : Search parameters:
+18:00 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:00 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:00 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+18:00 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:00 INFO    :   log10_E0 = 52.79
+18:00 INFO    :   thetaCore = 0.24
+18:00 INFO    :   log10_n0 = -1.29
+18:00 INFO    :   p = 2.4
+18:00 INFO    :   log10_epsilon_e = -0.39
+18:00 INFO    :   log10_epsilon_B = -4.19
+18:00 INFO    :   ksiN = 1.0
+18:00 INFO    :   L0 = 0.0
+18:00 INFO    :   dL = 3.09e+19
+18:00 INFO    :   b = 6.0
+18:00 INFO    :   q = 0.0
+18:00 INFO    :   ts = 0.0
+18:00 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:00 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:00 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:00 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 4, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fa5ad5e20b0>>}
+18:00 INFO    : Using temporary file /tmp/tmp22c77mrf
+18:00 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTrPiTestManual/ with /tmp/tmp22c77mrf/
+18:00 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:00 INFO    : Search parameters:
+18:00 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:00 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:00 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:00 INFO    :   log10_E0 = 52.79
+18:00 INFO    :   thetaCore = 0.24
+18:00 INFO    :   log10_n0 = -1.29
+18:00 INFO    :   p = 2.4
+18:00 INFO    :   log10_epsilon_e = -0.39
+18:00 INFO    :   log10_epsilon_B = -4.19
+18:00 INFO    :   ksiN = 1.0
+18:00 INFO    :   L0 = 0.0
+18:00 INFO    :   dL = 3.09e+19
+18:00 INFO    :   b = 6.0
+18:00 INFO    :   q = 0.0
+18:00 INFO    :   ts = 0.0
+18:00 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:00 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:00 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:00 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 3, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f87be5127a0>>}
+18:00 INFO    : Using temporary file /tmp/tmpmgdmen6o
+18:01 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:01 INFO    : Search parameters:
+18:01 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:01 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:01 INFO    :   log10_E0 = 52.79
+18:01 INFO    :   thetaCore = 0.24
+18:01 INFO    :   log10_n0 = -1.29
+18:01 INFO    :   p = 2.4
+18:01 INFO    :   log10_epsilon_e = -0.39
+18:01 INFO    :   log10_epsilon_B = -4.19
+18:01 INFO    :   ksiN = 1.0
+18:01 INFO    :   L0 = 0.0
+18:01 INFO    :   dL = 3.09e+19
+18:01 INFO    :   b = 6.0
+18:01 INFO    :   q = 0.0
+18:01 INFO    :   ts = 0.0
+18:01 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:01 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:01 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:01 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 2, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fba450b3040>>}
+18:01 INFO    : Using temporary file /tmp/tmph_3t67bh
+18:02 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:02 INFO    : Search parameters:
+18:02 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:02 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+18:02 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:02 INFO    :   log10_E0 = 52.79
+18:02 INFO    :   thetaCore = 0.24
+18:02 INFO    :   log10_n0 = -1.29
+18:02 INFO    :   p = 2.4
+18:02 INFO    :   log10_epsilon_e = -0.39
+18:02 INFO    :   log10_epsilon_B = -4.19
+18:02 INFO    :   ksiN = 1.0
+18:02 INFO    :   L0 = 0.0
+18:02 INFO    :   dL = 3.09e+19
+18:02 INFO    :   b = 6.0
+18:02 INFO    :   q = 0.0
+18:02 INFO    :   ts = 0.0
+18:02 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:02 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 3, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fb063dfae60>>}
+18:02 INFO    : Using temporary file /tmp/tmpzmzg355l
+18:02 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:02 INFO    : Search parameters:
+18:02 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:02 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:02 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+18:02 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+18:02 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:02 INFO    :   log10_E0 = 52.79
+18:02 INFO    :   thetaCore = 0.24
+18:02 INFO    :   log10_n0 = -1.29
+18:02 INFO    :   p = 2.4
+18:02 INFO    :   log10_epsilon_e = -0.39
+18:02 INFO    :   log10_epsilon_B = -4.19
+18:02 INFO    :   ksiN = 1.0
+18:02 INFO    :   L0 = 0.0
+18:02 INFO    :   dL = 3.09e+19
+18:02 INFO    :   b = 6.0
+18:02 INFO    :   q = 0.0
+18:02 INFO    :   ts = 0.0
+18:02 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:02 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f66a3beeec0>>}
+18:02 INFO    : Using temporary file /tmp/tmp5cic1sa0
+18:02 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:02 INFO    : Search parameters:
+18:02 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:02 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:02 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+18:02 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+18:02 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:02 INFO    :   log10_E0 = 52.79
+18:02 INFO    :   thetaCore = 0.24
+18:02 INFO    :   log10_n0 = -1.29
+18:02 INFO    :   p = 2.4
+18:02 INFO    :   log10_epsilon_e = -0.39
+18:02 INFO    :   log10_epsilon_B = -4.19
+18:02 INFO    :   ksiN = 1.0
+18:02 INFO    :   L0 = 0.0
+18:02 INFO    :   dL = 3.09e+19
+18:02 INFO    :   b = 6.0
+18:02 INFO    :   q = 0.0
+18:02 INFO    :   ts = 0.0
+18:02 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:02 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 1024, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fb060fe6680>>}
+18:02 INFO    : Using temporary file /tmp/tmplabrihmu
+18:06 INFO    : Running for label 'abwysqyTrPiTestManual', output will be saved to './outdir/manualTest/'
+18:06 INFO    : Search parameters:
+18:06 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:06 INFO    :   KNtimeshift = Uniform(minimum=-1.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:06 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+18:06 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+18:06 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:06 INFO    :   log10_E0 = 52.79
+18:06 INFO    :   thetaCore = 0.24
+18:06 INFO    :   log10_n0 = -1.29
+18:06 INFO    :   p = 2.4
+18:06 INFO    :   log10_epsilon_e = -0.39
+18:06 INFO    :   log10_epsilon_B = -4.19
+18:06 INFO    :   ksiN = 1.0
+18:06 INFO    :   L0 = 0.0
+18:06 INFO    :   dL = 3.09e+19
+18:06 INFO    :   b = 6.0
+18:06 INFO    :   q = 0.0
+18:06 INFO    :   ts = 0.0
+18:06 WARNING : Supplied argument 'npool' not an argument of 'Dynesty', removing.
+18:06 WARNING : Supplied argument 'seed' not an argument of 'Dynesty', removing.
+18:06 INFO    : Using sampler Dynesty with kwargs {'bound': 'multi', 'sample': 'rwalk', 'verbose': True, 'periodic': None, 'reflective': None, 'check_point_delta_t': 1800, 'nlive': 1024, 'first_update': None, 'walks': 100, 'npdim': None, 'rstate': None, 'queue_size': 1, 'pool': None, 'use_pool': None, 'live_points': None, 'logl_args': None, 'logl_kwargs': None, 'ptform_args': None, 'ptform_kwargs': None, 'enlarge': 1.5, 'bootstrap': None, 'vol_dec': 0.5, 'vol_check': 8.0, 'facc': 0.2, 'slices': 5, 'update_interval': 614, 'print_func': <bound method Dynesty._print_func of <bilby.core.sampler.dynesty.Dynesty object at 0x7fedfe4e2f20>>, 'dlogz': 0.1, 'maxiter': None, 'maxcall': None, 'logl_max': inf, 'add_live': True, 'print_progress': True, 'save_bounds': False, 'n_effective': None, 'maxmcmc': 5000, 'nact': 5, 'print_method': 'tqdm'}
+18:06 INFO    : Checkpoint every check_point_delta_t = 3600s
+18:06 INFO    : Using dynesty version 1.0.1
+18:06 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
+18:06 INFO    : Resume file ./outdir/manualTest//abwysqyTrPiTestManual_resume.pickle does not exist.
+18:06 INFO    : Generating initial points from the prior

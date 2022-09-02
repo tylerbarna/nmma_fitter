@@ -14,3 +14,5 @@
 17:11 INFO    : Using the bilby-implemented rwalk sample method with ACT estimated walks
 17:11 INFO    : Resume file ./outdir/localScriptTest/ZTF21abotose//ZTF21abotose_Piro2021_nlive512_resume.pickle does not exist.
 17:11 INFO    : Generating initial points from the prior
+17:25 INFO    : Run interrupted by signal 2: checkpoint and exit on 130
+17:25 INFO    : Written checkpoint file ./outdir/localScriptTest/ZTF21abotose//ZTF21abotose_Piro2021_nlive512_resume.pickle
