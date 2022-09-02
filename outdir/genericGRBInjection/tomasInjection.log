@@ -1,0 +1,59 @@
+12:57 INFO    : Running for label 'tomasInjection', output will be saved to './outdir/genericGRBInjection'
+12:57 INFO    : Search parameters:
+12:57 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+12:57 INFO    :   thetaWing = Uniform(minimum=0.7662421106316569, maximum=0.7853981633974483, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+12:57 INFO    :   KNtimeshift = 0.0
+12:57 INFO    :   inclination_EM = 0.19
+12:57 INFO    :   log10_E0 = 52.79
+12:57 INFO    :   thetaCore = 0.24
+12:57 INFO    :   log10_n0 = -1.29
+12:57 INFO    :   p = 2.4
+12:57 INFO    :   log10_epsilon_e = -0.39
+12:57 INFO    :   log10_epsilon_B = -4.19
+12:57 INFO    :   ksiN = 1.0
+12:57 INFO    :   L0 = 0.0
+12:57 INFO    :   dL = 3.09e+19
+12:57 INFO    :   b = 6.0
+12:57 INFO    :   q = 0.0
+12:57 INFO    :   ts = 0.0
+12:57 INFO    :   Ebv = 0.0
+12:57 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+12:57 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+12:57 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+12:57 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 2, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f0c3d57a200>>}
+12:57 INFO    : Using temporary file /tmp/tmp6e8gu77v
+12:59 INFO    : Running for label 'tomasInjection', output will be saved to './outdir/genericGRBInjection'
+12:59 INFO    : Search parameters:
+12:59 INFO    :   thetaWing = Uniform(minimum=0.7662421106316569, maximum=0.7853981633974483, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+12:59 INFO    :   luminosity_distance = 2060.0
+12:59 INFO    :   KNtimeshift = 0.0
+12:59 INFO    :   inclination_EM = 0.19
+12:59 INFO    :   log10_E0 = 52.79
+12:59 INFO    :   thetaCore = 0.24
+12:59 INFO    :   log10_n0 = -1.29
+12:59 INFO    :   p = 2.4
+12:59 INFO    :   log10_epsilon_e = -0.39
+12:59 INFO    :   log10_epsilon_B = -4.19
+12:59 INFO    :   ksiN = 1.0
+12:59 INFO    :   L0 = 0.0
+12:59 INFO    :   dL = 3.09e+19
+12:59 INFO    :   b = 6.0
+12:59 INFO    :   q = 0.0
+12:59 INFO    :   ts = 0.0
+12:59 INFO    :   Ebv = 0.0
+12:59 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+12:59 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+12:59 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+12:59 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 1, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f47d4f86020>>}
+12:59 INFO    : Using temporary file /tmp/tmp_0tvz_ao
+13:23 INFO    : Overwriting ./outdir/genericGRBInjection/pm_tomasInjection/ with /tmp/tmp_0tvz_ao/
+13:23 INFO    : Overwriting ./outdir/genericGRBInjection/pm_tomasInjection/ with /tmp/tmp_0tvz_ao/
+13:23 INFO    : Overwriting ./outdir/genericGRBInjection/pm_tomasInjection/ with /tmp/tmp_0tvz_ao/
+13:23 INFO    : Sampling time: 0:24:19.941250
+13:23 INFO    : Summary of results:
+nsamples: 994
+ln_noise_evidence:  0.000
+ln_evidence: -130.017 +/-    nan
+ln_bayes_factor: -130.017 +/-    nan
+
+13:23 INFO    : Writing samples file to /mnt/c/Users/Tyler/Documents/Github/nmma_fitter/outdir/genericGRBInjection/tomasInjection_posterior_samples.dat

@@ -1,0 +1,166 @@
+Nested Sampling Global Log-Evidence           :   -0.130017218033098516E+03  +/-                         NaN
+
+Local Mode Properties
+-------------------------------------------
+
+Total Modes Found:          10
+
+
+Mode   1
+Strictly Local Log-Evidence   -0.134629224615706960E+03 +/-    0.619493038238792870E+00
+Local Log-Evidence   -0.133775926778819496E+03 +/-    0.774325588254335534E-01
+
+Dim No.       Mean        Sigma
+   1    0.770421313013797127E+00    0.890842408436573713E-04
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.770336973904375055E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.770336973904375055E+00
+
+
+Mode   2
+Strictly Local Log-Evidence   -0.133309729777184202E+03 +/-    0.273277030158298073E+00
+Local Log-Evidence   -0.132467983393315706E+03 +/-    0.602505308418543467E-01
+
+Dim No.       Mean        Sigma
+   1    0.769163692457311310E+00    0.253524176021143984E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.769381760616813404E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.768784239220331789E+00
+
+
+Mode   3
+Strictly Local Log-Evidence   -0.133012057827612068E+03 +/-    0.242058453901352971E+00
+Local Log-Evidence   -0.132321959667206301E+03 +/-    0.594355065561785467E-01
+
+Dim No.       Mean        Sigma
+   1    0.772327271119825909E+00    0.312417579279390190E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.772322748324937525E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.771933409448177121E+00
+
+
+Mode   4
+Strictly Local Log-Evidence   -0.133725866393715847E+03 +/-    0.357298258098352806E+00
+Local Log-Evidence   -0.132880929428728876E+03 +/-    0.660485395020648236E-01
+
+Dim No.       Mean        Sigma
+   1    0.775926011926917125E+00    0.172633480889308760E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.776043938112109921E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.775640405863562754E+00
+
+
+Mode   5
+Strictly Local Log-Evidence   -0.133006103007150642E+03 +/-    0.204959376322239817E+00
+Local Log-Evidence   -0.131993642584056062E+03 +/-    0.516349583728724845E-01
+
+Dim No.       Mean        Sigma
+   1    0.774700213210940514E+00    0.245628336754093429E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.775074215547353895E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.774269103597192698E+00
+
+
+Mode   6
+Strictly Local Log-Evidence   -0.134104379041510754E+03 +/-    0.412343220235304564E+00
+Local Log-Evidence   -0.133083206475105698E+03 +/-    0.673239261648325565E-01
+
+Dim No.       Mean        Sigma
+   1    0.773911399622565610E+00    0.517408840470762489E-04
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.773942894274073367E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.773942894274073367E+00
+
+
+Mode   7
+Strictly Local Log-Evidence   -0.133662208739262582E+03 +/-    0.317914237574039860E+00
+Local Log-Evidence   -0.132668128639353682E+03 +/-    0.618582047585532133E-01
+
+Dim No.       Mean        Sigma
+   1    0.780342840214888200E+00    0.175363599319414078E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.780272362201121616E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.780636830614192201E+00
+
+
+Mode   8
+Strictly Local Log-Evidence   -0.133584129060077146E+03 +/-    0.302143668539083865E+00
+Local Log-Evidence   -0.132588811928205956E+03 +/-    0.607214877931514310E-01
+
+Dim No.       Mean        Sigma
+   1    0.781208058621746138E+00    0.138935829552022395E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.780994290721958917E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.781169068448103632E+00
+
+
+Mode   9
+Strictly Local Log-Evidence   -0.132089050651939885E+03 +/-    0.119345094528779713E+00
+Local Log-Evidence   -0.131282334381549703E+03 +/-    0.410323445863110120E-01
+
+Dim No.       Mean        Sigma
+   1    0.778098973303529284E+00    0.732066131309295326E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.779043041738962105E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.776858607912802257E+00
+
+
+Mode  10
+Strictly Local Log-Evidence   -0.132722361478676845E+03 +/-    0.210325444554070151E+00
+Local Log-Evidence   -0.132143844493156195E+03 +/-    0.577716044228088269E-01
+
+Dim No.       Mean        Sigma
+   1    0.783699188093253118E+00    0.418103371745805056E-03
+
+Maximum Likelihood Parameters
+Dim No.        Parameter
+   1    0.783193223290173268E+00
+
+MAP Parameters
+Dim No.        Parameter
+   1    0.784283015056590815E+00

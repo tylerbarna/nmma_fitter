@@ -1,0 +1,24 @@
+13:24 INFO    : Running for label 'ZTF20abwysqyForced_TrPi2018_nlive512', output will be saved to './outdir/ZTF20abwysqyForced/'
+13:24 INFO    : Search parameters:
+13:24 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+13:24 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+13:24 INFO    :   inclination_EM = Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+13:24 INFO    :   log10_E0 = Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+13:24 INFO    :   thetaCore = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+13:24 INFO    :   thetaWing = Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+13:24 INFO    :   log10_n0 = Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+13:24 INFO    :   p = Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+13:24 INFO    :   log10_epsilon_e = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+13:24 INFO    :   log10_epsilon_B = Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+13:24 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+13:24 INFO    :   ksiN = 1.0
+13:24 INFO    :   L0 = 0.0
+13:24 INFO    :   dL = 3.09e+19
+13:24 INFO    :   b = 6.0
+13:24 INFO    :   q = 0.0
+13:24 INFO    :   ts = 0.0
+13:24 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+13:24 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+13:24 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+13:24 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 11, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f9693b3ed10>>}
+13:24 INFO    : Using temporary file /tmp/tmperqriqbu

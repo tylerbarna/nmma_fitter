@@ -1,4 +1,4 @@
-luminosity_distance = luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance',latex_label='$D_L$')
+luminosity_distance = 2060
 KNtimeshift = 0
 inclination_EM = 0.19
 log10_E0 =  52.79
