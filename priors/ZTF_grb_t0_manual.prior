@@ -3,7 +3,7 @@ KNtimeshift = 0
 inclination_EM = 0.19
 log10_E0 =  52.79
 thetaCore = 0.24
-thetaWing = Uniform(name='theta_wing', minimum=np.pi/4.1, maximum=np.pi/4., latex_label='$\\theta_w$')
+thetaWing = 0.76
 log10_n0 = -1.29
 p = 2.40
 log10_epsilon_e = -0.39
