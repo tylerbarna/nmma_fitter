@@ -1,0 +1,52 @@
+11:53 INFO    : Running for label 'abwysqyTomasTrPiTestManual', output will be saved to './outdir/manualTest/'
+11:53 INFO    : Search parameters:
+11:53 INFO    :   thetaWing = Uniform(minimum=0.7662421106316569, maximum=0.7853981633974483, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+11:53 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+11:53 INFO    :   luminosity_distance = 2.09
+11:53 INFO    :   KNtimeshift = 0.0
+11:53 INFO    :   inclination_EM = 0.19
+11:53 INFO    :   log10_E0 = 52.79
+11:53 INFO    :   thetaCore = 0.24
+11:53 INFO    :   log10_n0 = -1.29
+11:53 INFO    :   p = 2.4
+11:53 INFO    :   log10_epsilon_e = -0.39
+11:53 INFO    :   log10_epsilon_B = -4.19
+11:53 INFO    :   ksiN = 1.0
+11:53 INFO    :   L0 = 0.0
+11:53 INFO    :   dL = 3.09e+19
+11:53 INFO    :   b = 6.0
+11:53 INFO    :   q = 0.0
+11:53 INFO    :   ts = 0.0
+11:53 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+11:53 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+11:53 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+11:53 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 2, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f4a9847ab90>>}
+11:53 INFO    : Using temporary file /tmp/tmp8asj0bgz
+12:03 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTomasTrPiTestManual/ with /tmp/tmp8asj0bgz/
+12:03 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTomasTrPiTestManual/ with /tmp/tmp8asj0bgz/
+12:28 INFO    : Running for label 'abwysqyTomasTrPiTestManual', output will be saved to './outdir/manualTest/'
+12:28 INFO    : Search parameters:
+12:28 INFO    :   thetaWing = Uniform(minimum=0.7662421106316569, maximum=0.7853981633974483, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+12:28 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+12:28 INFO    :   luminosity_distance = 2.09
+12:28 INFO    :   KNtimeshift = 0.0
+12:28 INFO    :   inclination_EM = 0.19
+12:28 INFO    :   log10_E0 = 52.79
+12:28 INFO    :   thetaCore = 0.24
+12:28 INFO    :   log10_n0 = -1.29
+12:28 INFO    :   p = 2.4
+12:28 INFO    :   log10_epsilon_e = -0.39
+12:28 INFO    :   log10_epsilon_B = -4.19
+12:28 INFO    :   ksiN = 1.0
+12:28 INFO    :   L0 = 0.0
+12:28 INFO    :   dL = 3.09e+19
+12:28 INFO    :   b = 6.0
+12:28 INFO    :   q = 0.0
+12:28 INFO    :   ts = 0.0
+12:28 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+12:28 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+12:28 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+12:28 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 2, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f551617a8f0>>}
+12:28 INFO    : Using temporary file /tmp/tmp4d_p7nxj
+12:28 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTomasTrPiTestManual/ with /tmp/tmp4d_p7nxj/
+12:28 INFO    : Overwriting ./outdir/manualTest//pm_abwysqyTomasTrPiTestManual/ with /tmp/tmp4d_p7nxj/
