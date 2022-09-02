@@ -27,3 +27,14 @@
 11:31 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
 12:32 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
 13:40 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
+13:56 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
+13:56 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
+13:56 INFO    : Overwriting ./outdir/localScriptTest/ZTF21abotose//pm_ZTF21abotose_TrPi2018_nlive512/ with /tmp/tmpdnvj0d3d/
+13:56 INFO    : Sampling time: 3:25:28.423061
+13:56 INFO    : Summary of results:
+nsamples: 2114
+ln_noise_evidence:  0.000
+ln_evidence: -26.511 +/-  0.122
+ln_bayes_factor: -26.511 +/-  0.122
+
+13:56 INFO    : Writing samples file to /mnt/c/Users/Tyler/Documents/Github/nmma_fitter/outdir/localScriptTest/ZTF21abotose/ZTF21abotose_TrPi2018_nlive512_posterior_samples.dat

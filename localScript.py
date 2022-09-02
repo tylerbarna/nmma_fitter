@@ -114,7 +114,7 @@ for cand in lc_data: ## hacky way of doing things
         tmin = 0.01
         tmax = 7.01
         dt = 0.1
-
+        modelDir = os.path.join(candDir,model,"")
         # GRB model requires special values so lightcurves can be generated without NMMA running into timeout errors.
         if model == "TrPi2018":
             tmin = 0.01
@@ -173,7 +173,7 @@ for cand in lc_data: ## hacky way of doing things
         print(trigger_time)
 
         command_string = " light_curve_analysis"\
-        + " --model " + model + " --svd-path " + svd_path + " --outdir " + candDir\
+        + " --model " + model + " --svd-path " + svd_path + " --outdir " + modelDir\
         + " --label " + str(candName+"_"+model+"_nlive"+str(nlive))\
         + " --trigger-time " + str(trigger_time)\
         + " --data " + cand + " --prior " + prior + " --tmin " + str(tmin)\

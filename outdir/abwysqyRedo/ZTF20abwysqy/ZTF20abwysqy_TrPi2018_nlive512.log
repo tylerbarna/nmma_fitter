@@ -24,3 +24,14 @@
 13:25 INFO    : Using temporary file /tmp/tmpac5zvbj0
 13:34 INFO    : Overwriting ./outdir/abwysqyRedo/ZTF20abwysqy//pm_ZTF20abwysqy_TrPi2018_nlive512/ with /tmp/tmpac5zvbj0/
 13:49 INFO    : Overwriting ./outdir/abwysqyRedo/ZTF20abwysqy//pm_ZTF20abwysqy_TrPi2018_nlive512/ with /tmp/tmpac5zvbj0/
+14:59 INFO    : Overwriting ./outdir/abwysqyRedo/ZTF20abwysqy//pm_ZTF20abwysqy_TrPi2018_nlive512/ with /tmp/tmpac5zvbj0/
+14:59 INFO    : Overwriting ./outdir/abwysqyRedo/ZTF20abwysqy//pm_ZTF20abwysqy_TrPi2018_nlive512/ with /tmp/tmpac5zvbj0/
+14:59 INFO    : Overwriting ./outdir/abwysqyRedo/ZTF20abwysqy//pm_ZTF20abwysqy_TrPi2018_nlive512/ with /tmp/tmpac5zvbj0/
+14:59 INFO    : Sampling time: 1:33:13.142672
+14:59 INFO    : Summary of results:
+nsamples: 1480
+ln_noise_evidence:  0.000
+ln_evidence: -5.214 +/-  0.090
+ln_bayes_factor: -5.214 +/-  0.090
+
+14:59 INFO    : Writing samples file to /mnt/c/Users/Tyler/Documents/Github/nmma_fitter/outdir/abwysqyRedo/ZTF20abwysqy/ZTF20abwysqy_TrPi2018_nlive512_posterior_samples.dat
