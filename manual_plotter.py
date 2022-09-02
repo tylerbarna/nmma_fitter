@@ -24,12 +24,12 @@ import seaborn as sns
 
 parser = argparse.ArgumentParser(description="Inference on kilonova ejecta parameters.")
 
-parser.add_argument("--datafile", type=str,default='./candidate_data/paper_candidates/v1/candidate_data/ZTF20abwysqy.dat', help="Plotting Data")
+parser.add_argument("--datafile", type=str,default='./candidate_data/paper_candidates/v2/candidate_data/ZTF20abwysqyTomas.dat', help="Plotting Data")
 parser.add_argument("--plotdir", type=str, default="./outdir", help="Directory to save plots")
 parser.add_argument("--model", type=str, default="TrPi2018", help="Model to use")
 parser.add_argument("--svdpath", type=str, default="./svdmodels", help="Path to svd files")
 
-parser.add_argument("--candname", type=str, default='ZTF20abwysqy', help="Name of the transient")
+parser.add_argument("--candname", type=str, default='ZTF20abwysqyTomasInjectionFusion', help="Name of the transient")
 args = parser.parse_args()
 
 svd_mag_ncoeff = 10
@@ -49,7 +49,7 @@ candname = args.candname
 model = args.model
 svd_path = args.svdpath
 
-plotdir = os.path.join("./",candname)
+plotdir = os.path.join("./outdir",candname)
 if not os.path.isdir(plotdir):
     os.makedirs(plotdir, exist_ok=True)
 
@@ -61,7 +61,7 @@ plot_sample_times = np.arange(0.01, 10.21, 0.1)
 if model == "TrPi2018" or model == "nugent-hyper":
     plot_sample_times = np.arange(0.01, 10.21, 0.2)
 
-posterior_file = os.path.join('./outdir/ZTF20abwysqy_grb_t0_posterior_samples.dat')
+posterior_file = os.path.join('./outdir/tomasInjection/tomasInjection_posterior_samples.dat')
 bestfit_params, bestfit_lightcurve_magKN_KNGRB = get_bestfit_lightcurve(model, posterior_file, svd_path,\
                                                                         plot_sample_times,\
                                                                         grb_resolution = grb_resolution,\
@@ -74,7 +74,7 @@ if fit_trigger_time:
 #######################
 # Plot the lightcurves
 #######################
-data_file = './candidate_data/paper_candidates/v1/candidate_data/ZTF20abwysqy.dat'
+data_file = './candidate_data/paper_candidates/v2/candidate_data/ZTF20abwysqyTomas.dat'
 # Load the data for plotting
 data_out = loadEvent(data_file)
 filters = data_out.keys()
