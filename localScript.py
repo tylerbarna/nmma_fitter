@@ -36,8 +36,12 @@ parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018",
 
 
 parser.add_argument("--svdmodels", type=str, default="/home/cough052/shared/NMMA/svdmodels", help="Path to the SVD models. Note: Not present in the repo, need to be aquired separately (Files are very large)")
+
 parser.add_argument("--nlive", type=int, default=256, help="Number of live points to use")
 
+parser.add_argument("-p","--prior", type=str, default=None, help="path to manual prior file (Note: expect issues if trying to use one prior for multiple models)") ## should add ability to pass multiple priors for multiple models (Dict?)
+
+parser.add_argument("-v","--verbose", action="store_true", help="whether to use verbose output")
 
 ## where to output plots
 parser.add_argument('-o',"--outdir",type=str,default='./outdir/')
@@ -59,6 +63,7 @@ if not args.models:
     print("No --models argument: Fitting to all models")
 
 model_list = args.models
+verbose = args.verbose
 
 # job_name = {"Bu2019lm": "KNjob.txt",
 #             "TrPi2018": "GRBjob.txt",
@@ -102,7 +107,7 @@ trigger_time_heuristic = False
 fit_trigger_time = True
 
 for cand in lc_data: ## hacky way of doing things
-    print(cand)
+    print("candidate path: {}".format(cand))
     candName = cand.split("/")[-1].split(".")[0]
     candDir = os.path.join(outdir,candName,"")
     if not os.path.exists(candDir):
@@ -122,8 +127,10 @@ for cand in lc_data: ## hacky way of doing things
             tmin = 0.01
             tmax = 7.01
             dt = 0.35
-        
-        if model == 'nugent-hyper':
+        if args.prior:
+            prior = args.prior
+            print('Using manual prior file: {}'.format(prior))
+        elif model == 'nugent-hyper':
             # SN
             if fit_trigger_time:
                 prior = './priors/ZTF_sn_t0.prior'
@@ -172,8 +179,8 @@ for cand in lc_data: ## hacky way of doing things
             # Set the trigger time
             trigger_time = t0
 
-        print(trigger_time)
-        print(modelDir)
+        print("trigger time: {}".format(trigger_time))
+        print("model directory: {}".format(modelDir))
 
         command_string = " light_curve_analysis"\
         + " --model " + model + " --svd-path " + svd_path + " --outdir " + modelDir\
@@ -185,7 +192,8 @@ for cand in lc_data: ## hacky way of doing things
         + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
         + " --plot"\
         + " --sampler " + str(sampler)#+ " --verbose"
-
+        if verbose:
+            command_string = command_string + " --verbose"
         command = subprocess.run(command_string, shell=True, capture_output=True)
         sys.stdout.buffer.write(command.stdout)
         sys.stderr.buffer.write(command.stderr)

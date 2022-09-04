@@ -5,7 +5,7 @@ log10_E0 =  Uniform(minimum=0, maximum=99, name='log10_E0',latex_label='$\\log_{
 thetaCore = Uniform(minimum=0, maximum=np.pi/2., name='theta_core', latex_label='$\\theta_c$')
 thetaWing = Uniform( minimum=0, maximum=np.pi/2., name='theta_wing', latex_label='$\\theta_w$')
 log10_n0 = Uniform( minimum=-15., maximum=15., name='log10_n0', latex_label='$\\log_{10}n_0$')
-p = Uniform(minimum=2., maximum=10., name='p', latex_label='$p$')
+p = Uniform(minimum=1., maximum=10., name='p', latex_label='$p$')
 log10_epsilon_e = Uniform( minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\epsilon_e$')
 log10_epsilon_B = Uniform( minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\epsilon_B$')
 ksiN=1.0
