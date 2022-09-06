@@ -26,7 +26,7 @@ import seaborn as sns
 ## argument for folder to run stats on
 parser = argparse.ArgumentParser()
 parser.add_argument("-f","--fileDir", type=str, default=None)
-parser.add_argument('')
+parser.add_argument('-v', '--verbose', action='store_true')
 
 dayList = glob.glob(args.fileDir + "*")
 
