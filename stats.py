@@ -27,6 +27,7 @@ import seaborn as sns
 parser = argparse.ArgumentParser()
 parser.add_argument("-f","--fileDir", type=str, default=None)
 parser.add_argument('-v', '--verbose', action='store_true')
+args = parser.parse_args()
 
 dayList = glob.glob(args.fileDir + "*")
 
@@ -36,3 +37,5 @@ candList = glob.glob(args.fileDir + "*/*.csv")
 
 # with open(
 # )
+
+
