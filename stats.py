@@ -144,8 +144,22 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
         exit(1)
 
 
-## find execution times
-
-
 
 ## find a way to plot each model's cumulative 
+
+## plot number of unfit candidates per day
+
+## plot cumulative number of unfit candidates
+
+## plot number of fits per day
+
+## plot number of fits per day for each model
+
+## plot amount of time taken to run fits per day per model
+
+## plot total amount of time taken to run fits per day
+
+## plot cumulative amount of time taken to run fits
+
+## plot rolling average of each model fit time
+
