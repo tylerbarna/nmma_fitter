@@ -75,14 +75,16 @@ def plotDir(name,ext=".png",outdir=args.outdir):
 def plotDailyCand():
     '''plot the number of candidates per day'''
     plt.plot(dayCount, numDaily)
-   #plt.xlabel("Day")
+    plt.xlabel("Days Since Start") ## weird phrasing
+    plt.ylabel('Number of Daily Candidates')
     plt.savefig(plotDir("numDailyCand"))
 
 
 def plotCumDailyCand():
     '''plot the cumulative number of candidates per day'''
     plt.plot(dayCount,cumDaily)
-   #plt.xlabel("Day")
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Cumulative Number of Candidates')
     plt.savefig(plotDir("cumDailyCand"))
 
 
@@ -99,28 +101,7 @@ def plotDailyCandRolling():
 ## need to find way to plot time taken to run fits
 ## would be done using the fitDir argument and the .log files located in each fit directory
 
-def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
-    '''finds how many fits were completed on a given day, with day being provided as a path string'''
-    if day:
-        fitCands = glob.glob(os.path.join(day,'*/')) ## will return the candidates that were fit + the candidate_data folder 
-        if os.path.join(day,'candidate_data/') in fitCands:
-            candList = glob.glob(os.path.join(day,'candidate_data','*.dat'))
-            numCands = len(candList) ## tp compare number of fit candidates to number of submitted
-        else:
-            numCands = len(fitCands)
-        
-        ## count number of fits completed for each model
-        numFits = {model: len(os.path.join(day,'*',model+'_result.json')) for model in models}
-
-        ## count number of candidates actually fit
-
-
-    else:
-        print('provide a day to count fits for!')
-        exit(1)
-
-## find execution times
-def getExecTimes(file=None):
+def get_sampling_time(file=None):
     '''pulls from the provided json file to find the sampling_time and returns that value. sampling_time is recorded in seconds'''
     if file:
         with open(file) as f:
@@ -134,4 +115,37 @@ def getExecTimes(file=None):
         print('provide a file to search!')
         exit(1)
 
+def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
+    '''finds how many fits were completed on a given day, with day being provided as a path string'''
+    if day:
+        fitCands = glob.glob(os.path.join(day,'*/')) ## will return the paths to the candidates that were fit + the candidate_data folder 
+        if os.path.join(day,'candidate_data/') in fitCands:
+            candList = glob.glob(os.path.join(day,'candidate_data','*.dat'))
+            numCands = len(candList) ## tp compare number of fit candidates to number of submitted
+            fitCands.remove(os.path.join(day,'candidate_data/')) ## might be unnecessary
+        else:
+            numCands = len(fitCands)
+        
+        ## count number of fits completed for each model
+        numFits = {model: len(os.path.join(day,'*',model+'_result.json')) for model in models}
+        sumFits = sum(numFits.values())
+        ## count number of candidates that weren't fit
+        numUnfit = numCands - len(fitCands) 
 
+        return {
+        'fitCands': fitCands,
+        'numCands':numCands, 
+        'numFits':numFits, 
+        'sumFits':sumFits, 
+        'numUnfit':numUnfit
+        }
+    else:
+        print('provide a day to count fits for!')
+        exit(1)
+
+
+## find execution times
+
+
+
+## find a way to plot each model's cumulative 
