@@ -10,6 +10,7 @@ import os
 import argparse
 import glob
 import time
+import json
 
 import numpy as np
 import pandas as pd
@@ -32,12 +33,13 @@ parser.add_argument("-c","--candDir", type=str, default=None, help="Path to the 
 parser.add_argument("-f","--fitDir", type=str, default=None, help="Path to the fits directory")
 parser.add_argument('-v', '--verbose', action='store_true')
 parser.add_argument('-o', '--outdir', type=str, default=os.path.join('./outdir/stats/',time.strftime("%Y%m%d-%H%M%S"),''))
+parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], help="which models to analyse with the fit stats")
 args = parser.parse_args()
 
 # if not os.path.exists(args.outdir):
 #         os.makedirs(args.outdir)
 if args.candDir:
-    dayList = glob.glob(args.candDir + "*")
+    dayList = glob.glob(os.path.join(args.candDir, "/*/"))
 
     dayCount = [day for day in range(0,len(dayList))]
 
@@ -49,33 +51,87 @@ if args.candDir:
 else:
     print("No candidate directory specified, cannot run some stats")
 
-def plotDir(name,ext=".png"):
-    if not os.path.exists(args.outdir):
-        os.makedirs(args.outdir)
-    filepath = os.path.join(args.outdir,name,ext)
+if args.fitDir:
+    fit_dayList = glob.glob(args.fitDir + "*")
+    
+    ## attempted dict comprehension for finding all instances of logs
+    logDict = {model: glob.glob(os.path.join(args.fitDir,'*',model+'.log')) for model in args.models}
+    jsonDict = {model: glob.glob(os.path.join(args.fitDir,'*',model+'_result.json')) for model in args.models}
+
+else:
+    print("No candidate directory specified, cannot run some stats")
+
+
+## Candidate Directory stats
+
+def plotDir(name,ext=".png",outdir=args.outdir):
+    '''check for existence of plot directory and create if needed, then return full path for saving figure'''
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+    filepath = os.path.join(outdir,name+ext)
     return(filepath)
 
-## plot the number of candidates per day
+
 def plotDailyCand():
+    '''plot the number of candidates per day'''
     plt.plot(dayCount, numDaily)
    #plt.xlabel("Day")
     plt.savefig(plotDir("numDailyCand"))
 
-## plot the cumulative number of candidates per day
+
 def plotCumDailyCand():
+    '''plot the cumulative number of candidates per day'''
     plt.plot(dayCount,cumDaily)
    #plt.xlabel("Day")
     plt.savefig(plotDir("cumDailyCand"))
 
-## plot the number of candidates per day with a rolling average
+
 def plotDailyCandRolling():
+    '''plot the number of candidates per day with a rolling average'''
     plt.plot(dayCount, numDaily)
     plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
     plt.savefig(plotDir("numDailyCandRolling"))
 
+
+
+## Fit Directory Stats
+
 ## need to find way to plot time taken to run fits
 ## would be done using the fitDir argument and the .log files located in each fit directory
 
+def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
+    '''finds how many fits were completed on a given day, with day being provided as a path string'''
+    if day:
+        fitCands = glob.glob(os.path.join(day,'*/')) ## will return the candidates that were fit + the candidate_data folder 
+        if os.path.join(day,'candidate_data/') in fitCands:
+            candList = glob.glob(os.path.join(day,'candidate_data','*.dat'))
+            numCands = len(candList) ## tp compare number of fit candidates to number of submitted
+        else:
+            numCands = len(fitCands)
+        
+        ## count number of fits completed for each model
+        numFits = {model: len(os.path.join(day,'*',model+'_result.json')) for model in models}
 
-    
+        ## count number of candidates actually fit
+
+
+    else:
+        print('provide a day to count fits for!')
+        exit(1)
+
+## find execution times
+def getExecTimes(file=None):
+    '''pulls from the provided json file to find the sampling_time and returns that value. sampling_time is recorded in seconds'''
+    if file:
+        with open(file) as f:
+            try: 
+                data = json.load(f)
+                sampling_time = data['sampling_time']
+            finally:
+                f.close()
+                return sampling_time
+    else:
+        print('provide a file to search!')
+        exit(1)
+
 
