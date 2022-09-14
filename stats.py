@@ -1,7 +1,7 @@
 ## Essentially intended to be a way to create some nice stats plots for the paper
 ## July 2021-July 2022: 1807 candidates, average of 4.36 candidates per day
 
-## Need to stylize the plots
+## Need to stylize the plots; could define a function to outline a consistent plot style and size depending on plot type to reduce repetition
 
 from secrets import choice
 import subprocess
@@ -64,7 +64,7 @@ else:
 
 ## Candidate Directory stats
 
-def plotDir(name,ext=".png",outdir=args.outdir):
+def plotDir(name,outdir=args.outdir,ext=".png",):
     '''check for existence of plot directory and create if needed, then return full path for saving figure'''
     if not os.path.exists(outdir):
         os.makedirs(outdir)
@@ -147,6 +147,39 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
 
 ## find a way to plot each model's cumulative 
 
+def plotModelCum(models=args.models, save=True):
+    '''plot the cumulative number of fits for each model'''
+    ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
+    modelDict = {}
+    ## Potential alternate option: plot them all on the same plot as subplots
+    for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
+        ##
+        ## compile cumulative number of fits for each model
+        modelCount = [len((glob.glob(os.path.join(day,'*',model+'_result.json')))) for day in fit_dayList]
+        modelCum = np.cumsum(modelCount)
+        modelDict[model] = modelCum
+        
+        plt.plot(dayCount,modelCum)
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Count')
+        plt.title('Cumulative Number of Fits for {}'.format(model))
+        plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
+        plt.clf()
+
+    ## now plot all models together
+    for key, value in modelDict.items(): 
+        
+        plt.plot(dayCount,modelCum, label=key, marker='o')
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Count')
+        ## need to cmap or something for controlling colors
+    plt.title('Cumulative Number of Fits for All Models')
+    plt.legend()
+    plt.savefig(plotDir("cumDailyFits_all")) if save else plt.clf()
+    plt.clf()
+    return modelDict ## maybe not necessary to return this
+    
+
 ## plot number of unfit candidates per day
 
 ## plot cumulative number of unfit candidates
@@ -163,3 +196,4 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
 
 ## plot rolling average of each model fit time
 
+## add a file size counter and plotter potentially

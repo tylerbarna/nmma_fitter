@@ -1,0 +1,35 @@
+10:29 INFO    : Running for label 'nugent-hyper', output will be saved to './ZTF22aauqyuf'
+10:29 INFO    : Running for label 'nugent-hyper', output will be saved to './ZTF22aauqyuf'
+10:29 INFO    : Search parameters:
+10:29 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+10:29 INFO    :   KNtimeshift = Uniform(minimum=-1.5, maximum=0.0, name='t0', latex_label='$t_0$', unit=None, boundary=None)
+10:29 INFO    :   inclination_EM = Sine(minimum=0, maximum=0.8, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+10:29 INFO    :   supernova_mag_boost = Uniform(minimum=-5.0, maximum=5.0, name='supernova_mag_boost', latex_label='$\\rm{SNmag}$', unit=None, boundary=None)
+10:29 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+10:29 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+10:29 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x2b4a23becd90>>}
+10:29 INFO    : Temporary directory incompatible with MPI, will run in original directory
+10:29 INFO    : Using output file ./ZTF22aauqyuf/pm_nugent-hyper/
+10:29 INFO    : Search parameters:
+10:29 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+10:29 INFO    :   KNtimeshift = Uniform(minimum=-1.5, maximum=0.0, name='t0', latex_label='$t_0$', unit=None, boundary=None)
+10:29 INFO    :   inclination_EM = Sine(minimum=0, maximum=0.8, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+10:29 INFO    :   supernova_mag_boost = Uniform(minimum=-5.0, maximum=5.0, name='supernova_mag_boost', latex_label='$\\rm{SNmag}$', unit=None, boundary=None)
+10:29 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+10:29 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+10:29 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x2b6424865d10>>}
+10:29 INFO    : Temporary directory incompatible with MPI, will run in original directory
+10:29 INFO    : Using output file ./ZTF22aauqyuf/pm_nugent-hyper/
+10:29 INFO    : Sampling time: 0:00:16.305862
+10:29 INFO    : Sampling time: 0:00:16.348894
+10:29 INFO    : Summary of results:
+nsamples: 1524
+ln_noise_evidence:  0.000
+ln_evidence: -2.370 +/-  0.043
+ln_bayes_factor: -2.370 +/-  0.043
+
+10:29 INFO    : Writing samples file to /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/2459784-2459791/ZTF22aauqyuf/nugent-hyper_posterior_samples.dat
