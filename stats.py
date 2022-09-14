@@ -180,6 +180,8 @@ def plotModelCum(models=args.models, save=True):
     return modelDict ## maybe not necessary to return this
     
 
+## To Do:
+
 ## plot number of unfit candidates per day
 
 ## plot cumulative number of unfit candidates
