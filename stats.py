@@ -2,6 +2,7 @@
 ## July 2021-July 2022: 1807 candidates, average of 4.36 candidates per day
 
 ## Need to stylize the plots; could define a function to outline a consistent plot style and size depending on plot type to reduce repetition
+## need to fig,ax stuff
 
 from secrets import choice
 import subprocess
@@ -73,14 +74,22 @@ def plotDir(name,outdir=args.outdir,ext=".png",):
 
 
 def plotDailyCand(save=True):
-    '''plot the number of candidates per day'''
-    plt.plot(dayCount, numDaily)
+    '''plot the number of candidates per day as both a line plot and histogram'''
+    ## 
+    plt.plot(dayCount, numDaily,marker='o')
     plt.xlabel("Days Since Start") ## weird phrasing
     plt.ylabel('Number of Daily Candidates')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
+    plt.clf()
+    ## plot histogram of number of candidates per day
+    plt.hist(numDaily, bins=20) ## could fine tune the number of bins
+    plt.xlabel("Number of Candidates per Day")
+    plt.ylabel('Count')
+    plt.savefig(plotDir("numDailyCandHist")) if save else plt.clf()
 
 
-def plotCumDailyCand(save=True):
+
+def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/prettier curve
     '''plot the cumulative number of candidates per day'''
     plt.plot(dayCount,cumDaily)
     plt.xlabel("Days Since Start")
@@ -115,7 +124,7 @@ def get_sampling_time(file=None):
                 return sampling_time
     else:
         print('provide a file to search!')
-        exit(1)
+        exit(1) ## irreconciable error, hence exit(1)
 
 def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
     '''finds how many fits were completed on a given day, with day being provided as a path string'''
@@ -143,7 +152,7 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
         }
     else:
         print('provide a day to count fits for!')
-        exit(1)
+        exit(1) ## irreconciable error, hence exit(1)
 
 
 
@@ -168,7 +177,7 @@ def plotFitCum(models=args.models, save=True):
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
-        modelDict{'Total': sum(map(np.array,modelDict.values())).tolist()}
+        modelDict['total'] = sum(map(np.array,modelDict.values())).tolist()
     except:
         print('Keys in modelDict probably do not have the same length')
         pass
@@ -188,6 +197,7 @@ def plotFitCum(models=args.models, save=True):
 
 
 
+
 ## To Do:
 
 ## plot number of unfit candidates per day
@@ -203,3 +213,5 @@ def plotFitCum(models=args.models, save=True):
 ## plot rolling average of each model fit time
 
 ## add a file size counter and plotter potentially
+
+## plot histogram of 
