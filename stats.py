@@ -37,8 +37,7 @@ parser.add_argument('-o', '--outdir', type=str, default=os.path.join('./outdir/s
 parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], help="which models to analyse with the fit stats")
 args = parser.parse_args()
 
-# if not os.path.exists(args.outdir):
-#         os.makedirs(args.outdir)
+## compilation of lists for use in plotting (pre-dataframe implementation)
 if args.candDir:
     dayList = glob.glob(os.path.join(args.candDir, "/*/"))
     
@@ -63,57 +62,30 @@ else:
     print("No candidate directory specified, cannot run some stats")
 
 
-## Candidate Directory stats
+## Utility functions
 
 def plotDir(name,outdir=args.outdir,ext=".png",):
-    '''check for existence of plot directory and create if needed, then return full path for saving figure'''
+    '''
+    check for existence of plot directory and create if needed, then return full path for saving figure
+    
+    Args:
+    name: name of the plot for the filename (without extension)
+    outdir: path to the output directory
+    ext: extension of the plot file (typically .png or .pdf)
+    '''
     if not os.path.exists(outdir):
         os.makedirs(outdir)
     filepath = os.path.join(outdir,name+ext)
     return(filepath)
 
 
-def plotDailyCand(save=True):
-    '''plot the number of candidates per day as both a line plot and histogram'''
-    ## 
-    plt.plot(dayCount, numDaily,marker='o')
-    plt.xlabel("Days Since Start") ## weird phrasing
-    plt.ylabel('Number of Daily Candidates')
-    plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
-    plt.clf()
-    ## plot histogram of number of candidates per day
-    plt.hist(numDaily, bins=20) ## could fine tune the number of bins
-    plt.xlabel("Number of Candidates per Day")
-    plt.ylabel('Count')
-    plt.savefig(plotDir("numDailyCandHist")) if save else plt.clf()
-
-
-
-def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/prettier curve
-    '''plot the cumulative number of candidates per day'''
-    plt.plot(dayCount,cumDaily)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Cumulative Number of Candidates')
-    plt.savefig(plotDir("cumDailyCand")) if save else plt.clf()
-
-
-def plotDailyCandRolling(save=True):
-    '''plot the number of candidates per day with a rolling average'''
-    plt.plot(dayCount, numDaily)
-    plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Number of Daily Candidates')
-    plt.savefig(plotDir("numDailyCandRolling")) if save else plt.clf()
-
-
-
-## Fit Directory Stats
-
-## need to find way to plot time taken to run fits
-## would be done using the fitDir argument and the .log files located in each fit directory
-
-def get_sampling_time(file=None):
-    '''pulls from the provided json file to find the sampling_time and returns that value. sampling_time is recorded in seconds'''
+def get_sampling_time(file=None): ## somewhat redundant after creation of get_json
+    '''
+    Pulls from the provided json file to find the sampling_time and returns that value. sampling_time is recorded in seconds
+    
+    Args:
+    file: path to the json file to be parsed
+    '''
     if file:
         with open(file) as f:
             try: 
@@ -122,12 +94,45 @@ def get_sampling_time(file=None):
             finally:
                 f.close()
                 return sampling_time
+            
     else:
         print('provide a file to search!')
         exit(1) ## irreconciable error, hence exit(1)
 
+def get_json(file=None, params=None): ## effectively an improvement on get_sampling_time so it provides more flexibility and can be used for other parameters
+    '''
+    pulls from the provided json file to find several values and returns them in a dictionary. sampling_time is recorded in seconds. NOTE: all values are returned as strings and must be converted to the appropriate type when used.
+
+    Args:
+    file: path to json file (required). Taken as path string, but will also accept boolean False to return dictionary populated by np.nan values.
+    params: list of additional parameters to pull from json file.
+    '''
+    jsonList = ['sampling_time', 'sampler', 'log_evidence','log_evidence_err', 'log_noise_evidence',  'log_bayes_factor']
+    if params:
+        jsonList = jsonList + params
+    if file:
+        with open(file) as f:
+            try: 
+                data = json.load(f)
+                jsonDict = {param: data[param] for param in jsonList}
+            finally:
+                f.close()
+                return jsonDict
+    elif not file: ## for use case where no json is found when the pandas dataframe is created
+        jsonDict = {param: np.nan for param in jsonList} ## np.nan is used to make it easier to plot later without having to deal with NoneType
+        return jsonDict
+    else: ## case where file argument is not provided
+        print('provide a file to search!')
+        exit(1) ## irreconciable error, hence exit(1)
+
 def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
-    '''finds how many fits were completed on a given day, with day being provided as a path string'''
+    '''
+    finds how many fits were completed on a given day, with day being provided as a path string
+    
+    Args:
+    day: path to day directory
+    models: list of models to search for
+    '''
     if day:
         fitCands = glob.glob(os.path.join(day,'*/')) ## will return the paths to the candidates that were fit + the candidate_data folder 
         if os.path.join(day,'candidate_data/') in fitCands:
@@ -156,10 +161,72 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
 
 
 
+
+## Functions to plot daily candidate stats
+
+def plotDailyCand(save=True):
+    '''
+    plot the number of candidates per day as both a line plot and histogram
+    
+    Args:
+    save: boolean to determine whether to save the plot or not
+    '''
+    plt.plot(dayCount, numDaily,marker='o')
+    plt.xlabel("Days Since Start") ## weird phrasing
+    plt.ylabel('Number of Daily Candidates')
+    plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
+    plt.clf()
+    ## plot histogram of number of candidates per day
+    plt.hist(numDaily, bins=20) ## could fine tune the number of bins
+    plt.xlabel("Number of Candidates per Day")
+    plt.ylabel('Count')
+    plt.savefig(plotDir("numDailyCandHist")) if save else plt.clf()
+
+
+
+def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/prettier curve
+    '''
+    Plot the cumulative number of candidates per day
+    
+    Args:
+    save: boolean to determine whether to save the plot or not
+    '''
+    plt.plot(dayCount,cumDaily)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Cumulative Number of Candidates')
+    plt.savefig(plotDir("cumDailyCand")) if save else plt.clf()
+
+
+def plotDailyCandRolling(save=True):
+    '''
+    Plot the number of candidates per day with a rolling average
+    
+    Args:
+    save: boolean to determine whether to save the plot or not
+    '''
+    plt.plot(dayCount, numDaily)
+    plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Number of Daily Candidates')
+    plt.savefig(plotDir("numDailyCandRolling")) if save else plt.clf()
+
+
+
+
+## Functions to plot fitting stats
+
+## need to find way to plot time taken to run fits
+## would be done using the fitDir argument and the .log files located in each fit directory
 ## find a way to plot each model's cumulative 
 
 def plotFitCum(models=args.models, save=True):
-    '''plot the cumulative number of fits for each model'''
+    '''
+    plot the cumulative number of fits for each model
+    
+    Args:
+    models: list of models to search for
+    save: boolean to determine whether to save the figure or not
+    '''
     ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
     modelDict = {}
     ## Potential alternate option: plot them all on the same plot as subplots
@@ -183,7 +250,7 @@ def plotFitCum(models=args.models, save=True):
         pass
     ## now plot all models together
     for key, value in modelDict.items(): 
-        plt.plot(dayCount,modelCum, label=key, marker='o')
+        plt.plot(dayCount,value, label=key, marker='o')
         plt.xlabel("Days Since Start")
         plt.ylabel('Count')
         ## need to cmap or something for controlling colors
