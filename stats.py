@@ -126,7 +126,7 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
         print('provide a file to search!')
         exit(1) ## irreconciable error, hence exit(1)
 
-
+## countDailyFits might have been made redundant by the creation of get_dataframe, but I'll leave it for now
 def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
     '''
     finds how many fits were completed on a given day, with day being provided as a path string
@@ -184,7 +184,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
         ## get lists for day level directories
         candPathList = glob.glob(os.path.join(dayPath, "*.csv")) ## could change to have a .dat argument option
         candList = [cand.split('/')[-1].split('.')[0].split('_')[1] for cand in candPathList] ## this is a bit of a mess, but it works (hopefully)
-        for cand, candPath in zip(candList, candPathList):
+        for cand, candPath in zip(candList, candPathList): ## works around the issue of candidate_data being present in the candidate_fits directory, which is not the case for the countDailyFits function
             ## search for models at same time as candidate data
             for model in models:
                 df.at[idx, 'day'] = day
@@ -338,5 +338,3 @@ def plotFitCum(models=args.models, save=True):
 ## plot rolling average of each model fit time
 
 ## add a file size counter and plotter potentially
-
-## plot histogram of 
