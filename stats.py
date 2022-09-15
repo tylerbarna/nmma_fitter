@@ -99,6 +99,7 @@ def get_sampling_time(file=None): ## somewhat redundant after creation of get_js
         print('provide a file to search!')
         exit(1) ## irreconciable error, hence exit(1)
 
+
 def get_json(file=None, params=None): ## effectively an improvement on get_sampling_time so it provides more flexibility and can be used for other parameters
     '''
     pulls from the provided json file to find several values and returns them in a dictionary. sampling_time is recorded in seconds. NOTE: all values are returned as strings and must be converted to the appropriate type when used.
@@ -124,6 +125,7 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
     else: ## case where file argument is not provided
         print('provide a file to search!')
         exit(1) ## irreconciable error, hence exit(1)
+
 
 def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
     '''
@@ -158,6 +160,62 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
     else:
         print('provide a day to count fits for!')
         exit(1) ## irreconciable error, hence exit(1)
+
+
+def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, save=True, file=None):
+    '''
+    Creates or loads in a pandas dataframe with relevant values for different candidates. If a file is provided, the dataframe will be loaded from that file. Otherwise, the dataframe will be created from the candidate and fit directories provided. 
+
+    Args:
+    candDir: path to candidate directory
+    fitDir: path to fit directory
+    save: boolean to determine whether to save the dataframe to a file to be accessed later
+    file: path of saved dataframe to be read in. If None, will proceed to generate dataframe
+    '''
+    if file:
+        df = pd.read_csv(file) ## needs to be tested to ensure compatibility with saved dataframe
+        return df
+    
+    df = pd.DataFrame()
+    idx = 0 ## used to keep track of the index of the dataframe when defining new values
+    dayPathList = glob.glob(os.path.join(candDir, "/*/"))
+    dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
+    for day, dayPath in zip(dayList, dayPathList):
+        ## get lists for day level directories
+        candPathList = glob.glob(os.path.join(dayPath, "*.csv")) ## could change to have a .dat argument option
+        candList = [cand.split('/')[-1].split('.')[0].split('_')[1] for cand in candPathList] ## this is a bit of a mess, but it works (hopefully)
+        for cand, candPath in zip(candList, candPathList):
+            ## search for models at same time as candidate data
+            for model in models:
+                df.at[idx, 'day'] = day
+                df.at[idx, 'dayPath'] = dayPath
+                df.at[idx, 'cand'] = cand
+                df.at[idx, 'candPath'] = candPath
+                df.at[idx, 'model'] = model
+
+                ## check if fit was completed
+                fitPath = os.path.join(fitDir, day, cand,"")
+                df.at[idx, 'fitPath'] = fitPath
+                ## now find json
+                jsonPath = os.path.join(fitPath, model+'_result.json')
+                if jsonPath:
+                    df.at[idx, 'json'] = jsonPath
+                    df.at[idx, 'fitBool'] = True
+                    ## now get values from json
+                    jsonDict = get_json(file=jsonPath[0])
+                    for key, value in jsonDict.items():
+                        df.at[idx, key] = value
+                elif not jsonPath:
+                    df.at[idx, 'json'] = np.nan
+                    df.at[idx, 'fitBool'] = False
+                    ## now get values from json
+                    jsonDict = get_json(file=False)
+                    for key, value in jsonDict.items():
+                        df.at[idx, key] = value ## should be np.nan
+                idx += 1
+    if save:
+        df.to_csv(plotDir(name='statsDataframe',ext='.csv')) ## Not exactly the intended use of plotDir, but it works (probably)
+    return df
 
 
 
