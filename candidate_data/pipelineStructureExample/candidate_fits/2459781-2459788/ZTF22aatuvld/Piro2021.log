@@ -1,0 +1,28 @@
+10:29 INFO    : Running for label 'Piro2021', output will be saved to './ZTF22aatuvld'
+10:29 INFO    : Running for label 'Piro2021', output will be saved to './ZTF22aatuvld'
+10:29 INFO    : Search parameters:
+10:29 INFO    : Search parameters:
+10:29 INFO    :   luminosity_distance = Uniform(minimum=0.0, maximum=1000.0, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+10:29 INFO    :   luminosity_distance = Uniform(minimum=0.0, maximum=1000.0, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+10:29 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=0.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+10:29 INFO    :   log10_Menv = Uniform(minimum=-5.0, maximum=0.0, name='log10_Menv', latex_label='$\\log_{10}M^{\\rm{env}}$', unit=None, boundary=None)
+10:29 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=0.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+10:29 INFO    :   log10_Renv = Uniform(minimum=10.0, maximum=15, name='log10_Renv', latex_label='$\\log_{10}R^{\\rm{env}}$', unit=None, boundary=None)
+10:29 INFO    :   log10_Menv = Uniform(minimum=-5.0, maximum=0.0, name='log10_Menv', latex_label='$\\log_{10}M^{\\rm{env}}$', unit=None, boundary=None)
+10:29 INFO    :   log10_Ee = Uniform(minimum=47.0, maximum=52.0, name='log10_Eext', latex_label='$\\log_{10}E^{\\rm{e}}$', unit=None, boundary=None)
+10:29 INFO    :   log10_Renv = Uniform(minimum=10.0, maximum=15, name='log10_Renv', latex_label='$\\log_{10}R^{\\rm{env}}$', unit=None, boundary=None)
+10:29 INFO    :   log10_Ee = Uniform(minimum=47.0, maximum=52.0, name='log10_Eext', latex_label='$\\log_{10}E^{\\rm{e}}$', unit=None, boundary=None)
+10:29 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+10:29 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+10:29 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+10:29 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+10:29 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 6, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x2b42825a4790>>}
+10:29 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 512, 'n_params': 6, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x2acef1bec890>>}
+10:29 INFO    : Temporary directory incompatible with MPI, will run in original directory
+10:29 INFO    : Temporary directory incompatible with MPI, will run in original directory
+10:29 INFO    : Using output file ./ZTF22aatuvld/pm_Piro2021/
+10:29 INFO    : Using output file ./ZTF22aatuvld/pm_Piro2021/
