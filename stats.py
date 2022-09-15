@@ -40,11 +40,11 @@ args = parser.parse_args()
 #         os.makedirs(args.outdir)
 if args.candDir:
     dayList = glob.glob(os.path.join(args.candDir, "/*/"))
-
+    
     dayCount = [day for day in range(0,len(dayList))]
-
+    
     numDaily = [len(glob.glob(day + "/*.csv")) for day in dayList]
-
+    
     candList = glob.glob(args.candDir + "*/*.csv")
 
     cumDaily = np.cumsum(numDaily,axis=1)
@@ -57,7 +57,7 @@ if args.fitDir:
     ## attempted dict comprehension for finding all instances of logs
     logDict = {model: glob.glob(os.path.join(args.fitDir,'*',model+'.log')) for model in args.models}
     jsonDict = {model: glob.glob(os.path.join(args.fitDir,'*',model+'_result.json')) for model in args.models}
-
+    ## the way these are written, it may have issues for plotting if some days don't have all models
 else:
     print("No candidate directory specified, cannot run some stats")
 
@@ -72,27 +72,29 @@ def plotDir(name,outdir=args.outdir,ext=".png",):
     return(filepath)
 
 
-def plotDailyCand():
+def plotDailyCand(save=True):
     '''plot the number of candidates per day'''
     plt.plot(dayCount, numDaily)
     plt.xlabel("Days Since Start") ## weird phrasing
     plt.ylabel('Number of Daily Candidates')
-    plt.savefig(plotDir("numDailyCand"))
+    plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
 
 
-def plotCumDailyCand():
+def plotCumDailyCand(save=True):
     '''plot the cumulative number of candidates per day'''
     plt.plot(dayCount,cumDaily)
     plt.xlabel("Days Since Start")
     plt.ylabel('Cumulative Number of Candidates')
-    plt.savefig(plotDir("cumDailyCand"))
+    plt.savefig(plotDir("cumDailyCand")) if save else plt.clf()
 
 
-def plotDailyCandRolling():
+def plotDailyCandRolling(save=True):
     '''plot the number of candidates per day with a rolling average'''
     plt.plot(dayCount, numDaily)
     plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
-    plt.savefig(plotDir("numDailyCandRolling"))
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Number of Daily Candidates')
+    plt.savefig(plotDir("numDailyCandRolling")) if save else plt.clf()
 
 
 
@@ -147,7 +149,7 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
 
 ## find a way to plot each model's cumulative 
 
-def plotModelCum(models=args.models, save=True):
+def plotFitCum(models=args.models, save=True):
     '''plot the cumulative number of fits for each model'''
     ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
     modelDict = {}
@@ -165,14 +167,18 @@ def plotModelCum(models=args.models, save=True):
         plt.title('Cumulative Number of Fits for {}'.format(model))
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
         plt.clf()
-
+    try: ## using a try here because this could totally break if the modelDict has different lengths for each model
+        modelDict{'Total': sum(map(np.array,modelDict.values())).tolist()}
+    except:
+        print('Keys in modelDict probably do not have the same length')
+        pass
     ## now plot all models together
     for key, value in modelDict.items(): 
-        
         plt.plot(dayCount,modelCum, label=key, marker='o')
         plt.xlabel("Days Since Start")
         plt.ylabel('Count')
         ## need to cmap or something for controlling colors
+    
     plt.title('Cumulative Number of Fits for All Models')
     plt.legend()
     plt.savefig(plotDir("cumDailyFits_all")) if save else plt.clf()
@@ -180,15 +186,13 @@ def plotModelCum(models=args.models, save=True):
     return modelDict ## maybe not necessary to return this
     
 
+
+
 ## To Do:
 
 ## plot number of unfit candidates per day
 
 ## plot cumulative number of unfit candidates
-
-## plot number of fits per day
-
-## plot number of fits per day for each model
 
 ## plot amount of time taken to run fits per day per model
 
