@@ -213,8 +213,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     for key, value in jsonDict.items():
                         df.at[idx, key] = value ## should be np.nan
                 idx += 1
-    if save:
-        df.to_csv(plotDir(name='statsDataframe',ext='.csv')) ## Not exactly the intended use of plotDir, but it works (probably)
+    
+    df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
+    ## Not exactly the intended use of plotDir, but it works (probably)
     return df
 
 
@@ -238,7 +239,8 @@ def plotDailyCand(save=True):
     plt.hist(numDaily, bins=20) ## could fine tune the number of bins
     plt.xlabel("Number of Candidates per Day")
     plt.ylabel('Count')
-    plt.savefig(plotDir("numDailyCandHist")) if save else plt.clf()
+    plt.savefig(plotDir("numDailyCandHist")) if save else None
+    plt.clf()
 
 
 
@@ -252,7 +254,8 @@ def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/pre
     plt.plot(dayCount,cumDaily)
     plt.xlabel("Days Since Start")
     plt.ylabel('Cumulative Number of Candidates')
-    plt.savefig(plotDir("cumDailyCand")) if save else plt.clf()
+    plt.savefig(plotDir("cumDailyCand")) if save else None
+    plt.clf()
 
 
 def plotDailyCandRolling(save=True):
@@ -266,7 +269,8 @@ def plotDailyCandRolling(save=True):
     plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
     plt.xlabel("Days Since Start")
     plt.ylabel('Number of Daily Candidates')
-    plt.savefig(plotDir("numDailyCandRolling")) if save else plt.clf()
+    plt.savefig(plotDir("numDailyCandRolling")) if save else None
+    plt.clf()
 
 
 
@@ -315,7 +319,7 @@ def plotFitCum(models=args.models, save=True):
     
     plt.title('Cumulative Number of Fits for All Models')
     plt.legend()
-    plt.savefig(plotDir("cumDailyFits_all")) if save else plt.clf()
+    plt.savefig(plotDir("cumDailyFits_all")) if save else None
     plt.clf()
     return modelDict ## maybe not necessary to return this
     
