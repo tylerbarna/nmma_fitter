@@ -69,7 +69,7 @@ else:
 
 ## Utility functions
 
-def plotDir(name,outdir=args.outdir,ext=".png",):
+def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize different plot types into subdirectories, but doesn't have to be an argument here
     '''
     check for existence of plot directory and create if needed, then return full path for saving figure
     
@@ -291,9 +291,6 @@ def plotDailyCandRolling(save=True): ## needs to be modified to accept dataframe
 
 ## Functions to plot fitting stats
 
-## need to find way to plot time taken to run fits
-## would be done using the fitDir argument and the .log files located in each fit directory
-## find a way to plot each model's cumulative 
 
 def plotFitCum(models=args.models, save=True): ## needs to be modified to accept dataframe instead
     '''
@@ -347,6 +344,9 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
+
+    ## compiling data for plotting
+
     ## find unique values in df['day'] and use those to create a list of days
     dayList = np.array(df['day'].unique().tolist())
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
@@ -466,19 +466,94 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
 
 
+## plot the fit time statistics
+def plotSamplingTime(df, models=args.models, save=True):
+    '''
+    Plot the sampling time statistics for the given dataframe.
 
+    Args:
+    df: dataframe containing the stats data (expected to be output of get_dataframe) (required)
+    models: list of models to search for
+    save: boolean to determine whether to save the figure or not
+    '''
+
+    ## get the fit time data
+    dayList = np.array(df['day'].unique().tolist())
+    fitTime = {model: 
+    np.array([float(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)]['sampling_time']) 
+    for day in dayList]) 
+    for model in models}
+    fitTime['Total'] = np.array([float(df[(df['day'] == day) & (df['fitBool'] == True)]['sampling_time']) for day in dayList])
+
+    ## data plotting
+
+    ## plot histogram of fit time data
+    for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
+        ## I suppose I could just flatten it?
+        plt.hist(value.flatten(), label=key)  if key != 'Total' else None 
+        ## could fine tune the number of bins
+    plt.xlabel("Sampling Times (s)")
+    plt.ylabel('Count')
+    plt.title('Sampling Times for Each Model') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("fitTimeHistModel")) if save else None
+    plt.clf()
+
+    ## summing over axis=1 means that each day will have a single value
+    ## plot histogram of total daily fit time
+    plt.hist(np.sum(fitTime['Total'],axis=1)) ## could fine tune the number of bins
+    plt.xlabel("Sampling Times (s)")
+    plt.ylabel('Count')
+    plt.title('Daily Sampling Times')
+    plt.savefig(plotDir("fitTimeHistTotal")) if save else None
+    plt.clf()
+
+    ## plot the daily average fit time for each model
+    for key, value in fitTime.items(): 
+        plt.plot(dayList, np.mean(value,axis=1), label=key) ## should be right axis?
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Sampling Time (s)')
+    plt.title('Average Daily Sampling Time') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("dailyFitTimeAvg")) if save else None
+    ## could do a version with std error bars as well
+
+    ## plot the daily median fit time for each model
+    for key, value in fitTime.items():
+        plt.plot(dayList, np.median(value,axis=1), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Sampling Time (s)')
+    plt.title('Median Daily Sampling Time') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("dailyFitTimeMedian")) if save else None
+    plt.clf()
+
+    ## plot the daily median fit time for each model (rolling average)
+    for key, value in fitTime.items():
+        plt.plot(dayList, pd.Series(np.median(value,axis=1)).rolling(7).mean(), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Sampling Time (s)')
+    plt.title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("dailyFitTimeMedianRolling")) if save else None
+    plt.clf()
+
+    ## plot the cumulative daily fit time for each model
+    for key, value in fitTime.items():
+        plt.plot(dayList, np.cumsum(np.sum(value, axis=1)), label=key) 
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Sampling Time (s)')
+    plt.title('Cumulative Sampling Time') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("cumFitTime")) if save else None
+    plt.clf()
+    
 
 
 
 ## To Do:
 
-## plot amount of time taken to run fits per day per model
-
-## plot total amount of time taken to run fits per day
-
-## plot cumulative amount of time taken to run fits
-
-## plot rolling average of each model fit time
+## plot rolling average of each model fit time -- maybe unneeded?
 
 ## add a file size counter and plotter potentially (would use os.path.filesize())
 
