@@ -1,8 +1,12 @@
 ## Essentially intended to be a way to create some nice stats plots for the paper
 ## July 2021-July 2022: 1807 candidates, average of 4.36 candidates per day
 
-## Need to stylize the plots; could define a function to outline a consistent plot style and size depending on plot type to reduce repetition
+## Need to stylize the plots; could define a function to outline a consistent plot style and size depending on plot type to reduce repetition - see https://stackoverflow.com/questions/51711438/matplotlib-how-to-edit-the-same-plot-with-different-functions and https://matplotlib.org/1.5.3/users/style_sheets.html for more info
 ## need to fig,ax stuff
+
+## could probably consolidate some of the plotting functions into one function for each topic (e.g. one function for plotting the number of fits, one for plotting the number of unfit, etc.)
+
+## alternatively, could change these into methods of a class that takes the dataframe as the object (e.g. df.plotCumDailyCand() ) (I think that's how that works, honestly don't have a ton of experience with bespoke classes)
 
 from secrets import choice
 import subprocess
@@ -351,18 +355,27 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
     ## slightly long expression, but should be efficient (dataframe filtering could be slow potentially)
     unfit = {model: 
-    [len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
-    for day in dayList] 
+    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
+    for day in dayList]) 
     for model in models}
-    unfit['Total'] = [len(df[(df['day'] == day) & (df['fitBool'] == False)]) for day in dayList]
+    unfit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == False)]) for day in dayList])
+
+    ## find number of candidates that were fit for each day, seperated by model (for plotting stats later)
+    fit = {model: 
+    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)]) 
+    for day in dayList]) 
+    for model in models}
+    fit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
+
+    ## total number of fit and unfit per day (for plotting stats later)
+    allfit = {key: unfit[key] + fit[key] for key in unfit.keys()}
 
     ## data plotting
 
     ## plot the number of candidates that were not fit for each day
     ## should add a fig, ax = plt.subplots() to allow for better customization
-    for key, value in unfit.items():
-        plt.plot(dayCount, value, label=key, marker='o')
-    
+    for key, value in unfit.items(): ## one line conditional here is to exclude the total from the histogram
+        plt.plot(dayCount, value, label=key, marker='o') if key != 'Total' else None
     plt.xlabel("Days Since Start")
     plt.ylabel('Count')
     plt.title('Number of Unfit Candidates') ## should these have titles?
@@ -370,11 +383,21 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
 
+    ## plot histogram of number of candidates that were not fit for each day by model
+    for key, value in unfit.items():
+        plt.hist(value, label=key)
+    plt.xlabel("Number of Unfit Candidates per Day")
+    plt.ylabel('Count')
+    plt.title('Histogram of Number of Unfit Candidates per Day') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("numDailyUnfitModelHist")) if save else None
+    plt.clf()
+
     ## plot histogram of number of candidates that were not fit for each day
     plt.hist(unfit['Total'], bins=20) ## could fine tune the number of bins
     plt.xlabel("Number of Unfit Candidates per Day")
     plt.ylabel('Count')
-    plt.savefig(plotDir("numDailyUnfitHist")) if save else None
+    plt.savefig(plotDir("numDailyUnfitTotalHist")) if save else None
     plt.clf()
 
     ## plot rolling average of number of candidates that were not fit for each day
@@ -388,13 +411,66 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.clf()
 
     ## plot cumulative number of candidates that were not fit for each day
+    for key, value in unfit.items():
+        plt.plot(dayCount, np.cumsum(value), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Count')
+    plt.title('Cumulative Number of Unfit Candidates') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("cumDailyUnfit")) if save else None
+    plt.clf()
+
+    ## plot fraction of candidates that were not fit for each day
+    for key, value in allfit.items():
+        plt.plot(dayCount, value, label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Ratio')
+    plt.title('Fraction of Unfit Candidates to Total') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("fracDailyUnfit")) if save else None
+    plt.clf()
+
+    ## plot rolling average of fraction of candidates that were not fit for each day
+    for key, value in allfit.items():
+        plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Ratio')
+    plt.title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
+
+    ## plot cumulative fraction of candidates that were not fit for each day 
+    for key, value in allfit.items():
+        plt.plot(dayCount, np.cumsum(value), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Ratio')
+    plt.title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
+    plt.clf()
+
+    ## plot rolling average of cumulative fraction of candidates that were not fit for each day
+    for key, value in allfit.items():
+        plt.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Ratio')
+    plt.title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
+    plt.clf()
+
+    ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
+    ## could also add a stacked bar chart of fit and unfit candidates
+
+    ## probably don't need to return anything here
+
+
+
+
+
 
 
 ## To Do:
-
-## plot number of unfit candidates per day
-
-## plot cumulative number of unfit candidates
 
 ## plot amount of time taken to run fits per day per model
 
@@ -404,6 +480,8 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
 ## plot rolling average of each model fit time
 
-## add a file size counter and plotter potentially
+## add a file size counter and plotter potentially (would use os.path.filesize())
 
 ## add a timeit option to functions to determine how long they take to run
+
+## perhaps a function that finds the model with the highest log_likelihood for each candidate and then plots some stuff about which models were 'most likely' over time and compared to one another
