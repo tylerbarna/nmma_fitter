@@ -38,6 +38,7 @@ parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018",
 args = parser.parse_args()
 
 ## compilation of lists for use in plotting (pre-dataframe implementation)
+## post dataframe implementation: these should eventually be removed and plots should be updated to use the dataframe
 if args.candDir:
     dayList = glob.glob(os.path.join(args.candDir, "/*/"))
     
@@ -126,11 +127,11 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
         print('provide a file to search!')
         exit(1) ## irreconciable error, hence exit(1)
 
-## countDailyFits might have been made redundant by the creation of get_dataframe, but I'll leave it for now
+
 def countDailyFits(day=None, models=args.models): ##relying on args as default might not be the best idea
     '''
     finds how many fits were completed on a given day, with day being provided as a path string
-    
+    Somewhat made redundant by the creation of get_dataframe, but I'll leave it for now
     Args:
     day: path to day directory
     models: list of models to search for
@@ -167,8 +168,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     Creates or loads in a pandas dataframe with relevant values for different candidates. If a file is provided, the dataframe will be loaded from that file. Otherwise, the dataframe will be created from the candidate and fit directories provided. 
 
     Args:
-    candDir: path to candidate directory
-    fitDir: path to fit directory
+    candDir: path to candidate directory 
+    fitDir: path to fit directory 
+    models: list of models to search for/consider
     save: boolean to determine whether to save the dataframe to a file to be accessed later
     file: path of saved dataframe to be read in. If None, will proceed to generate dataframe
     '''
@@ -180,6 +182,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     idx = 0 ## used to keep track of the index of the dataframe when defining new values
     dayPathList = glob.glob(os.path.join(candDir, "/*/"))
     dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
+    ## may not need start and stop day, but commented out here in case it's useful later
+    #startDay = [int(day.split('-')[0]) for day in dayList]
+    #stopDay = [int(day.split('-')[1]) for day in dayList]
     for day, dayPath in zip(dayList, dayPathList):
         ## get lists for day level directories
         candPathList = glob.glob(os.path.join(dayPath, "*.csv")) ## could change to have a .dat argument option
@@ -188,6 +193,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
             ## search for models at same time as candidate data
             for model in models:
                 df.at[idx, 'day'] = day
+                ## start and stop day might be unnecessary, could just do this at later point
+                #df.at[idx, 'startDay'] = startDay[idx] 
+                #df.at[idx, 'stopDay'] = stopDay[idx]
                 df.at[idx, 'dayPath'] = dayPath
                 df.at[idx, 'cand'] = cand
                 df.at[idx, 'candPath'] = candPath
@@ -216,7 +224,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)
-    return df
+    return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
 
 
