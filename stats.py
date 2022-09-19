@@ -166,6 +166,7 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
 def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, save=True, file=None):
     '''
     Creates or loads in a pandas dataframe with relevant values for different candidates. If a file is provided, the dataframe will be loaded from that file. Otherwise, the dataframe will be created from the candidate and fit directories provided. 
+    Note: may want to include the current things that are expected in dataframe in this description
 
     Args:
     candDir: path to candidate directory 
@@ -230,8 +231,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
 
 ## Functions to plot daily candidate stats
+## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
 
-def plotDailyCand(save=True):
+def plotDailyCand(save=True): ## needs to be modified to accept dataframe instead
     '''
     plot the number of candidates per day as both a line plot and histogram
     
@@ -251,8 +253,8 @@ def plotDailyCand(save=True):
     plt.clf()
 
 
-
-def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/prettier curve
+def plotCumDailyCand(save=True): ## needs to be modified to accept dataframe instead
+    ## could switch to seaborn to make smoother/prettier curve
     '''
     Plot the cumulative number of candidates per day
     
@@ -266,7 +268,7 @@ def plotCumDailyCand(save=True): ## could switch to seaborn to make smoother/pre
     plt.clf()
 
 
-def plotDailyCandRolling(save=True):
+def plotDailyCandRolling(save=True): ## needs to be modified to accept dataframe instead
     '''
     Plot the number of candidates per day with a rolling average
     
@@ -289,7 +291,7 @@ def plotDailyCandRolling(save=True):
 ## would be done using the fitDir argument and the .log files located in each fit directory
 ## find a way to plot each model's cumulative 
 
-def plotFitCum(models=args.models, save=True):
+def plotFitCum(models=args.models, save=True): ## needs to be modified to accept dataframe instead
     '''
     plot the cumulative number of fits for each model
     
@@ -320,7 +322,7 @@ def plotFitCum(models=args.models, save=True):
         pass
     ## now plot all models together
     for key, value in modelDict.items(): 
-        plt.plot(dayCount,value, label=key, marker='o')
+        plt.plot(dayCount,value, label=key, marker='o') ## need to make a colormap for better visualization
         plt.xlabel("Days Since Start")
         plt.ylabel('Count')
         ## need to cmap or something for controlling colors
@@ -332,7 +334,60 @@ def plotFitCum(models=args.models, save=True):
     return modelDict ## maybe not necessary to return this
     
 
+def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
+    '''
+    Plot the number of candidates that were not fit for each day
 
+    Args:
+    df: dataframe containing the stats data (expected to be output of get_dataframe) (required)
+    models: list of models to search for
+    save: boolean to determine whether to save the figure or not
+    '''
+    ## find unique values in df['day'] and use those to create a list of days
+    dayList = np.array(df['day'].unique().tolist())
+    dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
+
+    ## find number of candidates that were not fit for each day, seperated by model
+    ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
+    ## slightly long expression, but should be efficient (dataframe filtering could be slow potentially)
+    unfit = {model: 
+    [len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
+    for day in dayList] 
+    for model in models}
+    unfit['Total'] = [len(df[(df['day'] == day) & (df['fitBool'] == False)]) for day in dayList]
+
+    ## data plotting
+
+    ## plot the number of candidates that were not fit for each day
+    ## should add a fig, ax = plt.subplots() to allow for better customization
+    for key, value in unfit.items():
+        plt.plot(dayCount, value, label=key, marker='o')
+    
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Count')
+    plt.title('Number of Unfit Candidates') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("numDailyUnfit")) if save else None
+    plt.clf()
+
+    ## plot histogram of number of candidates that were not fit for each day
+    plt.hist(unfit['Total'], bins=20) ## could fine tune the number of bins
+    plt.xlabel("Number of Unfit Candidates per Day")
+    plt.ylabel('Count')
+    plt.savefig(plotDir("numDailyUnfitHist")) if save else None
+    plt.clf()
+
+    ## plot rolling average of number of candidates that were not fit for each day
+    for key, value in unfit.items():
+        plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+    plt.xlabel("Days Since Start")
+    plt.ylabel('Count')
+    plt.title('Number of Unfit Candidates') ## should these have titles?
+    plt.legend()
+    plt.savefig(plotDir("dailyUnfit")) if save else None
+    plt.clf()
+
+    ## plot cumulative number of candidates that were not fit for each day
 
 
 ## To Do:
@@ -350,3 +405,5 @@ def plotFitCum(models=args.models, save=True):
 ## plot rolling average of each model fit time
 
 ## add a file size counter and plotter potentially
+
+## add a timeit option to functions to determine how long they take to run
