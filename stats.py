@@ -562,3 +562,5 @@ def plotSamplingTime(df, models=args.models, save=True):
 ## add a timeit option to functions to determine how long they take to run
 
 ## perhaps a function that finds the model with the highest log_likelihood for each candidate and then plots some stuff about which models were 'most likely' over time and compared to one another
+
+## time to fit vs. log likelihood plot?
