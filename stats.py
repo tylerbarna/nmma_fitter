@@ -6,7 +6,7 @@
 
 ## could probably consolidate some of the plotting functions into one function for each topic (e.g. one function for plotting the number of fits, one for plotting the number of unfit, etc.)
 
-## alternatively, could change these into methods of a class that takes the dataframe as the object (e.g. df.plotCumDailyCand() ) (I think that's how that works, honestly don't have a ton of experience with bespoke classes)
+## alternatively, could change these into methods of a class that takes the dataframe as the object (e.g. df.plotDailyCand() ) 
 
 # from secrets import choice
 # import subprocess
