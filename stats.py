@@ -291,6 +291,8 @@ def plotDailyCandRolling(save=True): ## needs to be modified to accept dataframe
 
 ## Functions to plot fitting stats
 
+## need a daily fits plot to be made in addition to the cumulative one
+
 
 def plotFitCum(models=args.models, save=True): ## needs to be modified to accept dataframe instead
     '''
