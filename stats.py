@@ -480,7 +480,8 @@ def plotSamplingTime(df, models=args.models, save=True):
     '''
 
     ## get the fit time data
-    dayList = np.array(df['day'].unique().tolist())
+    dayList = np.array(df['day'].unique().tolist()) ## oh, may need to switch to dayCount when plotting later
+    dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
     fitTime = {model: 
     np.array([float(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)]['sampling_time']) 
     for day in dayList]) 
@@ -512,7 +513,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily average fit time for each model
     for key, value in fitTime.items(): 
-        plt.plot(dayList, np.mean(value,axis=1), label=key) ## should be right axis?
+        plt.plot(dayCount, np.mean(value,axis=1), label=key) ## should be right axis?
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Average Daily Sampling Time') ## should these have titles?
@@ -522,7 +523,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily median fit time for each model
     for key, value in fitTime.items():
-        plt.plot(dayList, np.median(value,axis=1), label=key)
+        plt.plot(dayCount, np.median(value,axis=1), label=key)
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Median Daily Sampling Time') ## should these have titles?
@@ -532,7 +533,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily median fit time for each model (rolling average)
     for key, value in fitTime.items():
-        plt.plot(dayList, pd.Series(np.median(value,axis=1)).rolling(7).mean(), label=key)
+        plt.plot(dayCount, pd.Series(np.median(value,axis=1)).rolling(7).mean(), label=key)
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
@@ -542,7 +543,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the cumulative daily fit time for each model
     for key, value in fitTime.items():
-        plt.plot(dayList, np.cumsum(np.sum(value, axis=1)), label=key) 
+        plt.plot(dayCount, np.cumsum(np.sum(value, axis=1)), label=key) 
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Cumulative Sampling Time') ## should these have titles?
