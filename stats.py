@@ -575,6 +575,7 @@ def plotSamplingTime(df, models=args.models, save=True):
     # [[print('\n %s sampling times for %s : %s \n'%(model, day ,df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'])) for day in dayList] for model in models] if args.verbose else None
     # print() if args.verbose else None
 
+    ## looks like creating fitTime is where the issue is (maybe)
     fitTime = {model: 
     [df[(df['fitBool'] == False) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
     for day in dayList] 
@@ -588,32 +589,36 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## data plotting
 
     ## plot histogram of fit time data
-    for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
-        ## I suppose I could just flatten it?
-        # print()
-        # print(value.flatten())
+    brokenPlots = True ## flag to determine whether the following plots should are working
+    if not brokenPlots:
+        for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
+            ## I suppose I could just flatten it?
+            # print()
+            # print(value.flatten())
 
-        plt.hist(np.isfinite(value.flatten()), label=key)  if key != 'Total' else None 
-        ## could fine tune the number of bins
-    plt.xlabel("Sampling Times (s)")
-    plt.ylabel('Count')
-    plt.title('Sampling Times for Each Model') ## should these have titles?
-    plt.legend()
-    plt.savefig(plotDir("fitTimeHistModel")) if save else None
-    plt.clf()
+            plt.hist(value, label=key)  if key != 'Total' else None 
+            ## could fine tune the number of bins
+        plt.xlabel("Sampling Times (s)")
+        plt.ylabel('Count')
+        plt.title('Sampling Times for Each Model') ## should these have titles?
+        plt.legend()
+        plt.savefig(plotDir("fitTimeHistModel")) if save else None
+        plt.clf()
 
-    ## summing over axis=1 means that each day will have a single value
-    ## plot histogram of total daily fit time
-    plt.hist(np.sum(fitTime['Total'],axis=1)) ## could fine tune the number of bins
-    plt.xlabel("Sampling Times (s)")
-    plt.ylabel('Count')
-    plt.title('Daily Sampling Times')
-    plt.savefig(plotDir("fitTimeHistTotal")) if save else None
-    plt.clf()
+        ## summing over axis=1 means that each day will have a single value
+        ## plot histogram of total daily fit time
+        plt.hist(np.sum(fitTime['Total'])) ## could fine tune the number of bins
+        plt.xlabel("Sampling Times (s)")
+        plt.ylabel('Count')
+        plt.title('Daily Sampling Times')
+        plt.savefig(plotDir("fitTimeHistTotal")) if save else None
+        plt.clf()
 
     ## plot the daily average fit time for each model
     for key, value in fitTime.items(): 
-        plt.plot(dayCount, np.mean(value,axis=1), label=key) ## should be right axis?
+        print(fitTime['Total'])
+        ptin()
+        plt.plot(dayCount, np.mean(value), label=key) ## should be right axis?
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Average Daily Sampling Time') ## should these have titles?
@@ -690,9 +695,9 @@ plotUnfit(df=df)
 print('completed unfit candidate plot (5)') if args.verbose else None
 print() if args.verbose else None
 
-# plotSamplingTime(df=df)
-# print('completed sampling time plot (6)') if args.verbose else None
-# print() if args.verbose else None
+plotSamplingTime(df=df)
+print('completed sampling time plot (6)') if args.verbose else None
+print() if args.verbose else None
 
 
 
