@@ -326,17 +326,29 @@ def plotCumDailyCand(df, save=True): ## needs to be modified to accept dataframe
     plt.clf()
 
 
-def plotDailyCandRolling(save=True): ## needs to be modified to accept dataframe instead
+def plotDailyCandRolling(df, save=True): ## needs to be modified to accept dataframe instead
     '''
     Plot the number of candidates per day with a rolling average
     
     Args:
+    df: dataframe with candidate data from get_dataframe function
     save: boolean to determine whether to save the plot or not
     '''
-    plt.plot(dayCount, numDaily)
-    plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean())
+
+    ## get count of days
+    dayList = df['day'].unique()
+    print('dayList: %s'%dayList) if args.verbose else None
+    dayCount = [day for day in range(len(dayList))]
+
+    ## get number of candidates per day
+
+    numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
+
+
+    #plt.plot(dayCount, numDaily)
+    plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean()) ## note: this won't work with one week of data
     plt.xlabel("Days Since Start")
-    plt.ylabel('Number of Daily Candidates')
+    plt.ylabel('Number of Daily Candidates \n (Rolling Average)') ## needs title
     plt.savefig(plotDir("numDailyCandRolling")) if save else None
     plt.clf()
 
@@ -653,9 +665,9 @@ plotCumDailyCand(df=df)
 print('completed cumulative daily candidate plot (2)') if args.verbose else None
 print() if args.verbose else None
 
-# plotDailyCandRolling()
-# print('completed daily candidate rolling average plot (3)') if args.verbose else None
-# print() if args.verbose else None
+plotDailyCandRolling(df=df)
+print('completed daily candidate rolling average plot (3)') if args.verbose else None
+print() if args.verbose else None
 
 # plotFitCum(df=df)
 # print('completed cumulative fit plot (4)') if args.verbose else None
