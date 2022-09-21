@@ -360,11 +360,12 @@ def plotDailyCandRolling(df, save=True):
 ## need a daily fits plot to be made in addition to the cumulative one
 
 
-def plotFitCum(df,models=args.models, save=True): ## needs to be modified to accept dataframe instead
+def plotFitCum(df,models=args.models, save=True): 
     '''
     plot the cumulative number of fits for each model
     
     Args:
+    df: dataframe with candidate data from get_dataframe function
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
@@ -397,7 +398,7 @@ def plotFitCum(df,models=args.models, save=True): ## needs to be modified to acc
         pass
     ## now plot all models together
     for key, value in modelDict.items(): 
-        plt.plot(dayCount,value, label=key, marker='o') ## need to make a colormap for better visualization
+        plt.plot(dayCount,value, label=key, marker='.',alpha=0.75) ## need to make a colormap for better visualization
         plt.xlabel("Days Since Start")
         plt.ylabel('Count')
         ## need to cmap or something for controlling colors
@@ -669,9 +670,9 @@ plotDailyCandRolling(df=df)
 print('completed daily candidate rolling average plot (3)') if args.verbose else None
 print() if args.verbose else None
 
-# plotFitCum(df=df)
-# print('completed cumulative fit plot (4)') if args.verbose else None
-# print() if args.verbose else None
+plotFitCum(df=df)
+print('completed cumulative fit plot (4)') if args.verbose else None
+print() if args.verbose else None
 
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (5)') if args.verbose else None
