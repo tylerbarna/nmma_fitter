@@ -448,14 +448,15 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     fit['Total'] = np.array([len(df[(df['fitBool'] == True) & (df['day'] == day)]) for day in dayList])
 
     ## total number of fit and unfit per day (for plotting stats later)
-    allfit = {key: unfit[key] + fit[key] for key in unfit.keys()}
+    allfit = {key: [unfit[key][idx] + fit[key][idx] for idx in dayCount] for key in unfit.keys()}
 
     ## data plotting
 
+    
     ## plot the number of candidates that were not fit for each day
     ## should add a fig, ax = plt.subplots() to allow for better customization
     for key, value in unfit.items(): ## one line conditional here is to exclude the total from the histogram
-        plt.plot(dayCount, value, label=key, marker='o') if key != 'Total' else None
+        plt.plot(dayCount, value, label=key, marker='.',alpha=0.6) if key != 'Total' else None
     plt.xlabel("Days Since Start")
     plt.ylabel('Count')
     plt.title('Number of Unfit Candidates') ## should these have titles?
@@ -463,20 +464,22 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
 
+    ## should fix styling as it's currently unclear
     ## plot histogram of number of candidates that were not fit for each day by model
     for key, value in unfit.items():
-        plt.hist(value, label=key)
-    plt.xlabel("Number of Unfit Candidates per Day")
+        plt.hist(value, label=key,alpha=0.75) 
+    plt.xlabel("Number of Unfit Candidates")
     plt.ylabel('Count')
-    plt.title('Histogram of Number of Unfit Candidates per Day') ## should these have titles?
+    plt.title('Number of Unfit Candidates per Day') ## should these have titles?
     plt.legend()
     plt.savefig(plotDir("numDailyUnfitModelHist")) if save else None
     plt.clf()
 
     ## plot histogram of number of candidates that were not fit for each day
     plt.hist(unfit['Total'], bins=20) ## could fine tune the number of bins
-    plt.xlabel("Number of Unfit Candidates per Day")
+    plt.xlabel("Number Unfit")
     plt.ylabel('Count')
+    plt.title("Number of Unfit Candidates per Day")
     plt.savefig(plotDir("numDailyUnfitTotalHist")) if save else None
     plt.clf()
 
@@ -487,7 +490,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.ylabel('Count')
     plt.title('Number of Unfit Candidates') ## should these have titles?
     plt.legend()
-    plt.savefig(plotDir("dailyUnfit")) if save else None
+    plt.savefig(plotDir("numDailyUnfitRolling")) if save else None
     plt.clf()
 
     ## plot cumulative number of candidates that were not fit for each day
@@ -500,44 +503,47 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
 
-    ## plot fraction of candidates that were not fit for each day
-    for key, value in allfit.items():
-        plt.plot(dayCount, value, label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Ratio')
-    plt.title('Fraction of Unfit Candidates to Total') ## should these have titles?
-    plt.legend()
-    plt.savefig(plotDir("fracDailyUnfit")) if save else None
-    plt.clf()
+    brokenFrac = True ## flag to determine whether the following plots should are working
+    if not brokenFrac:    
+        ## plot fraction of candidates that were not fit for each day
+        for key, value in allfit.items():
+            plt.plot(dayCount, value, label=key)
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Ratio')
+        plt.title('Fraction of Unfit Candidates to Total') ## should these have titles?
+        plt.legend()
+        plt.savefig(plotDir("fracDailyUnfit")) if save else None
+        plt.clf()
 
-    ## plot rolling average of fraction of candidates that were not fit for each day
-    for key, value in allfit.items():
-        plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Ratio')
-    plt.title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-    plt.legend()
-    plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
+        ## plot rolling average of fraction of candidates that were not fit for each day
+        for key, value in allfit.items():
+            plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Ratio')
+        plt.title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+        plt.legend()
+        plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
-    ## plot cumulative fraction of candidates that were not fit for each day 
-    for key, value in allfit.items():
-        plt.plot(dayCount, np.cumsum(value), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Ratio')
-    plt.title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
-    plt.legend()
-    plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
-    plt.clf()
+        ## this seems to be busted in some way
+        ## plot cumulative fraction of candidates that were not fit for each day 
+        for key, value in allfit.items():
+            plt.plot(dayCount, np.cumsum(value), label=key)
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Ratio')
+        plt.title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
+        plt.legend()
+        plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
+        plt.clf()
 
-    ## plot rolling average of cumulative fraction of candidates that were not fit for each day
-    for key, value in allfit.items():
-        plt.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Ratio')
-    plt.title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-    plt.legend()
-    plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
-    plt.clf()
+        ## plot rolling average of cumulative fraction of candidates that were not fit for each day
+        for key, value in allfit.items():
+            plt.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
+        plt.xlabel("Days Since Start")
+        plt.ylabel('Ratio')
+        plt.title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+        plt.legend()
+        plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
+        plt.clf()
 
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
     ## could also add a stacked bar chart of fit and unfit candidates
@@ -674,9 +680,9 @@ plotFitCum(df=df)
 print('completed cumulative fit plot (4)') if args.verbose else None
 print() if args.verbose else None
 
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (5)') if args.verbose else None
-# print() if args.verbose else None
+plotUnfit(df=df)
+print('completed unfit candidate plot (5)') if args.verbose else None
+print() if args.verbose else None
 
 # plotSamplingTime(df=df)
 # print('completed sampling time plot (6)') if args.verbose else None
