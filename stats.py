@@ -247,7 +247,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     ## now get values from json
                     jsonDict = get_json(file=False)
                     for key, value in jsonDict.items():
-                        df.at[idx, key] = value ## should be np.nan
+                        df.at[idx, key] = np.nan ## should be np.nan
                 idx += 1
                 print( ) if args.verbose else None
     df.sort_values(by=['day','cand','model'], inplace=True)
@@ -576,11 +576,24 @@ def plotSamplingTime(df, models=args.models, save=True):
     # print() if args.verbose else None
 
     ## looks like creating fitTime is where the issue is (maybe)
-    fitTime = {model: 
-    [df[(df['fitBool'] == False) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
-    for day in dayList] 
-    for model in models}
-    fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
+
+    ## create a dictionary of fit times for each model
+    fitTime = {}
+    fitTime['Total'] = []
+    for model in models:
+        fitTime[model] = np.array([
+            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
+        ])
+        print('model %s : %s'%(model, fitTime[model]))
+        print()
+        fitTime['Total'].append(fitTime[model])
+    print ('total : %s'%(fitTime['Total']))
+    # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
+    # fitTime = {model: 
+    # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
+    # for day in dayList] 
+    # for model in models}
+    # fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
     print() if args.verbose else None
     # [print('fitTime %s'%fitTime[model]) for model in models] if args.verbose else None
     print(fitTime)
@@ -589,14 +602,14 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## data plotting
 
     ## plot histogram of fit time data
-    brokenPlots = True ## flag to determine whether the following plots should are working
+    brokenPlots = False ## flag to determine whether the following plots should are working
     if not brokenPlots:
         for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
             ## I suppose I could just flatten it?
             # print()
             # print(value.flatten())
 
-            plt.hist(value, label=key)  if key != 'Total' else None 
+            plt.hist(fitTime[key].flatten(), label=key)  if key != 'Total' else None 
             ## could fine tune the number of bins
         plt.xlabel("Sampling Times (s)")
         plt.ylabel('Count')
@@ -617,7 +630,7 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## plot the daily average fit time for each model
     for key, value in fitTime.items(): 
         print(fitTime['Total'])
-        ptin()
+        print()
         plt.plot(dayCount, np.mean(value), label=key) ## should be right axis?
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
