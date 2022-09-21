@@ -42,7 +42,7 @@ parser.add_argument("-c","--candDir", type=str, default=None, help="Path to the 
 parser.add_argument("-f","--fitDir", type=str, default=None, help="Path to the fits directory")
 parser.add_argument('-v', '--verbose', action='store_true')
 parser.add_argument('-o', '--outdir', type=str, default=os.path.join('./outdir/stats/',time.strftime("%Y%m%d-%H%M%S"),''))
-parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], help="which models to analyse with the fit stats")
+parser.add_argument("-m","--models", nargs="+", default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], help="which models to analyse with the fit stats")
 args = parser.parse_args()
 
 ## to change to correct directory
@@ -375,27 +375,28 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
     ## find unique values in df['day'] and use those to create a list of days
     dayList = np.array(df['day'].unique().tolist())
-    print('dayList: %s'%dayList) if args.verbose else None
+    # print('dayList: %s'%dayList) if args.verbose else None
+    # print() if args.verbose else None
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
 
     ## find number of candidates that were not fit for each day, seperated by model
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
     ## slightly long expression, but should be efficient (dataframe filtering could be slow potentially)
-    #print('unfit type: %s'%type(df['fitBool'].tolist()[0])) if args.verbose else None
+
 
     unfit = {model: 
-    [len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
-    for day in dayList] 
+    np.array([len(df[(df['fitBool'] == False) & (df['model'] == model) & (df['day'] == day)])
+    for day in dayList])
     for model in models}
-
-    unfit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == False)].tolist()) for day in dayList])
+    unfit['Total'] = np.array([len(df[ (df['fitBool'] == False) & (df['day'] == day)]) for day in dayList])
 
     ## find number of candidates that were fit for each day, seperated by model (for plotting stats later)
+    ##
     fit = {model: 
-    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)].tolist()) 
-    for day in dayList]) 
+    np.array([len(df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)])
+    for day in dayList])
     for model in models}
-    fit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == True)].tolist()) for day in dayList])
+    fit['Total'] = np.array([len(df[(df['fitBool'] == True) & (df['day'] == day)]) for day in dayList])
 
     ## total number of fit and unfit per day (for plotting stats later)
     allfit = {key: unfit[key] + fit[key] for key in unfit.keys()}
