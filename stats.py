@@ -263,7 +263,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 ## Functions to plot daily candidate stats
 ## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
 
-def plotDailyCand(df, save=True): ## needs to be modified to accept dataframe instead
+def plotDailyCand(df, save=True): 
     '''
     plot the number of candidates per day as both a line plot and histogram
     
@@ -296,7 +296,7 @@ def plotDailyCand(df, save=True): ## needs to be modified to accept dataframe in
     plt.clf()
 
 
-def plotCumDailyCand(df, save=True): ## needs to be modified to accept dataframe instead
+def plotCumDailyCand(df, save=True):
     ## could switch to seaborn to make smoother/prettier curve
     '''
     Plot the cumulative number of candidates per day
@@ -326,7 +326,7 @@ def plotCumDailyCand(df, save=True): ## needs to be modified to accept dataframe
     plt.clf()
 
 
-def plotDailyCandRolling(df, save=True): ## needs to be modified to accept dataframe instead
+def plotDailyCandRolling(df, save=True):
     '''
     Plot the number of candidates per day with a rolling average
     
