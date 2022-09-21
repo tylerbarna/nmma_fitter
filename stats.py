@@ -129,14 +129,21 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
             with open(file,'r') as f:
                 data = json.load(f)
                 jsonDict = {param: data[param] for param in jsonList}
+                
         except: ## in event that json file isn't read correctly
             print('error reading json file: %s'%file)
+            print()
             jsonDict = {param: np.nan for param in jsonList}
         finally:
             f.close()
+            print('jsonDict: %s'%jsonDict) if args.verbose else None
+            print() if args.verbose else None
             return jsonDict
     elif not file: ## for use case where no json is found when the pandas dataframe is created
         jsonDict = {param: np.nan for param in jsonList} ## np.nan is used to make it easier to plot later without having to deal with NoneType
+        print('no json file found at: %s'%file)
+        print('jsonDict: %s'%jsonDict) if args.verbose else None
+        print() if args.verbose else None
         return jsonDict
     else: ## case where file argument is not provided
         print('provide a file to search!')
@@ -243,10 +250,11 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                         df.at[idx, key] = value ## should be np.nan
                 idx += 1
                 print( ) if args.verbose else None
-    
+    df.sort_values(by=['day','cand','model'], inplace=True)
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)
     print('completed dataframe creation') if args.verbose else None
+    print(df) if args.verbose else None
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
 
@@ -255,34 +263,62 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 ## Functions to plot daily candidate stats
 ## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
 
-def plotDailyCand(save=True): ## needs to be modified to accept dataframe instead
+def plotDailyCand(df, save=True): ## needs to be modified to accept dataframe instead
     '''
     plot the number of candidates per day as both a line plot and histogram
     
     Args:
+    df: dataframe with candidate data from get_dataframe function
     save: boolean to determine whether to save the plot or not
     '''
-    plt.plot(dayCount, numDaily,marker='o')
+
+    ## get count of days
+    dayList = df['day'].unique()
+    #print('dayList: %s'%dayList) if args.verbose else None
+    dayCount = [day for day in range(len(dayList))]
+
+    ## get number of candidates per day
+
+    numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
+    print('numDaily: %s'%numDaily) if args.verbose else None
+    print() if args.verbose else None
+
+    plt.plot(dayCount, numDaily,marker='.')
     plt.xlabel("Days Since Start") ## weird phrasing
     plt.ylabel('Number of Daily Candidates')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
     plt.clf()
     ## plot histogram of number of candidates per day
-    plt.hist(numDaily, bins=20) ## could fine tune the number of bins
+    plt.hist(numDaily) ## could fine tune the number of bins
     plt.xlabel("Number of Candidates per Day")
     plt.ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
     plt.clf()
 
 
-def plotCumDailyCand(save=True): ## needs to be modified to accept dataframe instead
+def plotCumDailyCand(df, save=True): ## needs to be modified to accept dataframe instead
     ## could switch to seaborn to make smoother/prettier curve
     '''
     Plot the cumulative number of candidates per day
     
     Args:
+    df: dataframe with candidate data from get_dataframe function
     save: boolean to determine whether to save the plot or not
     '''
+
+    ## get count of days
+    dayList = df['day'].unique()
+    print('dayList: %s'%dayList) if args.verbose else None
+    dayCount = [day for day in range(len(dayList))]
+
+    ## get number of candidates per day
+
+    numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
+    
+    cumDaily = np.cumsum(numDaily)
+    print('cumDaily: %s'%cumDaily) if args.verbose else None
+    print() if args.verbose else None
+
     plt.plot(dayCount,cumDaily)
     plt.xlabel("Days Since Start")
     plt.ylabel('Cumulative Number of Candidates')
@@ -511,18 +547,28 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## get the fit time data
     dayList = np.array(df['day'].unique().tolist()) ## oh, may need to switch to dayCount when plotting later
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
+    # [[print('\n %s sampling times for %s : %s \n'%(model, day ,df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'])) for day in dayList] for model in models] if args.verbose else None
+    # print() if args.verbose else None
+
     fitTime = {model: 
-    np.array([float(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)]['sampling_time']) 
-    for day in dayList]) 
+    [df[(df['fitBool'] == False) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
+    for day in dayList] 
     for model in models}
-    fitTime['Total'] = np.array([float(df[(df['day'] == day) & (df['fitBool'] == True)]['sampling_time']) for day in dayList])
+    fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
+    print() if args.verbose else None
+    # [print('fitTime %s'%fitTime[model]) for model in models] if args.verbose else None
+    print(fitTime)
+    print() if args.verbose else None
 
     ## data plotting
 
     ## plot histogram of fit time data
     for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
         ## I suppose I could just flatten it?
-        plt.hist(value.flatten(), label=key)  if key != 'Total' else None 
+        # print()
+        # print(value.flatten())
+
+        plt.hist(np.isfinite(value.flatten()), label=key)  if key != 'Total' else None 
         ## could fine tune the number of bins
     plt.xlabel("Sampling Times (s)")
     plt.ylabel('Count')
@@ -597,31 +643,31 @@ def plotSamplingTime(df, models=args.models, save=True):
 
 ## testing stats functions
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False)
-print(df) if args.verbose else None
+df = get_dataframe(candDir=args.candDir, models=args.models, save=True)
 
-plotDailyCand()
+
+plotDailyCand(df=df,save=True)
 print('completed daily candidate plot (1)') if args.verbose else None
 print() if args.verbose else None
-plotCumDailyCand()
+plotCumDailyCand(df=df)
 print('completed cumulative daily candidate plot (2)') if args.verbose else None
 print() if args.verbose else None
 
-plotDailyCandRolling()
-print('completed daily candidate rolling average plot (3)') if args.verbose else None
-print() if args.verbose else None
+# plotDailyCandRolling()
+# print('completed daily candidate rolling average plot (3)') if args.verbose else None
+# print() if args.verbose else None
 
-plotFitCum(df=df)
-print('completed cumulative fit plot (4)') if args.verbose else None
-print() if args.verbose else None
+# plotFitCum(df=df)
+# print('completed cumulative fit plot (4)') if args.verbose else None
+# print() if args.verbose else None
 
-plotUnfit(df=df)
-print('completed unfit candidate plot (5)') if args.verbose else None
-print() if args.verbose else None
+# plotUnfit(df=df)
+# print('completed unfit candidate plot (5)') if args.verbose else None
+# print() if args.verbose else None
 
-plotSamplingTime(df=df)
-print('completed sampling time plot (6)') if args.verbose else None
-print() if args.verbose else None
+# plotSamplingTime(df=df)
+# print('completed sampling time plot (6)') if args.verbose else None
+# print() if args.verbose else None
 
 
 
