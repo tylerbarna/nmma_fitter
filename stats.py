@@ -10,7 +10,8 @@
 
 # from secrets import choice
 # import subprocess
-# import sys
+import sys
+from cProfile import label
 import os
 import argparse
 import glob
@@ -32,6 +33,9 @@ import matplotlib.pyplot as plt
 
 import seaborn as sns
 
+
+
+
 ## argument for folder to run stats on
 parser = argparse.ArgumentParser()
 parser.add_argument("-c","--candDir", type=str, default=None, help="Path to the candidate directory")
@@ -40,6 +44,10 @@ parser.add_argument('-v', '--verbose', action='store_true')
 parser.add_argument('-o', '--outdir', type=str, default=os.path.join('./outdir/stats/',time.strftime("%Y%m%d-%H%M%S"),''))
 parser.add_argument("-m","--models", nargs="+", type=str, default = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], choices = ["TrPi2018","nugent-hyper", "Piro2021","Bu2019lm"], help="which models to analyse with the fit stats")
 args = parser.parse_args()
+
+## to change to correct directory
+os.chdir(sys.path[0])
+print("Current working directory: {0}".format(os.getcwd())) if args.verbose else None
 
 ## compilation of lists for use in plotting (pre-dataframe implementation)
 ## post dataframe implementation: these should eventually be removed and plots should be updated to use the dataframe
@@ -52,7 +60,7 @@ if args.candDir:
     
     candList = glob.glob(args.candDir + "*/*.csv")
 
-    cumDaily = np.cumsum(numDaily,axis=1)
+    cumDaily = np.cumsum(numDaily)
 else:
     print("No candidate directory specified, cannot run some stats")
 
@@ -117,13 +125,16 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
     if params:
         jsonList = jsonList + params
     if file:
-        with open(file) as f:
-            try: 
+        try: 
+            with open(file,'r') as f:
                 data = json.load(f)
                 jsonDict = {param: data[param] for param in jsonList}
-            finally:
-                f.close()
-                return jsonDict
+        except: ## in event that json file isn't read correctly
+            print('error reading json file: %s'%file)
+            jsonDict = {param: np.nan for param in jsonList}
+        finally:
+            f.close()
+            return jsonDict
     elif not file: ## for use case where no json is found when the pandas dataframe is created
         jsonDict = {param: np.nan for param in jsonList} ## np.nan is used to make it easier to plot later without having to deal with NoneType
         return jsonDict
@@ -185,7 +196,8 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     
     df = pd.DataFrame()
     idx = 0 ## used to keep track of the index of the dataframe when defining new values
-    dayPathList = glob.glob(os.path.join(candDir, "/*/"))
+    dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
+    print('dayPathList; %s'%dayPathList) if args.verbose else None
     dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
     ## may not need start and stop day, but commented out here in case it's useful later
     #startDay = [int(day.split('-')[0]) for day in dayList]
@@ -208,17 +220,21 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
                 ## check if fit was completed
                 fitPath = os.path.join(fitDir, day, cand,"")
+                print('fitPath: %s'%fitPath) if args.verbose else None
                 df.at[idx, 'fitPath'] = fitPath
                 ## now find json
                 jsonPath = os.path.join(fitPath, model+'_result.json')
-                if jsonPath:
+                jsonBool = True if os.path.exists(jsonPath) else False
+                
+                print('jsonPath: %s'%jsonPath) if args.verbose else None
+                if jsonBool:
                     df.at[idx, 'json'] = jsonPath
                     df.at[idx, 'fitBool'] = True
                     ## now get values from json
-                    jsonDict = get_json(file=jsonPath[0])
+                    jsonDict = get_json(file=jsonPath)
                     for key, value in jsonDict.items():
                         df.at[idx, key] = value
-                elif not jsonPath:
+                elif not jsonBool:
                     df.at[idx, 'json'] = np.nan
                     df.at[idx, 'fitBool'] = False
                     ## now get values from json
@@ -226,9 +242,11 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     for key, value in jsonDict.items():
                         df.at[idx, key] = value ## should be np.nan
                 idx += 1
+                print( ) if args.verbose else None
     
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)
+    print('completed dataframe creation') if args.verbose else None
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
 
@@ -294,7 +312,7 @@ def plotDailyCandRolling(save=True): ## needs to be modified to accept dataframe
 ## need a daily fits plot to be made in addition to the cumulative one
 
 
-def plotFitCum(models=args.models, save=True): ## needs to be modified to accept dataframe instead
+def plotFitCum(df,models=args.models, save=True): ## needs to be modified to accept dataframe instead
     '''
     plot the cumulative number of fits for each model
     
@@ -305,14 +323,20 @@ def plotFitCum(models=args.models, save=True): ## needs to be modified to accept
     ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
     modelDict = {}
     ## Potential alternate option: plot them all on the same plot as subplots
+    dayList = np.array(df['day'].unique().tolist())
+    dayCount = np.arange(0,len(dayList))
     for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
         ##
         ## compile cumulative number of fits for each model
-        modelCount = [len((glob.glob(os.path.join(day,'*',model+'_result.json')))) for day in fit_dayList]
-        modelCum = np.cumsum(modelCount)
+        #print('fitBool: %s'%df['fitBool'].tolist()) if args.verbose else None
+        modelCount = np.array([len(df[(df['model']==model) & (df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
+        # modelCount = [len((glob.glob(os.path.join(day,'*',model+'_result.json')))) for day in fit_dayList]
+        modelCum = np.array(modelCount.cumsum())
+        #print('modelCum: %s'%modelCum) if args.verbose else None
         modelDict[model] = modelCum
-        
-        plt.plot(dayCount,modelCum)
+        print('dayCount: %s'%dayCount) if args.verbose else None
+        print('modelCum: %s'%modelCum) if args.verbose else None
+        plt.plot(dayCount,modelCum, label=model)
         plt.xlabel("Days Since Start")
         plt.ylabel('Count')
         plt.title('Cumulative Number of Fits for {}'.format(model))
@@ -351,23 +375,27 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
     ## find unique values in df['day'] and use those to create a list of days
     dayList = np.array(df['day'].unique().tolist())
+    print('dayList: %s'%dayList) if args.verbose else None
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
 
     ## find number of candidates that were not fit for each day, seperated by model
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
     ## slightly long expression, but should be efficient (dataframe filtering could be slow potentially)
+    #print('unfit type: %s'%type(df['fitBool'].tolist()[0])) if args.verbose else None
+
     unfit = {model: 
-    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
-    for day in dayList]) 
+    [len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == False)]) 
+    for day in dayList] 
     for model in models}
-    unfit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == False)]) for day in dayList])
+
+    unfit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == False)].tolist()) for day in dayList])
 
     ## find number of candidates that were fit for each day, seperated by model (for plotting stats later)
     fit = {model: 
-    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)]) 
+    np.array([len(df[(df['model' == model]) & (df['day'] == day) & (df['fitBool'] == True)].tolist()) 
     for day in dayList]) 
     for model in models}
-    fit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
+    fit['Total'] = np.array([len(df[(df['day'] == day) & (df['fitBool'] == True)].tolist()) for day in dayList])
 
     ## total number of fit and unfit per day (for plotting stats later)
     allfit = {key: unfit[key] + fit[key] for key in unfit.keys()}
@@ -565,3 +593,34 @@ def plotSamplingTime(df, models=args.models, save=True):
 ## perhaps a function that finds the model with the highest log_likelihood for each candidate and then plots some stuff about which models were 'most likely' over time and compared to one another
 
 ## time to fit vs. log likelihood plot?
+
+## testing stats functions
+
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False)
+print(df) if args.verbose else None
+
+plotDailyCand()
+print('completed daily candidate plot (1)') if args.verbose else None
+print() if args.verbose else None
+plotCumDailyCand()
+print('completed cumulative daily candidate plot (2)') if args.verbose else None
+print() if args.verbose else None
+
+plotDailyCandRolling()
+print('completed daily candidate rolling average plot (3)') if args.verbose else None
+print() if args.verbose else None
+
+plotFitCum(df=df)
+print('completed cumulative fit plot (4)') if args.verbose else None
+print() if args.verbose else None
+
+plotUnfit(df=df)
+print('completed unfit candidate plot (5)') if args.verbose else None
+print() if args.verbose else None
+
+plotSamplingTime(df=df)
+print('completed sampling time plot (6)') if args.verbose else None
+print() if args.verbose else None
+
+
+
