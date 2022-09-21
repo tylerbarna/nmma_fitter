@@ -448,7 +448,12 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     fit['Total'] = np.array([len(df[(df['fitBool'] == True) & (df['day'] == day)]) for day in dayList])
 
     ## total number of fit and unfit per day (for plotting stats later)
-    allfit = {key: [unfit[key][idx] + fit[key][idx] for idx in dayCount] for key in unfit.keys()}
+    allfit = {model: 
+    np.array([len(df[ (df['model'] == model) & (df['day'] == day)])
+    for day in dayList])
+    for model in models}
+    allfit['Total'] = np.array([len(df[ (df['day'] == day)]) for day in dayList])
+    #allfit = {key: [unfit[key][idx] + fit[key][idx] for idx in dayCount] for key in unfit.keys()}
 
     ## data plotting
 
@@ -507,7 +512,8 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     if not brokenFrac:    
         ## plot fraction of candidates that were not fit for each day
         for key, value in allfit.items():
-            plt.plot(dayCount, value, label=key)
+            fracValue = allfit[key]/allfit['Total']
+            plt.plot(dayCount, fracValue, label=key)
         plt.xlabel("Days Since Start")
         plt.ylabel('Ratio')
         plt.title('Fraction of Unfit Candidates to Total') ## should these have titles?
