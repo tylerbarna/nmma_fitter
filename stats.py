@@ -8,8 +8,6 @@
 
 ## alternatively, could change these into methods of a class that takes the dataframe as the object (e.g. df.plotDailyCand() ) 
 
-# from secrets import choice
-# import subprocess
 import sys
 from cProfile import label
 import os
@@ -20,16 +18,12 @@ import json
 
 import numpy as np
 import pandas as pd
-# import matplotlib
+import matplotlib
 import matplotlib.pyplot as plt
-# from matplotlib.pyplot import cm
-# from astropy.time import Time
- 
-# from fit_utils import get_bestfit_lightcurve, parse_csv
-# from astropy.time import Time
+import matplotlib.dates as dates
 
-# from nmma.em.model import SVDLightCurveModel, GRBLightCurveModel, KilonovaGRBLightCurveModel, SupernovaGRBLightCurveModel
-# from nmma.em.utils import loadEvent, getFilteredMag
+ 
+from astropy.time import Time
 
 import seaborn as sns
 
