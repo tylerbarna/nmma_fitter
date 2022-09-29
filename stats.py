@@ -91,6 +91,33 @@ def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize d
     filepath = os.path.join(outdir,name+ext)
     return(filepath)
 
+## function is currently unused/incomplete, wanted to at least start it and make a commit with it
+def plot_style(type, **kwargs): ## should add an option to pass kwargs to the plot function
+    '''
+    Sets the style of the plots to be consistent across the paper using matplotlib's style sheets
+    
+    Args:
+    type: type of plot to be generated (e.g. 'histogram', 'scatter')
+    **kwargs: anything you would pass to matplotlib
+    '''
+    fig, ax = plt.subplots(**kwargs) ## not super sure on this implementation
+    
+    plt.style.use('seaborn-whitegrid')
+    plt.rcParams['font.family'] = 'serif'
+    plt.rcParams['font.serif'] = 'Times New Roman'
+    plt.rcParams['font.size'] = 12
+    plt.rcParams['axes.labelsize'] = 12
+    plt.rcParams['axes.labelweight'] = 'bold'
+    plt.rcParams['axes.titlesize'] = 12
+    plt.rcParams['xtick.labelsize'] = 12
+    plt.rcParams['ytick.labelsize'] = 12
+    plt.rcParams['legend.fontsize'] = 12
+    plt.rcParams['figure.titlesize'] = 12
+
+    return(fig,ax)
+
+
+
 
 def get_sampling_time(file=None): ## somewhat redundant after creation of get_json
     '''
