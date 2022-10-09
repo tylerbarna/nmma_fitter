@@ -218,28 +218,37 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     save: boolean to determine whether to save the dataframe to a file to be accessed later
     file: path of saved dataframe to be read in. If None, will proceed to generate dataframe
     '''
+    startTime = time.time() ## for timing purposes
+
     if file:
+        print('loading dataframe from file: %s'%file) if args.verbose else None
         df = pd.read_csv(file) ## needs to be tested to ensure compatibility with saved dataframe
-        return df
+        return df ## don't need an else since the function will exit if file is provided
     
-    df = pd.DataFrame()
+    ## need to explicitly add all columns here maybe? Will mess with any additional parameters provided to get_json if that is added to this function in the future
+    col = ['day','dayPath','cand','candPath','model', 'fitPath','json','fitBool','sampling_time', 'sampler', 'log_evidence', 'log_evidence_err', 'log_noise_evidence', 'log_bayes_factor']
+    df = pd.DataFrame(columns=col) ## create empty dataframe with columns
     ## set the type for the columns that will be added to the dataframe
-    df.day = df.day.astype('str')
-    df.dayPath = df.dayPath.astype('str')
-    df.cand = df.cand.astype('str')
-    df.candPath = df.candPath.astype('str')
-    df.model = df.model.astype('str')
-    df.fitPath = df.fitPath.astype('str')
-    df.json = df.json.astype('str')
-    df.fitBool = df.fitBool.astype('bool')
+    df['day'] = df['day'].astype('str')
+    df['dayPath'] = df['dayPath'].astype('str')
+    df['cand'] = df['cand'].astype('str')
+    df['candPath'] = df['candPath'].astype('str')
+    df['model'] = df['model'].astype('str')
+    df['fitPath'] = df['fitPath'].astype('str')
+    df['json'] = df['json'].astype('str')
+    df['fitBool'] = df['fitBool'].astype('bool')
 
-    df.sampling_time = df.sampling_time.astype('float')
-    df.sampler = df.sampler.astype('str')
-    df.log_evidence = df.log_evidence.astype('float')
-    df.log_evidence_err = df.log_evidence_err.astype('float')
-    df.log_noise_evidence = df.log_noise_evidence.astype('float')
-    df.log_bayes_factor = df.log_bayes_factor.astype('float')
+    ## should probably change these to be an additional argument passed to get_json, specifically the params argument
+    ## are there other useful parameters in the json file that should be included?
 
+    df['sampling_time'] = df['sampling_time'].astype('float')
+    df['sampler'] = df['sampler'].astype('str')
+    df['log_evidence'] = df['log_evidence'].astype('float')
+    df['log_evidence_err'] = df['log_evidence_err'].astype('float')
+    df['log_noise_evidence'] = df['log_noise_evidence'].astype('float')
+    df['log_bayes_factor'] = df['log_bayes_factor'].astype('float')
+
+    
     
     dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
     print('dayPathList; %s'%dayPathList) if args.verbose else None
@@ -248,6 +257,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     #startDay = [int(day.split('-')[0]) for day in dayList]
     #stopDay = [int(day.split('-')[1]) for day in dayList]
     idx = 0 ## used to keep track of the index of the dataframe when defining new values
+
     for day, dayPath in zip(dayList, dayPathList):
         ## get lists for day level directories
         candPathList = glob.glob(os.path.join(dayPath, "*.csv")) ## could change to have a .dat argument option
@@ -295,7 +305,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)
     print('completed dataframe creation') if args.verbose else None
-    print(df) if args.verbose else None
+    #print(df) if args.verbose else None
+    print('time to create dataframe: %s seconds'%(time.time()-startTime)) if args.verbose else None
+
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
 
