@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 730, in <module>
+    df = get_dataframe(candDir=args.candDir, models=args.models, save=True)
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 227, in get_dataframe
+    df.day = df.day.astype('str')
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/pandas/core/generic.py", line 5478, in __getattr__
+    return object.__getattribute__(self, name)
+AttributeError: 'DataFrame' object has no attribute 'day'
