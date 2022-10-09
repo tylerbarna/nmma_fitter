@@ -298,7 +298,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     for key, value in jsonDict.items():
                         df.at[idx, key] = np.nan ## should be np.nan
                 idx += 1
-                print('get_dataframge idx: %s'%idx) if args.verbose else None
+                print('get_dataframe idx: %s'%idx) if args.verbose else None
                 print( ) if args.verbose else None
     
     df.sort_values(by=['day','cand','model'], inplace=True)
@@ -637,10 +637,10 @@ def plotSamplingTime(df, models=args.models, save=True):
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
         ])
-        print('model %s : %s'%(model, fitTime[model]))
-        print()
+        print('model %s : %s'%(model, fitTime[model])) if args.verbose else None
+        print() if args.verbose else None
         fitTime['Total'].append(fitTime[model])
-    print ('total : %s'%(fitTime['Total']))
+    print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
     # fitTime = {model: 
     # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
@@ -649,13 +649,13 @@ def plotSamplingTime(df, models=args.models, save=True):
     # fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
     print() if args.verbose else None
     # [print('fitTime %s'%fitTime[model]) for model in models] if args.verbose else None
-    print(fitTime)
+    print('fitTime dict: %s'%fitTime) if args.verbose else None
     print() if args.verbose else None
 
     ## data plotting
 
     ## plot histogram of fit time data
-    brokenPlots = False ## flag to determine whether the following plots should are working
+    brokenPlots = True ## flag to determine whether the following plots should are working
     if not brokenPlots:
         for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
             ## I suppose I could just flatten it?
@@ -673,7 +673,8 @@ def plotSamplingTime(df, models=args.models, save=True):
 
         ## summing over axis=1 means that each day will have a single value
         ## plot histogram of total daily fit time
-        plt.hist(np.sum(fitTime['Total'])) ## could fine tune the number of bins
+        totalDailyFitTime = [np.sum(fitDay) for fitDay in fitTime['Total']]
+        plt.hist(totalDailyFitTime) ## could fine tune the number of bins
         plt.xlabel("Sampling Times (s)")
         plt.ylabel('Count')
         plt.title('Daily Sampling Times')
@@ -682,9 +683,10 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily average fit time for each model
     for key, value in fitTime.items(): 
-        print(fitTime['Total'])
-        print()
-        plt.plot(dayCount, np.mean(value), label=key) ## should be right axis?
+        #print(fitTime['Total']) if args.verbose else None
+        #print()
+        meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
+        plt.plot(dayCount, meanFitTime, label=key) ## should be right axis?
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Average Daily Sampling Time') ## should these have titles?
@@ -694,7 +696,8 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily median fit time for each model
     for key, value in fitTime.items():
-        plt.plot(dayCount, np.median(value,axis=1), label=key)
+        medianFitTime = [np.median(fitDay) for fitDay in fitTime[key]]
+        plt.plot(dayCount, medianFitTime, label=key)
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Median Daily Sampling Time') ## should these have titles?
@@ -704,7 +707,8 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the daily median fit time for each model (rolling average)
     for key, value in fitTime.items():
-        plt.plot(dayCount, pd.Series(np.median(value,axis=1)).rolling(7).mean(), label=key)
+        medianFitTime = pd.Series([np.median(fitDay) for fitDay in fitTime[key]])
+        plt.plot(dayCount, medianFitTime.rolling(7).mean(), label=key)
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
@@ -714,7 +718,8 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## plot the cumulative daily fit time for each model
     for key, value in fitTime.items():
-        plt.plot(dayCount, np.cumsum(np.sum(value, axis=1)), label=key) 
+        cumFitTime = np.cumsum([np.sum(fitDay) for fitDay in fitTime[key]])
+        plt.plot(dayCount, cumFitTime, label=key) 
     plt.xlabel("Days Since Start")
     plt.ylabel('Sampling Time (s)')
     plt.title('Cumulative Sampling Time') ## should these have titles?

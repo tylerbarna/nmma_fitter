@@ -1,0 +1,15 @@
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py:638: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
+/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/_methods.py:163: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  arr = asanyarray(a)
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 764, in <module>
+    plotSamplingTime(df=df)
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 687, in plotSamplingTime
+    plt.plot(dayCount, np.mean(value), label=key) ## should be right axis?
+  File "<__array_function__ internals>", line 6, in mean
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 3441, in mean
+    out=out, **kwargs)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/_methods.py", line 163, in _mean
+    arr = asanyarray(a)
+ValueError: could not broadcast input array from shape (313,0) into shape (313,)
