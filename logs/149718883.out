@@ -1,0 +1,64 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using most recent directory 9999998-9999999
+Candidate Directory: /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/9999998-9999999/
+cwd: /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/9999998-9999999
+Found object: ZTF20abwysqyForcedShortened1
+Found object: ZTF20abwysqyForcedShortened2
+Found object: ZTF20abwysqyForcedShortened3
+Found object: ZTF20abwysqyForcedShortened4
+Found object: ZTF20abwysqyTomas
+evaluating candidate: ZTF20abwysqyForcedShortened1
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model Bu2019lm. Job id: 149718983
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model nugent-hyper. Job id: 149718985
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model TrPi2018. Job id: 149718987
+
+evaluating candidate: ZTF20abwysqyForcedShortened2
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model Bu2019lm. Job id: 149718989
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model nugent-hyper. Job id: 149718991
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model TrPi2018. Job id: 149718993
+
+evaluating candidate: ZTF20abwysqyForcedShortened3
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model Bu2019lm. Job id: 149718995
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model nugent-hyper. Job id: 149718997
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model TrPi2018. Job id: 149718999
+
+evaluating candidate: ZTF20abwysqyForcedShortened4
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model Bu2019lm. Job id: 149719001
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model nugent-hyper. Job id: 149719003
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model TrPi2018. Job id: 149719005
+
+evaluating candidate: ZTF20abwysqyTomas
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyTomas, model Bu2019lm. Job id: 149719009
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyTomas, model nugent-hyper. Job id: 149719011
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyTomas, model TrPi2018. Job id: 149719014
+
+timeout error
+wrote fin file
+Ran rsync push
+Sent Slack bot command

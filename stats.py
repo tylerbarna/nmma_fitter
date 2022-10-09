@@ -223,13 +223,31 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
         return df
     
     df = pd.DataFrame()
-    idx = 0 ## used to keep track of the index of the dataframe when defining new values
+    ## set the type for the columns that will be added to the dataframe
+    df.day = df.day.astype('str')
+    df.dayPath = df.dayPath.astype('str')
+    df.cand = df.cand.astype('str')
+    df.candPath = df.candPath.astype('str')
+    df.model = df.model.astype('str')
+    df.fitPath = df.fitPath.astype('str')
+    df.json = df.json.astype('str')
+    df.fitBool = df.fitBool.astype('bool')
+
+    df.sampling_time = df.sampling_time.astype('float')
+    df.sampler = df.sampler.astype('str')
+    df.log_evidence = df.log_evidence.astype('float')
+    df.log_evidence_err = df.log_evidence_err.astype('float')
+    df.log_noise_evidence = df.log_noise_evidence.astype('float')
+    df.log_bayes_factor = df.log_bayes_factor.astype('float')
+
+    
     dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
     print('dayPathList; %s'%dayPathList) if args.verbose else None
     dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
     ## may not need start and stop day, but commented out here in case it's useful later
     #startDay = [int(day.split('-')[0]) for day in dayList]
     #stopDay = [int(day.split('-')[1]) for day in dayList]
+    idx = 0 ## used to keep track of the index of the dataframe when defining new values
     for day, dayPath in zip(dayList, dayPathList):
         ## get lists for day level directories
         candPathList = glob.glob(os.path.join(dayPath, "*.csv")) ## could change to have a .dat argument option
@@ -270,7 +288,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     for key, value in jsonDict.items():
                         df.at[idx, key] = np.nan ## should be np.nan
                 idx += 1
+                print('get_dataframge idx: %s'%idx) if args.verbose else None
                 print( ) if args.verbose else None
+    
     df.sort_values(by=['day','cand','model'], inplace=True)
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)

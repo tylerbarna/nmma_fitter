@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 710, in <module>
+    df = get_dataframe(candDir=args.candDir, models=args.models, save=True)
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 259, in get_dataframe
+    df.at[idx, 'json'] = jsonPath
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/pandas/core/indexing.py", line 2286, in __setitem__
+    return super().__setitem__(key, value)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/pandas/core/indexing.py", line 2237, in __setitem__
+    self.obj._set_value(*key, value=value, takeable=self._takeable)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/pandas/core/frame.py", line 3821, in _set_value
+    series._values[loc] = value
+ValueError: could not convert string to float: '/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/2459385-2459389/ZTF21abhvfrj/TrPi2018_result.json'

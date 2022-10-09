@@ -1,0 +1,103 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using most recent directory 9999998-9999999
+Candidate Directory: /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership/9999998-9999999/
+cwd: /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits/9999998-9999999
+Found object: ZTF20abwysqyForcedShortened1
+Found object: ZTF20abwysqyForcedShortened2
+Found object: ZTF20abwysqyForcedShortened3
+Found object: ZTF20abwysqyForcedShortened4
+Found object: ZTF20abwysqyForced
+Found object: ZTF20abwysqyTomas
+Found object: ZTF20abwysqy
+Found object: ZTF21abotose
+evaluating candidate: ZTF20abwysqyForcedShortened1
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model Bu2019lm. Job id: 149631820
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model nugent-hyper. Job id: 149631821
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened1, model TrPi2018. Job id: 149631822
+
+evaluating candidate: ZTF20abwysqyForcedShortened2
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model Bu2019lm. Job id: 149631823
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model nugent-hyper. Job id: 149631824
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened2, model TrPi2018. Job id: 149631825
+
+evaluating candidate: ZTF20abwysqyForcedShortened3
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model Bu2019lm. Job id: 149631826
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model nugent-hyper. Job id: 149631827
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened3, model TrPi2018. Job id: 149631828
+
+evaluating candidate: ZTF20abwysqyForcedShortened4
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model Bu2019lm. Job id: 149631829
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model nugent-hyper. Job id: 149631830
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForcedShortened4, model TrPi2018. Job id: 149631831
+
+evaluating candidate: ZTF20abwysqyForced
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyForced, model Bu2019lm. Job id: 149631832
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyForced, model nugent-hyper. Job id: 149631833
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyForced, model TrPi2018. Job id: 149631834
+
+evaluating candidate: ZTF20abwysqyTomas
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqyTomas, model Bu2019lm. Job id: 149631835
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqyTomas, model nugent-hyper. Job id: 149631836
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqyTomas, model TrPi2018. Job id: 149631837
+
+evaluating candidate: ZTF20abwysqy
+submitting Bu2019lm job
+Submitted job for candidate ZTF20abwysqy, model Bu2019lm. Job id: 149631838
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF20abwysqy, model nugent-hyper. Job id: 149631839
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF20abwysqy, model TrPi2018. Job id: 149631840
+
+evaluating candidate: ZTF21abotose
+submitting Bu2019lm job
+Submitted job for candidate ZTF21abotose, model Bu2019lm. Job id: 149631841
+
+submitting nugent-hyper job
+Submitted job for candidate ZTF21abotose, model nugent-hyper. Job id: 149631842
+
+submitting TrPi2018 job
+Submitted job for candidate ZTF21abotose, model TrPi2018. Job id: 149631843
+
+Job 149631839 for candidate ZTF20abwysqy with model nugent-hyper completed.
+Job 149631842 for candidate ZTF21abotose with model nugent-hyper completed.
+Job 149631840 for candidate ZTF20abwysqy with model TrPi2018 completed.
+Job 149631838 for candidate ZTF20abwysqy with model Bu2019lm completed.
+Job 149631843 for candidate ZTF21abotose with model TrPi2018 completed.
+Job 149631841 for candidate ZTF21abotose with model Bu2019lm completed.
+timeout error
+wrote fin file
+Ran rsync push
+Sent Slack bot command
