@@ -1,0 +1,15 @@
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py:641: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 772, in <module>
+    plotSamplingTime(df=df)
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 691, in plotSamplingTime
+    meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 691, in <listcomp>
+    meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
+  File "<__array_function__ internals>", line 6, in mean
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 3441, in mean
+    out=out, **kwargs)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/_methods.py", line 179, in _mean
+    ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+ValueError: operands could not be broadcast together with shapes (0,) (3,) 
