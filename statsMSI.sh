@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --time=07:59:59
+#SBATCH --time=00:29:59
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ztfrest@gmail.com
 #SBATCH --nodes=1
