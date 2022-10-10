@@ -18,7 +18,7 @@ import json
 
 import numpy as np
 import pandas as pd
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.dates as dates
 
@@ -27,6 +27,9 @@ from astropy.time import Time
 
 import seaborn as sns
 
+## set plot style
+plt.style.use('seaborn-bright')
+mpl.rcParams.update({"axes.grid" : True})
 
 
 
