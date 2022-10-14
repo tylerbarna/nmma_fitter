@@ -1,0 +1,19 @@
+/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py:638: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
+/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/matplotlib/axes/_axes.py:6731: RuntimeWarning: All-NaN slice encountered
+  xmin = min(xmin, np.nanmin(xi))
+/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/matplotlib/axes/_axes.py:6732: RuntimeWarning: All-NaN slice encountered
+  xmax = max(xmax, np.nanmax(xi))
+/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/fromnumeric.py:86: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray.
+  return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+Traceback (most recent call last):
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 764, in <module>
+    plotSamplingTime(df=df)
+  File "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py", line 676, in plotSamplingTime
+    plt.hist(np.sum(fitTime['Total'])) ## could fine tune the number of bins
+  File "<__array_function__ internals>", line 6, in sum
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 2260, in sum
+    initial=initial, where=where)
+  File "/home/cough052/shared/anaconda3/envs/nmma/lib/python3.7/site-packages/numpy/core/fromnumeric.py", line 86, in _wrapreduction
+    return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+ValueError: could not broadcast input array from shape (313,0) into shape (313,)
