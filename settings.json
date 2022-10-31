@@ -2,20 +2,27 @@
     "models": [
         {
             "name":"nugent-hyper",
+            "alias":"SN",
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"
 
         },
 
         {
             "name":"TrPi2018",
-
+            "alias":"GRB",
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt"
         },
         {
             "name":"Piro2021",
+            "alias":"SC",
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt"
 
         },
         {
             "name":"Bu2019lm",
-        },
+            "alias":"KN",
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt"
+        }
 
     ]
            
