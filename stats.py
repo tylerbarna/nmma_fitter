@@ -447,10 +447,13 @@ def plotFitCum(df,models=args.models, save=True):
         modelDict[model] = modelCum
         print('dayCount: %s'%dayCount) if args.verbose else None
         print('modelCum: %s'%modelCum) if args.verbose else None
-        plt.plot(dayCount,modelCum, label=model)
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Count')
-        plt.title('Cumulative Number of Fits for {}'.format(model))
+        
+        ## plot cumulative number of fits for each model
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+        ax.plot(dayCount,modelCum, label=model)
+        ax.set_xlabel("Days Since Start")
+        ax.set_ylabel('Count')
+        ax.suptitle('Cumulative Number of Fits for {}'.format(model))
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
