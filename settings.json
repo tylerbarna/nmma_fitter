@@ -3,6 +3,11 @@
         {
             "name":"nugent-hyper",
             "alias":"SN",
+            "prior":{
+                "t0_path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sn_t0.prior",
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sn.prior"
+            },
+
             "job":{
                 "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
                 "partition":"amdsmall",
@@ -15,8 +20,6 @@
             },
             
             
-
-
             "tmin":0.00,
             "tmax":7.00,
             "dt":0.10
@@ -26,6 +29,10 @@
         {
             "name":"TrPi2018",
             "alias":"GRB",
+            "prior":{
+                "t0_path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_grb_t0.prior",
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_grb.prior"
+            },
             "job":{
                 "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
                 "partition":"amdsmall",
@@ -44,6 +51,10 @@
         {
             "name":"Piro2021",
             "alias":"SC",
+            "prior":{
+                "t0_path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sc_t0.prior",
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sc.prior"
+            },
             "job":{
                 "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",
                 "partition":"amdsmall",
@@ -63,6 +74,10 @@
         {
             "name":"Bu2019lm",
             "alias":"KN",
+            "prior":{
+                "t0_path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_kn_t0.prior",
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_kn.prior"
+            },
             "job":{
                 "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
                 "partition":"amd512",
@@ -84,7 +99,7 @@
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
 
-
+        "error_budget":1.0,
         "svd_mag_ncoeff": 10,
         "svd_lbol_ncoeff": 10,
         "Ebv_max": 0.5724,
