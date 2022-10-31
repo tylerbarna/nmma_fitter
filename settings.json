@@ -19,7 +19,6 @@
                 "nlive":512 //should this be in "job"?
             },
             
-            
             "tmin":0.00,
             "tmax":7.00,
             "dt":0.10
@@ -98,7 +97,9 @@
     "settings":{
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
-
+        "t0":1,
+        "trigger_time_heuristic":false,
+        "fit_trigger_time":true,
         "error_budget":1.0,
         "svd_mag_ncoeff": 10,
         "svd_lbol_ncoeff": 10,
