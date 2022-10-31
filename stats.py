@@ -339,16 +339,19 @@ def plotDailyCand(df, save=True):
     numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
-
-    plt.plot(dayCount, numDaily,marker='.')
-    plt.xlabel("Days Since Start") ## weird phrasing
-    plt.ylabel('Number of Daily Candidates')
+    
+    fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
+    ax.plot(dayCount, numDaily,marker='.')
+    #ax.set_xlabel("Days Since Start") ## weird phrasing
+    ax.set_ylabel('Number of Daily Candidates')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
     plt.clf()
+    
     ## plot histogram of number of candidates per day
-    plt.hist(numDaily) ## could fine tune the number of bins
-    plt.xlabel("Number of Candidates per Day")
-    plt.ylabel('Count')
+    fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
+    sns.histplot(numDaily, kde=True, bins=10, ax=ax) ## could fine tune the number of bins
+    ax.set_xlabel("Number of Daily Candidates")
+    ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
     plt.clf()
 
