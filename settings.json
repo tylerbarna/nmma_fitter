@@ -98,7 +98,7 @@
     },
 
     "settings":{
-        "environment":{
+        "env":{
             "path":"/home/cough052/barna314/anaconda3/bin/activate",
             "name":"nmma"
         },
