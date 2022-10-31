@@ -565,7 +565,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Unfit models\n (7 day rolling average)')
     #ax.suptitle('Number of Unfit Candidates') ## should these have titles?
-    plt.legend()
+    ax.legend()
     plt.savefig(plotDir("numDailyUnfitRolling")) if save else None
     plt.clf()
 
@@ -576,7 +576,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Cumulative Unfit')
     #ax.suptitle('Cumulative Number of Unfit Candidates') ## should these have titles?
-    plt.legend()
+    ax.legend()
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
 
@@ -590,7 +590,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio')
         #ax.suptitle('Fraction of Unfit Candidates to Total') ## should these have titles?
-        plt.legend()
+        ax.legend()
         plt.savefig(plotDir("fracDailyUnfit")) if save else None
         plt.clf()
 
@@ -601,7 +601,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio')
         #ax.suptitle('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-        plt.legend()
+        ax.legend()
         plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
         ## this seems to be busted in some way
@@ -612,7 +612,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio\n (Cumulative)')
         #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
-        plt.legend()
+        ax.legend()
         plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
         plt.clf()
 
@@ -623,7 +623,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Ratio')
         #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-        plt.legend()
+        ax.legend()
         plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
         plt.clf()
 
@@ -680,51 +680,55 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## plot histogram of fit time data
     brokenPlots = True ## flag to determine whether the following plots should are working
     if not brokenPlots:
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
             ## I suppose I could just flatten it?
             # print()
             # print(value.flatten())
 
-            plt.hist(fitTime[key].flatten(), label=key)  if key != 'Total' else None 
+            sns.histplot(fitTime[key].flatten(), label=key,ax=ax)  if key != 'Total' else None 
             ## could fine tune the number of bins
-        plt.xlabel("Sampling Times (s)")
-        plt.ylabel('Count')
-        plt.title('Sampling Times for Each Model') ## should these have titles?
-        plt.legend()
+        ax.set_xlabel("Sampling Times (s)")
+        ax.set_ylabel('Count')
+        #ax.suptitle('Sampling Times for Each Model') ## should these have titles?
+        ax.legend()
         plt.savefig(plotDir("fitTimeHistModel")) if save else None
         plt.clf()
 
         ## summing over axis=1 means that each day will have a single value
         ## plot histogram of total daily fit time
         totalDailyFitTime = [np.sum(fitDay) for fitDay in fitTime['Total']]
-        plt.hist(totalDailyFitTime) ## could fine tune the number of bins
-        plt.xlabel("Sampling Times (s)")
-        plt.ylabel('Count')
-        plt.title('Daily Sampling Times')
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+        sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
+        ax.set_xlabel("Sampling Times (s)")
+        ax.set_ylabel('Count')
+        #ax.suptitle('Daily Sampling Times')
         plt.savefig(plotDir("fitTimeHistTotal")) if save else None
         plt.clf()
 
     ## plot the daily average fit time for each model
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items(): 
         #print(fitTime['Total']) if args.verbose else None
         #print()
         meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
-        plt.plot(dayCount, meanFitTime, label=key) ## should be right axis?
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Sampling Time (s)')
-    plt.title('Average Daily Sampling Time') ## should these have titles?
-    plt.legend()
+        ax.plot(dayCount, meanFitTime, label=key) ## should be right axis?
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Sampling Time (s)')
+    #ax.suptitle('Average Daily Sampling Time') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("dailyFitTimeAvg")) if save else None
     ## could do a version with std error bars as well
 
     ## plot the daily median fit time for each model
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items():
         medianFitTime = [np.median(fitDay) for fitDay in fitTime[key]]
         plt.plot(dayCount, medianFitTime, label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Sampling Time (s)')
-    plt.title('Median Daily Sampling Time') ## should these have titles?
-    plt.legend()
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Sampling Time (s)')
+    #ax.suptitle('Median Daily Sampling Time') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedian")) if save else None
     plt.clf()
 
@@ -732,10 +736,10 @@ def plotSamplingTime(df, models=args.models, save=True):
     for key, value in fitTime.items():
         medianFitTime = pd.Series([np.median(fitDay) for fitDay in fitTime[key]])
         plt.plot(dayCount, medianFitTime.rolling(7).mean(), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Sampling Time (s)')
-    plt.title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
-    plt.legend()
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Sampling Time (s)')
+    #ax.suptitle('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedianRolling")) if save else None
     plt.clf()
 
@@ -743,10 +747,10 @@ def plotSamplingTime(df, models=args.models, save=True):
     for key, value in fitTime.items():
         cumFitTime = np.cumsum([np.sum(fitDay) for fitDay in fitTime[key]])
         plt.plot(dayCount, cumFitTime, label=key) 
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Sampling Time (s)')
-    plt.title('Cumulative Sampling Time') ## should these have titles?
-    plt.legend()
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Sampling Time (s)')
+    #ax.suptitle('Cumulative Sampling Time') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("cumFitTime")) if save else None
     plt.clf()
     
