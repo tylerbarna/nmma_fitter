@@ -682,7 +682,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         # print()
         # print(value.flatten())
         ## should pull this out maybe so it doesn't look as comnplicated
-        sns.histplot(np.concatenate(fitTime[key],axis=None).ravel(), label=key,ax=ax)  if key != 'Total' else None 
+        sns.histplot(np.concatenate(fitTime[key],axis=None).ravel(), label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None 
         ## could fine tune the number of bins
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
