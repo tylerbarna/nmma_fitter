@@ -676,24 +676,25 @@ def plotSamplingTime(df, models=args.models, save=True):
     print() if args.verbose else None
 
     ## data plotting
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
+        ## I suppose I could just flatten it?
+        # print()
+        # print(value.flatten())
+        ## should pull this out maybe so it doesn't look as comnplicated
+        sns.histplot(np.concatenate(fitTime[key],axis=None).ravel(), label=key,ax=ax)  if key != 'Total' else None 
+        ## could fine tune the number of bins
+    ax.set_xlabel("Sampling Times (s)")
+    ax.set_ylabel('Count')
+    #ax.set_title('Sampling Times for Each Model') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("fitTimeHistModel")) if save else None
+    plt.clf()
 
     ## plot histogram of fit time data
     brokenPlots = True ## flag to determine whether the following plots should are working
     if not brokenPlots:
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
-            ## I suppose I could just flatten it?
-            # print()
-            # print(value.flatten())
 
-            sns.histplot(fitTime[key].flatten(), label=key,ax=ax)  if key != 'Total' else None 
-            ## could fine tune the number of bins
-        ax.set_xlabel("Sampling Times (s)")
-        ax.set_ylabel('Count')
-        #ax.set_title('Sampling Times for Each Model') ## should these have titles?
-        ax.legend()
-        plt.savefig(plotDir("fitTimeHistModel")) if save else None
-        plt.clf()
 
         ## summing over axis=1 means that each day will have a single value
         ## plot histogram of total daily fit time
