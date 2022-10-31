@@ -583,42 +583,46 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     brokenFrac = True ## flag to determine whether the following plots should are working
     if not brokenFrac:    
         ## plot fraction of candidates that were not fit for each day
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         for key, value in allfit.items():
             fracValue = allfit[key]/allfit['Total']
-            plt.plot(dayCount, fracValue, label=key)
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Ratio')
-        plt.title('Fraction of Unfit Candidates to Total') ## should these have titles?
+            ax.plot(dayCount, fracValue, label=key)
+        ax.set_xlabel("Days Since Start")
+        ax.set_ylabel('Unfit Ratio')
+        #ax.suptitle('Fraction of Unfit Candidates to Total') ## should these have titles?
         plt.legend()
         plt.savefig(plotDir("fracDailyUnfit")) if save else None
         plt.clf()
 
         ## plot rolling average of fraction of candidates that were not fit for each day
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         for key, value in allfit.items():
-            plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Ratio')
-        plt.title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+            ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+        ax.set_xlabel("Days Since Start")
+        ax.set_ylabel('Unfit Ratio')
+        #ax.suptitle('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
         plt.legend()
         plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
         ## this seems to be busted in some way
         ## plot cumulative fraction of candidates that were not fit for each day 
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         for key, value in allfit.items():
-            plt.plot(dayCount, np.cumsum(value), label=key)
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Ratio')
-        plt.title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
+            ax.plot(dayCount, np.cumsum(value), label=key)
+        ax.set_xlabel("Days Since Start")
+        ax.set_ylabel('Unfit Ratio\n (Cumulative)')
+        #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
         plt.legend()
         plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
         plt.clf()
 
         ## plot rolling average of cumulative fraction of candidates that were not fit for each day
+        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         for key, value in allfit.items():
-            plt.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Ratio')
-        plt.title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+            ax.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
+        ax.set_xlabel("Days Since Start")
+        ax.set_ylabel('Ratio')
+        #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
         plt.legend()
         plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
         plt.clf()
