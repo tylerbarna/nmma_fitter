@@ -13,7 +13,7 @@
                 "partition":"amdsmall",
                 "time":"07:59:59",
                 "nodes":1,
-                "ntasks-per-node":1,
+                "ntasks":1,
                 "cpus-per-task":2,
                 "mem":"8gb",
                 "nlive":512 
@@ -37,7 +37,7 @@
                 "partition":"amdsmall",
                 "time":"07:59:59",
                 "nodes":1,
-                "ntasks-per-node":1,
+                "ntasks":1,
                 "cpus-per-task":4,
                 "mem":"8gb",
                 "nlive":128
@@ -60,7 +60,7 @@
                 "partition":"amdsmall",
                 "time":"07:59:59",
                 "nodes":1,
-                "ntasks-per-node":1,
+                "ntasks":1,
                 "cpus-per-task":4,
                 "mem":"8gb",
                 "nlive":512
@@ -84,7 +84,7 @@
                 "partition":"amd512",
                 "time":"07:59:59",
                 "nodes":1,
-                "ntasks-per-node":1,
+                "ntasks":1,
                 "cpus-per-task":2,
                 "mem":"8gb",
                 "nlive":512
