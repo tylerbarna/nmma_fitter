@@ -340,7 +340,7 @@ def plotDailyCand(df, save=True):
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
-    fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     ax.plot(dayCount, numDaily,marker='.')
     #ax.set_xlabel("Days Since Start") ## weird phrasing
     ax.set_ylabel('Number of Daily Candidates')
@@ -379,9 +379,10 @@ def plotCumDailyCand(df, save=True):
     print('cumDaily: %s'%cumDaily) if args.verbose else None
     print() if args.verbose else None
 
-    plt.plot(dayCount,cumDaily)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Cumulative Number of Candidates')
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    ax.plot(dayCount,cumDaily)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Cumulative Number of Candidates')
     plt.savefig(plotDir("cumDailyCand")) if save else None
     plt.clf()
 
