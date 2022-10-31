@@ -449,11 +449,12 @@ def plotFitCum(df,models=args.models, save=True):
         print('modelCum: %s'%modelCum) if args.verbose else None
         
         ## plot cumulative number of fits for each model
+        ## perhaps this could be a grid of subplots
         fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
         ax.plot(dayCount,modelCum, label=model)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Count')
-        ax.suptitle('Cumulative Number of Fits for {}'.format(model))
+        ax.suptitle('{}'.format(model))
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
@@ -469,7 +470,7 @@ def plotFitCum(df,models=args.models, save=True):
     ax.set_ylabel('Count')
         ## need to cmap or something for controlling colors
     
-    ax.suptitle('Cumulative Number of Fits')
+    #ax.suptitle('Cumulative Number of Fits')
     ax.legend()
     plt.savefig(plotDir("cumDailyFits_all")) if save else None
     plt.clf()
@@ -525,24 +526,26 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
     
     ## plot the number of candidates that were not fit for each day
-    ## should add a fig, ax = plt.subplots() to allow for better customization
+    
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in unfit.items(): ## one line conditional here is to exclude the total from the histogram
-        plt.plot(dayCount, value, label=key, marker='.',alpha=0.6) if key != 'Total' else None
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Count')
-    plt.title('Number of Unfit Candidates') ## should these have titles?
-    plt.legend()
+        ax.plot(dayCount, value, label=key, marker='.',alpha=0.6) if key != 'Total' else None
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Count')
+    #ax.suptitle('Number of Unfit Candidates') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
 
     ## should fix styling as it's currently unclear
     ## plot histogram of number of candidates that were not fit for each day by model
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
-        plt.hist(value, label=key,alpha=0.75) 
-    plt.xlabel("Number of Unfit Candidates")
-    plt.ylabel('Count')
-    plt.title('Number of Unfit Candidates per Day') ## should these have titles?
-    plt.legend()
+        sns.histplot(value, label=key,alpha=0.75, ax=ax) if key != 'Total' else None 
+    ax.set_xlabel("Number of Unfit Candidates")
+    ax.set_ylabel('Count')
+    #ax.suptitle('Number of Unfit Candidates per Day') ## should these have titles?
+    ax.legend()
     plt.savefig(plotDir("numDailyUnfitModelHist")) if save else None
     plt.clf()
 
