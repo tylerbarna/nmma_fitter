@@ -3,28 +3,59 @@
         {
             "name":"nugent-hyper",
             "alias":"SN",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt"
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
+
+
+            "tmin":0.00,
+            "tmax":7.00,
+            "dt":0.10
 
         },
 
         {
             "name":"TrPi2018",
             "alias":"GRB",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt"
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
+
+            "tmin":0.01,
+            "tmax":7.01,
+            "dt":0.35
         },
         {
             "name":"Piro2021",
             "alias":"SC",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt"
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",
+
+            "tmin":0.00,
+            "tmax":7.00,
+            "dt":0.10
 
         },
         {
             "name":"Bu2019lm",
             "alias":"KN",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt"
+            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
+
+            "tmin":0.00,
+            "tmax":7.00,
+            "dt":0.10
         }
 
-    ]
+    ],
+    "settings":{
+        "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
+        "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
+
+        
+        "svd_mag_ncoeff": 10,
+        "svd_lbol_ncoeff": 10,
+        "Ebv_max": 0.5724,
+        "grb_resolution": 7,
+        "jet_type": 0,
+        "joint_light_curve": false,
+        "sampler":"pymultinest", //maybe make this model specific?
+        "seed": 42
+    }
            
 }
         
