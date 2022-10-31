@@ -102,6 +102,7 @@
             "path":"/home/cough052/barna314/anaconda3/bin/activate",
             "name":"nmma"
         },
+        "repo_directory":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/",
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
         "svd_path":"/home/cough052/shared/NMMA/svdmodels",
