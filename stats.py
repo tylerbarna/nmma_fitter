@@ -454,7 +454,7 @@ def plotFitCum(df,models=args.models, save=True):
         ax.plot(dayCount,modelCum, label=model)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Count')
-        ax.suptitle('{}'.format(model))
+        ax.set_title('{}'.format(model))
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
@@ -470,7 +470,7 @@ def plotFitCum(df,models=args.models, save=True):
     ax.set_ylabel('Count')
         ## need to cmap or something for controlling colors
     
-    #ax.suptitle('Cumulative Number of Fits')
+    #ax.set_title('Cumulative Number of Fits')
     ax.legend()
     plt.savefig(plotDir("cumDailyFits_all")) if save else None
     plt.clf()
@@ -532,7 +532,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.plot(dayCount, value, label=key, marker='.',alpha=0.6) if key != 'Total' else None
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Count')
-    #ax.suptitle('Number of Unfit Candidates') ## should these have titles?
+    #ax.set_title('Number of Unfit Candidates') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
@@ -544,7 +544,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         sns.histplot(value, label=key,alpha=0.75, ax=ax) if key != 'Total' else None 
     ax.set_xlabel("Number of Unfit Candidates")
     ax.set_ylabel('Count')
-    #ax.suptitle('Number of Unfit Candidates per Day') ## should these have titles?
+    #ax.set_title('Number of Unfit Candidates per Day') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("numDailyUnfitModelHist")) if save else None
     plt.clf()
@@ -554,7 +554,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     sns.histplot(unfit['Total'], bins=20, ax=ax) ## could fine tune the number of bins
     ax.set_xlabel("Number Unfit")
     ax.set_ylabel('Count')
-    #ax.suptitle("Number of Unfit Candidates per Day")
+    #ax.set_title("Number of Unfit Candidates per Day")
     plt.savefig(plotDir("numDailyUnfitTotalHist")) if save else None
     plt.clf()
 
@@ -564,7 +564,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Unfit models\n (7 day rolling average)')
-    #ax.suptitle('Number of Unfit Candidates') ## should these have titles?
+    #ax.set_title('Number of Unfit Candidates') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("numDailyUnfitRolling")) if save else None
     plt.clf()
@@ -575,7 +575,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         ax.plot(dayCount, np.cumsum(value), label=key)
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Cumulative Unfit')
-    #ax.suptitle('Cumulative Number of Unfit Candidates') ## should these have titles?
+    #ax.set_title('Cumulative Number of Unfit Candidates') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
@@ -589,7 +589,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
             ax.plot(dayCount, fracValue, label=key)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio')
-        #ax.suptitle('Fraction of Unfit Candidates to Total') ## should these have titles?
+        #ax.set_title('Fraction of Unfit Candidates to Total') ## should these have titles?
         ax.legend()
         plt.savefig(plotDir("fracDailyUnfit")) if save else None
         plt.clf()
@@ -600,7 +600,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
             ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio')
-        #ax.suptitle('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+        #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
         ax.legend()
         plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
@@ -611,7 +611,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
             ax.plot(dayCount, np.cumsum(value), label=key)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Unfit Ratio\n (Cumulative)')
-        #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
+        #ax.set_title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
         ax.legend()
         plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
         plt.clf()
@@ -622,7 +622,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
             ax.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Ratio')
-        #ax.suptitle('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+        #ax.set_title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
         ax.legend()
         plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
         plt.clf()
@@ -690,7 +690,7 @@ def plotSamplingTime(df, models=args.models, save=True):
             ## could fine tune the number of bins
         ax.set_xlabel("Sampling Times (s)")
         ax.set_ylabel('Count')
-        #ax.suptitle('Sampling Times for Each Model') ## should these have titles?
+        #ax.set_title('Sampling Times for Each Model') ## should these have titles?
         ax.legend()
         plt.savefig(plotDir("fitTimeHistModel")) if save else None
         plt.clf()
@@ -702,7 +702,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
         ax.set_xlabel("Sampling Times (s)")
         ax.set_ylabel('Count')
-        #ax.suptitle('Daily Sampling Times')
+        #ax.set_title('Daily Sampling Times')
         plt.savefig(plotDir("fitTimeHistTotal")) if save else None
         plt.clf()
 
@@ -715,7 +715,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         ax.plot(dayCount, meanFitTime, label=key) ## should be right axis?
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Sampling Time (s)')
-    #ax.suptitle('Average Daily Sampling Time') ## should these have titles?
+    #ax.set_title('Average Daily Sampling Time') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("dailyFitTimeAvg")) if save else None
     ## could do a version with std error bars as well
@@ -727,7 +727,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         plt.plot(dayCount, medianFitTime, label=key)
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Sampling Time (s)')
-    #ax.suptitle('Median Daily Sampling Time') ## should these have titles?
+    #ax.set_title('Median Daily Sampling Time') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedian")) if save else None
     plt.clf()
@@ -738,7 +738,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         plt.plot(dayCount, medianFitTime.rolling(7).mean(), label=key)
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Sampling Time (s)')
-    #ax.suptitle('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
+    #ax.set_title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedianRolling")) if save else None
     plt.clf()
@@ -749,7 +749,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         plt.plot(dayCount, cumFitTime, label=key) 
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Sampling Time (s)')
-    #ax.suptitle('Cumulative Sampling Time') ## should these have titles?
+    #ax.set_title('Cumulative Sampling Time') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("cumFitTime")) if save else None
     plt.clf()
