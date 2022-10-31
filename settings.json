@@ -3,7 +3,17 @@
         {
             "name":"nugent-hyper",
             "alias":"SN",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
+            "job":{
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
+                "partition":"amdsmall",
+                "time":"07:59:59",
+                "nodes":1,
+                "ntasks-per-node":1,
+                "cpus-per-task":2,
+                "mem":"8gb"
+            },
+            
+            
 
 
             "tmin":0.00,
@@ -15,7 +25,15 @@
         {
             "name":"TrPi2018",
             "alias":"GRB",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
+            "job":{
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
+                "partition":"amdsmall",
+                "time":"07:59:59",
+                "nodes":1,
+                "ntasks-per-node":1,
+                "cpus-per-task":4,
+                "mem":"8gb"
+            },
 
             "tmin":0.01,
             "tmax":7.01,
@@ -24,7 +42,15 @@
         {
             "name":"Piro2021",
             "alias":"SC",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",
+            "job":{
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",
+                "partition":"amdsmall",
+                "time":"07:59:59",
+                "nodes":1,
+                "ntasks-per-node":1,
+                "cpus-per-task":4,
+                "mem":"8gb"
+            },
 
             "tmin":0.00,
             "tmax":7.00,
@@ -34,7 +60,15 @@
         {
             "name":"Bu2019lm",
             "alias":"KN",
-            "job-path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
+            "job":{
+                "path":"/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
+                "partition":"amd512",
+                "time":"07:59:59",
+                "nodes":1,
+                "ntasks-per-node":1,
+                "cpus-per-task":2,
+                "mem":"8gb"
+            },
 
             "tmin":0.00,
             "tmax":7.00,
@@ -46,7 +80,7 @@
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
 
-        
+
         "svd_mag_ncoeff": 10,
         "svd_lbol_ncoeff": 10,
         "Ebv_max": 0.5724,
