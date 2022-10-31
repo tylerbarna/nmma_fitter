@@ -462,14 +462,15 @@ def plotFitCum(df,models=args.models, save=True):
         print('Keys in modelDict probably do not have the same length')
         pass
     ## now plot all models together
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in modelDict.items(): 
-        plt.plot(dayCount,value, label=key, marker='.',alpha=0.75) ## need to make a colormap for better visualization
-        plt.xlabel("Days Since Start")
-        plt.ylabel('Count')
+        ax.plot(dayCount,value, label=key, marker='.',alpha=0.7) ## need to make a colormap for better visualization
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Count')
         ## need to cmap or something for controlling colors
     
-    plt.title('Cumulative Number of Fits for All Models')
-    plt.legend()
+    ax.suptitle('Cumulative Number of Fits')
+    ax.legend()
     plt.savefig(plotDir("cumDailyFits_all")) if save else None
     plt.clf()
     return modelDict ## maybe not necessary to return this
