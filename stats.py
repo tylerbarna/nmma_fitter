@@ -407,9 +407,10 @@ def plotDailyCandRolling(df, save=True):
 
 
     #plt.plot(dayCount, numDaily)
-    plt.plot(dayCount, pd.Series(numDaily).rolling(7).mean()) ## note: this won't work with one week of data
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Number of Daily Candidates \n (Rolling Average)') ## needs title
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    ax.plot(dayCount, pd.Series(numDaily).rolling(7).mean()) ## note: this won't work with one week of data
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Number of Daily Candidates \n (Rolling Average)') ## needs title
     plt.savefig(plotDir("numDailyCandRolling")) if save else None
     plt.clf()
 
