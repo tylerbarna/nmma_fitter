@@ -120,7 +120,7 @@
         "Ebv_max": 0.5724,
         "grb_resolution": 7,
         "jet_type": 0,
-        "joint_light_curve": false,
+        "joint_light_curve":false,
         "sampler":"pymultinest", 
         "seed": 42
         
