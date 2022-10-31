@@ -10,7 +10,8 @@
                 "nodes":1,
                 "ntasks-per-node":1,
                 "cpus-per-task":2,
-                "mem":"8gb"
+                "mem":"8gb",
+                "nlive":512 //should this be in "job"?
             },
             
             
@@ -32,7 +33,8 @@
                 "nodes":1,
                 "ntasks-per-node":1,
                 "cpus-per-task":4,
-                "mem":"8gb"
+                "mem":"8gb",
+                "nlive":128
             },
 
             "tmin":0.01,
@@ -49,7 +51,8 @@
                 "nodes":1,
                 "ntasks-per-node":1,
                 "cpus-per-task":4,
-                "mem":"8gb"
+                "mem":"8gb",
+                "nlive":512
             },
 
             "tmin":0.00,
@@ -67,7 +70,8 @@
                 "nodes":1,
                 "ntasks-per-node":1,
                 "cpus-per-task":2,
-                "mem":"8gb"
+                "mem":"8gb",
+                "nlive":512
             },
 
             "tmin":0.00,
