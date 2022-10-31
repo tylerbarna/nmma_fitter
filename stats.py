@@ -336,7 +336,7 @@ def plotDailyCand(df, save=True):
 
     ## get number of candidates per day
 
-    numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
+    numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
@@ -349,7 +349,7 @@ def plotDailyCand(df, save=True):
     
     ## plot histogram of number of candidates per day
     fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
-    sns.histplot(numDaily, kde=True, bins=20, ax=ax) ## could fine tune the number of bins
+    sns.histplot(numDaily, kde=True, bins=numDaily.max(), ax=ax) ## could fine tune the number of bins
     ax.set_xlabel("Number of Daily Candidates")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
