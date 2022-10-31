@@ -1,4 +1,5 @@
-# nmma_fitter
+![nmma_fitter](nmma_fitter_image.png)
+
 Realtime node-based lightcurve fitting using [NMMA](https://github.com/nuclear-multimessenger-astronomy/nmma).
 
 To run, try:
@@ -27,3 +28,5 @@ The current flow of the automated pipeline is as follows:
 - [TrPi2018](https://ui.adsabs.harvard.edu/abs/2018MNRAS.478L..18T/abstract): Gamma Ray Burst
 - [Piro2021](https://arxiv.org/abs/2007.08543): Shock Cooling
 - [Bu2019lm](https://arxiv.org/abs/1906.04205): Kilonova
+
+

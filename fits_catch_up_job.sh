@@ -14,6 +14,6 @@
 
 cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
 
-source /home/cough052/shared/anaconda3/bin/activate nmma
+source /home/cough052/barna314/anaconda3/bin/activate nmma
 
 python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/catch_up.py
