@@ -98,6 +98,10 @@
     },
 
     "settings":{
+        "environment":{
+            "path":"/home/cough052/barna314/anaconda3/bin/activate",
+            "name":"nmma"
+        },
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
         "t0":1,
