@@ -550,29 +550,32 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.clf()
 
     ## plot histogram of number of candidates that were not fit for each day
-    plt.hist(unfit['Total'], bins=20) ## could fine tune the number of bins
-    plt.xlabel("Number Unfit")
-    plt.ylabel('Count')
-    plt.title("Number of Unfit Candidates per Day")
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    sns.histplot(unfit['Total'], bins=20, ax=ax) ## could fine tune the number of bins
+    ax.set_xlabel("Number Unfit")
+    ax.set_ylabel('Count')
+    #ax.suptitle("Number of Unfit Candidates per Day")
     plt.savefig(plotDir("numDailyUnfitTotalHist")) if save else None
     plt.clf()
 
     ## plot rolling average of number of candidates that were not fit for each day
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
-        plt.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Count')
-    plt.title('Number of Unfit Candidates') ## should these have titles?
+        ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Unfit models\n (7 day rolling average)')
+    #ax.suptitle('Number of Unfit Candidates') ## should these have titles?
     plt.legend()
     plt.savefig(plotDir("numDailyUnfitRolling")) if save else None
     plt.clf()
 
     ## plot cumulative number of candidates that were not fit for each day
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
-        plt.plot(dayCount, np.cumsum(value), label=key)
-    plt.xlabel("Days Since Start")
-    plt.ylabel('Count')
-    plt.title('Cumulative Number of Unfit Candidates') ## should these have titles?
+        ax.plot(dayCount, np.cumsum(value), label=key)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Cumulative Unfit')
+    #ax.suptitle('Cumulative Number of Unfit Candidates') ## should these have titles?
     plt.legend()
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
