@@ -104,8 +104,14 @@
         },
         "candidate_directory": "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership",
         "fit_directory":"/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",
+        "svd_path":"/home/cough052/shared/NMMA/svdmodels",
         "t0":1,
         "trigger_time_heuristic":false,
+        "detection-limit":{
+            "r":21.5,
+            "g":21.5,
+            "i":21.5
+        },
         "fit_trigger_time":true,
         "error_budget":1.0,
         "svd_mag_ncoeff": 10,
@@ -116,6 +122,7 @@
         "joint_light_curve": false,
         "sampler":"pymultinest", 
         "seed": 42
+        
     }
            
 }
