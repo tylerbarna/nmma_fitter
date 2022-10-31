@@ -19,7 +19,7 @@ config = json.load(open('settings.json'))
 job_config = config['models'][model]['job']
 job_settings = config['settings']
 
-
+## maybe make the job name more descriptive? or so it doesn't overwrite an existing job if it hasn't been submitted yet
 f = open('job.sh','a')
 
 f.write('#!/bin/bash'+'\n')
