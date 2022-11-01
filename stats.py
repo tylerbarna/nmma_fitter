@@ -614,7 +614,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.legend()
     plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
     plt.clf()
-    '''
+    
     ## plot rolling average of cumulative fraction of candidates that were not fit for each day
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in allfit.items():
@@ -626,6 +626,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.legend()
     plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
     plt.clf()
+    '''
     
     
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
