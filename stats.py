@@ -662,7 +662,7 @@ def plotSamplingTime(df, models=args.models, save=True):
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
         ])
-        print('model %s : %s'%(model, fitTime[model])) if args.verbose else None
+        print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
         print() if args.verbose else None
         fitTime['Total'].append(fitTime[model])
     print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
@@ -792,9 +792,9 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # print('completed cumulative fit plot (4)') if args.verbose else None
 # print() if args.verbose else None
 
-plotUnfit(df=df)
-print('completed unfit candidate plot (5)') if args.verbose else None
-print() if args.verbose else None
+# plotUnfit(df=df)
+# print('completed unfit candidate plot (5)') if args.verbose else None
+# print() if args.verbose else None
 
 plotSamplingTime(df=df)
 print('completed sampling time plot (6)') if args.verbose else None
