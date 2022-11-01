@@ -657,15 +657,27 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    fitTime['Total'] = []
+    fitTime['Total'] = np.full([len(dayList),],np.array([np.nan]))
     for model in models:
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
         ])
+        try:
+            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+        except:
+            fitTime[model] = np.full([len(dayList),],np.array([np.nan])) ## if there are no fit times, set to zero
         print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
         print() if args.verbose else None
-        fitTime['Total'].append(fitTime[model])
+        print('model %s fit times shape: %s'%(model, fitTime[model].shape)) if args.verbose else None
+        print() if args.verbose else None
+        fitTime['Total'] += fitTime[model] ## add the fit times to the total fit times
+    print(fitTime.values())    
+    # fitTime['Total'] = np.zeros((len(dayList),)) ## initialize the total fit time array
+    # for key, value in fitTime.items():
+    #     fitTime['Total'].append(value) if key != 'Total' else None
+    #np.concatenate(fitTime.values(),1) ## trying to add all the fit times together
     print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
+    print ('total fit time shape: %s'%(fitTime['Total'].shape)) if args.verbose else None
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
     # fitTime = {model: 
     # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
@@ -674,8 +686,8 @@ def plotSamplingTime(df, models=args.models, save=True):
     # fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
     print() if args.verbose else None
     # [print('fitTime %s'%fitTime[model]) for model in models] if args.verbose else None
-    print('fitTime dict: %s'%fitTime) if args.verbose else None
-    print() if args.verbose else None
+    #print('fitTime dict: %s'%fitTime) if args.verbose else None
+    #print() if args.verbose else None
 
     ## data plotting
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
@@ -684,7 +696,8 @@ def plotSamplingTime(df, models=args.models, save=True):
         # print()
         # print(value.flatten())
         ## should pull this out maybe so it doesn't look as comnplicated
-        sns.histplot(np.concatenate(fitTime[key],axis=None).ravel(), label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None 
+        fitTimeValue = np.concatenate(fitTime[key],axis=None).ravel() 
+        sns.histplot(fitTimeValue, label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None 
         ## could fine tune the number of bins
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
@@ -693,21 +706,16 @@ def plotSamplingTime(df, models=args.models, save=True):
     plt.savefig(plotDir("fitTimeHistModel")) if save else None
     plt.clf()
 
-    ## plot histogram of fit time data
-    brokenPlots = True ## flag to determine whether the following plots should are working
-    if not brokenPlots:
-
-
-        ## summing over axis=1 means that each day will have a single value
-        ## plot histogram of total daily fit time
-        totalDailyFitTime = [np.sum(fitDay) for fitDay in fitTime['Total']]
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
-        ax.set_xlabel("Sampling Times (s)")
-        ax.set_ylabel('Count')
-        #ax.set_title('Daily Sampling Times')
-        plt.savefig(plotDir("fitTimeHistTotal")) if save else None
-        plt.clf()
+    ## summing over axis=1 means that each day will have a single value
+    ## plot histogram of total daily fit time
+    totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
+    ax.set_xlabel("Sampling Times (s)")
+    ax.set_ylabel('Count')
+    #ax.set_title('Daily Sampling Times')
+    plt.savefig(plotDir("fitTimeHistTotal")) if save else None
+    plt.clf()
 
     ## plot the daily average fit time for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
