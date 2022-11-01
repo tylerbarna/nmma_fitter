@@ -25,7 +25,7 @@ import seaborn as sns
 parser = argparse.ArgumentParser(description="Inference on kilonova ejecta parameters.")
 parser.add_argument("--datafile", type=str, required=True, help="Path of the transient csv file")
 parser.add_argument("--candname", type=str, required=True, help="Name of the transient")
-parser.add_argument("--model", type=str, default='Bu2019lm', help="Name of the kilonova model to be used")
+parser.add_argument("--model", type=str, default='Bu2019lm', help="Name of the kilonova model to be used") 
 parser.add_argument("--nlive", type=int, default=256, help="Number of live points to use")
 parser.add_argument("--cpus", type=int, default=2, help="Number of cpus to use")
 parser.add_argument("-d","--dataDir", type=str, default=None)
