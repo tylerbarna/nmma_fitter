@@ -591,8 +591,9 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
     ## plot rolling average of fraction of candidates that were not fit for each day
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    for key, value in allfit.items():
-        ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+    for key, value in unfit.items(): ## is this the correct method for rolling average ratio?
+        fracValue =  pd.Series(value).rolling(7).mean()/pd.Series(allfit['Total']).rolling(7).mean()
+        ax.plot(dayCount, fracValue, label=key) if key != 'Total' else None
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Unfit Ratio')
     #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
