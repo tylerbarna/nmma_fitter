@@ -498,8 +498,6 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ## find number of candidates that were not fit for each day, seperated by model
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
     ## slightly long expression, but should be efficient (dataframe filtering could be slow potentially)
-
-
     unfit = {model: 
     np.array([len(df[(df['fitBool'] == False) & (df['model'] == model) & (df['day'] == day)])
     for day in dayList])
@@ -507,7 +505,6 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     unfit['Total'] = np.array([len(df[ (df['fitBool'] == False) & (df['day'] == day)]) for day in dayList])
 
     ## find number of candidates that were fit for each day, seperated by model (for plotting stats later)
-    ##
     fit = {model: 
     np.array([len(df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)])
     for day in dayList])
@@ -579,53 +576,51 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.legend()
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
+   
+    ## plot fraction of candidates that were not fit for each day
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    for key, value in unfit.items():
+        fracValue = value/allfit['Total']
+        ax.plot(dayCount, fracValue, label=key) if key != 'Total' else None
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Unfit Ratio')
+    #ax.set_title('Fraction of Unfit Candidates to Total') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("fracDailyUnfit")) if save else None
+    plt.clf()
 
-    brokenFrac = True ## flag to determine whether the following plots should are working
-    if not brokenFrac:    
-        ## plot fraction of candidates that were not fit for each day
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        for key, value in allfit.items():
-            fracValue = allfit[key]/allfit['Total']
-            ax.plot(dayCount, fracValue, label=key)
-        ax.set_xlabel("Days Since Start")
-        ax.set_ylabel('Unfit Ratio')
-        #ax.set_title('Fraction of Unfit Candidates to Total') ## should these have titles?
-        ax.legend()
-        plt.savefig(plotDir("fracDailyUnfit")) if save else None
-        plt.clf()
+    ## plot rolling average of fraction of candidates that were not fit for each day
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    for key, value in allfit.items():
+        ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Unfit Ratio')
+    #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
-        ## plot rolling average of fraction of candidates that were not fit for each day
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        for key, value in allfit.items():
-            ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
-        ax.set_xlabel("Days Since Start")
-        ax.set_ylabel('Unfit Ratio')
-        #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-        ax.legend()
-        plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
+    ## this seems to be busted in some way
+    ## plot cumulative fraction of candidates that were not fit for each day 
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    for key, value in allfit.items():
+        ax.plot(dayCount, np.cumsum(value), label=key)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Unfit Ratio\n (Cumulative)')
+    #ax.set_title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
+    plt.clf()
 
-        ## this seems to be busted in some way
-        ## plot cumulative fraction of candidates that were not fit for each day 
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        for key, value in allfit.items():
-            ax.plot(dayCount, np.cumsum(value), label=key)
-        ax.set_xlabel("Days Since Start")
-        ax.set_ylabel('Unfit Ratio\n (Cumulative)')
-        #ax.set_title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
-        ax.legend()
-        plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
-        plt.clf()
-
-        ## plot rolling average of cumulative fraction of candidates that were not fit for each day
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        for key, value in allfit.items():
-            ax.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
-        ax.set_xlabel("Days Since Start")
-        ax.set_ylabel('Ratio')
-        #ax.set_title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-        ax.legend()
-        plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
-        plt.clf()
+    ## plot rolling average of cumulative fraction of candidates that were not fit for each day
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    for key, value in allfit.items():
+        ax.plot(dayCount, pd.Series(np.cumsum(value)).rolling(7).mean(), label=key)
+    ax.set_xlabel("Days Since Start")
+    ax.set_ylabel('Ratio')
+    #ax.set_title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
+    plt.clf()
 
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
     ## could also add a stacked bar chart of fit and unfit candidates
@@ -775,20 +770,20 @@ def plotSamplingTime(df, models=args.models, save=True):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.file)   
 
 
-plotDailyCand(df=df,save=True)
-print('completed daily candidate plot (1)') if args.verbose else None
-print() if args.verbose else None
-plotCumDailyCand(df=df)
-print('completed cumulative daily candidate plot (2)') if args.verbose else None
-print() if args.verbose else None
+# plotDailyCand(df=df,save=True)
+# print('completed daily candidate plot (1)') if args.verbose else None
+# print() if args.verbose else None
+# plotCumDailyCand(df=df)
+# print('completed cumulative daily candidate plot (2)') if args.verbose else None
+# print() if args.verbose else None
 
-plotDailyCandRolling(df=df)
-print('completed daily candidate rolling average plot (3)') if args.verbose else None
-print() if args.verbose else None
+# plotDailyCandRolling(df=df)
+# print('completed daily candidate rolling average plot (3)') if args.verbose else None
+# print() if args.verbose else None
 
-plotFitCum(df=df)
-print('completed cumulative fit plot (4)') if args.verbose else None
-print() if args.verbose else None
+# plotFitCum(df=df)
+# print('completed cumulative fit plot (4)') if args.verbose else None
+# print() if args.verbose else None
 
 plotUnfit(df=df)
 print('completed unfit candidate plot (5)') if args.verbose else None
