@@ -660,7 +660,7 @@ def plotSamplingTime(df, models=args.models, save=True):
     fitTime['Total'] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
     for model in models:
         fitTime[model] = np.array([
-            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy().flatten() for day in dayList
+            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).flatten() for day in dayList
         ], dtype=object)
         try:
             fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
@@ -677,17 +677,20 @@ def plotSamplingTime(df, models=args.models, save=True):
     #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
     print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
     print() if args.verbose else None
+    tempTotal = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
     for key, value in fitTime.items():
         idx=0
         if key == 'Total':
             continue
         for i in range(len(dayList)):
             print('key: %s'%(key)) if args.verbose else None
-            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(np.array(fitTime['Total'],dtype='float64'),key,value[idx])) if args.verbose else None
+            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(np.array(fitTime['Total'][idx],dtype='float64'),key,value[idx])) if args.verbose else None
             print('') if args.verbose else None
-            fitTime['Total'].apppend( np.concatenate((fitTime['Total'][idx],value[idx])))
+            print(('shapes:\n Total: {0}\n {1}: {2}'.format(fitTime['Total'][idx].shape,key,value[idx].shape))) if args.verbose else None
+            tempTotal[idx] = 1#np.concatenate([fitTime['Total'][idx].flatten(),value[idx].flatten()])
             idx+=1
-            print('total fit time: {0}'.format(fitTime['Total'])) if args.verbose else None
+            # print('total fit time: {0}'.format(fitTime['Total'])) if args.verbose else None
+            print('total fit time: {0}'.format(tempTotal)) if args.verbose else None
 
     print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: %s'%(fitTime['Total'].shape)) if args.verbose else None
