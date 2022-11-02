@@ -676,37 +676,42 @@ def plotSamplingTime(df, models=args.models, save=True):
         #print(fitTime)
     #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
     
-    fitTime['Total'] = np.array([np.concatenate([value[idx].ravel() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
-    print ('total fit time(pre-reshape): {}'.format(fitTime['Total'])) if args.verbose else None
-    print ('total fit time shape (pre-reshape): {0}'.format(fitTime['Total'].shape)) if args.verbose else None
+    fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
+    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
+    print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
     fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
     print() if args.verbose else None
-    #temp = np.zeros((len(dayList),))
-    #tempTotal = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
-    temp1 = [None]*len(dayList)
     
-    
-        #temp1[idx] = np.concatenate(temp2)
-    for key, value in fitTime.items():
-        continue
-        idx=0
-        if key == 'Total':
-            continue
-        for i in range(len(dayList)):
-            print('key: %s'%(key)) if args.verbose else None
-            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(fitTime['Total'][idx].ravel(),key,value[idx].ravel())) if args.verbose else None
-            print('') if args.verbose else None
-            print(('shapes:\n Total: {0}\n {1}: {2}'.format(fitTime['Total'][idx].shape,key,value[idx].shape))) if args.verbose else None
-            #fitTime['Total'][idx] = np.concatenate([fitTime['Total'][idx].flatten(),value[idx].flatten()])
-            print('types of items to concatenate:\n Total: {0}\n {1}: {2}'.format(type(fitTime['Total'][idx]),key,type(value[idx]))) if args.verbose else None
-            fitTime['Total'][idx] = np.concatenate((np.array(fitTime['Total'][idx]),value[idx]))
-            idx+=1
-            # print('total fit time: {0}'.format(fitTime['Total'])) if args.verbose else None
-            print('total fit time: {0}'.format(fitTime['Total'][idx])) if args.verbose else None
-            print('total fit time: {0}'.format(temp[idx])) if args.verbose else None
-            print('\n \n') if args.verbose else None
+    ## debugging
+    t1 = [0]*len(dayList)
+    t2 = [0]*len(dayList)
+    for idx in range(len(dayList)):
+        t1[idx] = 0
+        for key, value in fitTime.items():
+            if key == 'Total':
+                continue
+            t1[idx] += np.nansum(value[idx]) 
+            
+        t2[idx] = np.nansum(fitTime['Total'][idx])
+    if np.array_equal(t1,t2):
+        print('t1 and t2 are equal') if args.verbose else None
+        
+    else:
+        print('t1 and t2 are not equal') if args.verbose else None
+    print('t1: {}'.format(t1)) if args.verbose else None
+    print('') if args.verbose else None
+    print('t2: {}'.format(t2)) if args.verbose else None
+    print('') if args.verbose else None
+    print('t1-t2: {}'.format(np.array(t1)-np.array(t2))) if args.verbose else None
+    print('') if args.verbose else None
+    print('t1 shape: {}'.format(np.array(t1).shape)) if args.verbose else None
+    print('t2 shape: {}'.format(np.array(t2).shape)) if args.verbose else None
+    print('t1 sum: {}'.format(np.nansum(t1))) if args.verbose else None
+    print('t2 sum: {}'.format(np.nansum(t2))) if args.verbose else None
+    print('t1 - tw sum: {}'.format(np.nansum(np.array(t1)-np.array(t2)))) if args.verbose else None
 
-    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
+
+    #print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: {}'.format(fitTime['Total'].shape)) if args.verbose else None
     exit()
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
