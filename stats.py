@@ -226,7 +226,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
     if file:
         print('loading dataframe from file: %s'%file) if args.verbose else None
-        df = pd.read_csv(file) ## needs to be tested to ensure compatibility with saved dataframe
+        df = pd.read_csv(file,index_col=0) ## needs to be tested to ensure compatibility with saved dataframe
         return df ## don't need an else since the function will exit if file is provided
     
     ## need to explicitly add all columns here maybe? Will mess with any additional parameters provided to get_json if that is added to this function in the future
