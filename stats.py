@@ -657,7 +657,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    fitTime['Total'] = np.tile(np.array([np.pi, 2*np.pi]),(len(dayList),)).reshape(len(dayList),)#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
+    #fitTime['Total'] = np.tile(np.array([np.pi, 2*np.pi]),(len(dayList),)).reshape(len(dayList),)#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
     for model in models: ## won't iterate over Total (which is good)
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
@@ -675,11 +675,20 @@ def plotSamplingTime(df, models=args.models, save=True):
         print() if args.verbose else None
         #print(fitTime)
     #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
-    print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
+    
+    fitTime['Total'] = np.array([np.concatenate([value[idx].ravel() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
+    print ('total fit time(pre-reshape): {}'.format(fitTime['Total'])) if args.verbose else None
+    print ('total fit time shape (pre-reshape): {0}'.format(fitTime['Total'].shape)) if args.verbose else None
+    fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
     print() if args.verbose else None
     #temp = np.zeros((len(dayList),))
     #tempTotal = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
+    temp1 = [None]*len(dayList)
+    
+    
+        #temp1[idx] = np.concatenate(temp2)
     for key, value in fitTime.items():
+        continue
         idx=0
         if key == 'Total':
             continue
@@ -697,8 +706,8 @@ def plotSamplingTime(df, models=args.models, save=True):
             print('total fit time: {0}'.format(temp[idx])) if args.verbose else None
             print('\n \n') if args.verbose else None
 
-    print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
-    print ('total fit time shape: %s'%(fitTime['Total'].shape)) if args.verbose else None
+    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
+    print ('total fit time shape: {}'.format(fitTime['Total'].shape)) if args.verbose else None
     exit()
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
     # fitTime = {model: 
