@@ -657,21 +657,28 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    fitTime['Total'] = np.full([len(dayList),],np.array([np.nan]))
+    fitTime['Total'] = np.full([len(dayList),1],np.array([np.nan]),dtype=object)
     for model in models:
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
-        ])
+        ], dtype=object)
         try:
-            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+            fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
         except:
-            fitTime[model] = np.full([len(dayList),],np.array([np.nan])) ## if there are no fit times, set to zero
-        print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
+            fitTime[model] = np.full([len(dayList),1],np.array([np.nan]),dtype=object) ## if there are no fit times, set to zero
+        #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) ## flatten the array
+        #print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
         print() if args.verbose else None
         print('model %s fit times shape: %s'%(model, fitTime[model].shape)) if args.verbose else None
         print() if args.verbose else None
-        fitTime['Total'] += fitTime[model] ## add the fit times to the total fit times
-    print(fitTime.values())    
+        #print(fitTime)
+    fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
+    print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
+    print() if args.verbose else None
+    for key, value in fitTime.items():
+        for i in range(len(dayList)):
+            fitTime['Total'][i] = np.concatenate([fitTime['Total'][i],value[i]]) 
+    #print(fitTime.values())    
     # fitTime['Total'] = np.zeros((len(dayList),)) ## initialize the total fit time array
     # for key, value in fitTime.items():
     #     fitTime['Total'].append(value) if key != 'Total' else None
