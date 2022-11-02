@@ -713,7 +713,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     #print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: {}'.format(fitTime['Total'].shape)) if args.verbose else None
-    exit()
+    
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
     # fitTime = {model: 
     # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
