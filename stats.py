@@ -648,7 +648,7 @@ def plotSamplingTime(df, models=args.models, save=True):
     '''
 
     ## get the fit time data
-    dayList = np.array(df['day'].unique().tolist()) ## oh, may need to switch to dayCount when plotting later
+    dayList = df['day'].unique() ## oh, may need to switch to dayCount when plotting later
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
     # [[print('\n %s sampling times for %s : %s \n'%(model, day ,df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'])) for day in dayList] for model in models] if args.verbose else None
     # print() if args.verbose else None
@@ -657,32 +657,38 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    fitTime['Total'] = np.full([len(dayList),1],np.array([np.nan]),dtype=object)
+    fitTime['Total'] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
     for model in models:
         fitTime[model] = np.array([
-            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]["sampling_time"].to_numpy() for day in dayList
+            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy().flatten() for day in dayList
         ], dtype=object)
         try:
             fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
         except:
-            fitTime[model] = np.full([len(dayList),1],np.array([np.nan]),dtype=object) ## if there are no fit times, set to zero
-        #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) ## flatten the array
-        #print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
+            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
+            fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
+            #fitTime[model] = np.full([len(dayList),1],np.array([np.nan]),dtype=object) ## if there are no fit times, set to nan
+        #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1) ## flatten the array
+        print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
         print() if args.verbose else None
         print('model %s fit times shape: %s'%(model, fitTime[model].shape)) if args.verbose else None
         print() if args.verbose else None
         #print(fitTime)
-    fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
+    #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
     print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
     print() if args.verbose else None
     for key, value in fitTime.items():
+        idx=0
+        if key == 'Total':
+            continue
         for i in range(len(dayList)):
-            fitTime['Total'][i] = np.concatenate([fitTime['Total'][i],value[i]]) 
-    #print(fitTime.values())    
-    # fitTime['Total'] = np.zeros((len(dayList),)) ## initialize the total fit time array
-    # for key, value in fitTime.items():
-    #     fitTime['Total'].append(value) if key != 'Total' else None
-    #np.concatenate(fitTime.values(),1) ## trying to add all the fit times together
+            print('key: %s'%(key)) if args.verbose else None
+            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(np.array(fitTime['Total'],dtype='float64'),key,value[idx])) if args.verbose else None
+            print('') if args.verbose else None
+            fitTime['Total'].apppend( np.concatenate((fitTime['Total'][idx],value[idx])))
+            idx+=1
+            print('total fit time: {0}'.format(fitTime['Total'])) if args.verbose else None
+
     print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: %s'%(fitTime['Total'].shape)) if args.verbose else None
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
