@@ -226,7 +226,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
     if file:
         print('loading dataframe from file: %s'%file) if args.verbose else None
-        df = pd.read_csv(file,index_col=0) ## needs to be tested to ensure compatibility with saved dataframe
+        df = pd.read_csv(file,index_col=0).fillna(value=np.nan) ## needs to be tested to ensure compatibility with saved dataframe
         return df ## don't need an else since the function will exit if file is provided
     
     ## need to explicitly add all columns here maybe? Will mess with any additional parameters provided to get_json if that is added to this function in the future
@@ -657,16 +657,16 @@ def plotSamplingTime(df, models=args.models, save=True):
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    fitTime['Total'] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
-    for model in models:
+    fitTime['Total'] = np.tile(np.array([np.pi, 2*np.pi]),(len(dayList),)).reshape(len(dayList),)#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
+    for model in models: ## won't iterate over Total (which is good)
         fitTime[model] = np.array([
-            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).flatten() for day in dayList
+            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
         ], dtype=object)
         try:
-            fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
+            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
         except:
-            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
-            fitTime[model] = fitTime[model].reshape(len(dayList),1) ## flatten the array
+            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
             #fitTime[model] = np.full([len(dayList),1],np.array([np.nan]),dtype=object) ## if there are no fit times, set to nan
         #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1) ## flatten the array
         print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
@@ -677,23 +677,29 @@ def plotSamplingTime(df, models=args.models, save=True):
     #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
     print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
     print() if args.verbose else None
-    tempTotal = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
+    #temp = np.zeros((len(dayList),))
+    #tempTotal = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),1))
     for key, value in fitTime.items():
         idx=0
         if key == 'Total':
             continue
         for i in range(len(dayList)):
             print('key: %s'%(key)) if args.verbose else None
-            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(np.array(fitTime['Total'][idx],dtype='float64'),key,value[idx])) if args.verbose else None
+            print('items to concatenate:\n Total: {0}\n {1}: {2}'.format(fitTime['Total'][idx].ravel(),key,value[idx].ravel())) if args.verbose else None
             print('') if args.verbose else None
             print(('shapes:\n Total: {0}\n {1}: {2}'.format(fitTime['Total'][idx].shape,key,value[idx].shape))) if args.verbose else None
-            tempTotal[idx] = 1#np.concatenate([fitTime['Total'][idx].flatten(),value[idx].flatten()])
+            #fitTime['Total'][idx] = np.concatenate([fitTime['Total'][idx].flatten(),value[idx].flatten()])
+            print('types of items to concatenate:\n Total: {0}\n {1}: {2}'.format(type(fitTime['Total'][idx]),key,type(value[idx]))) if args.verbose else None
+            fitTime['Total'][idx] = np.concatenate((np.array(fitTime['Total'][idx]),value[idx]))
             idx+=1
             # print('total fit time: {0}'.format(fitTime['Total'])) if args.verbose else None
-            print('total fit time: {0}'.format(tempTotal)) if args.verbose else None
+            print('total fit time: {0}'.format(fitTime['Total'][idx])) if args.verbose else None
+            print('total fit time: {0}'.format(temp[idx])) if args.verbose else None
+            print('\n \n') if args.verbose else None
 
     print ('total fit time: %s'%(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: %s'%(fitTime['Total'].shape)) if args.verbose else None
+    exit()
     # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
     # fitTime = {model: 
     # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
