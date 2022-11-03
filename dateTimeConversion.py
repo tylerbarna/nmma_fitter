@@ -31,6 +31,6 @@ print(startDate)
 df['startDate'] = startDate
 df['stopDate'] = stopDate
 
-df.to_csv('msiStats/statsDataframePrime.csv')
+# df.to_csv('msiStats/statsDataframePrime.csv')
 
 #startDate, stopDate = ts.from_pandas(startDay, 'hjd'), ts.from_pandas(stopDay, 'hjd')
