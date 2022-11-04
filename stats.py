@@ -599,9 +599,9 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
         fracValue =  pd.Series(value).rolling(7).mean()/pd.Series(allfit['Total']).rolling(7).mean()
         ax.plot(dateList, fracValue, label=key) if key != 'Total' else None
     ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
     ax.set_ylabel('Unfit Ratio')
     #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
-    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
     plt.clf()
@@ -653,10 +653,13 @@ def plotSamplingTimes(df, models=args.models, save=True):
     save: boolean to determine whether to save the figure or not
     '''
 
-    ## get the fit time data
-    dayList = df['day'].unique() ## oh, may need to switch to dayCount when plotting later
-    dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
-
+    ## get count of days and unique dates for plotting
+    dayList = df['day'].unique()
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    print('dayList: {}'.format(dayList)) if args.verbose else None
+    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    
     ## create a dictionary of fit times for each model
     fitTime = {}
     for model in models: ## won't iterate over Total (which is good)
@@ -725,9 +728,10 @@ def plotSamplingTimes(df, models=args.models, save=True):
     plt.savefig(plotDir("fitTimeHistModel")) if save else None
     plt.clf()
     
+    ''' ## Currently not Functional
     ## plot a histogram with stacked bars for each model
     #fitTimePrime = {key:value for key, value in fitTime.items() if key != 'Total'} ## remove the total fit time for fitTimePrime
-    fitTimePrime = np.array([value.ravel() for key, value in fitTime.items() if key != 'Total'])
+    fitTimePrime = np.array([value.ravel() for key, value in fitTime.items() if key != 'Total']).T
     print('shape of fitTimePrime: {}'.format(fitTimePrime.shape)) if args.verbose else None
     fitTime_df = pd.DataFrame(fitTimePrime, columns=models) ## create a dataframe for the fit times
     print('fitTime_df: {}'.format(fitTime_df)) if args.verbose else None
@@ -741,6 +745,7 @@ def plotSamplingTimes(df, models=args.models, save=True):
     ax.legend()
     plt.savefig(plotDir("fitTimeHistModelStacked")) if save else None
     plt.clf()
+    '''
 
     ## plot histogram of total daily fit time
     totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
@@ -755,9 +760,10 @@ def plotSamplingTimes(df, models=args.models, save=True):
     ## plot the daily average fit time for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items(): 
-        meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
-        ax.plot(dayCount, meanFitTime, label=key) ## should be right axis?
-    ax.set_xlabel("Days Since Start")
+        meanFitTime = [np.mean(fitDay) for fitDay in value]
+        ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
+    ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Average Daily Sampling Time') ## should these have titles?
     ax.legend()
@@ -767,9 +773,10 @@ def plotSamplingTimes(df, models=args.models, save=True):
     ## plot the daily median fit time for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items():
-        medianFitTime = [np.median(fitDay) for fitDay in fitTime[key]]
-        plt.plot(dayCount, medianFitTime, label=key)
-    ax.set_xlabel("Days Since Start")
+        medianFitTime = [np.median(fitDay) for fitDay in value]
+        plt.plot(dateList, medianFitTime, label=key)
+    ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Median Daily Sampling Time') ## should these have titles?
     ax.legend()
@@ -778,9 +785,10 @@ def plotSamplingTimes(df, models=args.models, save=True):
 
     ## plot the daily median fit time for each model (rolling average)
     for key, value in fitTime.items():
-        medianFitTime = pd.Series([np.median(fitDay) for fitDay in fitTime[key]])
-        plt.plot(dayCount, medianFitTime.rolling(7).mean(), label=key)
-    ax.set_xlabel("Days Since Start")
+        medianFitTime = pd.Series([np.median(fitDay) for fitDay in value])
+        plt.plot(dateList, medianFitTime.rolling(7).mean(), label=key)
+    ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
     ax.legend()
@@ -789,9 +797,10 @@ def plotSamplingTimes(df, models=args.models, save=True):
 
     ## plot the cumulative daily fit time for each model
     for key, value in fitTime.items():
-        cumFitTime = np.cumsum([np.sum(fitDay) for fitDay in fitTime[key]])
-        plt.plot(dayCount, cumFitTime, label=key) 
-    ax.set_xlabel("Days Since Start")
+        cumFitTime = np.cumsum([np.sum(fitDay) for fitDay in value])
+        plt.plot(dateList, cumFitTime, label=key) 
+    ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Cumulative Sampling Time') ## should these have titles?
     ax.legend()
