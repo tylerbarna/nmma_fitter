@@ -92,7 +92,7 @@ def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize d
     return(filepath)
 
 ## function is currently unused/incomplete, wanted to at least start it and make a commit with it
-def plot_style(type, **kwargs): ## should add an option to pass kwargs to the plot function
+def plotstyle(type=None, **kwargs): ## should add an option to pass kwargs to the plot function
     '''
     Sets the style of the plots to be consistent across the paper using matplotlib's style sheets
     
@@ -103,8 +103,8 @@ def plot_style(type, **kwargs): ## should add an option to pass kwargs to the pl
     fig, ax = plt.subplots(**kwargs) ## not super sure on this implementation
     
     plt.style.use('seaborn-whitegrid')
-    plt.rcParams['font.family'] = 'serif'
-    plt.rcParams['font.serif'] = 'Times New Roman'
+    #plt.rcParams['font.family'] = 'serif'
+    #plt.rcParams['font.serif'] = 'Times New Roman'
     plt.rcParams['font.size'] = 12
     plt.rcParams['axes.labelsize'] = 12
     plt.rcParams['axes.labelweight'] = 'bold'
@@ -238,7 +238,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     df = pd.DataFrame(columns=col) ## create empty dataframe with columns
     ## set the type for the columns that will be added to the dataframe
     df['day'] = df['day'].astype('str')
-    df['startDate'] = df['startDate'].astype(np.datetime64)
+    df['startDate'] = df['startDate'].astype(np.datetime64) ## could use this as a way to set bounds on the data that's collected ahead of time
     df['stopDate'] = df['stopDate'].astype(np.datetime64) ## going to use convention that stopDate is the day to be plotted, as that corresponds to the day of the last observation
     df['dayPath'] = df['dayPath'].astype('str')
     df['cand'] = df['cand'].astype('str')
@@ -334,7 +334,7 @@ def plotDailyCand(df, save=True):
     save: boolean to determine whether to save the plot or not
     '''
 
-    ## get count of days and unique dates
+    ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
@@ -347,15 +347,17 @@ def plotDailyCand(df, save=True):
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    ax.plot(dateList, numDaily,marker='.')
+    ## plot number of candidates per day
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white') #plt.subplots(figsize=(8,6), facecolor='white')
+    ax.plot(dateList, numDaily)
+    plt.xticks(rotation=15)
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
     plt.clf()
     
     ## plot histogram of number of candidates per day
-    fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(10,6), facecolor='white')
     sns.histplot(numDaily, kde=True, bins=numDaily.max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
