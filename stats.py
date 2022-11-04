@@ -22,18 +22,13 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
- 
 from astropy.time import Time
 
-from scipy.interpolate import make_interp_spline as spline
-
-
+#from scipy.interpolate import make_interp_spline as spline
 
 ## set plot style
 plt.style.use('seaborn-bright')
 mpl.rcParams.update({"axes.grid" : True})
-
-
 
 ## argument for folder to run stats on
 parser = argparse.ArgumentParser()
@@ -76,7 +71,6 @@ else:
 
 
 ## Utility functions
-
 def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize different plot types into subdirectories, but doesn't have to be an argument here
     '''
     check for existence of plot directory and create if needed, then return full path for saving figure
@@ -90,6 +84,7 @@ def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize d
         os.makedirs(outdir)
     filepath = os.path.join(outdir,name+ext)
     return(filepath)
+
 
 ## function is currently unused/incomplete, wanted to at least start it and make a commit with it
 def plotstyle(type=None, **kwargs): ## should add an option to pass kwargs to the plot function
@@ -115,8 +110,6 @@ def plotstyle(type=None, **kwargs): ## should add an option to pass kwargs to th
     plt.rcParams['figure.titlesize'] = 12
 
     return(fig,ax)
-
-
 
 
 def get_sampling_time(file=None): ## somewhat redundant after creation of get_json
@@ -321,10 +314,8 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
 
 
-
 ## Functions to plot daily candidate stats
 ## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
-
 def plotDailyCand(df, save=True): 
     '''
     plot the number of candidates per day as both a line plot and histogram
@@ -348,13 +339,13 @@ def plotDailyCand(df, save=True):
     print() if args.verbose else None
     
     ## plot number of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white') #plt.subplots(figsize=(8,6), facecolor='white')
-    ax.plot(dateList, numDaily)
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
+    ax.plot(dateList, numDaily,color='black',linewidth=2)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
-    plt.clf()
+    plt.clf() 
     
     ## plot histogram of number of candidates per day
     fig, ax = plotstyle(figsize=(10,6), facecolor='white')
