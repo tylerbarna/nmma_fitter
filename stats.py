@@ -237,7 +237,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     ## set the type for the columns that will be added to the dataframe
     df['day'] = df['day'].astype('str')
     df['startDate'] = df['startDate'].astype(np.datetime64)
-    df['stopDate'] = df['stopDate'].astype(np.datetime64)
+    df['stopDate'] = df['stopDate'].astype(np.datetime64) ## going to use convention that stopDate is the day to be plotted, as that corresponds to the day of the last observation
     df['dayPath'] = df['dayPath'].astype('str')
     df['cand'] = df['cand'].astype('str')
     df['candPath'] = df['candPath'].astype('str')
@@ -255,8 +255,6 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     df['log_evidence_err'] = df['log_evidence_err'].astype('float')
     df['log_noise_evidence'] = df['log_noise_evidence'].astype('float')
     df['log_bayes_factor'] = df['log_bayes_factor'].astype('float')
-
-    
     
     dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
     print('dayPathList; %s'%dayPathList) if args.verbose else None
@@ -334,28 +332,28 @@ def plotDailyCand(df, save=True):
     save: boolean to determine whether to save the plot or not
     '''
 
-    ## get count of days
+    ## get count of days and unique dates
     dayList = df['day'].unique()
+    dateList = df['stopDate'].unique() ## this is the date of the last observations made for the fitting
     #print('dayList: %s'%dayList) if args.verbose else None
     dayCount = [day for day in range(len(dayList))]
 
     ## get number of candidates per day
-
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    ax.plot(dayCount, numDaily,marker='.')
-    #ax.set_xlabel("Days Since Start") ## weird phrasing
-    ax.set_ylabel('Number of Daily Candidates')
+    ax.plot(dateList, numDaily,marker='.')
+    ax.set_xlabel("Date") 
+    ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
     plt.clf()
     
     ## plot histogram of number of candidates per day
     fig, ax = plt.subplots(figsize=(10,6), facecolor='white')
-    sns.histplot(numDaily, kde=True, bins=numDaily.max(), ax=ax) ## could fine tune the number of bins
-    ax.set_xlabel("Number of Daily Candidates")
+    sns.histplot(numDaily, kde=True, bins=numDaily.max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
+    ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
     plt.clf()
