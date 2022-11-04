@@ -334,8 +334,10 @@ def plotDailyCand(df, save=True):
 
     ## get count of days and unique dates
     dayList = df['day'].unique()
-    dateList = df['stopDate'].unique() ## this is the date of the last observations made for the fitting
-    #print('dayList: %s'%dayList) if args.verbose else None
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    print('dayList: %s'%dayList) if args.verbose else None
+    print('dateList: %s'%dateList) if args.verbose else None
     dayCount = [day for day in range(len(dayList))]
 
     ## get number of candidates per day
