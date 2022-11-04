@@ -316,9 +316,10 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
 ## Functions to plot daily candidate stats
 ## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
-def plotDailyCand(df, save=True): 
+def plotCands(df, save=True): 
     '''
-    plot the number of candidates per day as both a line plot (numDailyCand) and histogram (numDailyCandHist), plot cumulative number of candidates over time (cumDailyCand)
+    plot the number of candidates per day as both a line plot (numDailyCand) and histogram (numDailyCandHist), plot rolling average of number of candidates (numDailyCandRolling),
+    plot cumulative number of candidates over time (cumDailyCand)
     
     Args:
     df: dataframe with candidate data from get_dataframe function
@@ -356,7 +357,6 @@ def plotDailyCand(df, save=True):
     print('completed numDailyCand plot') if args.verbose else None
     plt.clf()
      
-    
     ## plot histogram of number of candidates per day
     fig, ax = plotstyle(figsize=(10,6), facecolor='white')
     sns.histplot(numDaily, kde=True, 
@@ -365,6 +365,17 @@ def plotDailyCand(df, save=True):
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
     print('completed numDailyCandHist plot') if args.verbose else None
+    plt.clf()
+    
+    #plot 7 day rolling average of candidates per day
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    ax.plot(dateList, numDailyRolling,
+            color='black',linewidth=2) ## note: this won't work with one week of data
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
+    plt.savefig(plotDir("numDailyCandRolling")) if save else None
+    print('completed numDailyCandRolling plot') if args.verbose else None
     plt.clf()
     
     ## plot cumulative number of candidates per day
@@ -378,16 +389,7 @@ def plotDailyCand(df, save=True):
     print('completed cumDailyCand plot') if args.verbose else None
     plt.clf()
     
-    #plot 7 day rolling average of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList, numDailyRolling,
-            color='black',linewidth=2) ## note: this won't work with one week of data
-    plt.xticks(rotation=15)
-    ax.set_xlabel("Date")
-    ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
-    plt.savefig(plotDir("numDailyCandRolling")) if save else None
-    print('completed numDailyCandRolling plot') if args.verbose else None
-    plt.clf()
+    
 
 
 
@@ -795,7 +797,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-plotDailyCand(df=df,save=True)
+plotCands(df=df,save=True)
 print('completed daily candidate plots (1)') if args.verbose else None
 print() if args.verbose else None
 
