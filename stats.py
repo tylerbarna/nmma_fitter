@@ -27,7 +27,7 @@ from astropy.time import Time
 #from scipy.interpolate import make_interp_spline as spline
 
 ## set plot style
-plt.style.use('seaborn-bright')
+plt.style.use("seaborn-colorblind")
 mpl.rcParams.update({"axes.grid" : True})
 plt.style.context(("seaborn-colorblind",))
 
@@ -43,7 +43,7 @@ args = parser.parse_args()
 
 ## to change to correct directory
 os.chdir(sys.path[0])
-print("Current working directory: {0}\n".format(os.getcwd())) if args.verbose else None
+print("Current working directory: {}\n".format(os.getcwd())) if args.verbose else None
 
 ## compilation of lists for use in plotting (pre-dataframe implementation)
 ## post dataframe implementation: these should eventually be removed and plots should be updated to use the dataframe
@@ -604,6 +604,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
+    plt.clf()
 
     '''
     ## this seems to be busted in some way 
@@ -667,8 +668,8 @@ def plotSamplingTimes(df, models=args.models, save=True):
         except:
             fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
             fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        print('model {0} fit times: {1}\n'.format((model, fitTime[model]))) if args.verbose else None
-        print('model {0} fit times shape: {1}\n'.format((model, fitTime[model].shape))) if args.verbose else None
+        print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
+        print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None
     
     fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
     print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
@@ -713,12 +714,32 @@ def plotSamplingTimes(df, models=args.models, save=True):
     for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
         ## should pull this out maybe so it doesn't look as comnplicated
         fitTimeValue = np.concatenate(fitTime[key],axis=None).ravel() 
-        sns.histplot(fitTimeValue, label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None ## could fine tune the number of bins
+        sns.histplot(fitTimeValue, kde=True,
+                     label=key,ax=ax, alpha=0.4)  if key != 'Total' else None ## could fine tune the number of bins
+    for line in ax.lines:
+        line.set_color('black')      
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
     #ax.set_title('Sampling Times for Each Model') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("fitTimeHistModel")) if save else None
+    plt.clf()
+    
+    ## plot a histogram with stacked bars for each model
+    #fitTimePrime = {key:value for key, value in fitTime.items() if key != 'Total'} ## remove the total fit time for fitTimePrime
+    fitTimePrime = np.array([value.ravel() for key, value in fitTime.items() if key != 'Total'])
+    print('shape of fitTimePrime: {}'.format(fitTimePrime.shape)) if args.verbose else None
+    fitTime_df = pd.DataFrame(fitTimePrime, columns=models) ## create a dataframe for the fit times
+    print('fitTime_df: {}'.format(fitTime_df)) if args.verbose else None
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    sns.histplot(data=fitTime_df, x='time', hue='model',
+                 multiple='stack',
+                 ax=ax, alpha=1, legend=True)
+    ax.set_xlabel("Sampling Times (s)")
+    ax.set_ylabel('Count')
+    #ax.set_title('Sampling Times for Each Model') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("fitTimeHistModelStacked")) if save else None
     plt.clf()
 
     ## plot histogram of total daily fit time
@@ -800,11 +821,11 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotCands(df=df,save=True)
 # print('completed daily candidate plots (1)\n') if args.verbose else None
 
-plotFits(df=df)
-print('completed cumulative fit plot (2)\n') if args.verbose else None
+# plotFits(df=df)
+# print('completed cumulative fit plot (2)\n') if args.verbose else None
 
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
