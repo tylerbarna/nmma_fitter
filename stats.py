@@ -166,7 +166,7 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
             return jsonDict
     elif not file: ## for use case where no json is found when the pandas dataframe is created
         jsonDict = {param: np.nan for param in jsonList} ## np.nan is used to make it easier to plot later without having to deal with NoneType
-        print('no json file found at: %s'%file)
+        print('no json file found/provided')
         print('jsonDict: %s'%jsonDict) if args.verbose else None
         print() if args.verbose else None
         return jsonDict
@@ -280,9 +280,9 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                 startDate, stopDate = Time(startDate, format='jd').datetime64, Time(stopDate, format='jd').datetime64 
                 ## might be inefficient, adding the date columns makes sample take 1.02 seconds, without it takes 0.88 seconds (15% increase)
                 ## actually, running a second time, it only takes 0.81 seconds with the date columns, so it might not matter
-                print('startDate: %s'%pd.to_datetime(startDate)) if args.verbose else None
-                df.at[idx, 'startDay'] = pd.to_datetime(startDate)
-                df.at[idx, 'stopDay'] = pd.to_datetime(stopDate)
+                print('startDate: %s'%startDate) if args.verbose else None
+                df.at[idx, 'startDate'] = startDate
+                df.at[idx, 'stopDate'] = stopDate
                 df.at[idx, 'dayPath'] = dayPath
                 df.at[idx, 'cand'] = cand
                 df.at[idx, 'candPath'] = candPath
