@@ -261,9 +261,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
     print('dayPathList; %s'%dayPathList) if args.verbose else None
     dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
-    ## may not need start and stop day, but commented out here in case it's useful later
-    #startDay = [int(day.split('-')[0]) for day in dayList]
-    #stopDay = [int(day.split('-')[1]) for day in dayList]
+
     idx = 0 ## used to keep track of the index of the dataframe when defining new values
 
     for day, dayPath in zip(dayList, dayPathList):
@@ -273,14 +271,11 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
         for cand, candPath in zip(candList, candPathList): ## works around the issue of candidate_data being present in the candidate_fits directory, which is not the case for the countDailyFits function
             ## search for models at same time as candidate data
             for model in models:
-                ## create values for start and stop day columns
-                
                 df.at[idx, 'day'] = day
-                startDate, stopDate = df.at[idx, 'day'].split('-', 1)
+                startDate, stopDate = df.at[idx, 'day'].split('-', 1) ## create values for start and stop day columns
                 startDate, stopDate = Time(startDate, format='jd').datetime64, Time(stopDate, format='jd').datetime64 
                 ## might be inefficient, adding the date columns makes sample take 1.02 seconds, without it takes 0.88 seconds (15% increase)
                 ## actually, running a second time, it only takes 0.81 seconds with the date columns, so it might not matter
-                print('startDate: %s'%startDate) if args.verbose else None
                 df.at[idx, 'startDate'] = startDate
                 df.at[idx, 'stopDate'] = stopDate
                 df.at[idx, 'dayPath'] = dayPath
@@ -828,15 +823,16 @@ def plotSamplingTime(df, models=args.models, save=True):
 
 ## testing stats functions
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=True, file=args.datafile)   
-exit()
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
-# plotDailyCand(df=df,save=True)
-# print('completed daily candidate plot (1)') if args.verbose else None
-# print() if args.verbose else None
-# plotCumDailyCand(df=df)
-# print('completed cumulative daily candidate plot (2)') if args.verbose else None
-# print() if args.verbose else None
+
+plotDailyCand(df=df,save=True)
+print('completed daily candidate plot (1)') if args.verbose else None
+print() if args.verbose else None
+exit()
+plotCumDailyCand(df=df)
+print('completed cumulative daily candidate plot (2)') if args.verbose else None
+print() if args.verbose else None
 
 # plotDailyCandRolling(df=df)
 # print('completed daily candidate rolling average plot (3)') if args.verbose else None
