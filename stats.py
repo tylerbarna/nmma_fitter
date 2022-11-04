@@ -403,16 +403,16 @@ def plotFits(df,models=args.models, save=True):
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
     print('dayList: {}'.format(dayList)) if args.verbose else None
     print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    ## number of daily candidates
+    numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
+    cumDaily = np.cumsum(numDaily)
     
     for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
-        ##
         ## compile cumulative number of fits for each model
-        #print('fitBool: {}'.format(df['fitBool'].tolist()) if args.verbose else None
         modelCount = np.array([len(df[(df['model']==model) & (df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
         modelCum = np.array(modelCount.cumsum())
         #print('modelCum: {}'.format(modelCum) if args.verbose else None
         modelDict[model] = modelCum
-        print('dayCount: {}'.format(dayCount)) if args.verbose else None
         print('modelCum: {}'.format(modelCum)) if args.verbose else None
         
         ## plot cumulative number of fits for each model
@@ -420,9 +420,10 @@ def plotFits(df,models=args.models, save=True):
         fig, ax = plotstyle(figsize=(8,6), facecolor='white')
         ax.plot(dateList,modelCum, label=model)
         ax.set_xlabel("Date")
+        plt.xticks(rotation=15)
         ax.set_ylabel('Count')
         ax.set_title('{}'.format(model))
-        plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
+        plt.savefig(plotDir("cumDailyFits_"+model)) if save else None
         print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
@@ -431,16 +432,19 @@ def plotFits(df,models=args.models, save=True):
         print('Keys in modelDict probably do not have the same length')
         pass
     ## now plot all models together
-    fig, ax = plt.plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in modelDict.items(): 
-        ax.plot(dayCount,value, label=key, alpha=0.7) ## need to make a colormap for better visualization
+        ax.plot(dateList,value, label=key, alpha=0.7) if key != 'Total' else None## need to make a colormap for better visualization
+    ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Count')
     ## need to cmap or something for controlling colors
     #ax.set_title('Cumulative Number of Fits')
     ax.legend()
-    plt.savefig(plotDir("cumDailyFits_all")) if save else None
+    plt.savefig(plotDir("cumDailyFitsAll")) if save else None ## need to make a version that adds a residual plot below to compare models
+    ax.set_yscale('log')
+    plt.savefig(plotDir("cumDailyFitsAllLog")) if save else None
     print('completed cumDailyFits plot for all models \n') if args.verbose else None
     plt.clf()
     return modelDict ## maybe not necessary to return this
@@ -486,29 +490,27 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     for day in dayList])
     for model in models}
     allfit['Total'] = np.array([len(df[ (df['day'] == day)]) for day in dayList])
-    #allfit = {key: [unfit[key][idx] + fit[key][idx] for idx in dayCount] for key in unfit.keys()}
+    
 
     ## data plotting
-
-    
     ## plot the number of candidates that were not fit for each day
-    
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items(): ## one line conditional here is to exclude the total from the histogram
-        ax.plot(dayCount, value, label=key, marker='.',alpha=0.6) if key != 'Total' else None
-    ax.set_xlabel("Days Since Start")
-    ax.set_ylabel('Count')
+        ax.plot(dateList, value, label=key, alpha=0.6) if key != 'Total' else None
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Unfit Models')
     #ax.set_title('Number of Unfit Candidates') ## should these have titles?
+    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
 
     ## should fix styling as it's currently unclear
     ## plot histogram of number of candidates that were not fit for each day by model
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
         sns.histplot(value, label=key,alpha=0.75, ax=ax) if key != 'Total' else None 
-    ax.set_xlabel("Number of Unfit Candidates")
+    ax.set_xlabel("Daily Unfit Count")
     ax.set_ylabel('Count')
     #ax.set_title('Number of Unfit Candidates per Day') ## should these have titles?
     ax.legend()
@@ -516,7 +518,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.clf()
 
     ## plot histogram of number of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     sns.histplot(unfit['Total'], bins=20, ax=ax) ## could fine tune the number of bins
     ax.set_xlabel("Number Unfit")
     ax.set_ylabel('Count')
@@ -525,35 +527,38 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.clf()
 
     ## plot rolling average of number of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
-        ax.plot(dayCount, pd.Series(value).rolling(7).mean(), label=key)
-    ax.set_xlabel("Days Since Start")
+        ax.plot(dateList, pd.Series(value).rolling(7).mean(), label=key)
+    ax.set_xlabel("Date")
     ax.set_ylabel('Unfit models\n (7 day rolling average)')
     #ax.set_title('Number of Unfit Candidates') ## should these have titles?
+    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("numDailyUnfitRolling")) if save else None
     plt.clf()
 
     ## plot cumulative number of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
-        ax.plot(dayCount, np.cumsum(value), label=key)
-    ax.set_xlabel("Days Since Start")
+        ax.plot(dateList, np.cumsum(value), label=key)
+    ax.set_xlabel("Date")
     ax.set_ylabel('Cumulative Unfit')
     #ax.set_title('Cumulative Number of Unfit Candidates') ## should these have titles?
+    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("cumDailyUnfit")) if save else None
     plt.clf()
    
     ## plot fraction of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items():
         fracValue = value/allfit['Total']
-        ax.plot(dayCount, fracValue, label=key) if key != 'Total' else None
-    ax.set_xlabel("Days Since Start")
+        ax.plot(dateList, fracValue, label=key) if key != 'Total' else None
+    ax.set_xlabel("Date")
     ax.set_ylabel('Unfit Ratio')
     #ax.set_title('Fraction of Unfit Candidates to Total') ## should these have titles?
+    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfit")) if save else None
     plt.clf()
@@ -562,10 +567,11 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in unfit.items(): ## is this the correct method for rolling average ratio?
         fracValue =  pd.Series(value).rolling(7).mean()/pd.Series(allfit['Total']).rolling(7).mean()
-        ax.plot(dayCount, fracValue, label=key) if key != 'Total' else None
-    ax.set_xlabel("Days Since Start")
+        ax.plot(dateList, fracValue, label=key) if key != 'Total' else None
+    ax.set_xlabel("Date")
     ax.set_ylabel('Unfit Ratio')
     #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
+    plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfitRolling")) if save else None
 
