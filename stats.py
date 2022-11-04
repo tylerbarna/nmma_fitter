@@ -42,7 +42,7 @@ args = parser.parse_args()
 
 ## to change to correct directory
 os.chdir(sys.path[0])
-print("Current working directory: {0}".format(os.getcwd())) if args.verbose else None
+print("Current working directory: {0}\n".format(os.getcwd())) if args.verbose else None
 
 ## compilation of lists for use in plotting (pre-dataframe implementation)
 ## post dataframe implementation: these should eventually be removed and plots should be updated to use the dataframe
@@ -57,7 +57,7 @@ if args.candDir:
 
     cumDaily = np.cumsum(numDaily)
 else:
-    print("No candidate directory specified, cannot run some stats")
+    print("No candidate directory specified, cannot run some stats\n")
 
 if args.fitDir:
     fit_dayList = glob.glob(args.fitDir + "*")
@@ -67,7 +67,7 @@ if args.fitDir:
     jsonDict = {model: glob.glob(os.path.join(args.fitDir,'*',model+'_result.json')) for model in args.models}
     ## the way these are written, it may have issues for plotting if some days don't have all models
 else:
-    print("No candidate directory specified, cannot run some stats")
+    print("No candidate directory specified, cannot run some stats\n")
 
 
 ## Utility functions
@@ -129,7 +129,7 @@ def get_sampling_time(file=None): ## somewhat redundant after creation of get_js
                 return sampling_time
             
     else:
-        print('provide a file to search!')
+        print('provide a file to search!\n')
         exit(1) ## irreconciable error, hence exit(1)
 
 
@@ -151,22 +151,19 @@ def get_json(file=None, params=None): ## effectively an improvement on get_sampl
                 jsonDict = {param: data[param] for param in jsonList}
                 
         except: ## in event that json file isn't read correctly
-            print('error reading json file: %s'%file)
-            print()
+            print('error reading json file: {} \n'.format(file))
             jsonDict = {param: np.nan for param in jsonList}
         finally:
             f.close()
-            print('jsonDict: %s'%jsonDict) if args.verbose else None
-            print() if args.verbose else None
+            print('jsonDict: {}\n'.format(jsonDict)) if args.verbose else None
             return jsonDict
     elif not file: ## for use case where no json is found when the pandas dataframe is created
         jsonDict = {param: np.nan for param in jsonList} ## np.nan is used to make it easier to plot later without having to deal with NoneType
         print('no json file found/provided')
-        print('jsonDict: %s'%jsonDict) if args.verbose else None
-        print() if args.verbose else None
+        print('jsonDict: {}\n'.format(jsonDict)) if args.verbose else None
         return jsonDict
     else: ## case where file argument is not provided
-        print('provide a file to search!')
+        print('provide a file to search!\n')
         exit(1) ## irreconciable error, hence exit(1)
 
 
@@ -201,7 +198,7 @@ def countDailyFits(day=None, models=args.models): ##relying on args as default m
         'numUnfit':numUnfit
         }
     else:
-        print('provide a day to count fits for!')
+        print('provide a day to count fits for!\n')
         exit(1) ## irreconciable error, hence exit(1)
 
 
@@ -220,7 +217,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     startTime = time.time() ## for timing purposes
 
     if file:
-        print('loading dataframe from file: %s'%file) if args.verbose else None
+        print('loading dataframe from file: {}'.format(file)) if args.verbose else None
         df = pd.read_csv(file,index_col=0).fillna(value=np.nan) ## needs to be tested to ensure compatibility with saved dataframe
         df['startDate'] = pd.to_datetime(df['startDate'])
         df['stopDate'] = pd.to_datetime(df['stopDate'])
@@ -252,7 +249,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     df['log_bayes_factor'] = df['log_bayes_factor'].astype('float')
     
     dayPathList = glob.glob(os.path.join(candDir, "*",'')) ## list of paths to the days that have candidates
-    print('dayPathList; %s'%dayPathList) if args.verbose else None
+    print('dayPathList: {}\n'.format(dayPathList)) if args.verbose else None
     dayList = [dayPath.split('/')[-2] for dayPath in dayPathList]
 
     idx = 0 ## used to keep track of the index of the dataframe when defining new values
@@ -278,13 +275,13 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 
                 ## check if fit was completed
                 fitPath = os.path.join(fitDir, day, cand,"")
-                print('fitPath: %s'%fitPath) if args.verbose else None
+                print('fitPath: {}'.format(fitPath)) if args.verbose else None
                 df.at[idx, 'fitPath'] = fitPath
                 ## now find json
                 jsonPath = os.path.join(fitPath, model+'_result.json')
                 jsonBool = True if os.path.exists(jsonPath) else False
                 
-                print('jsonPath: %s'%jsonPath) if args.verbose else None
+                print('jsonPath: {}'.format(jsonPath)) if args.verbose else None
                 if jsonBool:
                     df.at[idx, 'json'] = jsonPath
                     df.at[idx, 'fitBool'] = True
@@ -300,15 +297,14 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
                     for key, value in jsonDict.items():
                         df.at[idx, key] = np.nan ## should be np.nan
                 idx += 1
-                print('get_dataframe idx: %s'%idx) if args.verbose else None
-                print( ) if args.verbose else None
+                print('get_dataframe idx: {}'.format(idx)) if args.verbose else None
     
     df.sort_values(by=['day','cand','model'], inplace=True)
     df.to_csv(plotDir(name='statsDataframe',ext='.csv')) if save else None
     ## Not exactly the intended use of plotDir, but it works (probably)
     print('completed dataframe creation') if args.verbose else None
-    #print(df) if args.verbose else None
-    print('time to create dataframe: %s seconds'%(time.time()-startTime)) if args.verbose else None
+    
+    print('time to create dataframe: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
 
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
@@ -330,21 +326,18 @@ def plotCands(df, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: %s'%dayList) if args.verbose else None
-    print('dateList: %s'%dateList) if args.verbose else None
+    print('dayList: {}'.format(dayList)) if args.verbose else None
+    print('dateList: {}'.format(dateList)) if args.verbose else None
 
     ## get number of candidates per day
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
-    print('numDaily: %s'%numDaily) if args.verbose else None
-    print() if args.verbose else None
+    print('numDaily: {}\n'.format(numDaily)) if args.verbose else None
     
     numDailyRolling = pd.Series(numDaily).rolling(7).mean()
-    print('numDailyRolling: %s'%numDailyRolling) if args.verbose else None
-    print() if args.verbose else None
+    print('numDailyRolling: {}'.format(numDailyRolling)) if args.verbose else None
     
     cumDaily = np.cumsum(numDaily)
-    print('cumDaily: %s'%cumDaily) if args.verbose else None
-    print() if args.verbose else None
+    print('cumDaily: {}\n'.format(cumDaily)) if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
@@ -386,18 +379,13 @@ def plotCands(df, save=True):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand")) if save else None
-    print('completed cumDailyCand plot') if args.verbose else None
+    print('completed cumDailyCand plot\n') if args.verbose else None
     plt.clf()
     
     
 
-
-
 ## Functions to plot fitting stats
-
 ## need a daily fits plot to be made in addition to the cumulative one
-
-
 def plotFits(df,models=args.models, save=True): 
     '''
     plot the cumulative number of fits for each model
@@ -413,45 +401,47 @@ def plotFits(df,models=args.models, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: %s'%dayList) if args.verbose else None
-    print('dateList: %s'%dateList) if args.verbose else None
+    print('dayList: {}'.format(dayList)) if args.verbose else None
+    print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
     for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
         ##
         ## compile cumulative number of fits for each model
-        #print('fitBool: %s'%df['fitBool'].tolist()) if args.verbose else None
+        #print('fitBool: {}'.format(df['fitBool'].tolist()) if args.verbose else None
         modelCount = np.array([len(df[(df['model']==model) & (df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
         modelCum = np.array(modelCount.cumsum())
-        #print('modelCum: %s'%modelCum) if args.verbose else None
+        #print('modelCum: {}'.format(modelCum) if args.verbose else None
         modelDict[model] = modelCum
-        print('dayCount: %s'%dayCount) if args.verbose else None
-        print('modelCum: %s'%modelCum) if args.verbose else None
+        print('dayCount: {}'.format(dayCount)) if args.verbose else None
+        print('modelCum: {}'.format(modelCum)) if args.verbose else None
         
         ## plot cumulative number of fits for each model
         ## perhaps this could be a grid of subplots
         fig, ax = plotstyle(figsize=(8,6), facecolor='white')
         ax.plot(dateList,modelCum, label=model)
-        ax.set_xlabel("Days Since Start")
+        ax.set_xlabel("Date")
         ax.set_ylabel('Count')
         ax.set_title('{}'.format(model))
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else plt.clf()
+        print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
         plt.clf()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
-        modelDict['total'] = sum(map(np.array,modelDict.values())).tolist()
+        modelDict['Total'] = sum(map(np.array,modelDict.values())).tolist()
     except:
         print('Keys in modelDict probably do not have the same length')
         pass
     ## now plot all models together
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plt.plotstyle(figsize=(8,6), facecolor='white')
     for key, value in modelDict.items(): 
-        ax.plot(dayCount,value, label=key, marker='.',alpha=0.7) ## need to make a colormap for better visualization
-    ax.set_xlabel("Days Since Start")
+        ax.plot(dayCount,value, label=key, alpha=0.7) ## need to make a colormap for better visualization
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
     ax.set_ylabel('Count')
-        ## need to cmap or something for controlling colors
-    
+    ## need to cmap or something for controlling colors
     #ax.set_title('Cumulative Number of Fits')
     ax.legend()
     plt.savefig(plotDir("cumDailyFits_all")) if save else None
+    print('completed cumDailyFits plot for all models \n') if args.verbose else None
     plt.clf()
     return modelDict ## maybe not necessary to return this
     
@@ -467,12 +457,12 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     '''
 
     ## compiling data for plotting
-
-    ## find unique values in df['day'] and use those to create a list of days
-    dayList = np.array(df['day'].unique().tolist())
-    # print('dayList: %s'%dayList) if args.verbose else None
-    # print() if args.verbose else None
-    dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
+    ## get count of days and unique dates for plotting
+    dayList = df['day'].unique()
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    print('dayList: {}'.format(dayList)) if args.verbose else None
+    print('dateList: {}\n'.format(dateList)) if args.verbose else None
 
     ## find number of candidates that were not fit for each day, seperated by model
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
@@ -629,14 +619,9 @@ def plotSamplingTimes(df, models=args.models, save=True):
     ## get the fit time data
     dayList = df['day'].unique() ## oh, may need to switch to dayCount when plotting later
     dayCount = np.arange(len(dayList)) ## might be better to switch to start day count or something
-    # [[print('\n %s sampling times for %s : %s \n'%(model, day ,df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'])) for day in dayList] for model in models] if args.verbose else None
-    # print() if args.verbose else None
-
-    ## looks like creating fitTime is where the issue is (maybe)
 
     ## create a dictionary of fit times for each model
     fitTime = {}
-    #fitTime['Total'] = np.tile(np.array([np.pi, 2*np.pi]),(len(dayList),)).reshape(len(dayList),)#np.full([len(dayList),1],np.array([],dtype=object),dtype=object)
     for model in models: ## won't iterate over Total (which is good)
         fitTime[model] = np.array([
             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
@@ -646,22 +631,16 @@ def plotSamplingTimes(df, models=args.models, save=True):
         except:
             fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
             fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-            #fitTime[model] = np.full([len(dayList),1],np.array([np.nan]),dtype=object) ## if there are no fit times, set to nan
-        #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1) ## flatten the array
-        print('model %s fit times: %s'%(model, fitTime[model])) if args.verbose else None
-        print() if args.verbose else None
-        print('model %s fit times shape: %s'%(model, fitTime[model].shape)) if args.verbose else None
-        print() if args.verbose else None
-        #print(fitTime)
-    #fitTime['Total'] = fitTime['Total'].reshape(len(dayList),1)
+        print('model {0} fit times: {1}\n'.format((model, fitTime[model]))) if args.verbose else None
+        print('model {0} fit times shape: {1}\n'.format((model, fitTime[model].shape))) if args.verbose else None
     
     fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
-    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
-    print ('total fit time shape: {0}'.format(fitTime['Total'].shape)) if args.verbose else None
+    print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
+    print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
     fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
-    print() if args.verbose else None
     
-    ## debugging
+    '''
+    ## debugging to check if the fit times are being stored correctly
     t1 = [0]*len(dayList)
     t2 = [0]*len(dayList)
     for idx in range(len(dayList)):
@@ -688,32 +667,17 @@ def plotSamplingTimes(df, models=args.models, save=True):
     print('t1 sum: {}'.format(np.nansum(t1))) if args.verbose else None
     print('t2 sum: {}'.format(np.nansum(t2))) if args.verbose else None
     print('t1 - tw sum: {}'.format(np.nansum(np.array(t1)-np.array(t2)))) if args.verbose else None
-
-
-    #print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
+    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: {}'.format(fitTime['Total'].shape)) if args.verbose else None
-    
-    # fitTime = {model: [df[(df['day'] == day ) & ( df['model'] == model)]['sampling_time'].values for day in dayList] for model in models}
-    # fitTime = {model: 
-    # [df[(df['fitBool'] == True) & (df['model'] == model) & (df['day'] == day)]['sampling_time'].astype('float')
-    # for day in dayList] 
-    # for model in models}
-    # fitTime['Total'] = [df[(df['fitBool'] == True) & (df['day'] == day)]['sampling_time'].astype('float') for day in dayList]
     print() if args.verbose else None
-    # [print('fitTime %s'%fitTime[model]) for model in models] if args.verbose else None
-    #print('fitTime dict: %s'%fitTime) if args.verbose else None
-    #print() if args.verbose else None
+    '''
 
     ## data plotting
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
-        ## I suppose I could just flatten it?
-        # print()
-        # print(value.flatten())
         ## should pull this out maybe so it doesn't look as comnplicated
         fitTimeValue = np.concatenate(fitTime[key],axis=None).ravel() 
-        sns.histplot(fitTimeValue, label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None 
-        ## could fine tune the number of bins
+        sns.histplot(fitTimeValue, label=key,ax=ax, alpha=0.5, kde=True)  if key != 'Total' else None ## could fine tune the number of bins
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
     #ax.set_title('Sampling Times for Each Model') ## should these have titles?
@@ -798,20 +762,13 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 
 
 # plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)') if args.verbose else None
-# print() if args.verbose else None
+# print('completed daily candidate plots (1)\n') if args.verbose else None
 
 plotFits(df=df)
-print('completed cumulative fit plot (2)') if args.verbose else None
-print() if args.verbose else None
+print('completed cumulative fit plot (2)\n') if args.verbose else None
 
 # plotUnfit(df=df)
-# print('completed unfit candidate plot (3)') if args.verbose else None
-# print() if args.verbose else None
+# print('completed unfit candidate plot (3)\n') if args.verbose else None
 
 # plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)') if args.verbose else None
-# print() if args.verbose else None
-
-
-
+# print('completed sampling time plot (4)\n') if args.verbose else None
