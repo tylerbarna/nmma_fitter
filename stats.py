@@ -318,7 +318,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
 ## these functions could probably be combined for ease of calling, perhaps with argument to determine which plot(s) to make
 def plotDailyCand(df, save=True): 
     '''
-    plot the number of candidates per day as both a line plot and histogram
+    plot the number of candidates per day as both a line plot (numDailyCand) and histogram (numDailyCandHist), plot cumulative number of candidates over time (cumDailyCand)
     
     Args:
     df: dataframe with candidate data from get_dataframe function
@@ -368,40 +368,6 @@ def plotDailyCand(df, save=True):
     plt.clf()
 
 
-def plotCumDailyCand(df, save=True):
-    ## could switch to seaborn to make smoother/prettier curve
-    '''
-    Plot the cumulative number of candidates per day
-    
-    Args:
-    df: dataframe with candidate data from get_dataframe function
-    save: boolean to determine whether to save the plot or not
-    '''
-
-    ## get count of days and unique dates for plotting
-    dayList = df['day'].unique()
-    dateIdx = df['day'].drop_duplicates().index
-    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: %s'%dayList) if args.verbose else None
-    print('dateList: %s'%dateList) if args.verbose else None
-
-    ## get number of candidates per day
-    numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
-    print('numDaily: %s'%numDaily) if args.verbose else None
-    print() if args.verbose else None
-    
-    cumDaily = np.cumsum(numDaily)
-    print('cumDaily: %s'%cumDaily) if args.verbose else None
-    print() if args.verbose else None
-
-    ## plot cumulative number of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList,cumDaily,color='black',linewidth=2)
-    plt.xticks(rotation=15)
-    ax.set_xlabel("Date")
-    ax.set_ylabel('Candidate Count')
-    plt.savefig(plotDir("cumDailyCand")) if save else None
-    plt.clf()
 
 
 def plotDailyCandRolling(df, save=True):
@@ -839,27 +805,24 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 
 
 plotDailyCand(df=df,save=True)
-print('completed daily candidate plot (1)') if args.verbose else None
+print('completed daily candidate plots (1)') if args.verbose else None
 print() if args.verbose else None
 
-# plotCumDailyCand(df=df)
-# print('completed cumulative daily candidate plot (2)') if args.verbose else None
-# print() if args.verbose else None
 
 # plotDailyCandRolling(df=df)
 # print('completed daily candidate rolling average plot (3)') if args.verbose else None
 # print() if args.verbose else None
 
 # plotFitCum(df=df)
-# print('completed cumulative fit plot (4)') if args.verbose else None
+# print('completed cumulative fit plot (2)') if args.verbose else None
 # print() if args.verbose else None
 
 # plotUnfit(df=df)
-# print('completed unfit candidate plot (5)') if args.verbose else None
+# print('completed unfit candidate plot (3)') if args.verbose else None
 # print() if args.verbose else None
 
 # plotSamplingTime(df=df)
-# print('completed sampling time plot (6)') if args.verbose else None
+# print('completed sampling time plot (4)') if args.verbose else None
 # print() if args.verbose else None
 
 
