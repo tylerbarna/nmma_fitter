@@ -337,6 +337,10 @@ def plotDailyCand(df, save=True):
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
+    cumDaily = np.cumsum(numDaily)
+    print('cumDaily: %s'%cumDaily) if args.verbose else None
+    print() if args.verbose else None
+    
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
     ax.plot(dateList, numDaily,color='black',linewidth=2)
@@ -352,6 +356,15 @@ def plotDailyCand(df, save=True):
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
+    plt.clf()
+    
+    ## plot cumulative number of candidates per day
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    ax.plot(dateList,cumDaily,color='black',linewidth=2)
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Candidate Count')
+    plt.savefig(plotDir("cumDailyCand")) if save else None
     plt.clf()
 
 
@@ -825,13 +838,13 @@ def plotSamplingTime(df, models=args.models, save=True):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-# plotDailyCand(df=df,save=True)
-# print('completed daily candidate plot (1)') if args.verbose else None
-# print() if args.verbose else None
-
-plotCumDailyCand(df=df)
-print('completed cumulative daily candidate plot (2)') if args.verbose else None
+plotDailyCand(df=df,save=True)
+print('completed daily candidate plot (1)') if args.verbose else None
 print() if args.verbose else None
+
+# plotCumDailyCand(df=df)
+# print('completed cumulative daily candidate plot (2)') if args.verbose else None
+# print() if args.verbose else None
 
 # plotDailyCandRolling(df=df)
 # print('completed daily candidate rolling average plot (3)') if args.verbose else None
