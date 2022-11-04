@@ -383,10 +383,10 @@ def plotCumDailyCand(df, save=True):
 
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList,cumDaily)
+    ax.plot(dateList,cumDaily,color='black',linewidth=2)
     plt.xticks(rotation=15)
-    ax.set_xlabel("Days Since Start")
-    ax.set_ylabel('Cumulative Number of Candidates')
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand")) if save else None
     plt.clf()
 
@@ -825,29 +825,29 @@ def plotSamplingTime(df, models=args.models, save=True):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-plotDailyCand(df=df,save=True)
-print('completed daily candidate plot (1)') if args.verbose else None
-print() if args.verbose else None
+# plotDailyCand(df=df,save=True)
+# print('completed daily candidate plot (1)') if args.verbose else None
+# print() if args.verbose else None
 
 plotCumDailyCand(df=df)
 print('completed cumulative daily candidate plot (2)') if args.verbose else None
 print() if args.verbose else None
-exit()
-plotDailyCandRolling(df=df)
-print('completed daily candidate rolling average plot (3)') if args.verbose else None
-print() if args.verbose else None
 
-plotFitCum(df=df)
-print('completed cumulative fit plot (4)') if args.verbose else None
-print() if args.verbose else None
+# plotDailyCandRolling(df=df)
+# print('completed daily candidate rolling average plot (3)') if args.verbose else None
+# print() if args.verbose else None
 
-plotUnfit(df=df)
-print('completed unfit candidate plot (5)') if args.verbose else None
-print() if args.verbose else None
+# plotFitCum(df=df)
+# print('completed cumulative fit plot (4)') if args.verbose else None
+# print() if args.verbose else None
 
-plotSamplingTime(df=df)
-print('completed sampling time plot (6)') if args.verbose else None
-print() if args.verbose else None
+# plotUnfit(df=df)
+# print('completed unfit candidate plot (5)') if args.verbose else None
+# print() if args.verbose else None
+
+# plotSamplingTime(df=df)
+# print('completed sampling time plot (6)') if args.verbose else None
+# print() if args.verbose else None
 
 
 
