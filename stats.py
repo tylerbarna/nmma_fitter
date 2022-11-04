@@ -822,7 +822,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
 ## testing stats functions
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.file)   
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 exit()
 
 # plotDailyCand(df=df,save=True)
