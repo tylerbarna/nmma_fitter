@@ -398,7 +398,7 @@ def plotCands(df, save=True):
 ## need a daily fits plot to be made in addition to the cumulative one
 
 
-def plotFitCum(df,models=args.models, save=True): 
+def plotFits(df,models=args.models, save=True): 
     '''
     plot the cumulative number of fits for each model
     
@@ -409,15 +409,18 @@ def plotFitCum(df,models=args.models, save=True):
     '''
     ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
     modelDict = {}
-    ## Potential alternate option: plot them all on the same plot as subplots
-    dayList = np.array(df['day'].unique().tolist())
-    dayCount = np.arange(0,len(dayList))
+    ## get count of days and unique dates for plotting
+    dayList = df['day'].unique()
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    print('dayList: %s'%dayList) if args.verbose else None
+    print('dateList: %s'%dateList) if args.verbose else None
+    
     for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
         ##
         ## compile cumulative number of fits for each model
         #print('fitBool: %s'%df['fitBool'].tolist()) if args.verbose else None
         modelCount = np.array([len(df[(df['model']==model) & (df['day'] == day) & (df['fitBool'] == True)]) for day in dayList])
-        # modelCount = [len((glob.glob(os.path.join(day,'*',model+'_result.json')))) for day in fit_dayList]
         modelCum = np.array(modelCount.cumsum())
         #print('modelCum: %s'%modelCum) if args.verbose else None
         modelDict[model] = modelCum
@@ -426,8 +429,8 @@ def plotFitCum(df,models=args.models, save=True):
         
         ## plot cumulative number of fits for each model
         ## perhaps this could be a grid of subplots
-        fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-        ax.plot(dayCount,modelCum, label=model)
+        fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+        ax.plot(dateList,modelCum, label=model)
         ax.set_xlabel("Days Since Start")
         ax.set_ylabel('Count')
         ax.set_title('{}'.format(model))
@@ -613,7 +616,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
 
 
 ## plot the fit time statistics
-def plotSamplingTime(df, models=args.models, save=True):
+def plotSamplingTimes(df, models=args.models, save=True):
     '''
     Plot the sampling time statistics for the given dataframe.
 
@@ -718,7 +721,6 @@ def plotSamplingTime(df, models=args.models, save=True):
     plt.savefig(plotDir("fitTimeHistModel")) if save else None
     plt.clf()
 
-    ## summing over axis=1 means that each day will have a single value
     ## plot histogram of total daily fit time
     totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
@@ -732,8 +734,6 @@ def plotSamplingTime(df, models=args.models, save=True):
     ## plot the daily average fit time for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items(): 
-        #print(fitTime['Total']) if args.verbose else None
-        #print()
         meanFitTime = [np.mean(fitDay) for fitDay in fitTime[key]]
         ax.plot(dayCount, meanFitTime, label=key) ## should be right axis?
     ax.set_xlabel("Days Since Start")
@@ -797,20 +797,19 @@ def plotSamplingTime(df, models=args.models, save=True):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-plotCands(df=df,save=True)
-print('completed daily candidate plots (1)') if args.verbose else None
-print() if args.verbose else None
-
-
-# plotFitCum(df=df)
-# print('completed cumulative fit plot (2)') if args.verbose else None
+# plotCands(df=df,save=True)
+# print('completed daily candidate plots (1)') if args.verbose else None
 # print() if args.verbose else None
+
+plotFits(df=df)
+print('completed cumulative fit plot (2)') if args.verbose else None
+print() if args.verbose else None
 
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)') if args.verbose else None
 # print() if args.verbose else None
 
-# plotSamplingTime(df=df)
+# plotSamplingTimes(df=df)
 # print('completed sampling time plot (4)') if args.verbose else None
 # print() if args.verbose else None
 
