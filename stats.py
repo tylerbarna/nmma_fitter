@@ -337,37 +337,57 @@ def plotDailyCand(df, save=True):
     print('numDaily: %s'%numDaily) if args.verbose else None
     print() if args.verbose else None
     
+    numDailyRolling = pd.Series(numDaily).rolling(7).mean()
+    print('numDailyRolling: %s'%numDailyRolling) if args.verbose else None
+    print() if args.verbose else None
+    
     cumDaily = np.cumsum(numDaily)
     print('cumDaily: %s'%cumDaily) if args.verbose else None
     print() if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
-    ax.plot(dateList, numDaily,color='black',linewidth=2)
+    ax.plot(dateList, numDaily,
+            color='black',linewidth=2)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
-    plt.savefig(plotDir("numDailyCand")) if save else plt.clf()
-    plt.clf() 
+    plt.savefig(plotDir("numDailyCand")) if save else None
+    print('completed numDailyCand plot') if args.verbose else None
+    plt.clf()
+     
     
     ## plot histogram of number of candidates per day
     fig, ax = plotstyle(figsize=(10,6), facecolor='white')
-    sns.histplot(numDaily, kde=True, bins=numDaily.max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
+    sns.histplot(numDaily, kde=True, 
+                 bins=numDaily.max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist")) if save else None
+    print('completed numDailyCandHist plot') if args.verbose else None
     plt.clf()
     
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList,cumDaily,color='black',linewidth=2)
+    ax.plot(dateList,cumDaily,
+            color='black',linewidth=2)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand")) if save else None
+    print('completed cumDailyCand plot') if args.verbose else None
     plt.clf()
-
-
+    
+    #plot 7 day rolling average of candidates per day
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    ax.plot(dateList, numDailyRolling,
+            color='black',linewidth=2) ## note: this won't work with one week of data
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
+    plt.savefig(plotDir("numDailyCandRolling")) if save else None
+    print('completed numDailyCandRolling plot') if args.verbose else None
+    plt.clf()
 
 
 def plotDailyCandRolling(df, save=True):
