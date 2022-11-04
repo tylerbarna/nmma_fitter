@@ -331,7 +331,6 @@ def plotDailyCand(df, save=True):
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
     print('dayList: %s'%dayList) if args.verbose else None
     print('dateList: %s'%dateList) if args.verbose else None
-    dayCount = [day for day in range(len(dayList))]
 
     ## get number of candidates per day
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
@@ -366,21 +365,26 @@ def plotCumDailyCand(df, save=True):
     save: boolean to determine whether to save the plot or not
     '''
 
-    ## get count of days
+    ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
     print('dayList: %s'%dayList) if args.verbose else None
-    dayCount = [day for day in range(len(dayList))]
+    print('dateList: %s'%dateList) if args.verbose else None
 
     ## get number of candidates per day
-
-    numDaily = [len(df[df['day'] == day]['candPath'].unique()) for day in dayList]
+    numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
+    print('numDaily: %s'%numDaily) if args.verbose else None
+    print() if args.verbose else None
     
     cumDaily = np.cumsum(numDaily)
     print('cumDaily: %s'%cumDaily) if args.verbose else None
     print() if args.verbose else None
 
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    ax.plot(dayCount,cumDaily)
+    ## plot cumulative number of candidates per day
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    ax.plot(dateList,cumDaily)
+    plt.xticks(rotation=15)
     ax.set_xlabel("Days Since Start")
     ax.set_ylabel('Cumulative Number of Candidates')
     plt.savefig(plotDir("cumDailyCand")) if save else None
@@ -824,22 +828,22 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 plotDailyCand(df=df,save=True)
 print('completed daily candidate plot (1)') if args.verbose else None
 print() if args.verbose else None
-exit()
+
 plotCumDailyCand(df=df)
 print('completed cumulative daily candidate plot (2)') if args.verbose else None
 print() if args.verbose else None
+exit()
+plotDailyCandRolling(df=df)
+print('completed daily candidate rolling average plot (3)') if args.verbose else None
+print() if args.verbose else None
 
-# plotDailyCandRolling(df=df)
-# print('completed daily candidate rolling average plot (3)') if args.verbose else None
-# print() if args.verbose else None
+plotFitCum(df=df)
+print('completed cumulative fit plot (4)') if args.verbose else None
+print() if args.verbose else None
 
-# plotFitCum(df=df)
-# print('completed cumulative fit plot (4)') if args.verbose else None
-# print() if args.verbose else None
-
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (5)') if args.verbose else None
-# print() if args.verbose else None
+plotUnfit(df=df)
+print('completed unfit candidate plot (5)') if args.verbose else None
+print() if args.verbose else None
 
 plotSamplingTime(df=df)
 print('completed sampling time plot (6)') if args.verbose else None
