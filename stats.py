@@ -29,6 +29,7 @@ from astropy.time import Time
 ## set plot style
 plt.style.use('seaborn-bright')
 mpl.rcParams.update({"axes.grid" : True})
+plt.style.context(("seaborn-colorblind",))
 
 ## argument for folder to run stats on
 parser = argparse.ArgumentParser()
@@ -447,6 +448,33 @@ def plotFits(df,models=args.models, save=True):
     plt.savefig(plotDir("cumDailyFitsAll")) if save else None ## need to make a version that adds a residual plot below to compare models
     ax.set_yscale('log')
     plt.savefig(plotDir("cumDailyFitsAllLog")) if save else None
+    print('completed cumDailyFitsAll plot\n') if args.verbose else None
+    plt.clf()
+    
+    ## plot the relative performance of each model against the others
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    rel_perf = {}
+    for key, value in modelDict.items():
+        if key == 'Total' or key == 'Piro2021':
+            continue
+        for key2, value2 in modelDict.items():
+            #print('rel_perf: {}'.format(rel_perf)) if args.verbose else None
+            if key == key2 or key2 == 'Total' or key2 == 'Piro2021':
+                continue
+            diff = np.array(value)-np.array(value2)
+            print('key: {}, key2: {}'.format(key,key2)) if args.verbose else None
+            print('diff: {}'.format(diff)) if args.verbose else None
+            if key2+'-'+key in rel_perf.keys(): ## to prevent duplicates in plot
+                continue
+            rel_perf[key+'-'+key2] = diff
+            ax.plot(dateList,diff, label=key+'-'+key2)
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Difference in Fit Count')
+    ax.legend()
+    plt.savefig(plotDir("cumDailyFitsRelPerf")) if save else None
+    print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
+    
     print('completed cumDailyFits plot for all models \n') if args.verbose else None
     plt.clf()
     return modelDict ## maybe not necessary to return this
