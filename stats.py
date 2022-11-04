@@ -8,24 +8,26 @@
 
 ## alternatively, could change these into methods of a class that takes the dataframe as the object (e.g. df.plotDailyCand() ) 
 
-import sys
-from cProfile import label
-import os
 import argparse
 import glob
-import time
 import json
+import os
+import sys
+import time
 
+import matplotlib as mpl
+import matplotlib.dates as dates
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.dates as dates
+import seaborn as sns
 
  
 from astropy.time import Time
 
-import seaborn as sns
+from scipy.interpolate import make_interp_spline as spline
+
+
 
 ## set plot style
 plt.style.use('seaborn-bright')
