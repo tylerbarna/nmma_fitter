@@ -273,10 +273,16 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
         for cand, candPath in zip(candList, candPathList): ## works around the issue of candidate_data being present in the candidate_fits directory, which is not the case for the countDailyFits function
             ## search for models at same time as candidate data
             for model in models:
+                ## create values for start and stop day columns
+                
                 df.at[idx, 'day'] = day
-                ## start and stop day might be unnecessary, could just do this at later point
-                #df.at[idx, 'startDay'] = startDay[idx] 
-                #df.at[idx, 'stopDay'] = stopDay[idx]
+                startDate, stopDate = df.at[idx, 'day'].split('-', 1)
+                startDate, stopDate = Time(startDate, format='jd').datetime64, Time(stopDate, format='jd').datetime64 
+                ## might be inefficient, adding the date columns makes sample take 1.02 seconds, without it takes 0.88 seconds (15% increase)
+                ## actually, running a second time, it only takes 0.81 seconds with the date columns, so it might not matter
+                print('startDate: %s'%pd.to_datetime(startDate)) if args.verbose else None
+                df.at[idx, 'startDay'] = pd.to_datetime(startDate)
+                df.at[idx, 'stopDay'] = pd.to_datetime(stopDate)
                 df.at[idx, 'dayPath'] = dayPath
                 df.at[idx, 'cand'] = cand
                 df.at[idx, 'candPath'] = candPath
@@ -822,7 +828,7 @@ def plotSamplingTime(df, models=args.models, save=True):
 
 ## testing stats functions
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
+df = get_dataframe(candDir=args.candDir, models=args.models, save=True, file=args.datafile)   
 exit()
 
 # plotDailyCand(df=df,save=True)
