@@ -26,7 +26,7 @@ startDay, stopDay = startDay.astype('float'), stopDay.astype('float')
 print(startDay)
 
 ## convert to astropy time
-startDate, stopDate = Time(startDay, format='jd').iso, Time(stopDay, format='jd').iso
+startDate, stopDate = Time(startDay, format='jd').datetime64, Time(stopDay, format='jd').datetime64
 print(startDate)
 df['startDate'] = startDate
 df['stopDate'] = stopDate
