@@ -419,10 +419,12 @@ def plotFits(df,models=args.models, save=True):
         ## perhaps this could be a grid of subplots
         fig, ax = plotstyle(figsize=(8,6), facecolor='white')
         ax.plot(dateList,modelCum, label=model)
+        ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
         ax.set_xlabel("Date")
         plt.xticks(rotation=15)
         ax.set_ylabel('Count')
         ax.set_title('{}'.format(model))
+        ax.legend()
         plt.savefig(plotDir("cumDailyFits_"+model)) if save else None
         print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
         plt.clf()
