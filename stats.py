@@ -227,13 +227,17 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     if file:
         print('loading dataframe from file: %s'%file) if args.verbose else None
         df = pd.read_csv(file,index_col=0).fillna(value=np.nan) ## needs to be tested to ensure compatibility with saved dataframe
+        df['startDate'] = pd.to_datetime(df['startDate'])
+        df['stopDate'] = pd.to_datetime(df['stopDate'])
         return df ## don't need an else since the function will exit if file is provided
     
     ## need to explicitly add all columns here maybe? Will mess with any additional parameters provided to get_json if that is added to this function in the future
-    col = ['day','dayPath','cand','candPath','model', 'fitPath','json','fitBool','sampling_time', 'sampler', 'log_evidence', 'log_evidence_err', 'log_noise_evidence', 'log_bayes_factor']
+    col = ['day','startDate','stopDate','dayPath','cand','candPath','model', 'fitPath','json','fitBool','sampling_time', 'sampler', 'log_evidence', 'log_evidence_err', 'log_noise_evidence', 'log_bayes_factor'] ## addition of start and stop day needs to be tested
     df = pd.DataFrame(columns=col) ## create empty dataframe with columns
     ## set the type for the columns that will be added to the dataframe
     df['day'] = df['day'].astype('str')
+    df['startDate'] = df['startDate'].astype(np.datetime64)
+    df['stopDate'] = df['stopDate'].astype(np.datetime64)
     df['dayPath'] = df['dayPath'].astype('str')
     df['cand'] = df['cand'].astype('str')
     df['candPath'] = df['candPath'].astype('str')
