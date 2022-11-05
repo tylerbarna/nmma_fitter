@@ -865,6 +865,21 @@ def plotLikelihood(df, models=args.models, save=True):
     ax.set_yscale('log')
     plt.savefig(plotDir("LogEvidenceHistModelLog")) if save else None
     plt.clf()
+    
+    ## plot a histogram of the log evidence in total
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    evidTotal = np.concatenate(fitEvid['Total'],axis=None).ravel() 
+    sns.histplot(evidTotal, kde=True,
+                     ax=ax, alpha=0.5)
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Evidence")
+    ax.set_ylabel('Count')
+    #ax.legend()
+    plt.savefig(plotDir("LogEvidenceHistTotal")) if save else None
+    ax.set_yscale('log')
+    plt.savefig(plotDir("LogEvidenceHistTotalLog")) if save else None
+    plt.clf()
         
 
 
