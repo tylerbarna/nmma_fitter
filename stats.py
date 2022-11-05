@@ -328,18 +328,18 @@ def plotCands(df, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: {}'.format(dayList)) if args.verbose else None
-    print('dateList: {}'.format(dateList)) if args.verbose else None
+    #print('dayList: {}'.format(dayList)) if args.verbose else None
+    #print('dateList: {}'.format(dateList)) if args.verbose else None
 
     ## get number of candidates per day
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
-    print('numDaily: {}\n'.format(numDaily)) if args.verbose else None
+    #print('numDaily: {}\n'.format(numDaily)) if args.verbose else None
     
     numDailyRolling = pd.Series(numDaily).rolling(7).mean()
-    print('numDailyRolling: {}'.format(numDailyRolling)) if args.verbose else None
+    #print('numDailyRolling: {}'.format(numDailyRolling)) if args.verbose else None
     
     cumDaily = np.cumsum(numDaily)
-    print('cumDaily: {}\n'.format(cumDaily)) if args.verbose else None
+    #print('cumDaily: {}\n'.format(cumDaily)) if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
@@ -403,8 +403,8 @@ def plotFits(df,models=args.models, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: {}'.format(dayList)) if args.verbose else None
-    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    #print('dayList: {}'.format(dayList)) if args.verbose else None
+    #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     ## number of daily candidates
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
     cumDaily = np.cumsum(numDaily)
@@ -415,7 +415,7 @@ def plotFits(df,models=args.models, save=True):
         modelCum = np.array(modelCount.cumsum())
         #print('modelCum: {}'.format(modelCum) if args.verbose else None
         modelDict[model] = modelCum
-        print('modelCum: {}'.format(modelCum)) if args.verbose else None
+        #print('modelCum: {}'.format(modelCum)) if args.verbose else None
         
         ## plot cumulative number of fits for each model
         ## perhaps this could be a grid of subplots
@@ -464,7 +464,7 @@ def plotFits(df,models=args.models, save=True):
                 continue
             diff = np.array(value)-np.array(value2)
             print('key: {}, key2: {}'.format(key,key2)) if args.verbose else None
-            print('diff: {}'.format(diff)) if args.verbose else None
+            #print('diff: {}'.format(diff)) if args.verbose else None
             if key2+'-'+key in rel_perf.keys(): ## to prevent duplicates in plot
                 continue
             rel_perf[key+'-'+key2] = diff
@@ -496,8 +496,8 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: {}'.format(dayList)) if args.verbose else None
-    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    #print('dayList: {}'.format(dayList)) if args.verbose else None
+    #print('dateList: {}\n'.format(dateList)) if args.verbose else None
 
     ## find number of candidates that were not fit for each day, seperated by model
     ## df uses conditionals in list comprehension, which is wrapped in a dict comprehension
@@ -658,8 +658,8 @@ def plotSamplingTimes(df, models=args.models, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: {}'.format(dayList)) if args.verbose else None
-    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    #print('dayList: {}'.format(dayList)) if args.verbose else None
+    #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
     ## create a dictionary of fit times for each model
     fitTime = {}
@@ -672,11 +672,11 @@ def plotSamplingTimes(df, models=args.models, save=True):
         except:
             fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
             fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
+        #print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
         print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None
     
     fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
-    print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
+    #print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
     fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
     
@@ -720,7 +720,7 @@ def plotSamplingTimes(df, models=args.models, save=True):
         ## should pull this out maybe so it doesn't look as comnplicated
         fitTimeValue = np.concatenate(fitTime[key],axis=None).ravel() 
         sns.histplot(fitTimeValue, kde=True,
-                     label=key,ax=ax, alpha=0.4)  if key != 'Total' else None ## could fine tune the number of bins
+                     label=key,ax=ax, alpha=0.5)  if key != 'Total' else None ## could fine tune the number of bins
     for line in ax.lines:
         line.set_color('black')      
     ax.set_xlabel("Sampling Times (s)")
@@ -825,8 +825,8 @@ def plotLikelihood(df, models=args.models, save=True):
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
     dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    print('dayList: {}'.format(dayList)) if args.verbose else None
-    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    #print('dayList: {}'.format(dayList)) if args.verbose else None
+    #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
     ## create dictionaries of fit times and likelihoods for each model
     fitTime = {} ## fit time
@@ -843,10 +843,10 @@ def plotLikelihood(df, models=args.models, save=True):
             except:
                 dict[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
                 dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
-            print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
+            #print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
             print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
         dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))])
-        print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
+        #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
         print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
     
     ## data plotting
@@ -860,7 +860,7 @@ def plotLikelihood(df, models=args.models, save=True):
     #     line.set_color('black')      
     ax.set_xlabel("Log Evidence")
     ax.set_ylabel('Count')
-    #ax.set_title('Sampling Times for Each Model') ## should these have titles?
+    ax.set_yscale('log')
     ax.legend()
     plt.savefig(plotDir("LogEvidenceHistModel")) if save else None
     plt.clf()
