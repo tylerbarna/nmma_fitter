@@ -827,23 +827,23 @@ def plotLikelihood(df, models=args.models, save=True):
     print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
     ## create a dictionary of fit times for each model
-    fitTime = {}
-    for model in models: ## won't iterate over Total (which is good)
-        fitTime[model] = np.array([
-            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
-        ], dtype=object)
-        try:
-            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        except:
-            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
-            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
-        print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None   
-    
+    # fitTime = {}
+    # for model in models: ## won't iterate over Total (which is good)
+    #     fitTime[model] = np.array([
+    #         df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
+    #     ], dtype=object)
+    #     try:
+    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+    #     except:
+    #         fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+    #     print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
+    #     print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None   
+    fitTime = {} ## fit time
     fitEvid = {} ## fit evidence
     fitEvidErr = {} ## fit evidence error
     fitBayes = {} ## fit bayes factor
-    for dict, key in zip([fitEvid, fitEvidErr, fitBayes], ['log_evidence', 'log_evidence_err', 'log_bayes_factor']):
+    for dict, key in zip([fitTime, fitEvid, fitEvidErr, fitBayes], ['sampling_time','log_evidence', 'log_evidence_err', 'log_bayes_factor']):
         for model in models: ## won't iterate over Total (which is good)
             dict[model] = np.array([
                 df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)][key].to_numpy(copy=True).ravel() for day in dayList
