@@ -807,6 +807,54 @@ def plotSamplingTimes(df, models=args.models, save=True):
     plt.savefig(plotDir("cumFitTime")) if save else None
     plt.clf()
     
+    ## plot fit time as a function of log like
+ 
+def plotLikelihood(df, models=args.models, save=True):
+    '''
+    Plot the log_evidence and log_bayes_factor statistics for the given dataframe.
+
+    Args:
+    df: dataframe containing the stats data (expected to be output of get_dataframe) (required)
+    models: list of models to search for
+    save: boolean to determine whether to save the figure or not
+    '''
+
+    ## get count of days and unique dates for plotting
+    dayList = df['day'].unique()
+    dateIdx = df['day'].drop_duplicates().index
+    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    print('dayList: {}'.format(dayList)) if args.verbose else None
+    print('dateList: {}\n'.format(dateList)) if args.verbose else None
+    
+    ## create a dictionary of fit times for each model
+    fitTime = {}
+    for model in models: ## won't iterate over Total (which is good)
+        fitTime[model] = np.array([
+            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
+        ], dtype=object)
+        try:
+            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+        except:
+            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+        print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
+        print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None   
+    
+    fitEvid = {} ## fit evidence
+    fitEvidErr = {} ## fit evidence error
+    fitBayes = {} ## fit bayes factor
+    for dict, key in zip([fitEvid, fitEvidErr, fitBayes], ['log_evidence', 'log_evidence_err', 'log_bayes_factor']):
+        for model in models: ## won't iterate over Total (which is good)
+            dict[model] = np.array([
+                df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)][key].to_numpy(copy=True).ravel() for day in dayList
+            ], dtype=object)
+            try: ## probably needs to be reshaped differently
+                dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
+            except:
+                dict[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+                dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
+            print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
+            print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
 
 
 
@@ -836,5 +884,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df)
+# print('completed sampling time plot (4)\n') if args.verbose else None
+
+plotLikelihood(df=df)
+print('completed evidence plot (5)\n') if args.verbose else None
