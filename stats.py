@@ -845,7 +845,7 @@ def plotLikelihood(df, models=args.models, save=True):
                 dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
             #print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
             print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
-        dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))])
+        dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))],dtype=object)
         #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
         print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
     
@@ -860,9 +860,10 @@ def plotLikelihood(df, models=args.models, save=True):
     #     line.set_color('black')      
     ax.set_xlabel("Log Evidence")
     ax.set_ylabel('Count')
-    ax.set_yscale('log')
     ax.legend()
     plt.savefig(plotDir("LogEvidenceHistModel")) if save else None
+    ax.set_yscale('log')
+    plt.savefig(plotDir("LogEvidenceHistModelLog")) if save else None
     plt.clf()
         
 
