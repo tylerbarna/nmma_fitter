@@ -914,14 +914,56 @@ def plotLikelihood(df, models=args.models, save=True):
         bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
         evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
         evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
-        ax.errorbar(x=bayesValue, y=evidValue, yerr=evidError, label=key, alpha=0.5) if key != 'Total' else None
+        ax.errorbar(x=bayesValue, y=evidValue, yerr=evidError, label=key, fmt='o', alpha=0.4) if key != 'Total' else None
         #sns.scatterplot(evidValue, bayesValue, label=key) if key != 'Total' else None
     ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Log Evidence')
     ax.legend()
     plt.savefig(plotDir("LogBayesEvidenceScatterModel")) if save else None
+    ax.set_ylim(top=1)
+    ax.set_yscale('symlog')
+    plt.savefig(plotDir("LogBayesEvidenceScatterModelLog")) if save else None
+    ax.set_xlim(right=1)
+    ax.set_xscale('symlog')
+    plt.savefig(plotDir("LogBayesEvidenceScatterModelLogLog")) if save else None
     plt.clf()
     
+    ## scatter plot of sampling time vs bayes factor for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in fitBayes.items(): 
+        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
+        timeValue = np.concatenate(fitTime[key],axis=None).ravel()
+        ax.scatter(x=timeValue, y=bayesValue, label=key, alpha=0.4) if key != 'Total' else None
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Log Bayes Factor')
+    ax.legend()
+    plt.savefig(plotDir("SamplingTimeBayesScatterModel")) if save else None
+    ax.set_ylim(top=1)
+    ax.set_yscale('symlog')
+    plt.savefig(plotDir("SamplingTimeBayesScatterModelLog")) if save else None
+    ax.set_xscale('symlog')
+    ax.set_xlim(left=0)
+    plt.savefig(plotDir("SamplingTimeBayesScatterModelLogLog")) if save else None
+    plt.clf()
+    
+    ## scatter plot of sampling time vs evidence for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in fitTime.items(): 
+        evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
+        timeValue = np.concatenate(fitTime[key],axis=None).ravel()
+        evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
+        ax.errorbar(x=timeValue, y=evidValue, yerr=evidError, label=key,fmt='o', alpha=0.4) if key != 'Total' else None
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Log Evidence')
+    ax.legend()
+    plt.savefig(plotDir("SamplingTimeEvidenceScatterModel")) if save else None
+    ax.set_ylim(top=1)
+    ax.set_yscale('symlog')
+    plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLog")) if save else None
+    ax.set_xscale('symlog')
+    ax.set_xlim(left=0)
+    plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLogLog")) if save else None
+    plt.clf()
     
     print('completed likelihood plotting') if args.verbose else None
     print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
