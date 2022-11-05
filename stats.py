@@ -99,6 +99,7 @@ def plotstyle(type=None, **kwargs): ## should add an option to pass kwargs to th
     fig, ax = plt.subplots(**kwargs) ## not super sure on this implementation
     
     plt.style.use('seaborn-whitegrid')
+    plt.style.context(("seaborn-colorblind",))
     #plt.rcParams['font.family'] = 'serif'
     #plt.rcParams['font.serif'] = 'Times New Roman'
     plt.rcParams['font.size'] = 12
@@ -713,6 +714,7 @@ def plotSamplingTimes(df, models=args.models, save=True):
     '''
 
     ## data plotting
+    ## plot histogram of fit times for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
     for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
         ## should pull this out maybe so it doesn't look as comnplicated
@@ -846,6 +848,23 @@ def plotLikelihood(df, models=args.models, save=True):
         dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))])
         print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
         print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
+    
+    ## data plotting
+    ## plot a histogram of the log evidence for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in fitEvid.items(): 
+        evidValue = np.concatenate(fitEvid[key],axis=None).ravel() 
+        sns.histplot(evidValue, kde=True,
+                     label=key, ax=ax, alpha=0.5) if key != 'Total' else None
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Evidence")
+    ax.set_ylabel('Count')
+    #ax.set_title('Sampling Times for Each Model') ## should these have titles?
+    ax.legend()
+    plt.savefig(plotDir("LogEvidenceHistModel")) if save else None
+    plt.clf()
+        
 
 
 
