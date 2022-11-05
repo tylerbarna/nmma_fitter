@@ -323,7 +323,7 @@ def plotCands(df, save=True):
     df: dataframe with candidate data from get_dataframe function
     save: boolean to determine whether to save the plot or not
     '''
-
+    startTime = time.time()
     ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
@@ -384,6 +384,9 @@ def plotCands(df, save=True):
     print('completed cumDailyCand plot\n') if args.verbose else None
     plt.clf()
     
+    print('completed candidate plotting') if args.verbose else None
+    print('time to plot candidates: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    
     
 
 ## Functions to plot fitting stats
@@ -397,6 +400,7 @@ def plotFits(df,models=args.models, save=True):
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
+    startTime = time.time()
     ## modelDict creates dict of cumulative fit counts for each model so they can be plotted together
     modelDict = {}
     ## get count of days and unique dates for plotting
@@ -475,10 +479,11 @@ def plotFits(df,models=args.models, save=True):
     ax.legend()
     plt.savefig(plotDir("cumDailyFitsRelPerf")) if save else None
     print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
-    
-    print('completed cumDailyFits plot for all models \n') if args.verbose else None
     plt.clf()
-    return modelDict ## maybe not necessary to return this
+    print('completed cumDailyFits plot for all models \n') if args.verbose else None
+    
+    print('completed fit plotting') if args.verbose else None
+    print('time to plot candidate fits: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
     
 
 def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
@@ -490,7 +495,7 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
-
+    startTime = time.time()
     ## compiling data for plotting
     ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
@@ -635,6 +640,9 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     plt.clf()
     '''
     
+    print('completed unfit plotting') if args.verbose else None
+    print('time to plot unfit: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    
     
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
     ## could also add a stacked bar chart of fit and unfit candidates
@@ -653,6 +661,7 @@ def plotSamplingTimes(df, models=args.models, save=True):
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
+    startTime = time.time()
 
     ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
@@ -809,7 +818,9 @@ def plotSamplingTimes(df, models=args.models, save=True):
     plt.savefig(plotDir("cumFitTime")) if save else None
     plt.clf()
     
-    ## plot fit time as a function of log like
+    
+    print('completed sampling times plotting') if args.verbose else None
+    print('time to plot sampling times: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
  
 def plotLikelihood(df, models=args.models, save=True):
     '''
@@ -820,7 +831,7 @@ def plotLikelihood(df, models=args.models, save=True):
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
-    
+    startTime = time.time()
     ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
@@ -910,6 +921,10 @@ def plotLikelihood(df, models=args.models, save=True):
     ax.legend()
     plt.savefig(plotDir("LogBayesEvidenceScatterModel")) if save else None
     plt.clf()
+    
+    
+    print('completed likelihood plotting') if args.verbose else None
+    print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
         
 
 
