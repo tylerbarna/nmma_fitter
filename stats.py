@@ -820,7 +820,7 @@ def plotLikelihood(df, models=args.models, save=True):
     models: list of models to search for
     save: boolean to determine whether to save the figure or not
     '''
-
+    
     ## get count of days and unique dates for plotting
     dayList = df['day'].unique()
     dateIdx = df['day'].drop_duplicates().index
@@ -879,6 +879,36 @@ def plotLikelihood(df, models=args.models, save=True):
     plt.savefig(plotDir("LogEvidenceHistTotal")) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogEvidenceHistTotalLog")) if save else None
+    plt.clf()
+    
+    ## histogram of the log bayes factor for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in fitBayes.items(): 
+        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
+        sns.histplot(bayesValue, kde=True,
+                     label=key, ax=ax, alpha=0.5) if key != 'Total' else None
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Count')
+    ax.legend()
+    plt.savefig(plotDir("LogBayesHistModel")) if save else None
+    ax.set_yscale('log')
+    plt.savefig(plotDir("LogBayesHistModelLog")) if save else None
+    plt.clf()
+    
+    ## scatter plot of bayes factor vs evidence for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in fitBayes.items(): 
+        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
+        evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
+        evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
+        ax.errorbar(x=bayesValue, y=evidValue, yerr=evidError, label=key, alpha=0.5) if key != 'Total' else None
+        #sns.scatterplot(evidValue, bayesValue, label=key) if key != 'Total' else None
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Log Evidence')
+    ax.legend()
+    plt.savefig(plotDir("LogBayesEvidenceScatterModel")) if save else None
     plt.clf()
         
 
