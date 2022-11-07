@@ -2,13 +2,13 @@
 
 Realtime node-based lightcurve fitting using [NMMA](https://github.com/nuclear-multimessenger-astronomy/nmma).
 
-To run, try:
-
-sbatch primary_job.txt
+To run on a slurm-based system, try: `sbatch primary_job.txt`
 
 Note that the job scripts may need editing depending on how your conda environment is setup.
 
 Generally, in order for the above to execute correctly, one must modify most of the scripts since much of the current scripts assume the use of the msi computing cluster. I would recommend branching the repo in order to create versions of the scripts compatible with other systems. Reworking the scripts to create a more general version of the code is an ongoing effort.
+
+Generally, to run on a local system, it's recommended to try using `localscript.py`
 
 # Pipeline
 
