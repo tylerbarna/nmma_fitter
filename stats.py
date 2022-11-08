@@ -546,10 +546,10 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ## plot a fraction of how many candidates were fit for each day (fit-unfit)/total
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     for key, value in unfit.items(): 
-        fracFit = -(fit[key]-value)/allfit[key]
+        fracFit = (fit[key]-value)/allfit[key]
         ax.plot(dateList, fracFit, label=key, alpha=0.8) if key != 'Total' else None
     ax.set_xlabel("Date")
-    ax.set_ylabel(r'$\frac{Unfit-Fit}{Total}$')
+    ax.set_ylabel(r'$\frac{Fit-Unfit}{Total}$')
     #ax.set_title('Number of Unfit Candidates') ## should these have titles?
     plt.xticks(rotation=15)
     ax.legend()
