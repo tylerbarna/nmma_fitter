@@ -30,6 +30,8 @@ from astropy.time import Time
 plt.style.use("seaborn-colorblind")
 mpl.rcParams.update({"axes.grid" : True})
 plt.style.context(("seaborn-colorblind",))
+# mpl.rcParams['text.usetex'] = True
+# mpl.rcParams['text.latex.preamble'] = [r'\usepackage{amsmath}']
 
 ## argument for folder to run stats on
 parser = argparse.ArgumentParser()
@@ -540,6 +542,20 @@ def plotUnfit(df, models= args.models, save=True): ## assumes use of dataframe
     ax.legend()
     plt.savefig(plotDir("numDailyUnfit")) if save else None
     plt.clf()
+    
+    ## plot a fraction of how many candidates were fit for each day (fit-unfit)/total
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    for key, value in unfit.items(): 
+        fracFit = -(fit[key]-value)/allfit[key]
+        ax.plot(dateList, fracFit, label=key, alpha=0.8) if key != 'Total' else None
+    ax.set_xlabel("Date")
+    ax.set_ylabel(r'$\frac{Unfit-Fit}{Total}$')
+    #ax.set_title('Number of Unfit Candidates') ## should these have titles?
+    plt.xticks(rotation=15)
+    ax.legend()
+    plt.savefig(plotDir("fracDailyUnfit")) if save else None
+    plt.clf()
+        
 
     ## should fix styling as it's currently unclear
     ## plot histogram of number of candidates that were not fit for each day by model
@@ -994,11 +1010,11 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotFits(df=df)
 # print('completed cumulative fit plot (2)\n') if args.verbose else None
 
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (3)\n') if args.verbose else None
+plotUnfit(df=df)
+print('completed unfit candidate plot (3)\n') if args.verbose else None
 
 # plotSamplingTimes(df=df)
 # print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df)
+# print('completed evidence plot (5)\n') if args.verbose else None
