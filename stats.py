@@ -331,38 +331,31 @@ def plotCands(df, save=True, outdir=args.outdir):
     subdir = os.path.join(outdir,'candidates')
     if not os.path.exists(subdir):
         os.mkdir(subdir)
-    ## get count of days and unique dates for plotting
-    dayList = df['day'].unique()
-    dateIdx = df['day'].drop_duplicates().index
-    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
-    #print('dayList: {}'.format(dayList)) if args.verbose else None
-    #print('dateList: {}'.format(dateList)) if args.verbose else None
-
-    ## get number of candidates per day
-    numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
-    #print('numDaily: {}\n'.format(numDaily)) if args.verbose else None
+    ## create dataframes for plotting
     
-    numDailyRolling = pd.Series(numDaily).rolling(7).mean()
-    #print('numDailyRolling: {}'.format(numDailyRolling)) if args.verbose else None
-    
-    cumDaily = np.cumsum(numDaily)
-    #print('cumDaily: {}\n'.format(cumDaily)) if args.verbose else None
+    ## grouped by day and candidate
+    df_c= df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    ## grouped by day
+    df_dc = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_dc['numCand'] = [len(cand) for cand in df_dc['cand']]
+    #df_dc.to_csv('./df_daily.csv')
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
-    ax.plot(dateList, numDaily,
-            color='black',linewidth=2)
+    sns.lineplot(data=df_dc, x='stopDate', y='numCand', 
+                 ax=ax, color='black', linewidth=2)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand",outdir=subdir)) if save else None
     print('completed numDailyCand plot') if args.verbose else None
     plt.clf()
+    
      
     ## plot histogram of number of candidates per day
     fig, ax = plotstyle(figsize=(10,6), facecolor='white')
-    sns.histplot(numDaily, kde=True, 
-                 bins=numDaily.max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
+    sns.histplot(df_dc['numCand'], kde=True, 
+                 bins=df_dc['numCand'].max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist",outdir=subdir)) if save else None
@@ -371,8 +364,8 @@ def plotCands(df, save=True, outdir=args.outdir):
     
     #plot 7 day rolling average of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList, numDailyRolling,
-            color='black',linewidth=2) ## note: this won't work with one week of data
+    sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].rolling(7).mean(),
+                 color='black',linewidth=2) ## note: this won't work with one week of data
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
@@ -382,8 +375,8 @@ def plotCands(df, save=True, outdir=args.outdir):
     
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    ax.plot(dateList,cumDaily,
-            color='black',linewidth=2)
+    sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].cumsum(),
+                 color='black',linewidth=2, ax=ax ) ## note: this won't work with one week of data
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
@@ -421,6 +414,7 @@ def plotFits(df,models=args.models, save=True,outdir=args.outdir):
     #print('dayList: {}'.format(dayList)) if args.verbose else None
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     ## number of daily candidates
+    
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
     cumDaily = np.cumsum(numDaily)
     
@@ -702,7 +696,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
     df1 = df[df['fitBool']==True].groupby(['day','model']).agg(tuple).applymap(lambda x: np.array(x))
-    df1.to_csv('test.csv')
+    #df1.to_csv('test.csv')
     
     
     ## create a dictionary of fit times for each model
@@ -1049,8 +1043,8 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-# plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)\n') if args.verbose else None
+plotCands(df=df,save=True)
+print('completed daily candidate plots (1)\n') if args.verbose else None
 
 # plotFits(df=df)
 # print('completed cumulative fit plot (2)\n') if args.verbose else None
@@ -1058,8 +1052,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df)
+# print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df)
+# print('completed evidence plot (5)\n') if args.verbose else None
