@@ -701,6 +701,10 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #print('dayList: {}'.format(dayList)) if args.verbose else None
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
+    df1 = df[df['fitBool']==True].groupby(['day','model']).agg(tuple).applymap(lambda x: np.array(x))
+    df1.to_csv('test.csv')
+    
+    
     ## create a dictionary of fit times for each model
     fitTime = {}
     for model in models: ## won't iterate over Total (which is good)
@@ -894,6 +898,11 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
         dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))],dtype=object)
         #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
         print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
+    ## try to convert this whole thing into a pandas dataframe
+    df1 = pd.DataFrame()
+    df1['day'] = dayList
+    dateList = df['stopDate'][dateIdx]
+    
     
     ## data plotting
     ## list of marker types for plotting
@@ -1049,8 +1058,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
 plotLikelihood(df=df)
 print('completed evidence plot (5)\n') if args.verbose else None
