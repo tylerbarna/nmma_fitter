@@ -701,9 +701,9 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     if not os.path.exists(subdir):
         os.mkdir(subdir)
     ## get count of days and unique dates for plotting
-    dayList = df['day'].unique()
-    dateIdx = df['day'].drop_duplicates().index
-    dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
+    # dayList = df['day'].unique()
+    # dateIdx = df['day'].drop_duplicates().index
+    # dateList = df['stopDate'][dateIdx] ## this is the date of the last observations made for the fitting
     #print('dayList: {}'.format(dayList)) if args.verbose else None
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
@@ -712,33 +712,33 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     
     df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
     df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
-    df_f.to_csv('test.csv')
+    #df_f.to_csv('test.csv')
     #print(df_f['sampling_time_avg'])
     
     ## group by day
     df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
     df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
-    df_fd.to_csv('test1.csv')
+    #df_fd.to_csv('test1.csv')
     
     ## create a dictionary of fit times for each model
-    fitTime = {}
-    for model in models: ## won't iterate over Total (which is good)
-        fitTime[model] = np.array([
-            df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
-        ], dtype=object)
-        try:
-            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        except:
-            fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
-            fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-        #print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
-        print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None
+    # fitTime = {}
+    # for model in models: ## won't iterate over Total (which is good)
+    #     fitTime[model] = np.array([
+    #         df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
+    #     ], dtype=object)
+    #     try:
+    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+    #     except:
+    #         fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
+    #     #print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
+    #     print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None
     
-    fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
-    #print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
-    print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
-    fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
+    # fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
+    # #print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
+    # print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
+    # fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
 
     ## data plotting
     ## plot histogram of fit times for each model
@@ -758,7 +758,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
 
 
     ## plot histogram of total daily fit time
-    totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
+    # totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
     fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     #sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
     plot = sns.histplot(data=df, x='sampling_time', hue='model',hue_order=models, 
