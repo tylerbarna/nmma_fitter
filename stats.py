@@ -710,7 +710,6 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     ## group by model and day
     df_f = df[df['fitBool']==True].groupby(['startDate','stopDate','model'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     
-    print(np.mean(df_f['sampling_time'].to_numpy()[0]))
     df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
     df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
     df_f.to_csv('test.csv')
@@ -777,19 +776,20 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #     ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
 
     plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
-                multiple='layer',legend='full',ax=ax, alpha=1,bins=69)
+                multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
+
     #ax.set_title('Average Daily Sampling Time') ## should these have titles?
     #ax.legend()
     plt.savefig(plotDir("dailyFitTimeAvg",outdir=subdir)) if save else None
     ## could do a version with std error bars as well
 
     ## plot the daily median fit time for each model
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_median', hue='model',
-                multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
+                multiple='layer',legend='full',ax=ax, alpha=1,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
@@ -799,9 +799,12 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
 
     ## plot the daily mean fit time for each model (rolling average)
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    sns.lineplot(data=df_f, x='startDate',y=df_f['sampling_time_avg'].rolling(7).mean(), hue='model', 
-                legend='full', ax=ax, alpha=0.5)
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    plot= sns.histplot(data=df_f, x='startDate',
+                       weights=df_f['sampling_time_avg'].rolling(7).mean(), hue='model',
+                       multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
+    # sns.histplot(data=df_f, x='startDate',y=df_f['sampling_time_avg'].rolling(7).mean(), hue='model', 
+    #             legend='full', ax=ax, alpha=0.5)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
@@ -811,15 +814,29 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
 
     ## plot the cumulative daily fit time for each model
-    for key, value in fitTime.items():
-        cumFitTime = np.cumsum([np.sum(fitDay) for fitDay in value])
-        plt.plot(dateList, cumFitTime, label=key) 
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+                       multiple='layer',legend='full', cumulative=True,
+                       ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Cumulative Sampling Time') ## should these have titles?
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("cumFitTime",outdir=subdir)) if save else None
+    plt.clf()
+    
+    ## plot the cumulative daily fit time for each model
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+                       multiple='stack',legend='full', cumulative=True,
+                       ax=ax, alpha=0.5,bins=69)
+    ax.set_xlabel("Date")
+    plt.xticks(rotation=15)
+    ax.set_ylabel('Sampling Time (s)')
+    #ax.set_title('Cumulative Sampling Time') ## should these have titles?
+    #ax.legend()
+    plt.savefig(plotDir("cumFitTimeStack",outdir=subdir)) if save else None
     plt.clf()
     
     
