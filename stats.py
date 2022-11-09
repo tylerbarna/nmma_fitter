@@ -331,8 +331,8 @@ def plotCands(df, save=True, outdir=args.outdir):
     subdir = os.path.join(outdir,'candidates')
     if not os.path.exists(subdir):
         os.mkdir(subdir)
+        
     ## create dataframes for plotting
-    
     ## grouped by day and candidate
     df_c= df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     ## grouped by day
@@ -417,6 +417,18 @@ def plotFits(df,models=args.models, save=True,outdir=args.outdir):
     
     numDaily = np.array([len(df[df['day'] == day]['candPath'].unique()) for day in dayList])
     cumDaily = np.cumsum(numDaily)
+    
+    ## create dataframes for plotting
+    ## grouped by day and candidate
+    df_c= df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    ## grouped by day
+    df_dc = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_dc['numCand'] = [len(cand) for cand in df_dc['cand']]
+    #df_dc.to_csv('./df_daily.csv')
+    ## fit-only dataframe
+    df_fc= df[df['fitBool']==True].groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fdc = df_fc.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fdc['numCand'] = [len(cand) for cand in df_fdc['cand']]
     
     for model in models: ## get cumulative number of fits for each model, plot, save, and add to modelDict
         ## compile cumulative number of fits for each model
@@ -695,9 +707,20 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #print('dayList: {}'.format(dayList)) if args.verbose else None
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
-    df1 = df[df['fitBool']==True].groupby(['day','model']).agg(tuple).applymap(lambda x: np.array(x))
-    #df1.to_csv('test.csv')
+    ## group by model and day
+    df_f = df[df['fitBool']==True].groupby(['startDate','stopDate','model'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     
+    print(np.mean(df_f['sampling_time'].to_numpy()[0]))
+    df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
+    df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
+    df_f.to_csv('test.csv')
+    #print(df_f['sampling_time_avg'])
+    
+    ## group by day
+    df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
+    df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
+    df_fd.to_csv('test1.csv')
     
     ## create a dictionary of fit times for each model
     fitTime = {}
@@ -717,122 +740,74 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
     print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
     fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
-    
-    '''
-    ## debugging to check if the fit times are being stored correctly
-    t1 = [0]*len(dayList)
-    t2 = [0]*len(dayList)
-    for idx in range(len(dayList)):
-        t1[idx] = 0
-        for key, value in fitTime.items():
-            if key == 'Total':
-                continue
-            t1[idx] += np.nansum(value[idx]) 
-            
-        t2[idx] = np.nansum(fitTime['Total'][idx])
-    if np.array_equal(t1,t2):
-        print('t1 and t2 are equal') if args.verbose else None
-        
-    else:
-        print('t1 and t2 are not equal') if args.verbose else None
-    print('t1: {}'.format(t1)) if args.verbose else None
-    print('') if args.verbose else None
-    print('t2: {}'.format(t2)) if args.verbose else None
-    print('') if args.verbose else None
-    print('t1-t2: {}'.format(np.array(t1)-np.array(t2))) if args.verbose else None
-    print('') if args.verbose else None
-    print('t1 shape: {}'.format(np.array(t1).shape)) if args.verbose else None
-    print('t2 shape: {}'.format(np.array(t2).shape)) if args.verbose else None
-    print('t1 sum: {}'.format(np.nansum(t1))) if args.verbose else None
-    print('t2 sum: {}'.format(np.nansum(t2))) if args.verbose else None
-    print('t1 - tw sum: {}'.format(np.nansum(np.array(t1)-np.array(t2)))) if args.verbose else None
-    print ('total fit time: {}'.format(fitTime['Total'])) if args.verbose else None
-    print ('total fit time shape: {}'.format(fitTime['Total'].shape)) if args.verbose else None
-    print() if args.verbose else None
-    '''
 
     ## data plotting
     ## plot histogram of fit times for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    for key, value in fitTime.items(): ## this has issue of the value being an array of arrays (e.g each day will have an array of fit times). Wasn't an issue in plotUnfit() because each day had a single value 
-        ## should pull this out maybe so it doesn't look as comnplicated
-        fitTimeValue = np.concatenate(fitTime[key],axis=None).ravel() 
-        sns.histplot(fitTimeValue, kde=True,
-                     label=key,ax=ax, alpha=0.5)  if key != 'Total' else None ## could fine tune the number of bins
-    for line in ax.lines:
-        line.set_color('black')      
+    plot = sns.histplot(data=df, x='sampling_time', hue='model',hue_order=models, 
+                legend='full', ax=ax, alpha=0.5)    
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
+    #ax.set_yscale('log')
     #ax.set_title('Sampling Times for Each Model') ## should these have titles?
-    ax.legend()
+    sns.kdeplot(data=df[df['fitBool']==True], x='sampling_time', hue='model',hue_order=models, 
+                ax=plot, alpha=0.5)
+    #ax.legend(labels= [model for model in df['model'].unique()], title='Model')
+    
     plt.savefig(plotDir("fitTimeHistModel",outdir=subdir)) if save else None
     plt.clf()
-    
-    ''' ## Currently not Functional
-    ## plot a histogram with stacked bars for each model
-    #fitTimePrime = {key:value for key, value in fitTime.items() if key != 'Total'} ## remove the total fit time for fitTimePrime
-    fitTimePrime = np.array([value.ravel() for key, value in fitTime.items() if key != 'Total']).T
-    print('shape of fitTimePrime: {}'.format(fitTimePrime.shape)) if args.verbose else None
-    fitTime_df = pd.DataFrame(fitTimePrime, columns=models) ## create a dataframe for the fit times
-    print('fitTime_df: {}'.format(fitTime_df)) if args.verbose else None
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    sns.histplot(data=fitTime_df, x='time', hue='model',
-                 multiple='stack',
-                 ax=ax, alpha=1, legend=True)
-    ax.set_xlabel("Sampling Times (s)")
-    ax.set_ylabel('Count')
-    #ax.set_title('Sampling Times for Each Model') ## should these have titles?
-    ax.legend()
-    plt.savefig(plotDir("fitTimeHistModelStacked")) if save else None
-    plt.clf()
-    '''
+
 
     ## plot histogram of total daily fit time
     totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    #sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
+    plot = sns.histplot(data=df, x='sampling_time', hue='model',hue_order=models, 
+                multiple='stack',legend='full', ax=ax, alpha=0.5)
     ax.set_xlabel("Sampling Times (s)")
     ax.set_ylabel('Count')
     #ax.set_title('Daily Sampling Times')
-    plt.savefig(plotDir("fitTimeHistTotal",outdir=subdir)) if save else None
+    plt.savefig(plotDir("fitTimeHistStack",outdir=subdir)) if save else None
     plt.clf()
 
     ## plot the daily average fit time for each model
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    for key, value in fitTime.items(): 
-        meanFitTime = [np.mean(fitDay) for fitDay in value]
-        ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
+    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    # for key, value in fitTime.items(): 
+    #     meanFitTime = [np.mean(fitDay) for fitDay in value]
+    #     ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
+
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+                multiple='layer',legend='full',ax=ax, alpha=1,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Average Daily Sampling Time') ## should these have titles?
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("dailyFitTimeAvg",outdir=subdir)) if save else None
     ## could do a version with std error bars as well
 
     ## plot the daily median fit time for each model
     fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
-    for key, value in fitTime.items():
-        medianFitTime = [np.median(fitDay) for fitDay in value]
-        plt.plot(dateList, medianFitTime, label=key)
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_median', hue='model',
+                multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Median Daily Sampling Time') ## should these have titles?
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedian",outdir=subdir)) if save else None
     plt.clf()
 
-    ## plot the daily median fit time for each model (rolling average)
-    for key, value in fitTime.items():
-        medianFitTime = pd.Series([np.median(fitDay) for fitDay in value])
-        plt.plot(dateList, medianFitTime.rolling(7).mean(), label=key)
+    ## plot the daily mean fit time for each model (rolling average)
+    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    sns.lineplot(data=df_f, x='startDate',y=df_f['sampling_time_avg'].rolling(7).mean(), hue='model', 
+                legend='full', ax=ax, alpha=0.5)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
     #ax.set_title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
-    ax.legend()
-    plt.savefig(plotDir("dailyFitTimeMedianRolling",outdir=subdir)) if save else None
+    #ax.legend()
+    plt.savefig(plotDir("dailyFitTimeMeanRolling",outdir=subdir)) if save else None
     plt.clf()
 
     ## plot the cumulative daily fit time for each model
@@ -1043,8 +1018,8 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
 
 
-plotCands(df=df,save=True)
-print('completed daily candidate plots (1)\n') if args.verbose else None
+# plotCands(df=df,save=True)
+# print('completed daily candidate plots (1)\n') if args.verbose else None
 
 # plotFits(df=df)
 # print('completed cumulative fit plot (2)\n') if args.verbose else None
@@ -1052,8 +1027,8 @@ print('completed daily candidate plots (1)\n') if args.verbose else None
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
 # plotLikelihood(df=df)
 # print('completed evidence plot (5)\n') if args.verbose else None
