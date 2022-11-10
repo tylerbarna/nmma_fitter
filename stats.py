@@ -341,7 +341,7 @@ def plotCands(df, save=True, outdir=args.outdir):
     #df_dc.to_csv('./df_daily.csv')
     
     ## plot number of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white') 
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white') 
     sns.lineplot(data=df_dc, x='stopDate', y='numCand', 
                  ax=ax, color='black', linewidth=2)
     plt.xticks(rotation=15)
@@ -363,7 +363,7 @@ def plotCands(df, save=True, outdir=args.outdir):
     plt.clf()
     
     #plot 7 day rolling average of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].rolling(7).mean(),
                  color='black',linewidth=2) ## note: this won't work with one week of data
     plt.xticks(rotation=15)
@@ -374,7 +374,7 @@ def plotCands(df, save=True, outdir=args.outdir):
     plt.clf()
     
     ## plot cumulative number of candidates per day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].cumsum(),
                  color='black',linewidth=2, ax=ax ) ## note: this won't work with one week of data
     plt.xticks(rotation=15)
@@ -440,7 +440,7 @@ def plotFits(df,models=args.models, save=True,outdir=args.outdir):
         
         ## plot cumulative number of fits for each model
         ## perhaps this could be a grid of subplots
-        fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+        fig, ax = plotstyle(figsize=(20,15), facecolor='white')
         ax.plot(dateList,modelCum, label=model)
         ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
         ax.set_xlabel("Date")
@@ -457,7 +457,7 @@ def plotFits(df,models=args.models, save=True,outdir=args.outdir):
         print('Keys in modelDict probably do not have the same length')
         pass
     ## now plot all models together
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in modelDict.items(): 
         ax.plot(dateList,value, label=key, alpha=0.7) if key != 'Total' else None## need to make a colormap for better visualization
     ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
@@ -474,7 +474,7 @@ def plotFits(df,models=args.models, save=True,outdir=args.outdir):
     plt.clf()
     
     ## plot the relative performance of each model against the others
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     rel_perf = {}
     for key, value in modelDict.items():
         if key == 'Total' or key == 'Piro2021':
@@ -550,7 +550,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
 
     ## data plotting
     ## plot the number of candidates that were not fit for each day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items(): ## one line conditional here is to exclude the total from the histogram
         ax.plot(dateList, value, label=key, alpha=0.6) if key != 'Total' else None
     ax.set_xlabel("Date")
@@ -562,7 +562,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
     
     ## plot a fraction of how many candidates were fit for each day (fit-unfit)/total
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items(): 
         fracFit = (fit[key]-value)/allfit[key]
         ax.plot(dateList, fracFit, label=key, alpha=0.8) if key != 'Total' else None
@@ -577,7 +577,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
 
     ## should fix styling as it's currently unclear
     ## plot histogram of number of candidates that were not fit for each day by model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items():
         sns.histplot(value, label=key,alpha=0.75, ax=ax) if key != 'Total' else None 
     ax.set_xlabel("Daily Unfit Count")
@@ -588,7 +588,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
 
     ## plot histogram of number of candidates that were not fit for each day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     sns.histplot(unfit['Total'], bins=20, ax=ax) ## could fine tune the number of bins
     ax.set_xlabel("Number Unfit")
     ax.set_ylabel('Count')
@@ -597,7 +597,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
 
     ## plot rolling average of number of candidates that were not fit for each day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items():
         ax.plot(dateList, pd.Series(value).rolling(7).mean(), label=key)
     ax.set_xlabel("Date")
@@ -609,7 +609,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
 
     ## plot cumulative number of candidates that were not fit for each day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items():
         ax.plot(dateList, np.cumsum(value), label=key)
     ax.set_xlabel("Date")
@@ -621,7 +621,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
    
     ## plot fraction of candidates that were not fit for each day
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in unfit.items():
         fracValue = value/allfit['Total']
         ax.plot(dateList, fracValue, label=key) if key != 'Total' else None
@@ -634,7 +634,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
 
     ## plot rolling average of fraction of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
     for key, value in unfit.items(): ## is this the correct method for rolling average ratio?
         fracValue =  pd.Series(value).rolling(7).mean()/pd.Series(allfit['Total']).rolling(7).mean()
         ax.plot(dateList, fracValue, label=key) if key != 'Total' else None
@@ -650,7 +650,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     ## this seems to be busted in some way 
     ## (actually, it might not be the most useful plot)
     ## plot cumulative fraction of candidates that were not fit for each day 
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
     for key, value in allfit.items():
         fracValue = np.cumsum(value)/np.cumsum(allfit['Total'])
         ax.plot(dayCount, np.cumsum(fracValue), label=key) if key != 'Total' else None
@@ -662,7 +662,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir): ## assume
     plt.clf()
     
     ## plot rolling average of cumulative fraction of candidates that were not fit for each day
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
     for key, value in allfit.items():
         fracValue = pd.Series(np.cumsum(value)).rolling(7).mean()/pd.Series(np.cumsum(allfit['Total'])).rolling(7).mean()
         ax.plot(dayCount, fracValue, label=key) if key != 'Total' else None
@@ -742,7 +742,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
 
     ## data plotting
     ## plot histogram of fit times for each model
-    fig, ax = plt.subplots(figsize=(8,6), facecolor='white')
+    fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
     plot = sns.histplot(data=df, x='sampling_time', hue='model',hue_order=models, 
                 legend='full', ax=ax, alpha=0.5)    
     ax.set_xlabel("Sampling Times (s)")
@@ -759,7 +759,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
 
     ## plot histogram of total daily fit time
     # totalDailyFitTime = np.concatenate(fitTime['Total'],axis=None).ravel()
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     #sns.histplot(totalDailyFitTime,ax=ax) ## could fine tune the number of bins
     plot = sns.histplot(data=df, x='sampling_time', hue='model',hue_order=models, 
                 multiple='stack',legend='full', ax=ax, alpha=0.5)
@@ -770,7 +770,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
 
     ## plot the daily average fit time for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     # for key, value in fitTime.items(): 
     #     meanFitTime = [np.mean(fitDay) for fitDay in value]
     #     ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
@@ -787,7 +787,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     ## could do a version with std error bars as well
 
     ## plot the daily median fit time for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_median', hue='model',
                 multiple='layer',legend='full',ax=ax, alpha=1,bins=69)
     ax.set_xlabel("Date")
@@ -799,7 +799,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
 
     ## plot the daily mean fit time for each model (rolling average)
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',
                        weights=df_f['sampling_time_avg'].rolling(7).mean(), hue='model',
                        multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
@@ -814,7 +814,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
 
     ## plot the cumulative daily fit time for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
                        multiple='layer',legend='full', cumulative=True,
                        ax=ax, alpha=0.5,bins=69)
@@ -827,7 +827,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
     
     ## plot the cumulative daily fit time for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
                        multiple='stack',legend='full', cumulative=True,
                        ax=ax, alpha=0.5,bins=69)
@@ -864,56 +864,74 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     #print('dayList: {}'.format(dayList)) if args.verbose else None
     #print('dateList: {}\n'.format(dateList)) if args.verbose else None
     
+    ## group by model and day
+    df_f = df[df['fitBool']==True].groupby(['startDate','stopDate','model'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    
+    df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
+    df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
+    #df_f.to_csv('test.csv')
+    #print(df_f['sampling_time_avg'])
+    
+    ## group by day
+    df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
+    df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
+    #df_fd.to_csv('test1.csv')
+    
     ## create dictionaries of fit times and likelihoods for each model
     fitTime = {} ## fit time
     fitEvid = {} ## fit evidence
     fitEvidErr = {} ## fit evidence error
     fitBayes = {} ## fit bayes factor
-    for dict, key in zip([fitTime, fitEvid, fitEvidErr, fitBayes], ['sampling_time','log_evidence', 'log_evidence_err', 'log_bayes_factor']):
-        for model in models: 
-            dict[model] = np.array([
-                df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)][key].to_numpy(copy=True).ravel() for day in dayList
-            ], dtype=object)
-            try: ## probably needs to be reshaped differently
-                dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
-            except:
-                dict[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
-                dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
-            #print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
-            print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
-        dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))],dtype=object)
-        #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
-        print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
-    ## try to convert this whole thing into a pandas dataframe
-    df1 = pd.DataFrame()
-    df1['day'] = dayList
-    dateList = df['stopDate'][dateIdx]
+    # for dict, key in zip([fitTime, fitEvid, fitEvidErr, fitBayes], ['sampling_time','log_evidence', 'log_evidence_err', 'log_bayes_factor']):
+    #     for model in models: 
+    #         dict[model] = np.array([
+    #             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)][key].to_numpy(copy=True).ravel() for day in dayList
+    #         ], dtype=object)
+    #         try: ## probably needs to be reshaped differently
+    #             dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
+    #         except:
+    #             dict[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
+    #             dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
+    #         #print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
+    #         print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
+    #     dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))],dtype=object)
+    #     #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
+    #     print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
+    # ## try to convert this whole thing into a pandas dataframe
+    # df1 = pd.DataFrame()
+    # df1['day'] = dayList
+    # dateList = df['stopDate'][dateIdx]
     
     
     ## data plotting
     ## list of marker types for plotting
     marker = itertools.cycle(('^','8','s','p','*','h','H','+','x','D','d','.')) 
     ## plot a histogram of the log evidence for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitEvid.items(): 
-        evidValue = np.concatenate(fitEvid[key],axis=None).ravel() 
-        sns.histplot(evidValue, kde=True,
-                     label=key, ax=ax, alpha=0.5) if key != 'Total' else None
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True,
+                        multiple='layer',legend='full',
+                        ax=ax, alpha=0.5)
+    # for key, value in fitEvid.items(): 
+    #     evidValue = np.concatenate(fitEvid[key],axis=None).ravel() 
+    #     sns.histplot(evidValue, kde=True,
+    #                  label=key, ax=ax, alpha=0.5) if key != 'Total' else None
     # for line in ax.lines:
     #     line.set_color('black')      
     ax.set_xlabel("Log Evidence")
     ax.set_ylabel('Count')
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("LogEvidenceHistModel",outdir=subdir)) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogEvidenceHistModelLog",outdir=subdir)) if save else None
     plt.clf()
     
     ## plot a histogram of the log evidence in total
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    evidTotal = np.concatenate(fitEvid['Total'],axis=None).ravel() 
-    sns.histplot(evidTotal, kde=True,
-                     ax=ax, alpha=0.5)
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True,
+                        multiple='stack',legend='full',
+                        ax=ax, alpha=1)
     # for line in ax.lines:
     #     line.set_color('black')      
     ax.set_xlabel("Log Evidence")
@@ -925,32 +943,30 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
     
     ## histogram of the log bayes factor for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitBayes.items(): 
-        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
-        sns.histplot(bayesValue, kde=True,
-                     label=key, ax=ax, alpha=0.5) if key != 'Total' else None
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df, x='log_bayes_factor', hue='model', kde=True,
+                        multiple='layer',legend='full',
+                        ax=ax, alpha=0.5)
     # for line in ax.lines:
     #     line.set_color('black')      
     ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Count')
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("LogBayesHistModel",outdir=subdir)) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogBayesHistModelLog",outdir=subdir)) if save else None
     plt.clf()
     
     ## scatter plot of bayes factor vs evidence for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitBayes.items(): 
-        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
-        evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
-        evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
-        ax.errorbar(x=bayesValue, y=evidValue, yerr=evidError, label=key, fmt='o', alpha=0.4) if key != 'Total' else None
-        #sns.scatterplot(evidValue, bayesValue, label=key) if key != 'Total' else None
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.scatterplot(data=df, x='log_bayes_factor',y='log_evidence', 
+                       hue='model',
+                       legend='full',
+                       ax=ax, alpha=0.5)
+        
     ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Log Evidence')
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("LogBayesEvidenceScatterModel",outdir=subdir)) if save else None
     ax.set_ylim(top=1)
     ax.set_yscale('symlog')
@@ -961,15 +977,14 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
     
     ## scatter plot of sampling time vs bayes factor for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitBayes.items(): 
-        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
-        timeValue = np.concatenate(fitTime[key],axis=None).ravel()
-        ax.plot(timeValue, bayesValue, label=key, 
-                alpha=0.2, marker = next(marker), linestyle='') if key != 'Total' else None
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.scatterplot(data=df, x='sampling_time',y='log_bayes_factor', 
+                       hue='model', style='model',
+                       legend=True,
+                       ax=ax, alpha=0.3)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Log Bayes Factor')
-    ax.legend()
+    #ax.legend()
     plt.savefig(plotDir("SamplingTimeBayesScatterModel",outdir=subdir)) if save else None
     ax.set_ylim(top=1)
     ax.set_yscale('symlog')
@@ -980,40 +995,76 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     plt.clf()
     
     ## kde plot of sampling time vs bayes factor for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitBayes.items(): 
-        bayesValue = np.concatenate(fitBayes[key],axis=None).ravel() 
-        timeValue = np.concatenate(fitTime[key],axis=None).ravel()
-        sns.kdeplot(x=timeValue, y=bayesValue, label=key,
-                    log_scale=(False, False), ax=ax, alpha=1) if key != 'Total' else None
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
+                       hue='model', fill=True,
+                       legend='full', #clip=((0,25000),(-500,0)),
+                       ax=ax, alpha=0.6)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Log Bayes Factor')
-    ax.legend()
-    #ax.set_ylim(top=1)
+    #ax.legend()
+    ax.set_xlim(right=25000)## presumes a certain max sampling time
     ax.set_ylim(bottom=-500)
-    # ax.set_xscale('symlog')
-    # ax.set_yscale('symlog')
+    sns.move_legend(plot, 'lower right')
     plt.savefig(plotDir("SamplingTimeBayesKDEModel",outdir=subdir)) if save else None
+    # ax.set_xscale('log')
+    # ax.set_yscale('symlog')
+    # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir)) if save else None
+    plt.clf()
+    
+    ## violin plot of sampling times for different models
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.violinplot(data=df, x='sampling_time',y='model',
+                          hue='model', split=False,
+                          legend=False, cut=0,
+                          ax=ax)
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Model')
+    
+    #ax.legend()
+    #ax.set_xlim(right=35000)## presumes a certain max sampling time
+    #ax.set_ylim(bottom=-500)
+    #sns.move_legend(plot, 'lower right')
+    plt.savefig(plotDir("SamplingTimeBayesViolin",outdir=subdir)) if save else None
+    ax.set_xscale('log')
+    plt.savefig(plotDir("SamplingTimeBayesViolinLog",outdir=subdir)) if save else None
+    plt.clf()
+    
+    ## box plot of sampling times for different models
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.boxplot(data=df, x='sampling_time',y='model',
+                          hue='model', 
+                          ax=ax)
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Model')
+    
+    #ax.legend()
+    #ax.set_xlim(right=35000)## presumes a certain max sampling time
+    #ax.set_ylim(bottom=-500)
+    #sns.move_legend(plot, 'lower right')
+    plt.savefig(plotDir("SamplingTimeBayesBox",outdir=subdir)) if save else None
+    ax.set_xscale('log')
+    plt.savefig(plotDir("SamplingTimeBayesBoxLog",outdir=subdir)) if save else None
     plt.clf()
     
     ## scatter plot of sampling time vs evidence for each model
-    fig, ax = plotstyle(figsize=(8,6), facecolor='white')
-    for key, value in fitTime.items(): 
-        evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
-        timeValue = np.concatenate(fitTime[key],axis=None).ravel()
-        evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
-        ax.errorbar(x=timeValue, y=evidValue, yerr=evidError, label=key,fmt='o', alpha=0.4) if key != 'Total' else None
-    ax.set_xlabel("Sampling Time (s)")
-    ax.set_ylabel('Log Evidence')
-    ax.legend()
-    plt.savefig(plotDir("SamplingTimeEvidenceScatterModel",outdir=subdir)) if save else None
-    ax.set_ylim(top=1)
-    ax.set_yscale('symlog')
-    plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLog",outdir=subdir)) if save else None
-    ax.set_xscale('symlog')
-    ax.set_xlim(left=0)
-    plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLogLog",outdir=subdir)) if save else None
-    plt.clf()
+    # fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    # for key, value in fitTime.items(): 
+    #     evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
+    #     timeValue = np.concatenate(fitTime[key],axis=None).ravel()
+    #     evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
+    #     ax.errorbar(x=timeValue, y=evidValue, yerr=evidError, label=key,fmt='o', alpha=0.4) if key != 'Total' else None
+    # ax.set_xlabel("Sampling Time (s)")
+    # ax.set_ylabel('Log Evidence')
+    # ax.legend()
+    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModel",outdir=subdir)) if save else None
+    # ax.set_ylim(top=1)
+    # ax.set_yscale('symlog')
+    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLog",outdir=subdir)) if save else None
+    # ax.set_xscale('symlog')
+    # ax.set_xlim(left=0)
+    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLogLog",outdir=subdir)) if save else None
+    # plt.clf()
     
     print('completed likelihood plotting') if args.verbose else None
     print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
@@ -1044,8 +1095,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df)
+# print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df)
-# print('completed evidence plot (5)\n') if args.verbose else None
+plotLikelihood(df=df)
+print('completed evidence plot (5)\n') if args.verbose else None
