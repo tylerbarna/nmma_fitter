@@ -839,6 +839,41 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     plt.savefig(plotDir("cumFitTimeStack",outdir=subdir)) if save else None
     plt.clf()
     
+    ## violin plot of sampling times for different models
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.violinplot(data=df, x='sampling_time',y='model',
+                          hue='model', split=False,
+                          legend=False, cut=0,
+                          ax=ax)
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Model')
+    
+    #ax.legend()
+    #ax.set_xlim(right=35000)## presumes a certain max sampling time
+    #ax.set_ylim(bottom=-500)
+    #sns.move_legend(plot, 'lower right')
+    plt.savefig(plotDir("SamplingTimeViolin",outdir=subdir)) if save else None
+    ax.set_xscale('log')
+    plt.savefig(plotDir("SamplingTimeViolinLog",outdir=subdir)) if save else None
+    plt.clf()
+    
+    ## box plot of sampling times for different models
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.boxplot(data=df, x='sampling_time',y='model',
+                          hue='model', 
+                          ax=ax)
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Model')
+    
+    #ax.legend()
+    #ax.set_xlim(right=35000)## presumes a certain max sampling time
+    #ax.set_ylim(bottom=-500)
+    #sns.move_legend(plot, 'lower right')
+    plt.savefig(plotDir("SamplingTimeBox",outdir=subdir)) if save else None
+    ax.set_xscale('log')
+    plt.savefig(plotDir("SamplingTimeBoxLog",outdir=subdir)) if save else None
+    plt.clf()
+    
     
     print('completed sampling times plotting') if args.verbose else None
     print('time to plot sampling times: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
@@ -1030,9 +1065,9 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir)) if save else None
     plt.clf()
     
-    ## violin plot of sampling times for different models
+    ## violin plot of bayes factor for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.violinplot(data=df, x='sampling_time',y='model',
+    plot = sns.violinplot(data=df, x='log_bayes_factor',y='model',
                           hue='model', split=False,
                           legend=False, cut=0,
                           ax=ax)
@@ -1043,14 +1078,15 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
-    plt.savefig(plotDir("SamplingTimeBayesViolin",outdir=subdir)) if save else None
-    ax.set_xscale('log')
-    plt.savefig(plotDir("SamplingTimeBayesViolinLog",outdir=subdir)) if save else None
+    plt.savefig(plotDir("BayesViolin",outdir=subdir)) if save else None
+    ax.set_xscale('symlog')
+    ax.set_xlim(right=1)
+    plt.savefig(plotDir("BayesViolinLog",outdir=subdir)) if save else None
     plt.clf()
     
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.boxplot(data=df, x='sampling_time',y='model',
+    plot = sns.boxplot(data=df, x='log_bayes_factor',y='model',
                           hue='model', 
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
@@ -1060,10 +1096,14 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
-    plt.savefig(plotDir("SamplingTimeBayesBox",outdir=subdir)) if save else None
-    ax.set_xscale('log')
-    plt.savefig(plotDir("SamplingTimeBayesBoxLog",outdir=subdir)) if save else None
+    plt.savefig(plotDir("BayesBox",outdir=subdir)) if save else None
+    ax.set_xscale('symlog')
+    ax.set_xlim(right=1)
+    plt.savefig(plotDir("BayesBoxLog",outdir=subdir)) if save else None
     plt.clf()
+    
+    
+    
     
     ## scatter plot of sampling time vs evidence for each model
     # fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -1113,8 +1153,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
 plotLikelihood(df=df)
 print('completed evidence plot (5)\n') if args.verbose else None
