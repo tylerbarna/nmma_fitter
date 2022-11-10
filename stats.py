@@ -997,6 +997,24 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     ## kde plot of sampling time vs bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
+                       hue='model', fill=False,
+                       legend='full', #clip=((0,25000),(-500,0)),
+                       ax=ax, alpha=1)
+    ax.set_xlabel("Sampling Time (s)")
+    ax.set_ylabel('Log Bayes Factor')
+    #ax.legend()
+    ax.set_xlim(right=25000)## presumes a certain max sampling time
+    ax.set_ylim(bottom=-500)
+    sns.move_legend(plot, 'lower right')
+    plt.savefig(plotDir("SamplingTimeBayesKDEModel",outdir=subdir)) if save else None
+    # ax.set_xscale('log')
+    # ax.set_yscale('symlog')
+    # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir)) if save else None
+    plt.clf()
+    
+    ## kde plot of sampling time vs bayes factor for each model
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
                        hue='model', fill=True,
                        legend='full', #clip=((0,25000),(-500,0)),
                        ax=ax, alpha=0.6)
@@ -1006,7 +1024,7 @@ def plotLikelihood(df, models=args.models, save=True,outdir=args.outdir):
     ax.set_xlim(right=25000)## presumes a certain max sampling time
     ax.set_ylim(bottom=-500)
     sns.move_legend(plot, 'lower right')
-    plt.savefig(plotDir("SamplingTimeBayesKDEModel",outdir=subdir)) if save else None
+    plt.savefig(plotDir("SamplingTimeBayesKDEModelFill",outdir=subdir)) if save else None
     # ax.set_xscale('log')
     # ax.set_yscale('symlog')
     # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir)) if save else None
