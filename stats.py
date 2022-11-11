@@ -19,6 +19,7 @@ import time
 import matplotlib as mpl
 import matplotlib.dates as dates
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -376,7 +377,7 @@ def plotCands(df, save=True, outdir=args.outdir):
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].cumsum(),
-                 color='black',linewidth=2, ax=ax ) ## note: this won't work with one week of data
+                 color='black',linewidth=2, ax=ax ) 
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
@@ -712,13 +713,16 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     
     df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
     df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
+    df_f['sampling_time_total'] = [np.sum(timeset) for timeset in df_f['sampling_time']]
     #df_f.to_csv('test.csv')
     #print(df_f['sampling_time_avg'])
     
     ## group by day
     df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fd['numCand'] = [len(cand) for cand in df_fd['cand']]
     df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
     df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
+    df_fd['sampling_time_total'] = [np.sum(timeset) for timeset in df_fd['sampling_time']]
     #df_fd.to_csv('test1.csv')
     
     ## create a dictionary of fit times for each model
@@ -815,7 +819,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
 
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_total', hue='model',
                        multiple='layer',legend='full', cumulative=True,
                        ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
@@ -828,7 +832,7 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+    plot= sns.histplot(data=df_f, x=df_fd['startDate'],weights='sampling_time_total', hue='model',
                        multiple='stack',legend='full', cumulative=True,
                        ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
@@ -837,13 +841,33 @@ def plotSamplingTimes(df, models=args.models, save=True,outdir=args.outdir):
     #ax.set_title('Cumulative Sampling Time') ## should these have titles?
     #ax.legend()
     plt.savefig(plotDir("cumFitTimeStack",outdir=subdir)) if save else None
+    ax2 = plt.twinx()
+    sns.lineplot(data=df_fd, x='startDate', y=df_fd['numCand'].cumsum()/2,
+                 color='black',linewidth=4, ax=ax2 ) ## not sure why it's double counting, dividing by 2 is a quick fix
+    # fix the axis tick allignment issues
+    nticks = 10
+    ax.yaxis.set_major_locator(ticker.LinearLocator(nticks))
+    ax2.yaxis.set_major_locator(ticker.LinearLocator(nticks))
+    ax.set_ylim(0,4.5e6)
+    ax2.set_ylim(0,2700)
+    ax2.set_ylabel('Cumulative Candidates')
+    plt.savefig(plotDir("cumFitTimeStackWithCands",outdir=subdir)) if save else None
     plt.clf()
+    
+    ## ecdf plot of sampling times by model
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', 
+                        legend='full',linewidth=4, ax=ax)
+    ax.set_xlabel("Sampling Time (s)")
+    plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir)) if save else None
+    ax.set_xscale('log')
+    plt.savefig(plotDir("samplingTimeDistModelLog",outdir=subdir)) if save else None
     
     ## violin plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.violinplot(data=df, x='sampling_time',y='model',
-                          hue='model', split=False,
-                          legend=False, cut=0,
+    plot = sns.violinplot(data=df, x='sampling_time',y='model',hue='model',
+                        split=False,
+                          legend=True, cut=0,
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Model')
