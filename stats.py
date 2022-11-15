@@ -1095,7 +1095,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='p
                           hue='model', split=False,
                           legend=False, cut=0,
                           ax=ax)
-    ax.set_xlabel("Sampling Time (s)")
+    ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Model')
     
     #ax.legend()
@@ -1113,7 +1113,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='p
     plot = sns.boxplot(data=df, x='log_bayes_factor',y='model',
                           hue='model', 
                           ax=ax)
-    ax.set_xlabel("Sampling Time (s)")
+    ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Model')
     
     #ax.legend()
