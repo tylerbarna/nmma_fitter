@@ -76,7 +76,7 @@ else:
 
 
 ## Utility functions
-def plotDir(name,outdir=args.outdir,ext=".png",): ## might be good to organize different plot types into subdirectories, but doesn't have to be an argument here
+def plotDir(name,outdir=args.outdir,ext=".png"): ## might be good to organize different plot types into subdirectories, but doesn't have to be an argument here
     '''
     check for existence of plot directory and create if needed, then return full path for saving figure
     
@@ -902,7 +902,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     print('completed sampling times plotting') if args.verbose else None
     print('time to plot sampling times: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
  
-def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='png'):
+def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     '''
     Plot the log_evidence and log_bayes_factor statistics for the given dataframe.
 
