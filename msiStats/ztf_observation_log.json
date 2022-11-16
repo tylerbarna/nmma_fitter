@@ -1,0 +1,2795 @@
+{"Entries":
+[
+   {
+      "Name":"Header",
+      "IssueType":"Either weather, maintenance (planned/routine), instrument (disruptive maintenance, problems, etc), software, or pipeline",
+      "Date":["Dates are in UTC, corresponds to NightDate value. Either single night paired with null to indicate sinngle night issue, inclusive range of nights, or single night and 64 to indicate ongoing problem."],
+      "Weather":"Weather is either cloudy, precip, or null",
+      "Observed":"Observed is Bool",
+      "Removed":"Removed is Bool",
+      "Notes":"Notes are explanation/detail.",
+      "DataToIPAC":"DataToIPAC is Bool",
+      "IssueCuts":{
+	"RCid":{"rcid_problem":["timestamp start", "timestamp end"]},
+	"Filter":{"fid_problem":["timestamp start", "timestamp end"]},
+	"Other":{"problem":["timestamp start", "timestamp end"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"pipeline",
+      "Date": ["2018-01-31",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Power outage at IPAC",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-02-10",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Changed Header information: parallel observations could not clear Header data. Stopped for the night",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-03-10",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "R fixed filter images taken with G filter",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{"g":["2018-03-10T00:00", "2018-03-10T12:00"]},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-04-04",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Replaced PolyCold Compressor for SW cooler/ Too warm to observe",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-04-05",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter opening fault/failure",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-04-13",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Mosaic archon dropping into infinite loop waiting for readout, stopped operations for the night",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-04-15",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter/ Hexapod errors: failure to start up and/or keep running",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-02-17",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Focus and calibration testing; failure on control computer system disk - restarted",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-02-21",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Focuser CCD testing; Power switch faults for Shutter and Mosaic",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-03-03",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "ROS update and filter exchanger testing",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-03-08",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "FITS daemon did not start up, causing an ingest failure at the pipeline level. Headers incorrect, system fixed upon restart",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-03-22",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Scheduler issue - bug kept fallback observations from joining queue",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2018-04-03",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS update; bad weather",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-04-12",null],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": "Engineering Maintenance",
+      "Notes": "Replacement of pressure gauge",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-04-25",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Observations with no filter after 7:30 (12:30 PST)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all":["2018-04-25T07:30","2018-04-25T16:00"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-05-02",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Guide camera error",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-05-03",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Shutter and Filter Exchanger issues",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-05-05",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "TCS communication failure around 9:00 UT",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-05-08",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS update caused a problem with the FITS headers",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-05-10",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter and Filter exchanger failure around 9:00 UT",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-05-30",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Camera errors/focus calculation error: had problems with manual focus run",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-06-04",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Failure and delayed reset of Archon2 camera",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-06-06",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Power to Archon2 failed. Operated with 3/4 mosaic",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-06-22",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Power glitch at the beginning of the night caused P48 to be restarted; monitor system down causing FITS headers to not be processed",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-06-28",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter communication failed at beginning of night",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2018-07-02",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Scheduler problem: time window on special queue hit TCS limit",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-08-05",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "TCS system reset caused DEC offset around 2500 arcsec",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-08-09",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Closed due to ash from the Temcula area wildfire",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-08-28",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "G and I filters switched in their slots",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{"g":["2018-08-28T00:00","2018-08-28T16:00"],
+		   "i":["2018-08-28T00:00","2018-08-28T16:00"]},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-09-19",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Focusing issue; back bias accidentally switched off",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-09-30",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Vacuum thermal issue",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-10-09",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Runaway temp on cryo cooler",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-10-11","2018-10-30"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": true,
+      "Notes": "Maintenance for cryo cleaning; Instrument returned to campus for cleaning. Observing started on 2018-10-31.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2018-11-11",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Closed due to ash from the Malibu area Wildfire",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-11-24",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed":false,
+      "Notes": "Filter exchanger failure",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-11-25",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed":false,
+      "Notes": "Filter exchanger failure; Fixed filter in R",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-11-30","2018-12-01"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Power glitch at P48. Caused filter exchanger problems.",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-12-03",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure; No filter at start, ended fixed filter in R",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-12-07",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cryo cleaning",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-12-11",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cryo cleaning; cryo temperature too high to observe",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2018-12-23",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter timing issue around 7:00 UT (12:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2018-12-25","2018-12-26"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Closed for Christmas",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-01-27",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Focus Archon stopped responding around 7:00 UT; ROS could not reset it",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-02-20",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "TCS communication failure; Filter exchanger stuck after attempted change not at SStow",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-03-14","2019-03-15"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Archon3 status check problem; operating with 3/4 good mosaic",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-03-17",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Problems with Archon1 and Archon3; operating with 3/4 mosaic after Archon3 could not reset",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-03-22",null],
+      "Weather": "precip",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Dome encoder issue",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-03-23",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Closed for Dome and TCS controller repair/testing",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-06-25",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-09-05",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Archon4 power supply issue",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-09-28",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Archon3 power supply issue",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-10-22",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Waveform Change -> Charge linearity changes",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all": ["2019-10-22T00:00:00","2019-10-22T16:00:00"]}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2019-10-24",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Dome painted",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-11-22","2019-11-23"],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Faulty limit switch on the Shutter, belt inspection/replacement",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-11-26",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter stuck in open position",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-12-06",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter stuck in open position until about 8:00 UT (1:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2019-12-09",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Archon 1 down. No science observations",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2019-12-25","2019-12-26"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Closed for Christmas",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-01-26",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "HA drive fault around 9:30 UT (2:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"pipeline",
+      "Date": ["2020-01-29",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Dead network switch at IPAC/IRSA",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-02-17",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure/ Docking issue",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-03-11",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Driveshaft coupling slipped on Shutter, no observations taken",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-04-03",null],
+      "Weather": "precip",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "NPS for Kuka arm and guide cam lost power",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-04-24",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "TCS communication failure; Fixed filter observed in G",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-05-15",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filterless images: system did not install I filter when needed",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all":["2020-05-15T00:00:00.0","2020-05-15T16:00:00.0"]}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2020-06-04",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2020-06-10",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Closed due to ash from Camp Pendleton area wildfire",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-06-15",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Shutter stuck in closed position until around 4:00 UT (9:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-06-21",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Arcon computer controlling shutter and cam1 died, replaced with spare",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },   
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-07-28",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "TCS fault; P48 stuck at south stow",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"pipeline",
+      "Date": ["2020-08-09",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "IPAC LDAP problem stopped IRSA ingest around 9:00 UT (2:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2020-08-12",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Mirror and tube walls cleaned",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2020-08-19",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-10-09",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "CCD Thermal runaway",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2020-10-28",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2020-12-08",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Power glitched caused KUKA arm to be disabled. Fixed filter mode in G",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2020-12-25","2020-12-26"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Closed for Christmas",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-02-18",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-03-06",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Kuka arm obstruction when changing filters: outside cloth skirt got stuck in slot 3",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-03-26",null],
+      "Weather": "precip",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Kuka arm did not start up after power outage",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-04-27",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cryo cooling cycle",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-05-27",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-08-04",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-08-06",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Dome never opened, telescope not initialized",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-08-10",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "P48 observing floor clean-up/look over on cryo-line replacement/ scheduled weekday maintenance etc",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-08-25",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-09-28","2021-09-29"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Shutter problems; Corrector cleaning",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-10-18",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway; Cryo-cycled",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-10-26",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway; Cryo-cycled",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-11-11",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway; Shut down for the night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-11-18",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway; Shut down for the night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2021-11-24",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-11-25",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Thermal runaway; Shut down for the night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-11-30",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cryo Pressure too low and temp too high",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2021-12-13","2022-01-14"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": true,
+      "Notes": "Instrument taken off telescope for cleaning/shutter maintenance; Shutter closing in non-parallel; Cryo system cleaning/maintenance and shutter maintenance.",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-01-18",null],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-01-19",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Shutter not homing properly",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-01-20","2022-01-25"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Ice Streaking due to coolant leak and zeolite contamination",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{"rc12":["2022-01-20","2022-01-25"]},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-01-22",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Kuka arm failure/ Concern regarding zeolite contamination and their risk to the bond wires closed operations for the night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-01-25","2022-02-10"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": true,
+      "Notes": "ZTF returned to campus to clean out zeolite contamination; Zeolite pelets breaking into small fragments; concern they will lodge somewhere or damage CCDs; ZTF returned to Palomar on 02-10.",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-02-15","2022-03-03"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "zeolite contamination",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{"rc63":["2022-02-15","2022-02-17"],
+		 "rc17":["2022-02-16","2022-02-22"],
+		 "rc38":["2022-02-27","2022-03-03"],
+		 "rc57":["2022-03-03T00:00","2022-03-03T16:00"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-03-13","2022-03-31"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": true,
+      "Notes": "Camera returned to Cahill for zeolite removal/hexapod repair. Installation started 2022-03-30, finished 2022-03-31 ",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-04-01","2022-04-04"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": true,
+      "Notes": "Camera installation finished, focusing finished, observing started. Retrospective: Flats are oversaturated due to wrong waveform.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"zg_flats":["2022-04-01","2022-04-04"],
+		  "zr_flats":["2022-04-01","2022-04-04"],
+		  "zi_flats":["2022-04-01","2022-04-04"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-04-05","2022-04-11"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Flat power changed to 0.75 of normal due to reduced capacity of rc well from 60kDN -> 47kDN (waveform set to zztf_science)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-04-12",null],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "High humidity. Dome never opened. Waveform reverted from day-testing (zztf_science -> ztf_science), thus restoring 60kDN well capacity.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-04-13",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Flatfield illuminator power changed back to 100% (from 75%), lead to oversaturated I band flats.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"zi_flats":["2022-04-13T00:00","2022-04-13T16:00"]}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-04-14",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Flatfield illuminator power reduced to 75% for forseeable future.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-04-22",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "High humidity and clouds after 4:00 (9:00PST). Corrector cleaning.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-04-23",null],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "High humidity all night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-04-29",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "High humidity and clouds until 8:00 (1:00PST)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-02",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger latch error in slot 3 (G band). Night left to fixed-filter observing in G-band",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-03",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger error with I-band filter; only observed in R and G",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-04",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger error would not let ROS restart; R and G data up to midnight",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-05",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Filter exchanger/Kuka arm remotely unresponsive; Closed due to arm stuck in filter cabinet",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-08",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger/Kuka arm unresponsive; left to observe in fixed filter R",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-16",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger/Kuka arm unresponsive; observations ended early",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-17",null],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Filter exchanger/Kuka arm testing continued",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-18",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger/Kuka arm issues; observations ended early",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-05-21","2022-05-22"],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Single Filter R. 05-21: High humidity until around 11:00 UT (4:00 PDT). 05-22: High humidity until around 7:00 UT (12:00 PDT).",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"pipeline",
+      "Date": ["2022-05-23",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Continued single filter G observing. IPAC KAFKA system didn't send any alerts.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"kafka_alerts":["2022-05-23T00:00","2022-05-23T16:00"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-05-26",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-05-27",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Reflectivity measurments",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-05-29",null],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "High humidity all night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-05-30",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "High humidity until around 9:00 UT (2:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"pipeline",
+      "Date": ["2022-06-09",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Power outage at Caltech",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-06-14",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "High humidity until around 8:30 UT (1:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-06-15","2022-06-16"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cryo cooling cycle; delay from leaking O-ring on supply connection.",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-06-22",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-06-23",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "IPAC bad pixel masks updated",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-06-24",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure changing from G to I filter. Arm stuck between positions; observing stopped",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-06-26",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure changing from R to G, arm appeared to be stuck, self corrected.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2022-06-27",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS Data System issues after observing. Manual shutdown required.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-06-28",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS Data System issues: Disk full. Later: Filter exchanger failure while changing out R filter; arm stuck in front of camera affecting images. IPAC Sci data purged.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all":["2022-06-28T08:00","2022-06-28T16:00"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-06-30",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure while changing to R filter; arm stuck in front of camera affecting images. IPAC Sci data purged.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all":["2022-06-30T08:00","2022-06-30T16:00"]}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-07-02",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure while changing to I filter. Exchange was successful but resulted in public data with I filter.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-07-07",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure early in night (21:28PDT), observing was stopped and no further images were taken.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-07-08","2022-07-11"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "KUKA arm sensor issues (sensors not mastered). Fixed filter mode enabled with G filter attached.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      } 
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-07-12","2022-07-19"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "KUKA arm sensor issues (sensors not mastered). Fixed filter mode enabled with R filter attached; cooling/compressors issue morning (2022-07-12).",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2022-07-17",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS watchdog crash around 5:30 UT (10:30 PDT), system not reset",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-07-20",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Fixed filter mode enabled with G filter attached; G images processed as R until ~5:00 UT (10:00 PDT); clouds after ~7:00 UT (12:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"software",
+      "Date": ["2022-07-21",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Scheduler error caused ROS to reset to FIXED filter in G around 5:30 UT (10:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-07-28",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Weather closure from clouds between 4:30-6:00 UT (9:30-11:00 PDT) and between 7:45-9:00 UT (12:45-2:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-07-31",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Weather closure from clouds after about 6:00 UT (11:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-08-01",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Weather closure from clouds; only observed from about 5:30-7:00 UT (10:30-12:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"maintenance",
+      "Date": ["2022-08-02",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Corrector cleaning",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-08-04",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Weather closure from clouds up until around 7:30 UT (12:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-08-08",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure moving from R to G; no observations taken after about 5:30 UT (10:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-08-09",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Cloudy weather until about 8:00 UT (1:00 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-08-12",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Cloudy weather until from about 5:00-8:15 UT (10:00-1:15 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-08-13",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Cloudy most of the night except between 4:20-4:40 UT (9:20-9:40 PDT) and between 9:30-10:30 UT (2:30-3:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-08-29",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Archon 1 power problems; Shutter had some issues; night stopped for filter arm failure moving from G to R",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-05",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "ROS didn't startup initially; cam3 needed resetting",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-09-06","2022-09-07"],
+      "Weather": "fire",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Closed dome for part of night due to nearby fire",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-08",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchanger failure moving from I to R around 5:00 UT (10:00 PDT). Stopped for the night",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-09-09","2022-09-14"],
+      "Weather": "cloudy",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Cloudy all night; Did not open",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-12","2022-09-14"],
+      "Weather": "precip",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Shutter issues prevented calibrations from finishing",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-13","2022-10-02"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Intermittent issues with size of images on some images from ccds 10 and 14, rcids [52,55,36,39].",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{"rc36":["2022-09-13","2022-10-02"],
+		 "rc39":["2022-09-13","2022-10-02"],
+		 "rc52":["2022-09-13","2022-10-02"],
+	         "rc55":["2022-09-13","2022-10-02"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-15","2022-09-16"],
+      "Weather": null,
+      "Observed": false,
+      "Removed": false,
+      "Notes": "Filter exchager failure at start of the night. Closed for the night; High humidity",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-09-17","2022-09-19"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Filter exchager issues. Observed in fixed filter G",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-09-22",null],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "High humidity after about 8:30 UT (1:30 PDT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-04",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Archon 4 replaced due to issues with CCDs 10 and 14",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-05","2022-10-07"],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Consistent issues with content of files on some images from ccds 10 and 14, rcids [37,38,53,54]. All files flagged by IPAC, but not rejected.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{"rc37":["2022-10-05","2022-10-07"],
+                 "rc38":["2022-10-05","2022-10-07"],
+                 "rc53":["2022-10-05","2022-10-07"],
+                 "rc54":["2022-10-05","2022-10-07"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-10-16",null],
+      "Weather": "precip",
+      "Observed": false,
+      "Removed": false,
+      "Notes": "High humidity and thunderstorms all night",
+      "DataToIPAC": false,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-17", null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Consistent issues with content of files on some images from ccds [1,2,5,6]. All files flagged by IPAC, but not rejected.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ 
+		 "rc00":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc01":["2022-10-17T03:40","2022-10-17T16:00"],
+                 "rc02":["2022-10-17T03:40","2022-10-17T16:00"],
+                 "rc03":["2022-10-17T03:40","2022-10-17T16:00"],
+                 "rc04":["2022-10-17T03:40","2022-10-17T16:00"],
+	         "rc05":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc06":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc07":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc16":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc17":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc18":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc19":["2022-10-17T03:40","2022-10-17T16:00"],
+	         "rc20":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc21":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc22":["2022-10-17T03:40","2022-10-17T16:00"],
+		 "rc23":["2022-10-17T03:40","2022-10-17T16:00"]
+	       },
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-21",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Cooler power(?)cable was loose -> 2 million alerts generated by IPAC pipeline, upwards of 50% were bogus artifacts. ",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{"all":["2022-10-21T0:00","2022-10-21T16:00"]}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-10-23","2022-10-24"],
+      "Weather": "precip",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "10-23: High humidity and rain, no observations; 10-24: High humidity and rain until about 12:00 PDT (7:00 UCT)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-24",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inonsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. 28 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc33":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc34":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc35":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc36":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc37":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc38":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc39":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc48":["2022-10-24T03:40","2022-10-24T05:50"],
+                 "rc49":["2022-10-24T03:40","2022-10-24T05:50"],
+	         "rc50":["2022-10-24T03:40","2022-10-24T05:50"],
+	         "rc51":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc52":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc53":["2022-10-24T03:40","2022-10-24T05:50"],
+		 "rc54":["2022-10-24T03:40","2022-10-24T05:50"],
+	         "rc55":["2022-10-24T03:40","2022-10-24T05:50"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-27",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. 32 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc33":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc34":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc35":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc36":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc37":["2022-10-27T03:07","2022-10-27T03:33"],
+	         "rc38":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc39":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc48":["2022-10-27T03:07","2022-10-27T03:33"],
+                 "rc49":["2022-10-27T03:07","2022-10-27T03:33"],
+	         "rc50":["2022-10-27T03:07","2022-10-27T03:33"],
+	         "rc51":["2022-10-27T03:07","2022-10-27T03:33"],
+	         "rc52":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc53":["2022-10-27T03:07","2022-10-27T03:33"],
+		 "rc54":["2022-10-27T03:07","2022-10-27T03:33"],
+	         "rc55":["2022-10-27T03:07","2022-10-27T03:33"]},
+        "Filter":{},
+        "Other":{}
+      },
+      {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-10-30",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. 24 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc33":["2022-10-30T08:39","2022-10-30T08:57"],
+	         "rc34":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc35":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc36":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc37":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc38":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc39":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc48":["2022-10-30T08:39","2022-10-30T08:57"],
+                 "rc49":["2022-10-30T08:39","2022-10-30T08:57"],
+	         "rc50":["2022-10-30T08:39","2022-10-30T08:57"],
+	         "rc51":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc52":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc53":["2022-10-30T08:39","2022-10-30T08:57"],
+		 "rc54":["2022-10-30T08:39","2022-10-30T08:57"],
+	         "rc55":["2022-10-30T08:39","2022-10-30T08:57"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-11-01","2022-11-03"],
+      "Weather": "cloudy",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "11-01: Cloudy until about 12:00 UT (5:00 PDT); 11-02: Cloudy through most of the night, some chunks where telescope opened; 11-03: High humidity and clouds all night",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-11-02",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. 24 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc33":["2022-11-02T05:00","2022-11-02T05:20"],
+	         "rc34":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc35":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc36":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc37":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc38":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc39":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc48":["2022-11-02T05:00","2022-11-02T05:20"],
+                 "rc49":["2022-11-02T05:00","2022-11-02T05:20"],
+	         "rc50":["2022-11-02T05:00","2022-11-02T05:20"],
+	         "rc51":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc52":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc53":["2022-11-02T05:00","2022-11-02T05:20"],
+		 "rc54":["2022-11-02T05:00","2022-11-02T05:20"],
+	         "rc55":["2022-11-02T05:00","2022-11-02T05:20"]},
+        "Filter":{},
+        "Other":{}
+      }
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-11-02",64],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Consistent, sequential problems with science images on RC [8,9,12,13,24,25,28,29]. Flagged at IPAC as containing too many streaks. Possibly due to edge artifacts pipeline is detecting as streaks.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc08":["2022-11-02","2022-11-06T08:40"],
+		 "rc09":["2022-11-02","2022-11-06T08:40"],
+	         "rc12":["2022-11-02","2022-11-06T08:40"],
+	         "rc13":["2022-11-02","2022-11-06T08:40"],
+	         "rc24":["2022-11-02","2022-11-06T08:40"],
+	         "rc25":["2022-11-02","2022-11-06T08:40"],
+	         "rc28":["2022-11-02","2022-11-06T08:40"],
+	         "rc29":["2022-11-02","2022-11-06T08:40"]},
+        "Filter":{},
+        "Other":{}
+   },
+   {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-11-04",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. ~60 exposures impacted. G band flats also impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc33":["2022-11-04T02:44","2022-11-04T09:48"],
+	         "rc34":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc35":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc36":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc37":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc38":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc39":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc48":["2022-11-04T02:44","2022-11-04T09:48"],
+                 "rc49":["2022-11-04T02:44","2022-11-04T09:48"],
+	         "rc50":["2022-11-04T02:44","2022-11-04T09:48"],
+	         "rc51":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc52":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc53":["2022-11-04T02:44","2022-11-04T09:48"],
+		 "rc54":["2022-11-04T02:44","2022-11-04T09:48"],
+	         "rc55":["2022-11-04T02:44","2022-11-04T09:48"]},
+        "Filter":{},
+        "Other":{}
+    },
+    {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-11-05",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. ~30 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc33":["2022-11-05T04:40","2022-11-05T05:04"],
+	         "rc34":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc35":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc36":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc37":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc38":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc39":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc48":["2022-11-05T04:40","2022-11-05T05:04"],
+                 "rc49":["2022-11-05T04:40","2022-11-05T05:04"],
+	         "rc50":["2022-11-05T04:40","2022-11-05T05:04"],
+	         "rc51":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc52":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc53":["2022-11-05T04:40","2022-11-05T05:04"],
+		 "rc54":["2022-11-05T04:40","2022-11-05T05:04"],
+	         "rc55":["2022-11-05T04:40","2022-11-05T05:04"]},
+        "Filter":{},
+        "Other":{}
+    },
+    {
+      "Name":"Entry",
+      "IssueType":"instrument",
+      "Date": ["2022-11-06",null],
+      "Weather": null,
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Multiple inconsistent matrix style readout issues seen on ccds [09,10,13,14] (archon 4). Files flagged by IPAC, but not rejected. ~50 exposures impacted.",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{ "rc32":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc33":["2022-11-06T02:00","2022-11-06T06:00"],
+	         "rc34":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc35":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc36":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc37":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc38":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc39":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc48":["2022-11-06T02:00","2022-11-06T06:00"],
+                 "rc49":["2022-11-06T02:00","2022-11-06T06:00"],
+	         "rc50":["2022-11-06T02:00","2022-11-06T06:00"],
+	         "rc51":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc52":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc53":["2022-11-06T02:00","2022-11-06T06:00"],
+		 "rc54":["2022-11-06T02:00","2022-11-06T06:00"],
+	         "rc55":["2022-11-06T02:00","2022-11-06T06:00"]},
+        "Filter":{},
+        "Other":{}
+    },
+    {
+      "Name":"Entry",
+      "IssueType":"weather",
+      "Date": ["2022-11-07", null],
+      "Weather": "precip",
+      "Observed": true,
+      "Removed": false,
+      "Notes": "Clouds and rain starting around 4:00 UT (8:00 PST)",
+      "DataToIPAC": true,
+      "IssueCuts":{
+        "RCid":{},
+        "Filter":{},
+        "Other":{}
+      }
+   }
+   ]
+}
