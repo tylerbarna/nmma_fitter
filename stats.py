@@ -832,9 +832,10 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    
     plot= sns.histplot(data=df_f, x=df_fd['startDate'],weights='sampling_time_total', hue='model',
                        multiple='stack',legend='full', cumulative=True,
-                       ax=ax, alpha=0.5,bins=69)
+                       ax=ax, alpha=0.75,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
@@ -851,7 +852,16 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ax.set_ylim(0,4.5e6)
     ax2.set_ylim(0,2700)
     ax2.set_ylabel('Cumulative Candidates')
+    ## manually added time spans for maintenance and issues
+    ax.axvspan('2021-12-13', '2022-01-14', alpha=0.25, color='black',zorder=10,label='ZTF Maintenance')
+    ax.axvspan('2022-01-25', '2022-02-10', alpha=0.25, color='black',zorder=10)
+    ax.axvspan("2022-03-13","2022-03-31", alpha=0.25, color='black',zorder=10)
+    # ax.axvspan("2022-06-15","2022-06-16", alpha=0.25, color='black',zorder=0)
+    #ax.axvspan("2022-09-09","2022-09-14", alpha=0.25, color='black',zorder=10)
+    ax.axvspan("2022-08-06","2022-09-16", alpha=0.25, color='black',zorder=10, label='Schoty Issues')
     plt.savefig(plotDir("cumFitTimeStackWithCands",outdir=subdir,ext=ext)) if save else None
+    
+    
     plt.clf()
     
     ## ecdf plot of sampling times by model
