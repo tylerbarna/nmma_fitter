@@ -855,7 +855,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ## manually added time spans for maintenance and issues
     ax.axvspan('2021-12-13', '2022-01-14', alpha=0.25, color='black',zorder=10,label='ZTF Maintenance')
     ax.axvspan('2022-01-25', '2022-02-10', alpha=0.25, color='black',zorder=10)
-    ax.axvspan("2022-03-13","2022-03-31", alpha=0.25, color='black',zorder=10)
+    ax.axvspan("2022-03-13","2022-03-25", alpha=0.25, color='black',zorder=10)
     # ax.axvspan("2022-06-15","2022-06-16", alpha=0.25, color='black',zorder=0)
     #ax.axvspan("2022-09-09","2022-09-14", alpha=0.25, color='black',zorder=10)
     ax.axvspan("2022-08-06","2022-09-16", alpha=0.25, color='black',zorder=10, label='Schoty Issues')
