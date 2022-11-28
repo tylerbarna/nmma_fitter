@@ -863,9 +863,9 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     
-    plot= sns.histplot(data=df_f, x=df_fd['startDate'],weights='sampling_time_total', hue='model',
+    plot= sns.histplot(data=df_f, x=df_fd['stopDate'],weights='sampling_time_total', hue='model',
                        multiple='stack',legend='full', cumulative=True,
-                       ax=ax, alpha=0.75,bins=69)
+                       ax=ax, alpha=0.75,bins=69,linewidth=2)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
     ax.set_ylabel('Sampling Time (s)')
@@ -873,7 +873,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.legend()
     plt.savefig(plotDir("cumFitTimeStack",outdir=subdir,ext=ext)) if save else None
     ax2 = plt.twinx()
-    sns.lineplot(data=df_fd, x='startDate', y=df_fd['numCand'].cumsum()/2,
+    sns.lineplot(data=df_fd, x='stopDate', y=df_fd['numCand'].cumsum()/2,
                  color='black',linewidth=4, ax=ax2 ) ## not sure why it's double counting, dividing by 2 is a quick fix
     # fix the axis tick allignment issues
     nticks = 10
@@ -1246,8 +1246,8 @@ print('completed daily candidate plots (1)\n') if args.verbose else None
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
 # plotLikelihood(df=df)
 # print('completed evidence plot (5)\n') if args.verbose else None
