@@ -1175,7 +1175,29 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 
 ## testing stats functions
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)   
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+
+print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
+
+print('average number of candidates per day: {}'.format(df.groupby('day').count()['cand'].mean())) if args.verbose else None
+
+print('median number of candidates per day: {}'.format(df.groupby('day').count()['cand'].median())) if args.verbose else None
+
+
+df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
+# [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
+#numDailyCands = ([len(np.array([*set(item)])) for item in df_daily])
+print('total number of daily candidates: {}'.format(len(df_daily['cand']))) if args.verbose else None
+
+print("total number of unique candidates: {}".format(len(df_daily['cand'].unique()))) if args.verbose else None
+
+print('most observed candidates: \n{}'.format(df_daily['cand'].value_counts().head(5))) if args.verbose else None
+
+print('least observed candidates: \n{}'.format(df_daily['cand'].value_counts(ascending=True).head(5))) if args.verbose else None
+ 
+print('average number of observations per candidate: {}'.format(round(df_daily['cand'].value_counts().mean(),3))) if args.verbose else None
+
+print('median number of observations per candidate: {}'.format(df_daily['cand'].value_counts().median())) if args.verbose else None
 
 
 # plotCands(df=df,save=True)
@@ -1187,8 +1209,8 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df)
+# print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df)
+# print('completed evidence plot (5)\n') if args.verbose else None
