@@ -337,14 +337,27 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ## grouped by day and candidate
     df_c= df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     ## grouped by day
-    df_dc = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
-    df_dc['numCand'] = [len(cand) for cand in df_dc['cand']]
-    #df_dc.to_csv('./df_daily.csv')
+    df_cd = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_cd['numCand'] = [len(cand) for cand in df_cd['cand']]
+    #print('df_cd: {}\n'.format(df_cd)) if args.verbose else None
+    #[print(cand) for cand in df_cd['numCand']]
+    print('total number of candidates: {}'.format(df_cd['numCand'].sum())) if args.verbose else None
+    #print(df_cd)
+    #df_cdc.to_csv('./df_cdaily.csv')
+    ## unique candidates
+    df_u = df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).drop_duplicates(subset=['cand'])
+    ## unique candidates grouped by day
+    df_ud = df_u.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_ud['numCand'] = [len(cand) for cand in df_ud['cand']]
+    print('total number of unique candidates: {}'.format(df_ud['numCand'].sum())) if args.verbose else None
+    
+    print('largest nuber of candidates in a single day: {}'.format(df_cd['numCand'].max())) if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white') 
-    sns.lineplot(data=df_dc, x='stopDate', y='numCand', 
-                 ax=ax, color='black', linewidth=2)
+    sns.histplot(data=df_cd, x='stopDate', weights='numCand', 
+                 bins=df_cd['stopDate'].size*2,
+                 ax=ax, color='black')
     plt.xticks(rotation=15)
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
@@ -355,8 +368,8 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
      
     ## plot histogram of number of candidates per day
     fig, ax = plotstyle(figsize=(10,6), facecolor='white')
-    sns.histplot(df_dc['numCand'], kde=True, 
-                 bins=df_dc['numCand'].max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
+    sns.histplot(df_cd['numCand'], kde=True, 
+                 bins=df_cd['numCand'].max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist",outdir=subdir,ext=ext)) if save else None
@@ -365,7 +378,8 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     
     #plot 7 day rolling average of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].rolling(7).mean(),
+    sns.histplot(data=df_cd, x='stopDate', weights=df_cd['numCand'].rolling(7).mean(),
+                 bins=df_cd['stopDate'].size*2,
                  color='black',linewidth=2) ## note: this won't work with one week of data
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
@@ -376,14 +390,30 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    sns.lineplot(data=df_dc, x='startDate', y=df_dc['numCand'].cumsum(),
+    sns.lineplot(data=df_cd, x='stopDate', y=df_cd['numCand'].cumsum(),
                  color='black',linewidth=2, ax=ax ) 
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyCand plot\n') if args.verbose else None
+    print('completed cumDailyCand plot') if args.verbose else None
     plt.clf()
+    
+    ## plot number of unique candidates
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    sns.histplot(data=df_cd, x='stopDate', weights='numCand',
+                 bins=df_cd['stopDate'].size*2,
+                 color='black', alpha=0.5, ax=ax)
+    sns.histplot(data=df_ud, x='stopDate', weights='numCand',
+                 bins=df_cd['stopDate'].size*2,
+                 color='blue', ax=ax)
+    plt.xticks(rotation=15)
+    ax.set_xlabel("Date")
+    ax.set_ylabel('Candidate Count')
+    plt.savefig(plotDir("uniqueDailyCand",outdir=subdir,ext=ext)) if save else None
+    print('completed uniqueDailyCand plot') if args.verbose else None
+    plt.clf()
+    
     
     print('completed candidate plotting') if args.verbose else None
     print('time to plot candidates: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
@@ -423,9 +453,9 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ## grouped by day and candidate
     df_c= df.groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     ## grouped by day
-    df_dc = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
-    df_dc['numCand'] = [len(cand) for cand in df_dc['cand']]
-    #df_dc.to_csv('./df_daily.csv')
+    df_cdc = df_c.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_cdc['numCand'] = [len(cand) for cand in df_cdc['cand']]
+    #df_cdc.to_csv('./df_cdaily.csv')
     ## fit-only dataframe
     df_fc= df[df['fitBool']==True].groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     df_fdc = df_fc.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
@@ -1185,11 +1215,16 @@ print('median number of candidates per day: {}'.format(df.groupby('day').count()
 
 
 df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
+print(df_daily)
 # [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
-#numDailyCands = ([len(np.array([*set(item)])) for item in df_daily])
+#numDailyCands = ([len(np.array([*set(item)])) for item in df_cdaily])
 print('total number of daily candidates: {}'.format(len(df_daily['cand']))) if args.verbose else None
 
 print("total number of unique candidates: {}".format(len(df_daily['cand'].unique()))) if args.verbose else None
+
+print('largest number of candidates in a day: {}'.format(df_daily.groupby('day').count()['cand'].max())) if args.verbose else None
+
+print('largest number of unique candidates in a day: {}'.format(df_daily.drop_duplicates(subset=['cand']).groupby('day').count()['cand'].max())) if args.verbose else None
 
 print('most observed candidates: \n{}'.format(df_daily['cand'].value_counts().head(5))) if args.verbose else None
 
@@ -1199,9 +1234,11 @@ print('average number of observations per candidate: {}'.format(round(df_daily['
 
 print('median number of observations per candidate: {}'.format(df_daily['cand'].value_counts().median())) if args.verbose else None
 
+print('total sampling time: {} seconds'.format(round(df['sampling_time'].sum(),3))) if args.verbose else None
 
-# plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)\n') if args.verbose else None
+
+plotCands(df=df,save=True)
+print('completed daily candidate plots (1)\n') if args.verbose else None
 
 # plotFits(df=df)
 # print('completed cumulative fit plot (2)\n') if args.verbose else None
