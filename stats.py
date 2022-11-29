@@ -106,14 +106,14 @@ def plotstyle(type=None, **kwargs): ## should add an option to pass kwargs to th
     plt.style.context(("seaborn-colorblind",))
     #plt.rcParams['font.family'] = 'serif'
     #plt.rcParams['font.serif'] = 'Times New Roman'
-    plt.rcParams['font.size'] = 12
-    plt.rcParams['axes.labelsize'] = 12
+    plt.rcParams['font.size'] = 24
+    plt.rcParams['axes.labelsize'] = 24
     plt.rcParams['axes.labelweight'] = 'bold'
-    plt.rcParams['axes.titlesize'] = 12
-    plt.rcParams['xtick.labelsize'] = 12
-    plt.rcParams['ytick.labelsize'] = 12
-    plt.rcParams['legend.fontsize'] = 12
-    plt.rcParams['figure.titlesize'] = 12
+    plt.rcParams['axes.titlesize'] = 24
+    plt.rcParams['xtick.labelsize'] = 24
+    plt.rcParams['ytick.labelsize'] = 24
+    plt.rcParams['legend.fontsize'] = 24
+    plt.rcParams['figure.titlesize'] = 24
 
     return(fig,ax)
 
@@ -367,7 +367,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     
      
     ## plot histogram of number of candidates per day
-    fig, ax = plotstyle(figsize=(10,6), facecolor='white')
+    fig, ax = plotstyle(figsize=(12,8), facecolor='white')
     sns.histplot(df_cd['numCand'], kde=True, 
                  bins=df_cd['numCand'].max(), ax=ax) ## I think having bins equal to the max number of candidates per day looks best
     ax.set_xlabel("Candidates Per Day")
