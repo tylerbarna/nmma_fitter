@@ -1136,8 +1136,8 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.boxplot(data=df, x='log_bayes_factor',y='model', hue_order=models,
-                          hue='model', 
+    plot = sns.boxplot(data=df, x='log_bayes_factor',y='model', 
+                          hue='model', hue_order=models,
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
     ax.set_ylabel('Model')
@@ -1242,8 +1242,8 @@ print('sampling time for succesful fits: {} seconds'.format(round(df[df['fitBool
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df)
+# print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df)
-# print('completed evidence plot (5)\n') if args.verbose else None
+plotLikelihood(df=df)
+print('completed evidence plot (5)\n') if args.verbose else None
