@@ -473,7 +473,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
         ## perhaps this could be a grid of subplots
         fig, ax = plotstyle(figsize=(20,15), facecolor='white')
         ax.plot(dateList,modelCum, label=model)
-        ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
+        ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=4)
         ax.set_xlabel("Date")
         plt.xticks(rotation=15)
         ax.set_ylabel('Count')
@@ -490,8 +490,8 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ## now plot all models together
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     for key, value in modelDict.items(): 
-        ax.plot(dateList,value, label=key, alpha=0.7) if key != 'Total' else None## need to make a colormap for better visualization
-    ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=2)
+        ax.plot(dateList,value, label=key, alpha=0.7, linewidth=4) if key != 'Total' else None## need to make a colormap for better visualization
+    ax.plot(dateList, cumDaily, label='Candidate Count', color='black', linewidth=4)
     plt.xticks(rotation=15)
     ax.set_xlabel("Date")
     ax.set_ylabel('Count')
@@ -896,7 +896,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     ## ecdf plot of sampling times by model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', 
+    plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', hue_order=models,
                         legend='full',linewidth=4, ax=ax)
     ax.set_xlabel("Sampling Time (s)")
     plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir,ext=ext)) if save else None
@@ -1205,6 +1205,9 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 
 ## testing stats functions
 
+## command:
+## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
+
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 
 print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
@@ -1240,14 +1243,14 @@ print('total sampling time: {} seconds'.format(round(df['sampling_time'].sum(),3
 plotCands(df=df,save=True)
 print('completed daily candidate plots (1)\n') if args.verbose else None
 
-# plotFits(df=df)
-# print('completed cumulative fit plot (2)\n') if args.verbose else None
+plotFits(df=df)
+print('completed cumulative fit plot (2)\n') if args.verbose else None
 
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (3)\n') if args.verbose else None
+plotUnfit(df=df)
+print('completed unfit candidate plot (3)\n') if args.verbose else None
 
 plotSamplingTimes(df=df)
 print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df)
-# print('completed evidence plot (5)\n') if args.verbose else None
+plotLikelihood(df=df)
+print('completed evidence plot (5)\n') if args.verbose else None
