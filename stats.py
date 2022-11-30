@@ -363,7 +363,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand",outdir=subdir,ext=ext)) if save else None
     print('completed numDailyCand plot') if args.verbose else None
-    plt.clf()
+    plt.close()
     
      
     ## plot histogram of number of candidates per day
@@ -374,7 +374,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist",outdir=subdir,ext=ext)) if save else None
     print('completed numDailyCandHist plot') if args.verbose else None
-    plt.clf()
+    plt.close()
     
     #plot 7 day rolling average of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -386,7 +386,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
     plt.savefig(plotDir("numDailyCandRolling",outdir=subdir,ext=ext)) if save else None
     print('completed numDailyCandRolling plot') if args.verbose else None
-    plt.clf()
+    plt.close()
     
     ## plot cumulative number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -397,7 +397,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand",outdir=subdir,ext=ext)) if save else None
     print('completed cumDailyCand plot') if args.verbose else None
-    plt.clf()
+    plt.close()
     
     ## plot number of unique candidates
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -412,7 +412,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("uniqueDailyCand",outdir=subdir,ext=ext)) if save else None
     print('completed uniqueDailyCand plot') if args.verbose else None
-    plt.clf()
+    plt.close()
     
     
     print('completed candidate plotting') if args.verbose else None
@@ -481,7 +481,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
         ax.legend()
         plt.savefig(plotDir("cumDailyFits_"+model,outdir=subdir,ext=ext)) if save else None
         print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
-        plt.clf()
+        plt.close()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
         modelDict['Total'] = sum(map(np.array,modelDict.values())).tolist()
     except:
@@ -502,7 +502,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ax.set_yscale('log')
     plt.savefig(plotDir("cumDailyFitsAllLog",outdir=subdir,ext=ext)) if save else None
     print('completed cumDailyFitsAll plot\n') if args.verbose else None
-    plt.clf()
+    plt.close()
     
     ## plot the relative performance of each model against the others
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -527,7 +527,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ax.legend()
     plt.savefig(plotDir("cumDailyFitsRelPerf",outdir=subdir,ext=ext)) if save else None
     print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
-    plt.clf()
+    plt.close()
     print('completed cumDailyFits plot for all models \n') if args.verbose else None
     
     print('completed fit plotting') if args.verbose else None
@@ -590,7 +590,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("numDailyUnfit",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## plot a fraction of how many candidates were fit for each day (fit-unfit)/total
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -603,7 +603,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfit",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
         
 
     ## should fix styling as it's currently unclear
@@ -616,7 +616,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     #ax.set_title('Number of Unfit Candidates per Day') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("numDailyUnfitModelHist",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot histogram of number of candidates that were not fit for each day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -625,7 +625,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     ax.set_ylabel('Count')
     #ax.set_title("Number of Unfit Candidates per Day")
     plt.savefig(plotDir("numDailyUnfitTotalHist",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot rolling average of number of candidates that were not fit for each day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -637,7 +637,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("numDailyUnfitRolling",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot cumulative number of candidates that were not fit for each day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -649,7 +649,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("cumDailyUnfit",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
    
     ## plot fraction of candidates that were not fit for each day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -662,7 +662,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     plt.xticks(rotation=15)
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfit",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot rolling average of fraction of candidates that were not fit for each day
     fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
@@ -675,7 +675,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     #ax.set_title('Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("fracDailyUnfitRolling",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     '''
     ## this seems to be busted in some way 
@@ -690,7 +690,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     #ax.set_title('Cumulative Fraction of Unfit Candidates to Total') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("cumFracDailyUnfit")) if save else None
-    plt.clf()
+    plt.close()
     
     ## plot rolling average of cumulative fraction of candidates that were not fit for each day
     fig, ax = plt.subplots(figsize=(20,15), facecolor='white')
@@ -702,7 +702,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     #ax.set_title('Cumulative Fraction of Unfit Candidates to Total \n (One Week Rolling Average)') ## should these have titles?
     ax.legend()
     plt.savefig(plotDir("cumFracDailyUnfitRolling")) if save else None
-    plt.clf()
+    plt.close()
     '''
     
     print('completed unfit plotting') if args.verbose else None
@@ -740,39 +740,27 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     ## group by model and day
     df_f = df[df['fitBool']==True].groupby(['startDate','stopDate','model'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
-    
+    df_f['sampling_time'] = df_f['sampling_time'].apply(lambda x: x[~np.isnan(x)])
     df_f['sampling_time_avg'] = [np.mean(timeset) for timeset in df_f['sampling_time'].to_numpy()]
     df_f['sampling_time_median'] = [np.median(timeset) for timeset in df_f['sampling_time']]
-    df_f['sampling_time_total'] = [np.sum(timeset) for timeset in df_f['sampling_time']]
-    #df_f.to_csv('test.csv')
+    df_f['sampling_time_total'] = df_f.sampling_time.map(sum) #[np.sum(timeset.flatten()) for timeset in df_f['sampling_time']]
+    #df_f['sampling_time_cum_total'] = 0 ## initialize
+    # for model in models:
+    #     df_f['sampling_time_cum_total'][df_f['model']==model] = np.cumsum(df_f['sampling_time_total'][df_f['model']==model])
+    
+    # print('total sampling time for all fits: {} seconds'.format(round(df_f['sampling_time_total'].sum(),3))) if args.verbose else None
+    # df_f.to_csv('test.csv')
     #print(df_f['sampling_time_avg'])
     
     ## group by day
     df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    df_fd['sampling_time'] = df_fd['sampling_time'].apply(lambda x: x[~np.isnan(x)])
     df_fd['numCand'] = [len(cand) for cand in df_fd['cand']]
     df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
     df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
-    df_fd['sampling_time_total'] = [np.sum(timeset) for timeset in df_fd['sampling_time']]
+    df_fd['sampling_time_total'] = df_fd.sampling_time.map(sum)
+    print('total sampling time for all fits: {} seconds'.format(round(df_fd['sampling_time_total'].sum(),3))) if args.verbose else None
     #df_fd.to_csv('test1.csv')
-    
-    ## create a dictionary of fit times for each model
-    # fitTime = {}
-    # for model in models: ## won't iterate over Total (which is good)
-    #     fitTime[model] = np.array([
-    #         df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)]['sampling_time'].to_numpy(copy=True).ravel() for day in dayList
-    #     ], dtype=object)
-    #     try:
-    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-    #     except:
-    #         fitTime[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
-    #         fitTime[model] = fitTime[model].reshape(len(dayList),) ## flatten the array
-    #     #print('model {} fit times: {}\n'.format(model, fitTime[model])) if args.verbose else None
-    #     print('model {} fit times shape: {}\n'.format(model, fitTime[model].shape)) if args.verbose else None
-    
-    # fitTime['Total'] = np.array([np.concatenate([value[idx].flatten() for key, value in fitTime.items() if key != 'Total']) for idx in range(len(dayList))])
-    # #print ('total fit time: {}\n'.format(fitTime['Total'])) if args.verbose else None
-    # print ('total fit time shape: {}\n'.format(fitTime['Total'].shape)) if args.verbose else None
-    # fitTime['Total'] = fitTime['Total'].reshape(len(dayList),) 
 
     ## data plotting
     ## plot histogram of fit times for each model
@@ -788,7 +776,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.legend(labels= [model for model in df['model'].unique()], title='Model')
     
     plt.savefig(plotDir("fitTimeHistModel",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
 
     ## plot histogram of total daily fit time
@@ -801,7 +789,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ax.set_ylabel('Count')
     #ax.set_title('Daily Sampling Times')
     plt.savefig(plotDir("fitTimeHistStack",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot the daily average fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -809,7 +797,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #     meanFitTime = [np.mean(fitDay) for fitDay in value]
     #     ax.plot(dateList, meanFitTime, label=key) ## should be right axis?
 
-    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model',
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_avg', hue='model', hue_order=models,
                 multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
@@ -822,7 +810,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
 
     ## plot the daily median fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_median', hue='model',
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_median', hue='model', hue_order=models,
                 multiple='layer',legend='full',ax=ax, alpha=1,bins=69)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
@@ -830,12 +818,12 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.set_title('Median Daily Sampling Time') ## should these have titles?
     #ax.legend()
     plt.savefig(plotDir("dailyFitTimeMedian",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot the daily mean fit time for each model (rolling average)
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot= sns.histplot(data=df_f, x='startDate',
-                       weights=df_f['sampling_time_avg'].rolling(7).mean(), hue='model',
+                       weights=df_f['sampling_time_avg'].rolling(7).mean(), hue='model', hue_order=models,
                        multiple='layer',legend='full',ax=ax, alpha=0.5,bins=69)
     # sns.histplot(data=df_f, x='startDate',y=df_f['sampling_time_avg'].rolling(7).mean(), hue='model', 
     #             legend='full', ax=ax, alpha=0.5)
@@ -845,11 +833,11 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.set_title('Median Daily Sampling Time \n (One Week Rolling Average)') ## should these have titles?
     #ax.legend()
     plt.savefig(plotDir("dailyFitTimeMeanRolling",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
 
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_total', hue='model',
+    plot= sns.histplot(data=df_f, x='startDate',weights='sampling_time_total', hue='model', hue_order=models,
                        multiple='layer',legend='full', cumulative=True,
                        ax=ax, alpha=0.5,bins=69)
     ax.set_xlabel("Date")
@@ -858,12 +846,12 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.set_title('Cumulative Sampling Time') ## should these have titles?
     #ax.legend()
     plt.savefig(plotDir("cumFitTime",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     
-    plot= sns.histplot(data=df_f, x=df_fd['stopDate'],weights='sampling_time_total', hue='model',
+    plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', #hue_order=models,
                        multiple='stack',legend='full', cumulative=True,
                        ax=ax, alpha=0.75,bins=69,linewidth=2)
     ax.set_xlabel("Date")
@@ -876,11 +864,11 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     sns.lineplot(data=df_fd, x='stopDate', y=df_fd['numCand'].cumsum()/2,
                  color='black',linewidth=4, ax=ax2 ) ## not sure why it's double counting, dividing by 2 is a quick fix
     # fix the axis tick allignment issues
-    nticks = 10
+    nticks = 7
     ax.yaxis.set_major_locator(ticker.LinearLocator(nticks))
     ax2.yaxis.set_major_locator(ticker.LinearLocator(nticks))
-    ax.set_ylim(0,4.5e6)
-    ax2.set_ylim(0,2700)
+    ax.set_ylim(0,1.8e7)
+    ax2.set_ylim(0,2400)
     ax2.set_ylabel('Cumulative Candidates')
     ## manually added time spans for maintenance and issues
     ax.axvspan('2021-12-13', '2022-01-14', alpha=0.25, color='black',zorder=10,label='ZTF Maintenance')
@@ -890,9 +878,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     #ax.axvspan("2022-09-09","2022-09-14", alpha=0.25, color='black',zorder=10)
     ax.axvspan("2022-08-06","2022-09-16", alpha=0.25, color='black',zorder=10, label='Schoty Issues')
     plt.savefig(plotDir("cumFitTimeStackWithCands",outdir=subdir,ext=ext)) if save else None
-    
-    
-    plt.clf()
+    plt.close()
     
     ## ecdf plot of sampling times by model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -905,7 +891,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     ## violin plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.violinplot(data=df, x='sampling_time',y='model',hue='model',
+    plot = sns.violinplot(data=df, x='sampling_time',y='model',hue='model', hue_order=models,
                         split=False,
                           legend=True, cut=0,
                           ax=ax)
@@ -919,11 +905,11 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     plt.savefig(plotDir("SamplingTimeViolin",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
     plt.savefig(plotDir("SamplingTimeViolinLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.boxplot(data=df, x='sampling_time',y='model',
+    plot = sns.boxplot(data=df, x='sampling_time',y='model', hue_order=models,
                           hue='model', 
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
@@ -936,7 +922,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     plt.savefig(plotDir("SamplingTimeBox",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
     plt.savefig(plotDir("SamplingTimeBoxLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     
     print('completed sampling times plotting') if args.verbose else None
@@ -1008,7 +994,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     marker = itertools.cycle(('^','8','s','p','*','h','H','+','x','D','d','.')) 
     ## plot a histogram of the log evidence for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True,
+    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True, hue_order=models,
                         multiple='layer',legend='full',
                         ax=ax, alpha=0.5)
     # for key, value in fitEvid.items(): 
@@ -1023,12 +1009,12 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("LogEvidenceHistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogEvidenceHistModelLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## plot a histogram of the log evidence in total
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True,
+    plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True, hue_order=models,
                         multiple='stack',legend='full',
                         ax=ax, alpha=1)
     # for line in ax.lines:
@@ -1039,11 +1025,11 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("LogEvidenceHistTotal",outdir=subdir,ext=ext)) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogEvidenceHistTotalLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## histogram of the log bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.histplot(data=df, x='log_bayes_factor', hue='model', kde=True,
+    plot = sns.histplot(data=df, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
                         multiple='layer',legend='full',
                         ax=ax, alpha=0.5)
     # for line in ax.lines:
@@ -1054,11 +1040,11 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("LogBayesHistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_yscale('log')
     plt.savefig(plotDir("LogBayesHistModelLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## scatter plot of bayes factor vs evidence for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.scatterplot(data=df, x='log_bayes_factor',y='log_evidence', 
+    plot = sns.scatterplot(data=df, x='log_bayes_factor',y='log_evidence', hue_order=models,
                        hue='model',
                        legend='full',
                        ax=ax, alpha=0.5)
@@ -1073,11 +1059,11 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ax.set_xlim(right=1)
     ax.set_xscale('symlog')
     plt.savefig(plotDir("LogBayesEvidenceScatterModelLogLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## scatter plot of sampling time vs bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.scatterplot(data=df, x='sampling_time',y='log_bayes_factor', 
+    plot = sns.scatterplot(data=df, x='sampling_time',y='log_bayes_factor', hue_order=models,
                        hue='model', style='model',
                        legend=True,
                        ax=ax, alpha=0.3)
@@ -1091,12 +1077,12 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ax.set_xscale('symlog')
     ax.set_xlim(left=0)
     plt.savefig(plotDir("SamplingTimeBayesScatterModelLogLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## kde plot of sampling time vs bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
-                       hue='model', fill=False,
+                       hue='model', hue_order=models, fill=False,
                        legend='full', #clip=((0,25000),(-500,0)),
                        ax=ax, alpha=1)
     ax.set_xlabel("Sampling Time (s)")
@@ -1109,12 +1095,12 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     # ax.set_xscale('log')
     # ax.set_yscale('symlog')
     # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## kde plot of sampling time vs bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
-                       hue='model', fill=True,
+                       hue='model', hue_order=models, fill=True,
                        legend='full', #clip=((0,25000),(-500,0)),
                        ax=ax, alpha=0.6)
     ax.set_xlabel("Sampling Time (s)")
@@ -1127,7 +1113,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     # ax.set_xscale('log')
     # ax.set_yscale('symlog')
     # plt.savefig(plotDir("SamplingTimeBayesKDEModelLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## violin plot of bayes factor for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
@@ -1146,11 +1132,11 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
     plt.savefig(plotDir("BayesViolinLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    plot = sns.boxplot(data=df, x='log_bayes_factor',y='model',
+    plot = sns.boxplot(data=df, x='log_bayes_factor',y='model', hue_order=models,
                           hue='model', 
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
@@ -1164,7 +1150,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
     plt.savefig(plotDir("BayesBoxLog",outdir=subdir,ext=ext)) if save else None
-    plt.clf()
+    plt.close()
     
     
     
@@ -1186,7 +1172,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     # ax.set_xscale('symlog')
     # ax.set_xlim(left=0)
     # plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLogLog",outdir=subdir,ext=ext)) if save else None
-    # plt.clf()
+    # plt.close()
     
     print('completed likelihood plotting') if args.verbose else None
     print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
@@ -1239,18 +1225,25 @@ print('median number of observations per candidate: {}'.format(df_daily['cand'].
 
 print('total sampling time: {} seconds'.format(round(df['sampling_time'].sum(),3))) if args.verbose else None
 
+print('sampling time for failed fits: {} seconds'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3))) if args.verbose else None
 
-plotCands(df=df,save=True)
-print('completed daily candidate plots (1)\n') if args.verbose else None
+print('sampling time for succesful fits: {} seconds'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3))) if args.verbose else None
 
-plotFits(df=df)
-print('completed cumulative fit plot (2)\n') if args.verbose else None
+# plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
+# plt.show()
 
-plotUnfit(df=df)
-print('completed unfit candidate plot (3)\n') if args.verbose else None
+
+# plotCands(df=df,save=True)
+# print('completed daily candidate plots (1)\n') if args.verbose else None
+
+# plotFits(df=df)
+# print('completed cumulative fit plot (2)\n') if args.verbose else None
+
+# plotUnfit(df=df)
+# print('completed unfit candidate plot (3)\n') if args.verbose else None
 
 plotSamplingTimes(df=df)
 print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df)
+# print('completed evidence plot (5)\n') if args.verbose else None
