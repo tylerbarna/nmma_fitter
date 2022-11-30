@@ -759,7 +759,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
     df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
     df_fd['sampling_time_total'] = df_fd.sampling_time.map(sum)
-    print('total sampling time for all fits: {} seconds'.format(round(df_fd['sampling_time_total'].sum(),3))) if args.verbose else None
+    #print('total sampling time for all fits: {} seconds'.format(round(df_fd['sampling_time_total'].sum(),3))) if args.verbose else None
     #df_fd.to_csv('test1.csv')
 
     ## data plotting
