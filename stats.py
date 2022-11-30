@@ -1223,11 +1223,14 @@ print('average number of observations per candidate: {}'.format(round(df_daily['
 
 print('median number of observations per candidate: {}'.format(df_daily['cand'].value_counts().median())) if args.verbose else None
 
-print('total sampling time: {} seconds'.format(round(df['sampling_time'].sum(),3))) if args.verbose else None
+print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),3),round(df['sampling_time'].sum()/60/60,3))) if args.verbose else None
 
 print('sampling time for failed fits: {} seconds'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3))) if args.verbose else None
 
 print('sampling time for succesful fits: {} seconds'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3))) if args.verbose else None
+
+for model in args.models:
+    print('median sampling time for {}: {} seconds'.format(model,round(df[df['model'] == model]['sampling_time'].median(),3))) if args.verbose else None
 
 # plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
 # plt.show()
@@ -1245,5 +1248,5 @@ print('sampling time for succesful fits: {} seconds'.format(round(df[df['fitBool
 # plotSamplingTimes(df=df)
 # print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df)
+# print('completed evidence plot (5)\n') if args.verbose else None
