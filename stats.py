@@ -1204,7 +1204,7 @@ print('median number of candidates per day: {}'.format(df.groupby('day').count()
 
 
 df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
-print(df_daily)
+#print(df_daily)
 # [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
 #numDailyCands = ([len(np.array([*set(item)])) for item in df_cdaily])
 print('total number of daily candidates: {}'.format(len(df_daily['cand']))) if args.verbose else None
