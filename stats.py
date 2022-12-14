@@ -1252,23 +1252,23 @@ print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == Fals
 print('') if args.verbose else None
 
 print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),3),
-                                                          round(df['sampling_time'].sum()/60/60,0))) if args.verbose else None
+                                                          round(df['sampling_time'].sum()/60/60,1))) if args.verbose else None
 
 print('sampling time for failed fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3),
-                                                         round(df[df['fitBool'] == False]['sampling_time'].sum()/60/60,0))) if args.verbose else None
+                                                         round(df[df['fitBool'] == False]['sampling_time'].sum()/60/60,1))) if args.verbose else None
 
 print('sampling time for succesful fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3),
-                                                                       round(df[df['fitBool'] == True]['sampling_time'].sum()/60/60,0))) if args.verbose else None
+                                                                       round(df[df['fitBool'] == True]['sampling_time'].sum()/60/60,1))) if args.verbose else None
 
 for model in args.models:
     print('total sampling time for {}: {} seconds ({} hours)'.format(model,
                                                                       round(df[df['model'] == model]['sampling_time'].sum(),3),
-                                                                      round(df[df['model'] == model]['sampling_time'].sum()/60/60,0))) if args.verbose else None
+                                                                      round(df[df['model'] == model]['sampling_time'].sum()/60/60,1))) if args.verbose else None
 
 for model in args.models:
     print('median sampling time for {}: {} seconds ({} hours)'.format(model,
                                                                       round(df[df['model'] == model]['sampling_time'].median(),3),
-                                                                      round(df[df['model'] == model]['sampling_time'].median()/60/60,0))) if args.verbose else None
+                                                                      round(df[df['model'] == model]['sampling_time'].median()/60/60,1))) if args.verbose else None
 
 # plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
 # plt.show()
