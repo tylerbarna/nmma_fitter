@@ -1195,7 +1195,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 ## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
 
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
-#df = df.copy()[df['model'].isin(args.models)]
+df = df.copy()[df['model'].isin(args.models)]
 df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
 
 print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
@@ -1238,16 +1238,19 @@ print('') if args.verbose else None
 
 ## some of these fit fractions might be a bit shaky in terms of calculation (getting too deep in filtering and grouping dataframes)
 
-print('fraction of candidates with at least one fit: {}'.format(len(df[df['fitBool'] == True].drop_duplicates(subset=['day','cand']))/len(df.drop_duplicates(subset=['day','cand'])))) if args.verbose else None
+print('fraction of candidates with at least one fit: {}%'.format(round(df.drop_duplicates(subset=['day','cand']).value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
-print('fraction of fit candidates: {}'.format(len(df.drop_duplicates(subset=['cand'])[df.drop_duplicates(subset=['cand'])['fitBool'] == True])/len(df.drop_duplicates(subset=['cand'])))) if args.verbose else None
+#print('fitBool fraction candidates: {}'.format(df.drop_duplicates(subset=['cand']).value_counts(subset=['fitBool'], normalize=True))) if args.verbose else None
 
-print('fraction of unfit candidates: {}'.format(len(df.drop_duplicates(subset=['cand'])[df.drop_duplicates(subset=['cand'])['fitBool'] == False])/len(df.drop_duplicates(subset=['cand'])))) if args.verbose else None
+#print('fraction of unfit candidates: {}'.format(len(df.drop_duplicates(subset=['cand'])[df.drop_duplicates(subset=['cand'])['fitBool'] == False])/len(df.drop_duplicates(subset=['cand'])))) if args.verbose else None
 
 for model in args.models:
-    print('fraction of unfit candidates for {}: {}'.format(model,len(df[(df['fitBool'] == False) & (df['model'] == model)])/len(df[(df['model'] == model)]))) if args.verbose else None
+    print('success rate for {}: {}%'.format(model,
+                                               round(df[(df['model'] == model)].value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
-print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == False])/len(df))) if args.verbose else None
+print('success rate overall: {}%'.format(round(df.value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
+
+# print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == False])/len(df))) if args.verbose else None
 
 print('') if args.verbose else None
 
@@ -1270,6 +1273,7 @@ for model in args.models:
                                                                       round(df[df['model'] == model]['sampling_time'].median(),3),
                                                                       round(df[df['model'] == model]['sampling_time'].median()/60/60,1))) if args.verbose else None
 
+print(df.value_counts(subset=['fitBool'], normalize=True)) if args.verbose else None
 # plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
 # plt.show()
 
