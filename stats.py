@@ -1195,15 +1195,22 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 ## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
 
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+df = df.copy()[df['model'].isin(args.models)]
+df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
 
 print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
 
-print('average number of candidates per day: {}'.format(df.groupby('day').count()['cand'].mean())) if args.verbose else None
+## need to divide by number of models to get average number of candidates per day in the non-unique case b/c each candidate is counted for each model, but same is not true after dropping duplicates 
+print('average number of candidates per day: {}'.format(round(df.groupby(['day'],as_index=False).count()['cand'].mean(),2))) if args.verbose else None
 
-print('median number of candidates per day: {}'.format(df.groupby('day').count()['cand'].median())) if args.verbose else None
+print('average number of unique candidates per day: {}'.format(df.drop_duplicates(subset=['cand']).groupby('day',as_index=False).count()['cand'].mean())) if args.verbose else None
+
+print('median number of candidates per day: {}'.format(round(df.groupby('day',as_index=False).count()['cand'].median()/len(args.models),0))) if args.verbose else None
+
+print('median number of unique candidates per day: {}'.format(round(df_daily.drop_duplicates(subset=['cand']).groupby('day',as_index=False).count()['cand'].median(),0))) if args.verbose else None
 
 
-df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
+
 #print(df_daily)
 # [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
 #numDailyCands = ([len(np.array([*set(item)])) for item in df_cdaily])
@@ -1222,6 +1229,15 @@ print('least observed candidates: \n{}'.format(df_daily['cand'].value_counts(asc
 print('average number of observations per candidate: {}'.format(round(df_daily['cand'].value_counts().mean(),3))) if args.verbose else None
 
 print('median number of observations per candidate: {}'.format(df_daily['cand'].value_counts().median())) if args.verbose else None
+
+print('fraction of fit candidates: {}'.format(len(df[df['fitBool'] == True])/len(df))) if args.verbose else None
+
+print('fraction of unfit candidates: {}'.format(len(df[df['fitBool'] == False].drop_duplicates(subset=['cand']))/len(df.drop_duplicates(subset=['cand'])))) if args.verbose else None
+
+for model in args.models:
+    print('fraction of unfit candidates for {}: {}'.format(model,len(df[(df['fitBool'] == False) & (df['model'] == model)])/len(df[(df['model'] == model)]))) if args.verbose else None
+
+print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == False])/len(df))) if args.verbose else None
 
 print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),3),round(df['sampling_time'].sum()/60/60,3))) if args.verbose else None
 
