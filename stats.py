@@ -1282,11 +1282,14 @@ for model in args.models:
 print('') if args.verbose else None
 ## show average, median, and percentile values of bayes factor for each model
 for model in args.models:
+    print('bayes factor range for {}: {}, {}'.format(model, 
+                                                    round(df[df['model'] == model]['log_bayes_factor'].min(),2),
+                                                    round(df[df['model'] == model]['log_bayes_factor'].max(),2))) if args.verbose else None
     print('average bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].mean(),1))) if args.verbose else None
     print('median bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].median(),1))) if args.verbose else None
     print('bayes factor 95% percentile for {}: {}, {}'.format(model, 
-                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.05),1),
-                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.95),1))) if args.verbose else None
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.05),2),
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.95),2))) if args.verbose else None
     print('') if args.verbose else None
 
 
