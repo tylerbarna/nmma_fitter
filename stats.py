@@ -851,7 +851,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     
-    plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', #hue_order=models,
+    plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', hue_order=models,
                        multiple='stack',legend='full', cumulative=True,
                        ax=ax, alpha=0.75,bins=69,linewidth=2)
     ax.set_xlabel("Date")
@@ -1191,7 +1191,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 
 
 ## command:
-## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
+## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m Bu2019lm TrPi2018 nugent-hyper Piro2021
 
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 df = df.copy()[df['model'].isin(args.models)] ## so we only consider the models we want to plot
@@ -1296,7 +1296,7 @@ for model in args.models:
 
 ## running functions to plot results
 
-# df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 # plotCands(df=df,save=True)
 # print('completed daily candidate plots (1)\n') if args.verbose else None
 
@@ -1306,8 +1306,8 @@ for model in args.models:
 # plotUnfit(df=df)
 # print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
 # plotLikelihood(df=df)
 # print('completed evidence plot (5)\n') if args.verbose else None
