@@ -1189,13 +1189,12 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 ## perhaps a function that finds the model with the highest log_likelihood for each candidate and then plots some stuff about which models were 'most likely' over time and compared to one another
 
 
-## testing stats functions
 
 ## command:
 ## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
 
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
-df = df.copy()[df['model'].isin(args.models)]
+df = df.copy()[df['model'].isin(args.models)] ## so we only consider the models we want to plot
 df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
 
 print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
@@ -1209,14 +1208,9 @@ print('median number of candidates per day: {}'.format(round(df.drop_duplicates(
 
 print('median number of unique candidates per day: {}'.format(round(df_daily.drop_duplicates(subset=['cand']).groupby('day',as_index=False).count()['cand'].median(),0))) if args.verbose else None
 
-
-
-#print(df_daily)
-# [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
-#numDailyCands = ([len(np.array([*set(item)])) for item in df_cdaily])
 print('total number of daily candidates: {}'.format(len(df_daily['cand']))) if args.verbose else None
 
-print("total number of unique candidates: {}".format(len(df_daily.drop_duplicates(subset=['cand'])))) if args.verbose else None
+print('total number of unique candidates: {}'.format(len(df_daily.drop_duplicates(subset=['cand'])))) if args.verbose else None
 
 print("fraction of unique candidates: {}".format(round(len(df_daily.drop_duplicates(subset=['cand']))/len(df_daily['cand']),2))) if args.verbose else None
 
@@ -1240,44 +1234,53 @@ print('') if args.verbose else None
 
 print('fraction of candidates with at least one fit: {}%'.format(round(df.drop_duplicates(subset=['day','cand']).value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
-#print('fitBool fraction candidates: {}'.format(df.drop_duplicates(subset=['cand']).value_counts(subset=['fitBool'], normalize=True))) if args.verbose else None
-
-#print('fraction of unfit candidates: {}'.format(len(df.drop_duplicates(subset=['cand'])[df.drop_duplicates(subset=['cand'])['fitBool'] == False])/len(df.drop_duplicates(subset=['cand'])))) if args.verbose else None
+#print('fraction of candidates succesfully fit to all models: {}%'.format(round(len(df_daily[df['fitBool'].apply(lambda x: False not in x)])/len(df_daily)*100,2))) if args.verbose else None
+## implementing above is a bit tricky
 
 for model in args.models:
-    print('success rate for {}: {}%'.format(model,
+    print('fit success rate for {}: {}%'.format(model,
                                                round(df[(df['model'] == model)].value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
-print('success rate overall: {}%'.format(round(df.value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
+print('fit success rate overall: {}%'.format(round(df.value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
 # print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == False])/len(df))) if args.verbose else None
 
 print('') if args.verbose else None
 
-print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),3),
+print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),1),
                                                           round(df['sampling_time'].sum()/60/60,1))) if args.verbose else None
 
-print('sampling time for failed fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3),
-                                                         round(df[df['fitBool'] == False]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+print('average sampling time per day: {} ({} hours)'.format(round(df['sampling_time'].sum()/len(df['day'].unique()),1),
+                                                            round(df['sampling_time'].sum()/len(df['day'].unique())/60/60,1))) if args.verbose else None
 
-print('sampling time for succesful fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3),
-                                                                       round(df[df['fitBool'] == True]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+print('average sampling time per candidate: {} ({} hours)'.format(round(df['sampling_time'].sum()/len(df['cand'].unique()),1),
+                                                                 round(df['sampling_time'].sum()/len(df['cand'].unique())/60/60,1))) if args.verbose else None
+## avg per candidate should probably be calculated by finding total sampling time per candidate and dividing by number of unique candidates
+
+
+# print('sampling time for failed fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3),
+#                                                          round(df[df['fitBool'] == False]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+
+# print('sampling time for succesful fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3),
+#                                                                        round(df[df['fitBool'] == True]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+print('') if args.verbose else None
 
 for model in args.models:
     print('total sampling time for {}: {} seconds ({} hours)'.format(model,
-                                                                      round(df[df['model'] == model]['sampling_time'].sum(),3),
+                                                                      round(df[df['model'] == model]['sampling_time'].sum(),1),
                                                                       round(df[df['model'] == model]['sampling_time'].sum()/60/60,1))) if args.verbose else None
-
-for model in args.models:
+    print('fraction of total sampling time for {}: {}%'.format(model,
+                                                              round(df[df['model'] == model]['sampling_time'].sum()/df['sampling_time'].sum()*100,2))) if args.verbose else None
     print('median sampling time for {}: {} seconds ({} hours)'.format(model,
-                                                                      round(df[df['model'] == model]['sampling_time'].median(),3),
+                                                                      round(df[df['model'] == model]['sampling_time'].median(),1),
                                                                       round(df[df['model'] == model]['sampling_time'].median()/60/60,1))) if args.verbose else None
-
-print(df.value_counts(subset=['fitBool'], normalize=True)) if args.verbose else None
-# plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
-# plt.show()
+    print('') if args.verbose else None
 
 
+
+## running functions to plot results
+
+# df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 # plotCands(df=df,save=True)
 # print('completed daily candidate plots (1)\n') if args.verbose else None
 
