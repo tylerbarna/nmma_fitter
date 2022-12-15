@@ -1315,7 +1315,7 @@ for model in args.models:
 # plotUnfit(df=df, save=True)
 #print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df, save=True)
+# plotSamplingTimes(df=df, save=True)
 #print('completed sampling time plot (4)\n') if args.verbose else None
 
 # plotLikelihood(df=df, save=True)
