@@ -310,7 +310,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     ## Not exactly the intended use of plotDir, but it works (probably)
     print('completed dataframe creation') if args.verbose else None
     
-    print('time to create dataframe: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to create dataframe: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
 
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
@@ -416,7 +416,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     
     
     print('completed candidate plotting') if args.verbose else None
-    print('time to plot candidates: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidates: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
     
 
@@ -531,7 +531,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     print('completed cumDailyFits plot for all models \n') if args.verbose else None
     
     print('completed fit plotting') if args.verbose else None
-    print('time to plot candidate fits: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidate fits: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
 
 def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'): ## assumes use of dataframe
@@ -706,7 +706,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     '''
     
     print('completed unfit plotting') if args.verbose else None
-    print('time to plot unfit: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot unfit: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
     
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
@@ -926,7 +926,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     
     print('completed sampling times plotting') if args.verbose else None
-    print('time to plot sampling times: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot sampling times: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
  
 def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     '''
@@ -1102,7 +1102,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
                        hue='model', hue_order=models, fill=True,
                        legend='full', #clip=((0,25000),(-500,0)),
-                       ax=ax, alpha=0.6)
+                       ax=ax, alpha=0.75)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Log Bayes Factor')
     #ax.legend()
@@ -1175,7 +1175,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     # plt.close()
     
     print('completed likelihood plotting') if args.verbose else None
-    print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidate likelihoods: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
         
 
 
@@ -1309,5 +1309,5 @@ df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=ar
 plotSamplingTimes(df=df)
 print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df)
-# print('completed evidence plot (5)\n') if args.verbose else None
+plotLikelihood(df=df)
+print('completed evidence plot (5)\n') if args.verbose else None
