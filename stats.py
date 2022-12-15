@@ -1271,9 +1271,22 @@ for model in args.models:
                                                                       round(df[df['model'] == model]['sampling_time'].sum()/60/60,1))) if args.verbose else None
     print('fraction of total sampling time for {}: {}%'.format(model,
                                                               round(df[df['model'] == model]['sampling_time'].sum()/df['sampling_time'].sum()*100,2))) if args.verbose else None
+    print('average sampling time for {}: {} seconds ({} hours)'.format(model,
+                                                                      round(df[df['model'] == model]['sampling_time'].mean(),1),
+                                                                      round(df[df['model'] == model]['sampling_time'].mean()/60/60,1))) if args.verbose else None
     print('median sampling time for {}: {} seconds ({} hours)'.format(model,
                                                                       round(df[df['model'] == model]['sampling_time'].median(),1),
                                                                       round(df[df['model'] == model]['sampling_time'].median()/60/60,1))) if args.verbose else None
+    print('') if args.verbose else None
+    
+print('') if args.verbose else None
+## show average, median, and percentile values of bayes factor for each model
+for model in args.models:
+    print('average bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].mean(),1))) if args.verbose else None
+    print('median bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].median(),1))) if args.verbose else None
+    print('bayes factor 95% percentile for {}: {}, {}'.format(model, 
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.05),1),
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.95),1))) if args.verbose else None
     print('') if args.verbose else None
 
 
