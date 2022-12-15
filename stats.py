@@ -328,6 +328,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     save: boolean to determine whether to save the plot or not
     '''
     startTime = time.time()
+    print('starting candidate plotting') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'candidates')
     if not os.path.exists(subdir):
@@ -341,7 +342,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     df_cd['numCand'] = [len(cand) for cand in df_cd['cand']]
     #print('df_cd: {}\n'.format(df_cd)) if args.verbose else None
     #[print(cand) for cand in df_cd['numCand']]
-    print('total number of candidates: {}'.format(df_cd['numCand'].sum())) if args.verbose else None
+    #print('total number of candidates: {}'.format(df_cd['numCand'].sum())) if args.verbose else None
     #print(df_cd)
     #df_cdc.to_csv('./df_cdaily.csv')
     ## unique candidates
@@ -349,9 +350,9 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ## unique candidates grouped by day
     df_ud = df_u.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     df_ud['numCand'] = [len(cand) for cand in df_ud['cand']]
-    print('total number of unique candidates: {}'.format(df_ud['numCand'].sum())) if args.verbose else None
+    #print('total number of unique candidates: {}'.format(df_ud['numCand'].sum())) if args.verbose else None
     
-    print('largest nuber of candidates in a single day: {}'.format(df_cd['numCand'].max())) if args.verbose else None
+    #print('largest nuber of candidates in a single day: {}'.format(df_cd['numCand'].max())) if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white') 
@@ -362,7 +363,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCand plot') if args.verbose else None
+    #print('completed numDailyCand plot') if args.verbose else None
     plt.close()
     
      
@@ -373,7 +374,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCandHist plot') if args.verbose else None
+    #print('completed numDailyCandHist plot') if args.verbose else None
     plt.close()
     
     #plot 7 day rolling average of candidates per day
@@ -385,7 +386,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
     plt.savefig(plotDir("numDailyCandRolling",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCandRolling plot') if args.verbose else None
+    #print('completed numDailyCandRolling plot') if args.verbose else None
     plt.close()
     
     ## plot cumulative number of candidates per day
@@ -396,7 +397,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyCand plot') if args.verbose else None
+    #print('completed cumDailyCand plot') if args.verbose else None
     plt.close()
     
     ## plot number of unique candidates
@@ -411,7 +412,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("uniqueDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed uniqueDailyCand plot') if args.verbose else None
+    #print('completed uniqueDailyCand plot') if args.verbose else None
     plt.close()
     
     
@@ -432,6 +433,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('starting fit plotting') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'fits')
     if not os.path.exists(subdir):
@@ -480,7 +482,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
         ax.set_title('{}'.format(model))
         ax.legend()
         plt.savefig(plotDir("cumDailyFits_"+model,outdir=subdir,ext=ext)) if save else None
-        print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
+        #print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
         plt.close()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
         modelDict['Total'] = sum(map(np.array,modelDict.values())).tolist()
@@ -501,7 +503,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     plt.savefig(plotDir("cumDailyFitsAll",outdir=subdir,ext=ext)) if save else None ## need to make a version that adds a residual plot below to compare models
     ax.set_yscale('log')
     plt.savefig(plotDir("cumDailyFitsAllLog",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyFitsAll plot\n') if args.verbose else None
+    #print('completed cumDailyFitsAll plot\n') if args.verbose else None
     plt.close()
     
     ## plot the relative performance of each model against the others
@@ -526,9 +528,9 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Difference in Fit Count')
     ax.legend()
     plt.savefig(plotDir("cumDailyFitsRelPerf",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
+    #print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
     plt.close()
-    print('completed cumDailyFits plot for all models \n') if args.verbose else None
+    #print('completed cumDailyFits plot for all models \n') if args.verbose else None
     
     print('completed fit plotting') if args.verbose else None
     print('time to plot candidate fits: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
@@ -544,6 +546,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('starting unfit plotting') if args.verbose else None
     subdir = os.path.join(outdir,'unfit')
     if not os.path.exists(subdir):
         os.mkdir(subdir)
@@ -727,6 +730,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('plotting sampling times') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'samplingTimes')
     if not os.path.exists(subdir):
@@ -885,6 +889,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', hue_order=models,
                         legend='full',linewidth=4, ax=ax)
     ax.set_xlabel("Sampling Time (s)")
+    
     plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
     plt.savefig(plotDir("samplingTimeDistModelLog",outdir=subdir,ext=ext)) if save else None
@@ -896,8 +901,8 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
                           legend=True, cut=0,
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
-    ax.set_ylabel('Model')
-    
+    ax.set_ylabel('')
+    ax.legend([],[], frameon=False)
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
@@ -913,8 +918,9 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
                           hue='model', 
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
+    ax.legend([],[], frameon=False)
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
@@ -938,6 +944,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('plotting likelihoods') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'likelihood')
     if not os.path.exists(subdir):
@@ -1119,15 +1126,16 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.violinplot(data=df, x='log_bayes_factor',y='model',
                           hue='model', split=False,
-                          legend=False, cut=0,
+                          cut=0,
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
+    ax.legend([],[], frameon=False) ## to remove legend (somewhat unecessary for this plot)
     plt.savefig(plotDir("BayesViolin",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
@@ -1137,15 +1145,16 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.boxplot(data=df, x='log_bayes_factor',y='model', 
-                          hue='model', hue_order=models,
+                          hue='model', hue_order=models, 
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
+    ax.legend([],[], frameon=False)
     plt.savefig(plotDir("BayesBox",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
@@ -1296,18 +1305,18 @@ for model in args.models:
 
 ## running functions to plot results
 
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+#df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 # plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)\n') if args.verbose else None
+#print('completed daily candidate plots (1)\n') if args.verbose else None
 
-# plotFits(df=df)
-# print('completed cumulative fit plot (2)\n') if args.verbose else None
+# plotFits(df=df, save=True)
+#print('completed cumulative fit plot (2)\n') if args.verbose else None
 
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (3)\n') if args.verbose else None
+# plotUnfit(df=df, save=True)
+#print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-plotSamplingTimes(df=df)
-print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df, save=True)
+#print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df, save=True)
+#print('completed evidence plot (5)\n') if args.verbose else None
