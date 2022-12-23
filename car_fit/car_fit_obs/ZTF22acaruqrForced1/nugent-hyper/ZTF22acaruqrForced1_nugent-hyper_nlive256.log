@@ -1,0 +1,12 @@
+17:15 INFO    : Running for label 'ZTF22acaruqrForced1_nugent-hyper_nlive256', output will be saved to './car_fit/car_fit_obs/ZTF22acaruqrForced1/nugent-hyper/'
+17:15 INFO    : Search parameters:
+17:15 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+17:15 INFO    :   KNtimeshift = Uniform(minimum=-1.5, maximum=0.0, name='t0', latex_label='$t_0$', unit=None, boundary=None)
+17:15 INFO    :   inclination_EM = Sine(minimum=0, maximum=0.8, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+17:15 INFO    :   supernova_mag_boost = Uniform(minimum=-5.0, maximum=5.0, name='supernova_mag_boost', latex_label='$\\rm{SNmag}$', unit=None, boundary=None)
+17:15 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+17:15 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+17:15 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+17:15 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+17:15 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 256, 'n_params': 5, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fdd40376d00>>}
+17:15 INFO    : Using temporary file /tmp/tmpv2v5_1_z
