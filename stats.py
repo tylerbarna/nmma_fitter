@@ -310,7 +310,7 @@ def get_dataframe(candDir=args.candDir, fitDir=args.fitDir, models=args.models, 
     ## Not exactly the intended use of plotDir, but it works (probably)
     print('completed dataframe creation') if args.verbose else None
     
-    print('time to create dataframe: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to create dataframe: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
 
     return df ## generally, most items returned in df will be strings, with a small number of bools and np.nan values
 
@@ -328,6 +328,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     save: boolean to determine whether to save the plot or not
     '''
     startTime = time.time()
+    print('starting candidate plotting') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'candidates')
     if not os.path.exists(subdir):
@@ -341,7 +342,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     df_cd['numCand'] = [len(cand) for cand in df_cd['cand']]
     #print('df_cd: {}\n'.format(df_cd)) if args.verbose else None
     #[print(cand) for cand in df_cd['numCand']]
-    print('total number of candidates: {}'.format(df_cd['numCand'].sum())) if args.verbose else None
+    #print('total number of candidates: {}'.format(df_cd['numCand'].sum())) if args.verbose else None
     #print(df_cd)
     #df_cdc.to_csv('./df_cdaily.csv')
     ## unique candidates
@@ -349,9 +350,9 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ## unique candidates grouped by day
     df_ud = df_u.groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     df_ud['numCand'] = [len(cand) for cand in df_ud['cand']]
-    print('total number of unique candidates: {}'.format(df_ud['numCand'].sum())) if args.verbose else None
+    #print('total number of unique candidates: {}'.format(df_ud['numCand'].sum())) if args.verbose else None
     
-    print('largest nuber of candidates in a single day: {}'.format(df_cd['numCand'].max())) if args.verbose else None
+    #print('largest nuber of candidates in a single day: {}'.format(df_cd['numCand'].max())) if args.verbose else None
     
     ## plot number of candidates per day
     fig, ax = plotstyle(figsize=(20,15), facecolor='white') 
@@ -362,7 +363,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date") 
     ax.set_ylabel('Candidates Per Day')
     plt.savefig(plotDir("numDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCand plot') if args.verbose else None
+    #print('completed numDailyCand plot') if args.verbose else None
     plt.close()
     
      
@@ -373,7 +374,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Candidates Per Day")
     ax.set_ylabel('Count')
     plt.savefig(plotDir("numDailyCandHist",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCandHist plot') if args.verbose else None
+    #print('completed numDailyCandHist plot') if args.verbose else None
     plt.close()
     
     #plot 7 day rolling average of candidates per day
@@ -385,7 +386,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidates Per Day\n(Rolling Average)') ## needs title
     plt.savefig(plotDir("numDailyCandRolling",outdir=subdir,ext=ext)) if save else None
-    print('completed numDailyCandRolling plot') if args.verbose else None
+    #print('completed numDailyCandRolling plot') if args.verbose else None
     plt.close()
     
     ## plot cumulative number of candidates per day
@@ -396,7 +397,7 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("cumDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyCand plot') if args.verbose else None
+    #print('completed cumDailyCand plot') if args.verbose else None
     plt.close()
     
     ## plot number of unique candidates
@@ -411,12 +412,12 @@ def plotCands(df, save=True, outdir=args.outdir, ext='.png'):
     ax.set_xlabel("Date")
     ax.set_ylabel('Candidate Count')
     plt.savefig(plotDir("uniqueDailyCand",outdir=subdir,ext=ext)) if save else None
-    print('completed uniqueDailyCand plot') if args.verbose else None
+    #print('completed uniqueDailyCand plot') if args.verbose else None
     plt.close()
     
     
     print('completed candidate plotting') if args.verbose else None
-    print('time to plot candidates: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidates: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
     
 
@@ -432,6 +433,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('starting fit plotting') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'fits')
     if not os.path.exists(subdir):
@@ -480,7 +482,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
         ax.set_title('{}'.format(model))
         ax.legend()
         plt.savefig(plotDir("cumDailyFits_"+model,outdir=subdir,ext=ext)) if save else None
-        print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
+        #print('completed cumDailyFits plot for {} \n'.format(model)) if args.verbose else None
         plt.close()
     try: ## using a try here because this could totally break if the modelDict has different lengths for each model
         modelDict['Total'] = sum(map(np.array,modelDict.values())).tolist()
@@ -501,7 +503,7 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     plt.savefig(plotDir("cumDailyFitsAll",outdir=subdir,ext=ext)) if save else None ## need to make a version that adds a residual plot below to compare models
     ax.set_yscale('log')
     plt.savefig(plotDir("cumDailyFitsAllLog",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyFitsAll plot\n') if args.verbose else None
+    #print('completed cumDailyFitsAll plot\n') if args.verbose else None
     plt.close()
     
     ## plot the relative performance of each model against the others
@@ -526,12 +528,12 @@ def plotFits(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     ax.set_ylabel('Difference in Fit Count')
     ax.legend()
     plt.savefig(plotDir("cumDailyFitsRelPerf",outdir=subdir,ext=ext)) if save else None
-    print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
+    #print('completed cumDailyFitsRelPerf plot\n') if args.verbose else None
     plt.close()
-    print('completed cumDailyFits plot for all models \n') if args.verbose else None
+    #print('completed cumDailyFits plot for all models \n') if args.verbose else None
     
     print('completed fit plotting') if args.verbose else None
-    print('time to plot candidate fits: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidate fits: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
 
 def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'): ## assumes use of dataframe
@@ -544,6 +546,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('starting unfit plotting') if args.verbose else None
     subdir = os.path.join(outdir,'unfit')
     if not os.path.exists(subdir):
         os.mkdir(subdir)
@@ -706,7 +709,7 @@ def plotUnfit(df, models= args.models, save=True, outdir=args.outdir, ext='.png'
     '''
     
     print('completed unfit plotting') if args.verbose else None
-    print('time to plot unfit: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot unfit: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
     
     
     ## maybe a simple bar chart of unfit candidates? (could be useful for a quick glance)
@@ -727,6 +730,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('plotting sampling times') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'samplingTimes')
     if not os.path.exists(subdir):
@@ -851,7 +855,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     ## plot the cumulative daily fit time for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     
-    plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', #hue_order=models,
+    plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', hue_order=models,
                        multiple='stack',legend='full', cumulative=True,
                        ax=ax, alpha=0.75,bins=69,linewidth=2)
     ax.set_xlabel("Date")
@@ -885,6 +889,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', hue_order=models,
                         legend='full',linewidth=4, ax=ax)
     ax.set_xlabel("Sampling Time (s)")
+    
     plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
     plt.savefig(plotDir("samplingTimeDistModelLog",outdir=subdir,ext=ext)) if save else None
@@ -896,8 +901,8 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
                           legend=True, cut=0,
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
-    ax.set_ylabel('Model')
-    
+    ax.set_ylabel('')
+    ax.legend([],[], frameon=False)
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
@@ -913,8 +918,9 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
                           hue='model', 
                           ax=ax)
     ax.set_xlabel("Sampling Time (s)")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
+    ax.legend([],[], frameon=False)
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
@@ -926,7 +932,7 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     
     
     print('completed sampling times plotting') if args.verbose else None
-    print('time to plot sampling times: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot sampling times: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
  
 def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.png'):
     '''
@@ -938,6 +944,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     save: boolean to determine whether to save the figure or not
     '''
     startTime = time.time()
+    print('plotting likelihoods') if args.verbose else None
     ## create subdirectory for plots
     subdir = os.path.join(outdir,'likelihood')
     if not os.path.exists(subdir):
@@ -1102,7 +1109,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
                        hue='model', hue_order=models, fill=True,
                        legend='full', #clip=((0,25000),(-500,0)),
-                       ax=ax, alpha=0.6)
+                       ax=ax, alpha=0.75)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Log Bayes Factor')
     #ax.legend()
@@ -1119,15 +1126,16 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.violinplot(data=df, x='log_bayes_factor',y='model',
                           hue='model', split=False,
-                          legend=False, cut=0,
+                          cut=0,
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
+    ax.legend([],[], frameon=False) ## to remove legend (somewhat unecessary for this plot)
     plt.savefig(plotDir("BayesViolin",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
@@ -1137,15 +1145,16 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ## box plot of sampling times for different models
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.boxplot(data=df, x='log_bayes_factor',y='model', 
-                          hue='model', hue_order=models,
+                          hue='model', hue_order=models, 
                           ax=ax)
     ax.set_xlabel("Log Bayes Factor")
-    ax.set_ylabel('Model')
-    
+    #ax.set_ylabel('Model')
+    ax.set_ylabel('')
     #ax.legend()
     #ax.set_xlim(right=35000)## presumes a certain max sampling time
     #ax.set_ylim(bottom=-500)
     #sns.move_legend(plot, 'lower right')
+    ax.legend([],[], frameon=False)
     plt.savefig(plotDir("BayesBox",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('symlog')
     ax.set_xlim(right=1)
@@ -1175,7 +1184,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     # plt.close()
     
     print('completed likelihood plotting') if args.verbose else None
-    print('time to plot candidate likelihoods: {} seconds\n'.format(time.time()-startTime)) if args.verbose else None
+    print('time to plot candidate likelihoods: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
         
 
 
@@ -1189,64 +1198,125 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
 ## perhaps a function that finds the model with the highest log_likelihood for each candidate and then plots some stuff about which models were 'most likely' over time and compared to one another
 
 
-## testing stats functions
 
 ## command:
-## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m nugent-hyper Bu2019lm TrPi2018 Piro2021
+## python3 ./stats.py -c ./candidate_data/pipelineStructureExample/candidates/partnership -f  ./candidate_data/pipelineStructureExample/candidate_fits -o ./msiStats  --datafile ./msiStats/statsDataframe.csv --verbose -m Bu2019lm TrPi2018 nugent-hyper Piro2021
 
 df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+df = df.copy()[df['model'].isin(args.models)] ## so we only consider the models we want to plot
+df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
 
 print('date range: {} to {}'.format(df['startDate'].min(),df['stopDate'].max())) if args.verbose else None
 
-print('average number of candidates per day: {}'.format(df.groupby('day').count()['cand'].mean())) if args.verbose else None
+## drop_duplicates(subset=['day','cand']) is used to remove duplicate candidates from the same day (ie remove extra model counts) and grouping just by cand will give unique candidates per day
+print('average number of candidates per day: {}'.format(round(df.drop_duplicates(subset=['day','cand']).groupby(['day'],as_index=False).count()['cand'].mean(),2))) if args.verbose else None
 
-print('median number of candidates per day: {}'.format(df.groupby('day').count()['cand'].median())) if args.verbose else None
+print('average number of unique candidates per day: {}'.format(df.drop_duplicates(subset=['cand']).groupby('day',as_index=False).count()['cand'].mean())) if args.verbose else None
 
+print('median number of candidates per day: {}'.format(round(df.drop_duplicates(subset=['day','cand']).groupby('day',as_index=False).count()['cand'].median(),0))) if args.verbose else None
 
-df_daily = df.groupby(['day','cand'],as_index=False).agg(tuple)
-#print(df_daily)
-# [print(len(item)) for item in df.groupby(['day','cand'],as_index=False).agg(tuple).groupby('day',as_index=False).agg(tuple)['cand']] if args.verbose else None
-#numDailyCands = ([len(np.array([*set(item)])) for item in df_cdaily])
+print('median number of unique candidates per day: {}'.format(round(df_daily.drop_duplicates(subset=['cand']).groupby('day',as_index=False).count()['cand'].median(),0))) if args.verbose else None
+
 print('total number of daily candidates: {}'.format(len(df_daily['cand']))) if args.verbose else None
 
-print("total number of unique candidates: {}".format(len(df_daily['cand'].unique()))) if args.verbose else None
+print('total number of unique candidates: {}'.format(len(df_daily.drop_duplicates(subset=['cand'])))) if args.verbose else None
+
+print("fraction of unique candidates: {}".format(round(len(df_daily.drop_duplicates(subset=['cand']))/len(df_daily['cand']),2))) if args.verbose else None
 
 print('largest number of candidates in a day: {}'.format(df_daily.groupby('day').count()['cand'].max())) if args.verbose else None
 
 print('largest number of unique candidates in a day: {}'.format(df_daily.drop_duplicates(subset=['cand']).groupby('day').count()['cand'].max())) if args.verbose else None
 
-print('most observed candidates: \n{}'.format(df_daily['cand'].value_counts().head(5))) if args.verbose else None
-
-print('least observed candidates: \n{}'.format(df_daily['cand'].value_counts(ascending=True).head(5))) if args.verbose else None
- 
 print('average number of observations per candidate: {}'.format(round(df_daily['cand'].value_counts().mean(),3))) if args.verbose else None
 
 print('median number of observations per candidate: {}'.format(df_daily['cand'].value_counts().median())) if args.verbose else None
 
-print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),3),round(df['sampling_time'].sum()/60/60,3))) if args.verbose else None
+print('') if args.verbose else None
 
-print('sampling time for failed fits: {} seconds'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3))) if args.verbose else None
+print('most observed candidates: \n{}'.format(df_daily['cand'].value_counts().head(5))) if args.verbose else None
 
-print('sampling time for succesful fits: {} seconds'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3))) if args.verbose else None
+print('least observed candidates: \n{}'.format(df_daily['cand'].value_counts(ascending=True).head(5))) if args.verbose else None
+
+print('') if args.verbose else None
+
+## some of these fit fractions might be a bit shaky in terms of calculation (getting too deep in filtering and grouping dataframes)
+
+print('fraction of candidates with at least one fit: {}%'.format(round(df.drop_duplicates(subset=['day','cand']).value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
+
+#print('fraction of candidates succesfully fit to all models: {}%'.format(round(len(df_daily[df['fitBool'].apply(lambda x: False not in x)])/len(df_daily)*100,2))) if args.verbose else None
+## implementing above is a bit tricky
 
 for model in args.models:
-    print('median sampling time for {}: {} seconds'.format(model,round(df[df['model'] == model]['sampling_time'].median(),3))) if args.verbose else None
+    print('fit success rate for {}: {}%'.format(model,
+                                               round(df[(df['model'] == model)].value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
 
-# plt.bar(x=df['day'], height=np.cumsum(df['sampling_time']), width=1, color='black', alpha=0.5)
-# plt.show()
+print('fit success rate overall: {}%'.format(round(df.value_counts(subset=['fitBool'], normalize=True)[1]*100,2))) if args.verbose else None
+
+# print('fraction of fit failures overall: {}'.format(len(df[df['fitBool'] == False])/len(df))) if args.verbose else None
+
+print('') if args.verbose else None
+
+print('total sampling time: {} seconds ({} hours)'.format(round(df['sampling_time'].sum(),1),
+                                                          round(df['sampling_time'].sum()/60/60,1))) if args.verbose else None
+
+print('average sampling time per day: {} ({} hours)'.format(round(df['sampling_time'].sum()/len(df['day'].unique()),1),
+                                                            round(df['sampling_time'].sum()/len(df['day'].unique())/60/60,1))) if args.verbose else None
+
+print('average sampling time per candidate: {} ({} hours)'.format(round(df['sampling_time'].sum()/len(df['cand'].unique()),1),
+                                                                 round(df['sampling_time'].sum()/len(df['cand'].unique())/60/60,1))) if args.verbose else None
+## avg per candidate should probably be calculated by finding total sampling time per candidate and dividing by number of unique candidates
 
 
+# print('sampling time for failed fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == False]['sampling_time'].sum(),3),
+#                                                          round(df[df['fitBool'] == False]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+
+# print('sampling time for succesful fits: {} seconds ({} hours)'.format(round(df[df['fitBool'] == True]['sampling_time'].sum(),3),
+#                                                                        round(df[df['fitBool'] == True]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+print('') if args.verbose else None
+
+for model in args.models:
+    print('total sampling time for {}: {} seconds ({} hours)'.format(model,
+                                                                      round(df[df['model'] == model]['sampling_time'].sum(),1),
+                                                                      round(df[df['model'] == model]['sampling_time'].sum()/60/60,1))) if args.verbose else None
+    print('fraction of total sampling time for {}: {}%'.format(model,
+                                                              round(df[df['model'] == model]['sampling_time'].sum()/df['sampling_time'].sum()*100,2))) if args.verbose else None
+    print('average sampling time for {}: {} seconds ({} hours)'.format(model,
+                                                                      round(df[df['model'] == model]['sampling_time'].mean(),1),
+                                                                      round(df[df['model'] == model]['sampling_time'].mean()/60/60,1))) if args.verbose else None
+    print('median sampling time for {}: {} seconds ({} hours)'.format(model,
+                                                                      round(df[df['model'] == model]['sampling_time'].median(),1),
+                                                                      round(df[df['model'] == model]['sampling_time'].median()/60/60,1))) if args.verbose else None
+    print('') if args.verbose else None
+    
+print('') if args.verbose else None
+## show average, median, and percentile values of bayes factor for each model
+for model in args.models:
+    print('bayes factor range for {}: {}, {}'.format(model, 
+                                                    round(df[df['model'] == model]['log_bayes_factor'].min(),2),
+                                                    round(df[df['model'] == model]['log_bayes_factor'].max(),2))) if args.verbose else None
+    print('average bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].mean(),1))) if args.verbose else None
+    print('median bayes factor for {}: {}'.format(model, round(df[df['model'] == model]['log_bayes_factor'].median(),1))) if args.verbose else None
+    print('bayes factor 95% percentile for {}: {}, {}'.format(model, 
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.05),2),
+                                                              round(df[df['model'] == model]['log_bayes_factor'].quantile(0.95),2))) if args.verbose else None
+    print('') if args.verbose else None
+
+
+
+## running functions to plot results
+
+#df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
 # plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)\n') if args.verbose else None
+#print('completed daily candidate plots (1)\n') if args.verbose else None
 
-# plotFits(df=df)
-# print('completed cumulative fit plot (2)\n') if args.verbose else None
+# plotFits(df=df, save=True)
+#print('completed cumulative fit plot (2)\n') if args.verbose else None
 
-# plotUnfit(df=df)
-# print('completed unfit candidate plot (3)\n') if args.verbose else None
+# plotUnfit(df=df, save=True)
+#print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df)
-# print('completed sampling time plot (4)\n') if args.verbose else None
+# plotSamplingTimes(df=df, save=True)
+#print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df)
-# print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df, save=True)
+#print('completed evidence plot (5)\n') if args.verbose else None
