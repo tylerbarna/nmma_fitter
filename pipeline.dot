@@ -1,0 +1,38 @@
+digraph G{
+    rankdir=LR;
+    node [shape=record];
+    subgraph cluster_0 {
+        label = "schoty";
+        node [color=white, style=filled];
+        color= "#ffe5dc";
+        style=filled
+
+        a0 [label="Retreive data from \nZTF Alert Stream"];
+        a1 [label="Push plots to Slack"];
+
+
+    }
+    subgraph cluster_1 {
+        label = "MSI";
+        node [color=white, style=filled];
+        color="#bcdaee";
+        style=filled
+
+        b0 [label="Sync \nwith schoty"];
+        a0 -> b0;
+        b1 [label="Check for candidates \nyet to be fit"];
+        b0->b1
+        b1->b0 [label="No new \ncandidates found"]
+        b1->b3 [label="New candidates \nfound"]
+
+        b3 [label="Submit fit jobs"];
+        b4 [label="Check completion of fit jobs"];
+        b3 -> b4;
+        b4 -> b4 [label="Jobs incomplete"];
+        b4 -> b5 [label="Jobs complete"];
+        b5 [label="Push results to \nSchoty"];
+        b5 -> a1;
+        
+    }
+
+}
