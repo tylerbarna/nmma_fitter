@@ -1037,7 +1037,6 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     
     ## plot a histogram of the log evidence in total
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True, hue_order=models,
                         multiple='stack',legend='full',
                         ax=ax, alpha=1)
@@ -1178,7 +1177,21 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("BayesBoxLog",outdir=subdir,ext=ext)) if save else None
     plt.close()
     
+    ## histogram of best likelihoods for each model
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df_fo, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
+                        multiple='stack',legend='full',
+                        ax=ax, alpha=0.6)
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Count')
+    #ax.legend()
+    plt.savefig(plotDir("LogBayesBestHist",outdir=subdir,ext=ext)) if save else None
+    ax.set_xlim(left=-200, right=10)
+    plt.savefig(plotDir("LogBayesBestHistCutoff",outdir=subdir,ext=ext)) if save else None
     
+    plt.close() 
     
     
     ## scatter plot of sampling time vs evidence for each model
