@@ -979,7 +979,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
             df_cd_max = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
             df_fo = df_fo.append(df_cd_max, ignore_index=True)
     #df_fo.to_csv('./msiStats/test_fo.csv')
-    exit()
+    
     
     ## group by day
     df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
