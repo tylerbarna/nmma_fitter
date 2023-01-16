@@ -978,6 +978,16 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
             df_cd = df_cand[df_cand['day']==day]
             df_cd_max = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
             df_fo = df_fo.append(df_cd_max, ignore_index=True)
+            
+    ## print stats about number of cands best fit for each model
+    for model in models:
+        print('number of cands best fit by {}: {}'.format(model,len(df_fo[df_fo['model']==model]))) if args.verbose else None
+    for model in models:
+        print('number of cands best fit by {} (>=-100 BF): {}'.format(model,len(df_fo[df_fo['model']==model][df_fo['log_bayes_factor']>=-100]))) if args.verbose else None
+    for model in models:
+        print('number of cands best fit by {} (>=-50 BF): {}'.format(model,len(df_fo[df_fo['model']==model][df_fo['log_bayes_factor']>=-50]))) if args.verbose else None
+    for model in models:
+        print('number of cands best fit by {} (>=-10 BF): {}'.format(model,len(df_fo[df_fo['model']==model][df_fo['log_bayes_factor']>=-10]))) if args.verbose else None
     #df_fo.to_csv('./msiStats/test_fo.csv')
     
     
