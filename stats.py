@@ -972,12 +972,19 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     #df_fo.to_csv('./msiStats/test_fo.csv')
     ## find the best fit for each object and day
     df_fo = pd.DataFrame()
+    df_fo_filtered = pd.DataFrame() ## only accept if diff in max and min is more than 1 
     for cand in df['cand'].unique():
         df_cand = df[df['fitBool']==True][df['cand']==cand]
         for day in df_cand['day'].unique():
             df_cd = df_cand[df_cand['day']==day]
             df_cd_max = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
+            df_cd_min = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].min()]
             df_fo = df_fo.append(df_cd_max, ignore_index=True)
+            df_cd_diff = df_cd_max['log_bayes_factor'].to_numpy()[0] - df_cd_min['log_bayes_factor'].to_numpy()[0]
+            if df_cd_diff > 8:
+                df_fo_filtered = df_fo_filtered.append(df_cd_max, ignore_index=True)
+    # df_fo_filtered.to_csv('./msiStats/test_fo_filtered_8.csv')
+    # exit()
             
     ## print stats about number of cands best fit for each model
     for model in models:
@@ -1190,7 +1197,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ## histogram of best likelihoods for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.histplot(data=df_fo, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
-                        multiple='stack',legend='full',
+                        multiple='layer',legend='full',
                         ax=ax, alpha=0.6)
     # for line in ax.lines:
     #     line.set_color('black')      
@@ -1200,7 +1207,51 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("LogBayesBestHist",outdir=subdir,ext=ext)) if save else None
     ax.set_xlim(left=-200, right=10)
     plt.savefig(plotDir("LogBayesBestHistCutoff",outdir=subdir,ext=ext)) if save else None
+    plt.close() 
     
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df_fo, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
+                        multiple='stack',legend='full',
+                        ax=ax, alpha=0.6)
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Count')
+    #ax.legend()
+    plt.savefig(plotDir("LogBayesBestHistStack",outdir=subdir,ext=ext)) if save else None
+    ax.set_xlim(left=-200, right=10)
+    plt.savefig(plotDir("LogBayesBestHistCutoffStack",outdir=subdir,ext=ext)) if save else None
+    plt.close() 
+    
+    
+    ## same but filtered to only include models with a BF difference > 8
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df_fo_filtered, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
+                        multiple='layer',legend='full',
+                        ax=ax, alpha=0.6)
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Count')
+    #ax.legend()
+    plt.savefig(plotDir("LogBayesBestFilteredHist",outdir=subdir,ext=ext)) if save else None
+    ax.set_xlim(left=-200, right=10)
+    plt.savefig(plotDir("LogBayesBestFilteredHistCutoff",outdir=subdir,ext=ext)) if save else None
+    plt.close() 
+    
+    
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.histplot(data=df_fo_filtered, x='log_bayes_factor', hue='model', kde=True, hue_order=models,
+                        multiple='stack',legend='full',
+                        ax=ax, alpha=0.6)
+    # for line in ax.lines:
+    #     line.set_color('black')      
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Count')
+    #ax.legend()
+    plt.savefig(plotDir("LogBayesBestFilteredHistStack",outdir=subdir,ext=ext)) if save else None
+    ax.set_xlim(left=-200, right=10)
+    plt.savefig(plotDir("LogBayesBestFilteredHistCutoffStack",outdir=subdir,ext=ext)) if save else None
     plt.close() 
     
     
