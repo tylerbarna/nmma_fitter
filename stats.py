@@ -964,6 +964,23 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     #df_f.to_csv('test.csv')
     #print(df_f['sampling_time_avg'])
     
+    ## group by object and day
+    #df_fo = df[df['fitBool']==True].groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
+    
+    #df_fo['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fo['sampling_time'].to_numpy()]
+    #df_fo['sampling_time_median'] = [np.median(timeset) for timeset in df_fo['sampling_time']]
+    #df_fo.to_csv('./msiStats/test_fo.csv')
+    ## find the best fit for each object and day
+    df_fo = pd.DataFrame()
+    for cand in df['cand'].unique():
+        df_cand = df[df['fitBool']==True][df['cand']==cand]
+        for day in df_cand['day'].unique():
+            df_cd = df_cand[df_cand['day']==day]
+            df_cd_max = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
+            df_fo = df_fo.append(df_cd_max, ignore_index=True)
+    #df_fo.to_csv('./msiStats/test_fo.csv')
+    exit()
+    
     ## group by day
     df_fd = df[df['fitBool']==True].groupby(['startDate','stopDate'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
     df_fd['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fd['sampling_time']]
@@ -1318,5 +1335,5 @@ for model in args.models:
 # plotSamplingTimes(df=df, save=True)
 #print('completed sampling time plot (4)\n') if args.verbose else None
 
-# plotLikelihood(df=df, save=True)
-#print('completed evidence plot (5)\n') if args.verbose else None
+plotLikelihood(df=df, save=True)
+print('completed evidence plot (5)\n') if args.verbose else None
