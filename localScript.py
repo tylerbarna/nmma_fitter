@@ -189,7 +189,7 @@ for cand in lc_data: ## hacky way of doing things
         + " --data " + cand + " --prior " + prior + " --tmin " + str(tmin)\
         + " --tmax " + str(tmax) + " --dt " + str(dt) + " --error-budget " + str(error_budget)\
         + " --nlive " + str(nlive) + " --Ebv-max " + str(Ebv_max)\
-        + " --detection-limit" +" \"{\'r\':21.5, \'g\':21.5, \'i\':21.5}\""\
+        + " --detection-limit" +" \"{\'r\':23.5, \'g\':23.5, \'i\':23.5}\""\
         + " --plot"\
         + " --sampler " + str(sampler)#+ " --verbose"
         if verbose:
