@@ -18,6 +18,7 @@ import time
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+
 import matplotlib as mpl
 import matplotlib.dates as dates
 import matplotlib.pyplot as plt
@@ -27,6 +28,9 @@ import pandas as pd
 import seaborn as sns
 
 from astropy.time import Time
+
+## to prevent a bunch of messages when defining df_fo
+pd.options.mode.chained_assignment = None
 
 #from scipy.interpolate import make_interp_spline as spline
 
@@ -978,10 +982,12 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
             df_cd_max['model_worst'] = df_cd_min['model'].to_numpy()[0] ## bad practice but works?
             df_fo = df_fo.append(df_cd_max, ignore_index=True)
             df_cd_diff = df_cd_max['log_bayes_factor'].to_numpy()[0] - df_cd_min['log_bayes_factor'].to_numpy()[0]
+            df_cd_diff_norm = np.abs(df_cd_diff / df_cd_max['log_bayes_factor'].to_numpy()[0])
             df_cd_max['log_bayes_factor_diff'] = df_cd_diff
+            df_cd_max['log_bayes_factor_diff_norm'] = df_cd_diff_norm
             if df_cd_diff > 8:
                 df_fo_filtered = df_fo_filtered.append(df_cd_max, ignore_index=True)
-    #df_fo_filtered.to_csv('./msiStats/test_fo_filtered_8.csv')
+    # df_fo_filtered.to_csv('./msiStats/test_fo_filtered_8.csv')
     # exit()
             
     ## print stats about number of cands best fit for each model
