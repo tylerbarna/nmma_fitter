@@ -15,6 +15,8 @@ import json
 import os
 import sys
 import time
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 import matplotlib as mpl
 import matplotlib.dates as dates
@@ -964,26 +966,22 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     #df_f.to_csv('test.csv')
     #print(df_f['sampling_time_avg'])
     
-    ## group by object and day
-    #df_fo = df[df['fitBool']==True].groupby(['startDate','stopDate','cand'],as_index=False).agg(tuple).applymap(lambda x: np.array(x))
-    
-    #df_fo['sampling_time_avg'] = [np.mean(timeset) for timeset in df_fo['sampling_time'].to_numpy()]
-    #df_fo['sampling_time_median'] = [np.median(timeset) for timeset in df_fo['sampling_time']]
-    #df_fo.to_csv('./msiStats/test_fo.csv')
     ## find the best fit for each object and day
     df_fo = pd.DataFrame()
     df_fo_filtered = pd.DataFrame() ## only accept if diff in max and min is more than 1 
     for cand in df['cand'].unique():
-        df_cand = df[df['fitBool']==True][df['cand']==cand]
+        df_cand = df[(df['fitBool']==True) & (df['cand']==cand)]
         for day in df_cand['day'].unique():
             df_cd = df_cand[df_cand['day']==day]
-            df_cd_max = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
-            df_cd_min = df_cd[df['log_bayes_factor']==df_cd['log_bayes_factor'].min()]
+            df_cd_max = df_cd[df_cd['log_bayes_factor']==df_cd['log_bayes_factor'].max()]
+            df_cd_min = df_cd[df_cd['log_bayes_factor']==df_cd['log_bayes_factor'].min()]
+            df_cd_max['model_worst'] = df_cd_min['model'].to_numpy()[0] ## bad practice but works?
             df_fo = df_fo.append(df_cd_max, ignore_index=True)
             df_cd_diff = df_cd_max['log_bayes_factor'].to_numpy()[0] - df_cd_min['log_bayes_factor'].to_numpy()[0]
+            df_cd_max['log_bayes_factor_diff'] = df_cd_diff
             if df_cd_diff > 8:
                 df_fo_filtered = df_fo_filtered.append(df_cd_max, ignore_index=True)
-    # df_fo_filtered.to_csv('./msiStats/test_fo_filtered_8.csv')
+    #df_fo_filtered.to_csv('./msiStats/test_fo_filtered_8.csv')
     # exit()
             
     ## print stats about number of cands best fit for each model
@@ -1004,31 +1002,6 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     df_fd['sampling_time_median'] = [np.median(timeset) for timeset in df_fd['sampling_time']]
     #df_fd.to_csv('test1.csv')
     
-    ## create dictionaries of fit times and likelihoods for each model
-    fitTime = {} ## fit time
-    fitEvid = {} ## fit evidence
-    fitEvidErr = {} ## fit evidence error
-    fitBayes = {} ## fit bayes factor
-    # for dict, key in zip([fitTime, fitEvid, fitEvidErr, fitBayes], ['sampling_time','log_evidence', 'log_evidence_err', 'log_bayes_factor']):
-    #     for model in models: 
-    #         dict[model] = np.array([
-    #             df[(df['fitBool'] == True) & (df['day'] == day) & (df['model'] == model)][key].to_numpy(copy=True).ravel() for day in dayList
-    #         ], dtype=object)
-    #         try: ## probably needs to be reshaped differently
-    #             dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
-    #         except:
-    #             dict[model] = np.tile(np.array([np.nan],dtype='float64'),(len(dayList),))
-    #             dict[model] = dict[model].reshape(len(dayList),) ## flatten the array
-    #         #print('model {} {}:\n {}\n'.format(model, key, dict[model])) if args.verbose else None
-    #         print('model {} {} shape: {}\n'.format(model, key, dict[model].shape)) if args.verbose else None
-    #     dict['Total'] = np.array([np.concatenate([value[idx].flatten() for key2, value in dict.items() if key2 != 'Total']) for idx in range(len(dayList))],dtype=object)
-    #     #print ('total {}: {}\n'.format(key,dict['Total'])) if args.verbose else None
-    #     print ('total {} shape: {}\n'.format(key,fitTime['Total'].shape)) if args.verbose else None
-    # ## try to convert this whole thing into a pandas dataframe
-    # df1 = pd.DataFrame()
-    # df1['day'] = dayList
-    # dateList = df['stopDate'][dateIdx]
-    
     
     ## data plotting
     ## list of marker types for plotting
@@ -1037,13 +1010,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.histplot(data=df, x='log_evidence', hue='model', kde=True, hue_order=models,
                         multiple='layer',legend='full',
-                        ax=ax, alpha=0.5)
-    # for key, value in fitEvid.items(): 
-    #     evidValue = np.concatenate(fitEvid[key],axis=None).ravel() 
-    #     sns.histplot(evidValue, kde=True,
-    #                  label=key, ax=ax, alpha=0.5) if key != 'Total' else None
-    # for line in ax.lines:
-    #     line.set_color('black')      
+                        ax=ax, alpha=0.5)    
     ax.set_xlabel("Log Evidence")
     ax.set_ylabel('Count')
     #ax.legend()
@@ -1254,25 +1221,30 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     plt.savefig(plotDir("LogBayesBestFilteredHistCutoffStack",outdir=subdir,ext=ext)) if save else None
     plt.close() 
     
+    ## relationship between best fit and difference between best fit and worst fit
+    ## want something like this: https://stackoverflow.com/questions/48910486/scatterplot-in-python-make-color-and-shape-according-to-different-categorical-v
+    ## the shape would be the worst fit model, the color would be the best fit model
+    fig, ax = plotstyle(figsize=(20,15), facecolor='white')
+    plot = sns.scatterplot(data=df_fo_filtered, x='log_bayes_factor', y='log_bayes_factor_diff', 
+                           hue='model', hue_order=models, s=300,
+                           legend='full',
+                           ax=ax, alpha=0.75)
+    ax.set_xlabel("Log Bayes Factor")
+    ax.set_ylabel('Difference in Log Bayes Factor')
+    plt.savefig(plotDir("LogBayesBestDiff",outdir=subdir,ext=ext)) if save else None
+    plt.close()
     
-    ## scatter plot of sampling time vs evidence for each model
     # fig, ax = plotstyle(figsize=(20,15), facecolor='white')
-    # for key, value in fitTime.items(): 
-    #     evidValue = np.concatenate(fitEvid[key],axis=None).ravel()
-    #     timeValue = np.concatenate(fitTime[key],axis=None).ravel()
-    #     evidError = np.concatenate(fitEvidErr[key],axis=None).ravel()
-    #     ax.errorbar(x=timeValue, y=evidValue, yerr=evidError, label=key,fmt='o', alpha=0.4) if key != 'Total' else None
-    # ax.set_xlabel("Sampling Time (s)")
-    # ax.set_ylabel('Log Evidence')
-    # ax.legend()
-    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModel",outdir=subdir,ext=ext)) if save else None
-    # ax.set_ylim(top=1)
-    # ax.set_yscale('symlog')
-    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLog",outdir=subdir,ext=ext)) if save else None
-    # ax.set_xscale('symlog')
-    # ax.set_xlim(left=0)
-    # plt.savefig(plotDir("SamplingTimeEvidenceScatterModelLogLog",outdir=subdir,ext=ext)) if save else None
+    # plot = sns.scatterplot(data=df_fo_filtered, x='log_bayes_factor', y='log_bayes_factor_diff',
+    #                   hue='model', hue_order=models, legend='full',
+    #                   style='model_worst', style_order=models, markers=['o','+','x'],
+    #                   s=300, 
+    #                   ax=ax, alpha=0.75)
+    # ax.set_xlabel("Log Bayes Factor")
+    # ax.set_ylabel('Difference in Log Bayes Factor')
+    # plt.savefig(plotDir("LogBayesBestDiffBrotherhood",outdir=subdir,ext=ext)) if save else None
     # plt.close()
+    
     
     print('completed likelihood plotting') if args.verbose else None
     print('time to plot candidate likelihoods: {} seconds\n'.format(round(time.time()-startTime,2))) if args.verbose else None
