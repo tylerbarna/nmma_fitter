@@ -35,6 +35,9 @@ parser.add_argument("-t","--timeout",type=int,default=43199)
 ## output directory for fit results
 parser.add_argument('-o',"--outdir",type=str,default="/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
 
+## force fits
+parser.add_argument('-f',"--force",action='store_true')
+
 args = parser.parse_args()
 
 ## Attempt to pull latest data from schoty 
@@ -112,7 +115,7 @@ file_list = []
 candidate_files = []
 candidate_names = []
 
-for file in glob.glob(search_directory + "/*.csv"):
+for file in glob.glob(os.path.join(search_directory,"*.csv")):
     # file is the last item separated by slashes
     candfile = file.split('/')[-1]
 
@@ -156,7 +159,10 @@ for ii in range(len(file_list)):
         logfile.write("Not enough data for candidate %s... continuing\n"%candidate_names[ii])
         logfile.close()
         print("Not enough data for candidate %s... continuing\n"%candidate_names[ii])
-        continue
+        if not args.force:
+            continue
+        else:
+            print("Forcing fit for candidate %s"%candidate_names[ii])
     #Submit jobs for each model
     for model in model_list:
         print("submitting %s job"%model)
