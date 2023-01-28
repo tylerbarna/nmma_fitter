@@ -13,6 +13,6 @@
 
 cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
 
-source /home/cough052/barna314/anaconda3/bin/activate nmma
+python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py --slackBot --models Bu2019lm nugent-hyper TrPi2018 Piro2021 --dataDir $1 --outdir $2
 
-srun /panfs/roc/groups/7/cough052/barna314/nmma_fitter/primary_job.txt
+chmod -R 777 /panfs/roc/groups/7/cough052/barna314/nmma_fitter/logs/
