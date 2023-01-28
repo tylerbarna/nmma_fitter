@@ -55,14 +55,14 @@ time.sleep(30)
 
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 if args.dataDir:
-    latest_directory = args.dataDir
-    print("Using manual folder %s" % latest_directory)
+    search_directory = args.dataDir
+    print("Using manual folder %s" % args.dataDir)
 elif not args.dataDir:
     #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)'
     ## finds latest directory in candidates/partnership by using os.scandir and sorting by name
     latest_directory = np.sort(np.array([f.name for f in os.scandir(candidate_directory) if f.is_dir()]))[-1] ##this should probably work
     print("Using most recent directory %s" % latest_directory)
-search_directory = os.path.join(candidate_directory,latest_directory,"") ## BUG: this has unintended side-effect of not being able to use .csv files outside of the candidate directory
+    search_directory = os.path.join(candidate_directory,latest_directory,"") ## BUG: this has unintended side-effect of not being able to use .csv files outside of the candidate directory
 
 og_directory = os.getcwd()
 
