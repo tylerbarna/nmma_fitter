@@ -56,6 +56,7 @@ time.sleep(30)
 candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
 if args.dataDir:
     search_directory = args.dataDir
+    latest_directory = os.path.basename(os.path.normpath(args.dataDir))
     print("Using manual folder %s" % args.dataDir)
 elif not args.dataDir:
     #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)'
@@ -78,7 +79,9 @@ job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob
 model_list = args.models #["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
-
+if not os.path.isdir(args.outdir):
+    os.makedirs(args.outdir)
+    os.chmod(args.outdir, 0o774)
 os.chdir(args.outdir)
 outdir = os.path.join("./",latest_directory,"")
 
