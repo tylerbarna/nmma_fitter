@@ -32,6 +32,9 @@ parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm",
 ## how long (in seconds) to wait on jobs until proceeding to pushing to schoty and posting to slack (default: 12 hours)
 parser.add_argument("-t","--timeout",type=int,default=43199)
 
+## output directory for fit results
+parser.add_argument('-o',"--outdir",type=str,default="/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
+
 args = parser.parse_args()
 
 ## Attempt to pull latest data from schoty 
@@ -76,7 +79,7 @@ model_list = args.models #["Bu2019lm", "TrPi2018", "nugent-hyper"]
 
 # Outdirectory
 
-os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
+os.chdir(args.outdir)
 outdir = os.path.join("./",latest_directory,"")
 
 if os.path.isdir(outdir): ## if directory already exists, script will exit
