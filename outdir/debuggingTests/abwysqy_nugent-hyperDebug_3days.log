@@ -1,0 +1,49 @@
+18:02 INFO    : Running for label 'abwysqy_nugent-hyperDebug_3days', output will be saved to './outdir/debuggingTests'
+18:02 INFO    : Search parameters:
+18:02 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:02 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:02 INFO    :   supernova_mag_boost = Uniform(minimum=-5.0, maximum=5.0, name='supernova_mag_boost', latex_label='$\\rm{SNmag}$', unit=None, boundary=None)
+18:02 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:02 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:02 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:02 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 2048, 'n_params': 4, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7f88dd70bee0>>}
+18:02 INFO    : Using temporary file /tmp/tmppq0qbjwl
+18:02 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:02 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:02 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:03 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:04 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:04 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:04 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:04 INFO    : Overwriting ./outdir/debuggingTests/pm_abwysqy_nugent-hyperDebug_3days/ with /tmp/tmppq0qbjwl/
+18:04 INFO    : Sampling time: 0:02:02.159290
+18:04 INFO    : Summary of results:
+nsamples: 6932
+ln_noise_evidence:  0.000
+ln_evidence: -10.986 +/-  0.040
+ln_bayes_factor: -10.986 +/-  0.040
+
+18:04 INFO    : Writing samples file to /mnt/c/Users/Tyler/Documents/GitHub/nmma_fitter/outdir/debuggingTests/abwysqy_nugent-hyperDebug_3days_posterior_samples.dat
+18:07 INFO    : Running for label 'abwysqy_nugent-hyperDebug_3days', output will be saved to './outdir/debuggingTests'
+18:07 INFO    : Search parameters:
+18:07 INFO    :   luminosity_distance = Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+18:07 INFO    :   KNtimeshift = Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+18:07 INFO    :   supernova_mag_boost = Uniform(minimum=-5.0, maximum=5.0, name='supernova_mag_boost', latex_label='$\\rm{SNmag}$', unit=None, boundary=None)
+18:07 INFO    :   Ebv = Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+18:07 WARNING : Supplied argument 'npool' not an argument of 'Pymultinest', removing.
+18:07 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+18:07 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+18:07 WARNING : Using cached result
+18:07 INFO    : Summary of results:
+nsamples: 6932
+ln_noise_evidence:  0.000
+ln_evidence: -10.986 +/-  0.040
+ln_bayes_factor: -10.986 +/-  0.040
+
+18:07 INFO    : Writing samples file to /mnt/c/Users/Tyler/Documents/GitHub/nmma_fitter/outdir/debuggingTests/abwysqy_nugent-hyperDebug_3days_posterior_samples.dat
