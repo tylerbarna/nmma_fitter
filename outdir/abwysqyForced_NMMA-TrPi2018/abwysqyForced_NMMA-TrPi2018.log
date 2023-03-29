@@ -1,0 +1,95 @@
+14:48 INFO    : Running for label 'abwysqyForced_NMMA-TrPi2018', output will be saved to './outdir/abwysqyForced_NMMA-TrPi2018'
+14:48 INFO    : Analysis priors:
+14:48 INFO    : luminosity_distance=Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+14:48 INFO    : KNtimeshift=Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+14:48 INFO    : inclination_EM=Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+14:48 INFO    : log10_E0=Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+14:48 INFO    : thetaCore=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+14:48 INFO    : thetaWing=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+14:48 INFO    : log10_n0=Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+14:48 INFO    : p=Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+14:48 INFO    : log10_epsilon_e=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+14:48 INFO    : log10_epsilon_B=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+14:48 INFO    : Ebv=Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+14:48 INFO    : ksiN=1.0
+14:48 INFO    : L0=0.0
+14:48 INFO    : dL=3.09e+19
+14:48 INFO    : b=6.0
+14:48 INFO    : q=0.0
+14:48 INFO    : ts=0.0
+14:48 INFO    : Analysis likelihood class: <class 'nmma.em.likelihood.OpticalLightCurve'>
+14:48 INFO    : Analysis likelihood noise evidence: 0.0
+14:48 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+14:48 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+14:48 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 128, 'n_params': 11, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fa140aa5d90>>}
+14:48 INFO    : Using temporary file /tmp/tmp4gtzn_u6
+15:09 INFO    : Run interrupted by signal 2: checkpoint and exit on 77
+15:09 INFO    : Overwriting ./outdir/abwysqyForced_NMMA-TrPi2018/pm_abwysqyForced_NMMA-TrPi2018/ with /tmp/tmp4gtzn_u6/
+15:09 INFO    : Running for label 'abwysqyForced_NMMA-TrPi2018', output will be saved to './outdir/abwysqyForced_NMMA-TrPi2018'
+15:09 INFO    : Analysis priors:
+15:09 INFO    : luminosity_distance=Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+15:09 INFO    : KNtimeshift=Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+15:09 INFO    : inclination_EM=Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+15:09 INFO    : log10_E0=Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+15:09 INFO    : thetaCore=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+15:09 INFO    : thetaWing=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+15:09 INFO    : log10_n0=Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+15:09 INFO    : p=Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+15:09 INFO    : log10_epsilon_e=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+15:09 INFO    : log10_epsilon_B=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+15:09 INFO    : Ebv=Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+15:09 INFO    : ksiN=1.0
+15:09 INFO    : L0=0.0
+15:09 INFO    : dL=3.09e+19
+15:09 INFO    : b=6.0
+15:09 INFO    : q=0.0
+15:09 INFO    : ts=0.0
+15:09 INFO    : Analysis likelihood class: <class 'nmma.em.likelihood.OpticalLightCurve'>
+15:09 INFO    : Analysis likelihood noise evidence: 0.0
+15:09 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+15:09 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+15:09 INFO    : Using sampler Pymultinest with kwargs {'importance_nested_sampling': False, 'resume': True, 'verbose': True, 'sampling_efficiency': 'parameter', 'n_live_points': 128, 'n_params': 11, 'n_clustering_params': None, 'wrapped_params': None, 'multimodal': True, 'const_efficiency_mode': False, 'evidence_tolerance': 0.5, 'n_iter_before_update': 100, 'null_log_evidence': -1e+90, 'max_modes': 100, 'mode_tolerance': -1e+90, 'seed': 42, 'context': 0, 'write_output': True, 'log_zero': -1e+100, 'max_iter': 0, 'init_MPI': False, 'dump_callback': <bound method Pymultinest._dump_callback of <bilby.core.sampler.pymultinest.Pymultinest object at 0x7fe100324d90>>}
+15:09 INFO    : Using temporary file /tmp/tmp3g4pp7di
+20:41 INFO    : Overwriting ./outdir/abwysqyForced_NMMA-TrPi2018/pm_abwysqyForced_NMMA-TrPi2018/ with /tmp/tmp3g4pp7di/
+20:41 INFO    : Overwriting ./outdir/abwysqyForced_NMMA-TrPi2018/pm_abwysqyForced_NMMA-TrPi2018/ with /tmp/tmp3g4pp7di/
+20:41 INFO    : Overwriting ./outdir/abwysqyForced_NMMA-TrPi2018/pm_abwysqyForced_NMMA-TrPi2018/ with /tmp/tmp3g4pp7di/
+20:41 INFO    : Sampling time: 5:52:42.596847
+20:41 INFO    : Summary of results:
+nsamples: 435
+ln_noise_evidence:  0.000
+ln_evidence: -11.685 +/-  0.228
+ln_bayes_factor: -11.685 +/-  0.228
+
+20:41 INFO    : Writing samples file to /home/tyler/nmma_fitter/outdir/abwysqyForced_NMMA-TrPi2018/abwysqyForced_NMMA-TrPi2018_posterior_samples.dat
+13:01 INFO    : Running for label 'abwysqyForced_NMMA-TrPi2018', output will be saved to './outdir/abwysqyForced_NMMA-TrPi2018'
+13:07 INFO    : Running for label 'abwysqyForced_NMMA-TrPi2018', output will be saved to './outdir/abwysqyForced_NMMA-TrPi2018'
+13:07 INFO    : Analysis priors:
+13:07 INFO    : luminosity_distance=Uniform(minimum=0, maximum=7000, name='luminosity_distance', latex_label='$D_L$', unit=None, boundary=None)
+13:07 INFO    : KNtimeshift=Uniform(minimum=-2.0, maximum=1.0, name='trigger_time', latex_label='$t_0$', unit=None, boundary=None)
+13:07 INFO    : inclination_EM=Sine(minimum=0.0, maximum=1.5707963267948966, name='inclination_EM', latex_label='$\\iota$', unit=None, boundary=None)
+13:07 INFO    : log10_E0=Uniform(minimum=0, maximum=99, name='log10_E0', latex_label='$\\log_{10}E_0$', unit=None, boundary=None)
+13:07 INFO    : thetaCore=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_core', latex_label='$\\theta_c$', unit=None, boundary=None)
+13:07 INFO    : thetaWing=Uniform(minimum=0, maximum=1.5707963267948966, name='theta_wing', latex_label='$\\theta_w$', unit=None, boundary=None)
+13:07 INFO    : log10_n0=Uniform(minimum=0.0, maximum=15.0, name='log10_n0', latex_label='$\\log_{10}n_0$', unit=None, boundary=None)
+13:07 INFO    : p=Uniform(minimum=2.0, maximum=10.0, name='p', latex_label='$p$', unit=None, boundary=None)
+13:07 INFO    : log10_epsilon_e=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_e', latex_label='$\\log_{10}\\epsilon_e$', unit=None, boundary=None)
+13:07 INFO    : log10_epsilon_B=Uniform(minimum=-15, maximum=0.0, name='log10_epsilon_B', latex_label='$\\log_{10}\\epsilon_B$', unit=None, boundary=None)
+13:07 INFO    : Ebv=Interped(xx=array([0.    , 0.5724]), yy=array([3.4940601, 0.       ]), minimum=0.0, maximum=0.5724, name='Ebv', latex_label='$E(B-V)$', unit=None, boundary=None)
+13:07 INFO    : ksiN=1.0
+13:07 INFO    : L0=0.0
+13:07 INFO    : dL=3.09e+19
+13:07 INFO    : b=6.0
+13:07 INFO    : q=0.0
+13:07 INFO    : ts=0.0
+13:07 INFO    : Analysis likelihood class: <class 'nmma.em.likelihood.OpticalLightCurve'>
+13:07 INFO    : Analysis likelihood noise evidence: 0.0
+13:07 WARNING : Supplied argument 'queue_size' not an argument of 'Pymultinest', removing.
+13:07 WARNING : Supplied argument 'check_point_delta_t' not an argument of 'Pymultinest', removing.
+13:07 WARNING : Using cached result
+13:07 INFO    : Summary of results:
+nsamples: 435
+ln_noise_evidence:  0.000
+ln_evidence: -11.685 +/-  0.228
+ln_bayes_factor: -11.685 +/-  0.228
+
+13:07 INFO    : Writing samples file to /home/tyler/nmma_fitter/outdir/abwysqyForced_NMMA-TrPi2018/abwysqyForced_NMMA-TrPi2018_posterior_samples.dat

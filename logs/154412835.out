@@ -1,0 +1,8 @@
+failed to pull from schoty with rsync
+failed to pull from schoty with scp
+Using manual folder ./candidate_data/alerts
+Candidate Directory: ./candidate_data/alerts
+cwd: /panfs/roc/groups/7/cough052/barna314/nmma_fitter/candidate_data/alert_fits/alerts
+wrote fin file
+Ran rsync push
+Sent Slack bot command
