@@ -91,7 +91,7 @@ outdir = os.path.join("./",latest_directory,"")
 if os.path.isdir(outdir): ## if directory already exists, script will exit
     ## would like to change behavior so it checks that the plots exist for all candidates
     print("%s already exists in candidate_fits!" % latest_directory)
-    quit()
+    quit() if not args.force else print("Forcing fit despite existing directory")
 elif not os.path.isdir(outdir):
     print("Candidate Directory: "+str(search_directory))
     os.makedirs(outdir)
