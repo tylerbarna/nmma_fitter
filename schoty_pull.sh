@@ -1,5 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=schotyPull
+#SBATCH --mail-user=ztfrest@gmail.com
 #SBATCH --time=11:59:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -10,5 +11,5 @@
 #SBATCH -e ./logs/%j.err
 
 rsync -aOv --no-perms ztfrest@schoty.caltech.edu:/scr2/ztfrest/ZTF/ztfrest/candidates /home/cough052/shared/ztfrest
-chmod -R 777 /home/cough052/shared/ztfrest/
+#chmod -R 777 /home/cough052/shared/ztfrest/
 

@@ -5,7 +5,7 @@
 #SBATCH --time=23:59:59
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=8gb
 #SBATCH -p small
 #SBATCH -o ./logs/%j.out
