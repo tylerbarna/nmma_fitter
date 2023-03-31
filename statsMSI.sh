@@ -13,4 +13,4 @@
 
 source /home/cough052/shared/anaconda3/bin/activate nmma
 
-python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/stats.py -c /panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership -f /panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits -o ./msiStats --verbose
+python /home/cough052/barna314/nmma_fitter/stats.py -c /home/cough052/shared/ztfrest/candidates/partnership -f /home/cough052/shared/ztfrest/candidate_fits -o ./msiStats --verbose

@@ -11,8 +11,8 @@
 #SBATCH -o ./logs/%j.out
 #SBATCH -e ./logs/%j.err
 
-cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
+cd /home/cough052/barna314/nmma_fitter/
 
-python /panfs/roc/groups/7/cough052/barna314/nmma_fitter/make_jobs.py --slackBot --models Bu2019lm nugent-hyper TrPi2018 Piro2021 --dataDir ./candidate_data/alerts --outdir ./candidate_data/alert_fits --force
+python /home/cough052/barna314/nmma_fitter/make_jobs.py --slackBot --models Bu2019lm nugent-hyper TrPi2018 Piro2021 --dataDir ./candidate_data/alerts --outdir ./candidate_data/alert_fits --force
 
-chmod -R 777 /panfs/roc/groups/7/cough052/barna314/nmma_fitter/logs/
+chmod -R 777 /home/cough052/barna314/nmma_fitter/logs/

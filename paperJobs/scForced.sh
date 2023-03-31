@@ -13,6 +13,6 @@
 
 source /home/cough052/barna314/anaconda3/bin/activate nmma
 
-cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
+cd /home/cough052/barna314/nmma_fitter/
 
 light_curve_analysis --data ./candidate_data/paper_candidates/v2/candidate_data/ZTF20abwysqyForced.dat --model Piro2021 --svd-path svdmodels/ --outdir ./outdir/abwysqyForced_Piro2021 --label abwysqyForced_Piro2021 --prior ./priors/ZTF_sc.prior --trigger-time 59087.18740740741 --tmin 0.05 --nlive 128 --plot

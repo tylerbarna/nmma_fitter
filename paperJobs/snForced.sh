@@ -13,6 +13,6 @@
 
 source /home/cough052/barna314/anaconda3/bin/activate nmma
 
-cd /panfs/roc/groups/7/cough052/barna314/nmma_fitter/
+cd /home/cough052/barna314/nmma_fitter/
 
 light_curve_analysis --data ./candidate_data/paper_candidates/v2/candidate_data/ZTF20abwysqyForced.dat --model nugent-hyper --svd-path svdmodels/ --outdir ./outdir/abwysqyForced_nugent-hyper --label abwysqyForced_nugent-hyper --prior ./priors/ZTF_sn.prior --trigger-time 59087.18740740741 --tmin 0.05 --nlive 128 --plot
