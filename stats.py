@@ -862,7 +862,8 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     
     plot= sns.histplot(data=df_f, x=df_f['stopDate'],weights='sampling_time_total', hue='model', hue_order=models,
-                       multiple='stack',legend='full', cumulative=True,
+                       multiple='stack', #labels=['Kilonova', 'GRB Afterglow', 'Supernova'],#legend='full', 
+                       cumulative=True,
                        ax=ax, alpha=0.75,bins=69,linewidth=2)
     ax.set_xlabel("Date")
     plt.xticks(rotation=15)
@@ -887,14 +888,18 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
     # ax.axvspan("2022-06-15","2022-06-16", alpha=0.25, color='black',zorder=0)
     #ax.axvspan("2022-09-09","2022-09-14", alpha=0.25, color='black',zorder=10)
     ax.axvspan("2022-08-06","2022-09-16", alpha=0.25, color='black',zorder=10, label='Schoty Issues')
+    #plot.legend(labels=['Kilonova', 'GRB Afterglow', 'Supernova'])
     plt.savefig(plotDir("cumFitTimeStackWithCands",outdir=subdir,ext=ext)) if save else None
     plt.close()
     
     ## ecdf plot of sampling times by model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.ecdfplot(data=df_f, x='sampling_time_total', hue='model', hue_order=models,
-                        legend='full',linewidth=4, ax=ax)
+                        #legend='full',
+                        linewidth=4, ax=ax, #labels=['Kilonova', 'GRB Afterglow', 'Supernova']
+                        )
     ax.set_xlabel("Sampling Time (s)")
+    #plot.legend(labels=['Kilonova', 'GRB Afterglow', 'Supernova'])
     
     plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
@@ -1113,8 +1118,8 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ## kde plot of sampling time vs bayes factor for each model
     fig, ax = plotstyle(figsize=(20,15), facecolor='white')
     plot = sns.kdeplot(data=df, x='sampling_time',y='log_bayes_factor', 
-                       hue='model', hue_order=models, fill=True,
-                       legend='full', #clip=((0,25000),(-500,0)),
+                       hue='model', hue_order=models, fill=True, #labels=['Kilonova', 'GRB Afterglow', 'Supernova'],
+                       #legend='full', #clip=((0,25000),(-500,0)),
                        ax=ax, alpha=0.75)
     ax.set_xlabel("Sampling Time (s)")
     ax.set_ylabel('Log Bayes Factor')
@@ -1122,6 +1127,7 @@ def plotLikelihood(df, models=args.models, save=True, outdir=args.outdir, ext='.
     ax.set_xlim(right=25000)## presumes a certain max sampling time
     ax.set_ylim(bottom=-500)
     sns.move_legend(plot, 'lower right')
+    #plot.legend(labels=['Kilonova', 'GRB Afterglow', 'Supernova'])
     plt.savefig(plotDir("SamplingTimeBayesKDEModelFill",outdir=subdir,ext=ext)) if save else None
     # ax.set_xscale('log')
     # ax.set_yscale('symlog')
@@ -1373,19 +1379,20 @@ for model in args.models:
 
 
 ## running functions to plot results
-
-#df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+models = ['Kilonova', 'GRB Afterglow', 'Supernova']
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
+df['model'] = df['model'].replace(args.models, ['Kilonova', 'GRB Afterglow', 'Supernova'])
 # plotCands(df=df,save=True)
-#print('completed daily candidate plots (1)\n') if args.verbose else None
+# print('completed daily candidate plots (1)\n') if args.verbose else None
 
 # plotFits(df=df, save=True)
-#print('completed cumulative fit plot (2)\n') if args.verbose else None
+# print('completed cumulative fit plot (2)\n') if args.verbose else None
 
 # plotUnfit(df=df, save=True)
-#print('completed unfit candidate plot (3)\n') if args.verbose else None
+# print('completed unfit candidate plot (3)\n') if args.verbose else None
 
-# plotSamplingTimes(df=df, save=True)
-#print('completed sampling time plot (4)\n') if args.verbose else None
+plotSamplingTimes(df=df,models=models, save=True)
+print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df, save=True)
+plotLikelihood(df=df, models=models, save=True)
 print('completed evidence plot (5)\n') if args.verbose else None
