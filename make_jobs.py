@@ -33,7 +33,7 @@ parser.add_argument("-m","--models", nargs="+", type=str, default = ["Bu2019lm",
 parser.add_argument("-t","--timeout",type=int,default=43199)
 
 ## output directory for fit results
-parser.add_argument('-o',"--outdir",type=str,default="/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
+parser.add_argument('-o',"--outdir",type=str,default="/home/cough052/shared/ztfrest/candidate_fits")
 
 ## force fits
 parser.add_argument('-f',"--force",action='store_true')
@@ -56,7 +56,7 @@ except:
 time.sleep(30)
 # Search directory and create a fit job for each
 
-candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
+candidate_directory = "/home/cough052/shared/ztfrest/candidates/partnership"
 if args.dataDir:
     search_directory = args.dataDir
     latest_directory = os.path.basename(os.path.normpath(args.dataDir))
@@ -72,10 +72,10 @@ og_directory = os.getcwd()
 
 # -TODO- List of jobs? Dictionary of jobs so they can be different for different models?
 ## Should probably rework so we remove dependence on location of job
-job_name = {"Bu2019lm": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/KNjob.txt",
-            "TrPi2018": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/GRBjob.txt",
-            "nugent-hyper": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SNjob.txt",
-            "Piro2021": "/panfs/roc/groups/7/cough052/barna314/nmma_fitter/SCjob.txt",}
+job_name = {"Bu2019lm": "/home/cough052/barna314/nmma_fitter/KNjob.txt",
+            "TrPi2018": "/home/cough052/barna314/nmma_fitter/GRBjob.txt",
+            "nugent-hyper": "/home/cough052/barna314/nmma_fitter/SNjob.txt",
+            "Piro2021": "/home/cough052/barna314/nmma_fitter/SCjob.txt",}
 
 # List of models to run.
 ## Would like to change this so it's passed as an argument
@@ -260,7 +260,7 @@ print("wrote fin file")
 time.sleep(60)
 
 ## final permissions update
-for root, dirs, files in os.walk(os.path.join("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits",latest_directory,"")):
+for root, dirs, files in os.walk(os.path.join("/home/cough052/shared/ztfrest/candidate_fits",latest_directory,"")):
     for d in dirs:
         os.chmod(os.path.join(root, d), 0o774)
     for f in files:

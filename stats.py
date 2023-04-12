@@ -898,8 +898,13 @@ def plotSamplingTimes(df, models=args.models, save=True, outdir=args.outdir, ext
                         #legend='full',
                         linewidth=4, ax=ax, #labels=['Kilonova', 'GRB Afterglow', 'Supernova']
                         )
-    ax.set_xlabel("Sampling Time (s)")
+    ax.set_xlabel("Sampling Time (s)", fontsize=20)
+    ax.set_ylabel("Cumulative Fraction", fontsize=20)
     #plot.legend(labels=['Kilonova', 'GRB Afterglow', 'Supernova'])
+    # handles, labels = ax.get_legend_handles_labels()
+    # ax.legend(handles=handles[1:], labels=labels[1:])
+    legend = ax.legend()
+    legend.texts[0].set_text("")
     
     plt.savefig(plotDir("samplingTimeDistModel",outdir=subdir,ext=ext)) if save else None
     ax.set_xscale('log')
@@ -1394,5 +1399,5 @@ df['model'] = df['model'].replace(args.models, ['Kilonova', 'GRB Afterglow', 'Su
 plotSamplingTimes(df=df,models=models, save=True)
 print('completed sampling time plot (4)\n') if args.verbose else None
 
-plotLikelihood(df=df, models=models, save=True)
-print('completed evidence plot (5)\n') if args.verbose else None
+# plotLikelihood(df=df, models=models, save=True)
+# print('completed evidence plot (5)\n') if args.verbose else None
