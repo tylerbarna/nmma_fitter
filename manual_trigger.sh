@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=8gb
-#SBATCH -p small
+#NOTSBATCH -p small
 #SBATCH -o ./logs/%j.out
 #SBATCH -e ./logs/%j.err
 

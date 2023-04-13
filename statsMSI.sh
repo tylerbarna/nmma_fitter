@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=8gb
-#SBATCH -p amdsmall
+#NOTSBATCH -p amdsmall
 #SBATCH -o ./msiStats/%j.out
 #SBATCH -e ./msiStats/%j.err
 
