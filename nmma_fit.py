@@ -58,8 +58,8 @@ svd_path = args.svdmodels ## should change to be a command line argument w/ defa
 
 # outdir mess
 ## Need to update so it checks an argument to choose latest_directory
-os.chdir("/panfs/roc/groups/7/cough052/shared/ztfrest/candidate_fits")
-candidate_directory = "/panfs/roc/groups/7/cough052/shared/ztfrest/candidates/partnership"
+os.chdir("/home/cough052/shared/ztfrest/candidate_fits")
+candidate_directory = "/home/cough052/shared/ztfrest/candidates/partnership"
 #if args.dataDir == "None": ## Hacky band-aid, probably unneeded 
     #latest_directory = max([f for f in os.listdir(candidate_directory)], key=lambda x: os.stat(os.path.join(candidate_directory,x)).st_mtime)
     #print("Using manual folder %s" % latest_directory)
@@ -142,27 +142,27 @@ if prior == None:
     if model == 'nugent-hyper':
         # SN
         if fit_trigger_time:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sn_t0.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_sn_t0.prior'
         else:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sn.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_sn.prior'
     elif model == 'TrPi2018':
         # GRB
         if fit_trigger_time:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_grb_t0.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_grb_t0.prior'
         else:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_grb.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_grb.prior'
     elif model == 'Piro2021':
         # Shock cooling
         if fit_trigger_time:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sc_t0.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_sc_t0.prior'
         else:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_sc.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_sc.prior'
     elif model == 'Bu2019lm':
         # KN
         if fit_trigger_time:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_kn_t0.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_kn_t0.prior'
         else:
-            prior = '/panfs/roc/groups/7/cough052/barna314/nmma_fitter/priors/ZTF_kn.prior'
+            prior = '/home/cough052/barna314/nmma_fitter/priors/ZTF_kn.prior'
     else:
         print("nmma_fit.py does not know of the prior file for model ", model)
         exit(1)
