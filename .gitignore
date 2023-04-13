@@ -6,6 +6,9 @@ injection/ALF2.dat
 injection/100mpc_kn.tar.gz
 injection/100mpc_kne.tar.gz
 injection/
+injection/logs/*
+msiStats/logs*
+logs/*
 *.tar.gz
 nmma/
 *.Identifier
