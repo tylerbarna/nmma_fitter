@@ -1383,7 +1383,7 @@ for model in args.models:
 
 ## running functions to plot results
 models = ['Kilonova', 'GRB Afterglow', 'Supernova', 'Shock Cooling']
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile, outdir=args.outdir)
+df = get_dataframe(candDir=args.candDir, models=args.models, save=True, file=args.datafile, outdir=args.outdir)
 df['model'] = df['model'].replace(args.models, models)
 try:
     plotCands(df=df,save=True)
