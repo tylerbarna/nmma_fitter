@@ -1382,20 +1382,31 @@ for model in args.models:
 
 
 ## running functions to plot results
-models = ['Kilonova', 'GRB Afterglow', 'Supernova']
-df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile)
-df['model'] = df['model'].replace(args.models, ['Kilonova', 'GRB Afterglow', 'Supernova'])
-# plotCands(df=df,save=True)
-# print('completed daily candidate plots (1)\n') if args.verbose else None
-
-# plotFits(df=df, save=True)
-# print('completed cumulative fit plot (2)\n') if args.verbose else None
-
-# plotUnfit(df=df, save=True)
-# print('completed unfit candidate plot (3)\n') if args.verbose else None
-
-plotSamplingTimes(df=df,models=models, save=True)
-print('completed sampling time plot (4)\n') if args.verbose else None
-
-# plotLikelihood(df=df, models=models, save=True)
-# print('completed evidence plot (5)\n') if args.verbose else None
+models = ['Kilonova', 'GRB Afterglow', 'Supernova', 'Shock Cooling']
+df = get_dataframe(candDir=args.candDir, models=args.models, save=False, file=args.datafile, outdir=args.outdir)
+df['model'] = df['model'].replace(args.models, models)
+try:
+    plotCands(df=df,save=True)
+    print('completed daily candidate plots (1)\n') if args.verbose else None
+except:
+    pass
+try:
+    plotFits(df=df, save=True)
+    print('completed cumulative fit plot (2)\n') if args.verbose else None
+except:
+    pass
+try:
+    plotUnfit(df=df, save=True)
+    print('completed unfit candidate plot (3)\n') if args.verbose else None
+except:
+    pass
+try:
+    plotSamplingTimes(df=df,models=models, save=True)
+    print('completed sampling time plot (4)\n') if args.verbose else None
+except:
+    pass
+try:
+    plotLikelihood(df=df, models=models, save=True)
+    print('completed evidence plot (5)\n') if args.verbose else None
+except:
+    pass
